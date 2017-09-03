@@ -15,6 +15,7 @@
 		6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7671F5858CE00DEDFE0 /* LaunchScreen.storyboard */; };
 		6876E7741F5858CF00DEDFE0 /* EasyNavigationDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7731F5858CF00DEDFE0 /* EasyNavigationDemoTests.m */; };
 		6876E77F1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */; };
+		6876E7921F5C4DD000DEDFE0 /* EasyNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7911F5C4DD000DEDFE0 /* EasyNavigation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		6876E77A1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyNavigationDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationDemoUITests.m; sourceTree = "<group>"; };
 		6876E7801F5858CF00DEDFE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6876E7901F5C4DD000DEDFE0 /* EasyNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigation.h; sourceTree = "<group>"; };
+		6876E7911F5C4DD000DEDFE0 /* EasyNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +104,7 @@
 		6876E7581F5858CE00DEDFE0 /* EasyNavigationDemo */ = {
 			isa = PBXGroup;
 			children = (
+				6876E78F1F5C4DBA00DEDFE0 /* EasyNavigation */,
 				6876E75C1F5858CE00DEDFE0 /* AppDelegate.h */,
 				6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */,
 				6876E75F1F5858CE00DEDFE0 /* ViewController.h */,
@@ -138,6 +142,15 @@
 				6876E7801F5858CF00DEDFE0 /* Info.plist */,
 			);
 			path = EasyNavigationDemoUITests;
+			sourceTree = "<group>";
+		};
+		6876E78F1F5C4DBA00DEDFE0 /* EasyNavigation */ = {
+			isa = PBXGroup;
+			children = (
+				6876E7901F5C4DD000DEDFE0 /* EasyNavigation.h */,
+				6876E7911F5C4DD000DEDFE0 /* EasyNavigation.m */,
+			);
+			path = EasyNavigation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
+				6876E7921F5C4DD000DEDFE0 /* EasyNavigation.m in Sources */,
 				6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */,
 				6876E75B1F5858CE00DEDFE0 /* main.m in Sources */,
 			);
@@ -516,6 +530,7 @@
 				6876E7851F5858CF00DEDFE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6876E7861F5858CF00DEDFE0 /* Build configuration list for PBXNativeTarget "EasyNavigationDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +539,7 @@
 				6876E7881F5858CF00DEDFE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		6876E7891F5858CF00DEDFE0 /* Build configuration list for PBXNativeTarget "EasyNavigationDemoUITests" */ = {
 			isa = XCConfigurationList;
@@ -532,6 +548,7 @@
 				6876E78B1F5858CF00DEDFE0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
