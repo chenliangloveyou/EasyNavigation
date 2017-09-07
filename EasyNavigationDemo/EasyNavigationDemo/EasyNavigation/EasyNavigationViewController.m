@@ -8,11 +8,18 @@
 
 #import "EasyNavigationViewController.h"
 #import "EasyNavigationBar.h"
+#import "EasyViewController.h"
+#import "UIViewController+EasyNavigationExt.h"
+
+#import <objc/runtime.h>
 
 @interface EasyNavigationViewController ()<UIGestureRecognizerDelegate,UINavigationControllerDelegate>
-{
-    UIScreenEdgePanGestureRecognizer *_screenEdgePanGesture ;
-}
+
+
+@property (nonatomic, strong) UIPanGestureRecognizer *backGesture;
+
+@property (nonatomic, strong) id backGestureDelegate;
+
 @end
 
 @implementation EasyNavigationViewController
@@ -21,10 +28,20 @@
 {
     [super viewDidLoad];
     
-    UINavigationBar *bar = [UINavigationBar appearance];
+    [self setNavigationBarHidden:YES];
+    self.delegate = self ;
     
-    // 2.设置导航栏的背景图片
-    [bar setBackgroundImage:[UIImage imageNamed:@"nav_bg"] forBarMetrics:UIBarMetricsDefault];
+    self.backGestureDelegate = self.interactivePopGestureRecognizer.delegate ;
+    SEL action  = NSSelectorFromString(@"handleNavigationTransition:");
+    
+    self.backGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self.backGestureDelegate action:action];
+    self.backGesture.maximumNumberOfTouches = 1 ;
+    
+    
+//    UINavigationBar *bar = [UINavigationBar appearance];
+//    
+//    // 2.设置导航栏的背景图片
+//    [bar setBackgroundImage:[UIImage imageNamed:@"nav_bg"] forBarMetrics:UIBarMetricsDefault];
     
     //返回按钮图片
     //    [bar setShadowImage:[[UIImage alloc]init]];
@@ -33,14 +50,14 @@
     //    [bar setBackIndicatorImage:backImg];
     
     //去掉返回按钮文字
-    UIBarButtonItem *backItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
-    UIOffset offSet = UIOffsetZero ;
-    offSet.horizontal = -500 ;
-    [backItem setBackButtonTitlePositionAdjustment:offSet forBarMetrics:UIBarMetricsDefault];
-    
-    //导航栏文字大小和颜色
-    NSDictionary *titleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:15],NSForegroundColorAttributeName , nil];
-    [bar setTitleTextAttributes:titleAttributes];
+//    UIBarButtonItem *backItem = [UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil];
+//    UIOffset offSet = UIOffsetZero ;
+//    offSet.horizontal = -500 ;
+//    [backItem setBackButtonTitlePositionAdjustment:offSet forBarMetrics:UIBarMetricsDefault];
+//    
+//    //导航栏文字大小和颜色
+//    NSDictionary *titleAttributes = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor],NSForegroundColorAttributeName,[UIFont systemFontOfSize:15],NSForegroundColorAttributeName , nil];
+//    [bar setTitleTextAttributes:titleAttributes];
     
     
     // 3.设置导航栏文字的主题
@@ -50,6 +67,55 @@
     //                                  }];
     
 }
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    BOOL isRootVC  = NO ;
+    if (viewController==navigationController.viewControllers.firstObject) {
+        isRootVC = YES ;
+    }
+    
+    if (viewController.backGestureEnabled) {
+        
+        if (isRootVC) {
+            [self.view removeGestureRecognizer:self.backGesture];
+        }
+        else{
+            [self.view addGestureRecognizer:self.backGesture];
+        }
+        
+        self.interactivePopGestureRecognizer.delegate = self.backGestureDelegate ;
+        self.interactivePopGestureRecognizer.enabled = NO ;
+    }
+    else{
+        
+        [self.view removeGestureRecognizer:self.backGesture];
+        self.interactivePopGestureRecognizer.delegate = self ;
+        self.interactivePopGestureRecognizer.enabled = !isRootVC ;
+    }
+}
+
+
+//修复有水平方向滚动的ScrollView时边缘返回手势失效的问题
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return [gestureRecognizer isKindOfClass:UIScreenEdgePanGestureRecognizer.class];
+}
+
+- (NSArray *)easyViewControllers
+{
+    NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:self.viewControllers.count];
+    for (EasyViewController *vc in self.viewControllers) {
+        [tempArray addObject:vc.rootViewController];
+    }
+    return tempArray.copy ;
+}
+
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -63,13 +129,25 @@
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController
 {
-  self = [super initWithNavigationBarClass:[EasyNavigationBar class] toolbarClass:nil];
-  if (self) {
-    self.viewControllers = @[rootViewController];
-  }
-  return self;
-}
+//  self = [super initWithNavigationBarClass:[EasyNavigationBar class] toolbarClass:nil];
+//  if (self) {
+//    self.viewControllers = @[rootViewController];
+//  }
 
+    if (self = [super init]) {
+        rootViewController.easyNavigationController = self ;
+        self.viewControllers = @[[EasyViewController addChildViewController:rootViewController]];
+    }
+    return self;
+}
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    if (self = [super initWithCoder:aDecoder]) {
+        self.viewControllers.firstObject.easyNavigationController = self ;
+        self.viewControllers = @[[EasyViewController addChildViewController:self.viewControllers.firstObject]];
+    }
+    return self ;
+}
 
 
 
@@ -87,14 +165,7 @@
 //    return ok;
 //}
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
-    
-    if (self.viewControllers.count > 0 ) {
-        viewController.hidesBottomBarWhenPushed = YES;
-    }
-    
-    [super pushViewController:viewController animated:animated];
-}
+
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated
 {
     if (self.viewControllers.count > 0 ) {
@@ -140,6 +211,64 @@
 }
 
 
+
+- (UIViewController *)popViewControllerAnimated:(BOOL)animated
+{
+    return [self.navigationController popViewControllerAnimated:animated];
+}
+
+- (NSArray<UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated
+{
+    return [self.navigationController popToRootViewControllerAnimated:animated];
+}
+
+- (NSArray<UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated
+
+{
+    EasyNavigationViewController *easyNavigationVC = viewController.easyNavigationController;
+    NSInteger index = [easyNavigationVC.easyViewControllers indexOfObject:viewController];
+    return [self.navigationController popToViewController:easyNavigationVC.viewControllers[index] animated:animated];
+}
+
+- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    
+    if (self.viewControllers.count > 0 ) {
+        viewController.hidesBottomBarWhenPushed = YES;
+    }
+    
+    viewController.easyNavigationController = (EasyNavigationViewController *)self.navigationController;
+    viewController.backGestureEnabled = viewController.easyNavigationController.backGestureEnabled;
+    
+    UIImage *backButtonImage = viewController.easyNavigationController.backButtonImage;
+    
+    if (!backButtonImage) {
+        backButtonImage = [UIImage imageNamed:@"back.png"];
+    }
+    
+    viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapBackButton)];
+    
+    [self.navigationController pushViewController:[EasyViewController addChildViewController:viewController] animated:animated];
+    
+    
+
+//    [super pushViewController:viewController animated:animated];
+    
+}
+
+- (void)didTapBackButton {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
+    [self.navigationController dismissViewControllerAnimated:flag completion:completion];
+    self.viewControllers.firstObject.easyNavigationController = nil;
+}
+
+
+
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -156,3 +285,14 @@
 */
 
 @end
+
+
+
+
+
+
+
+
+
+
+
