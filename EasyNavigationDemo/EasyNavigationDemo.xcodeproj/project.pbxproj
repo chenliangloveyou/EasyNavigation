@@ -15,7 +15,12 @@
 		6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7671F5858CE00DEDFE0 /* LaunchScreen.storyboard */; };
 		6876E7741F5858CF00DEDFE0 /* EasyNavigationDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7731F5858CF00DEDFE0 /* EasyNavigationDemoTests.m */; };
 		6876E77F1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */; };
-		6876E7921F5C4DD000DEDFE0 /* EasyNavigation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7911F5C4DD000DEDFE0 /* EasyNavigation.m */; };
+		ADDE98D61F612624002C7779 /* EasyNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */; };
+		ADDE98D91F6126CC002C7779 /* EasyNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D81F6126CC002C7779 /* EasyNavigationBar.m */; };
+		ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98DB1F61270F002C7779 /* EasyUtils.m */; };
+		ADDE98DF1F6127A6002C7779 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98DE1F6127A6002C7779 /* BaseViewController.m */; };
+		ADDE98E21F6127C5002C7779 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98E11F6127C5002C7779 /* HomeViewController.m */; };
+		ADDE98E51F612FF0002C7779 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98E41F612FF0002C7779 /* SecondViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,8 +57,18 @@
 		6876E77A1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyNavigationDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationDemoUITests.m; sourceTree = "<group>"; };
 		6876E7801F5858CF00DEDFE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6876E7901F5C4DD000DEDFE0 /* EasyNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigation.h; sourceTree = "<group>"; };
-		6876E7911F5C4DD000DEDFE0 /* EasyNavigation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigation.m; sourceTree = "<group>"; };
+		ADDE98D41F612624002C7779 /* EasyNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationViewController.h; sourceTree = "<group>"; };
+		ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationViewController.m; sourceTree = "<group>"; };
+		ADDE98D71F6126CC002C7779 /* EasyNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationBar.h; sourceTree = "<group>"; };
+		ADDE98D81F6126CC002C7779 /* EasyNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationBar.m; sourceTree = "<group>"; };
+		ADDE98DA1F61270F002C7779 /* EasyUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyUtils.h; sourceTree = "<group>"; };
+		ADDE98DB1F61270F002C7779 /* EasyUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyUtils.m; sourceTree = "<group>"; };
+		ADDE98DD1F6127A6002C7779 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
+		ADDE98DE1F6127A6002C7779 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
+		ADDE98E01F6127C5002C7779 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		ADDE98E11F6127C5002C7779 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		ADDE98E31F612FF0002C7779 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		ADDE98E41F612FF0002C7779 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +122,12 @@
 				6876E78F1F5C4DBA00DEDFE0 /* EasyNavigation */,
 				6876E75C1F5858CE00DEDFE0 /* AppDelegate.h */,
 				6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */,
+				ADDE98DD1F6127A6002C7779 /* BaseViewController.h */,
+				ADDE98DE1F6127A6002C7779 /* BaseViewController.m */,
+				ADDE98E01F6127C5002C7779 /* HomeViewController.h */,
+				ADDE98E11F6127C5002C7779 /* HomeViewController.m */,
+				ADDE98E31F612FF0002C7779 /* SecondViewController.h */,
+				ADDE98E41F612FF0002C7779 /* SecondViewController.m */,
 				6876E75F1F5858CE00DEDFE0 /* ViewController.h */,
 				6876E7601F5858CE00DEDFE0 /* ViewController.m */,
 				6876E7621F5858CE00DEDFE0 /* Main.storyboard */,
@@ -147,8 +168,12 @@
 		6876E78F1F5C4DBA00DEDFE0 /* EasyNavigation */ = {
 			isa = PBXGroup;
 			children = (
-				6876E7901F5C4DD000DEDFE0 /* EasyNavigation.h */,
-				6876E7911F5C4DD000DEDFE0 /* EasyNavigation.m */,
+				ADDE98D41F612624002C7779 /* EasyNavigationViewController.h */,
+				ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */,
+				ADDE98D71F6126CC002C7779 /* EasyNavigationBar.h */,
+				ADDE98D81F6126CC002C7779 /* EasyNavigationBar.m */,
+				ADDE98DA1F61270F002C7779 /* EasyUtils.h */,
+				ADDE98DB1F61270F002C7779 /* EasyUtils.m */,
 			);
 			path = EasyNavigation;
 			sourceTree = "<group>";
@@ -289,10 +314,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADDE98E51F612FF0002C7779 /* SecondViewController.m in Sources */,
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
-				6876E7921F5C4DD000DEDFE0 /* EasyNavigation.m in Sources */,
+				ADDE98D61F612624002C7779 /* EasyNavigationViewController.m in Sources */,
 				6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */,
+				ADDE98D91F6126CC002C7779 /* EasyNavigationBar.m in Sources */,
 				6876E75B1F5858CE00DEDFE0 /* main.m in Sources */,
+				ADDE98DF1F6127A6002C7779 /* BaseViewController.m in Sources */,
+				ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */,
+				ADDE98E21F6127C5002C7779 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,7 +417,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -429,7 +459,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -443,6 +473,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6E6MDA8TQW;
 				INFOPLIST_FILE = EasyNavigationDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = chenliangloveyou.EasyNavigationDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -455,6 +486,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 6E6MDA8TQW;
 				INFOPLIST_FILE = EasyNavigationDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = chenliangloveyou.EasyNavigationDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
