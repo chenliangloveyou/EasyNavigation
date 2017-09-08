@@ -1,32 +1,33 @@
 //
-//  EasyViewController.m
+//  EasyWarpViewController.m
 //  EasyNavigationDemo
 //
 //  Created by nf on 2017/9/7.
 //  Copyright © 2017年 chenliangloveyou. All rights reserved.
 //
 
-#import "EasyViewController.h"
+#import "EasyWarpViewController.h"
 
 #import "EasyNavigationViewController.h"
+#import "EasyWarpNavigationViewController.h"
+#import "UIViewController+EasyNavigationExt.h"
 
 static NSValue *easyTabBarRectValue;
 
 
-@interface EasyViewController ()
+@interface EasyWarpViewController ()
 
 @end
 
-@implementation EasyViewController
+@implementation EasyWarpViewController
 
-+ (EasyViewController *)addChildViewController:(UIViewController *)viewController
++ (EasyWarpViewController *)wrapViewController:(UIViewController *)viewController
 {
-    EasyNavigationViewController *navVC = [[EasyNavigationViewController alloc]init];
+    EasyWarpNavigationViewController  *navVC = [[EasyWarpNavigationViewController alloc]init];
     navVC.viewControllers = @[viewController];
     
-    EasyViewController *easyVC = [[EasyViewController alloc]init];
+    EasyWarpViewController *easyVC = [[EasyWarpViewController alloc]init];
     [easyVC.view addSubview:navVC.view];
-    
     [easyVC addChildViewController:navVC];
     
     return easyVC ;
@@ -64,7 +65,7 @@ static NSValue *easyTabBarRectValue;
 
 - (BOOL)backGestureEnabled
 {
-    return self.rootViewController.backGestureEnabled ;
+    return self.rootViewController.vcBackGestureEnabled ;
 }
 - (BOOL)hidesBottomBarWhenPushed
 {
@@ -88,7 +89,7 @@ static NSValue *easyTabBarRectValue;
 }
 - (UIViewController *)rootViewController
 {
-    EasyNavigationViewController *easyVC = self.childViewControllers.firstObject ;
+    EasyWarpNavigationViewController *easyVC = self.childViewControllers.firstObject ;
     return easyVC.viewControllers.firstObject ;
     
 }

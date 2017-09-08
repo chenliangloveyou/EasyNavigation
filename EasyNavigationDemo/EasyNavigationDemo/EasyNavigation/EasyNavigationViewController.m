@@ -8,7 +8,7 @@
 
 #import "EasyNavigationViewController.h"
 #import "EasyNavigationBar.h"
-#import "EasyViewController.h"
+#import "EasyWarpViewController.h"
 #import "UIViewController+EasyNavigationExt.h"
 
 #import <objc/runtime.h>
@@ -74,7 +74,7 @@
         isRootVC = YES ;
     }
     
-    if (viewController.backGestureEnabled) {
+    if (viewController.vcBackGestureEnabled) {
         
         if (isRootVC) {
             [self.view removeGestureRecognizer:self.backGesture];
@@ -109,7 +109,7 @@
 - (NSArray *)easyViewControllers
 {
     NSMutableArray *tempArray = [NSMutableArray arrayWithCapacity:self.viewControllers.count];
-    for (EasyViewController *vc in self.viewControllers) {
+    for (EasyWarpViewController *vc in self.viewControllers) {
         [tempArray addObject:vc.rootViewController];
     }
     return tempArray.copy ;
@@ -135,16 +135,16 @@
 //  }
 
     if (self = [super init]) {
-        rootViewController.easyNavigationController = self ;
-        self.viewControllers = @[[EasyViewController addChildViewController:rootViewController]];
+        rootViewController.vcEasyNavController = self ;
+        self.viewControllers = @[[EasyWarpViewController wrapViewController:rootViewController]];
     }
     return self;
 }
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     if (self = [super initWithCoder:aDecoder]) {
-        self.viewControllers.firstObject.easyNavigationController = self ;
-        self.viewControllers = @[[EasyViewController addChildViewController:self.viewControllers.firstObject]];
+        self.viewControllers.firstObject.vcEasyNavController = self ;
+        self.viewControllers = @[[EasyWarpViewController wrapViewController:self.viewControllers.firstObject]];
     }
     return self ;
 }
@@ -225,7 +225,7 @@
 - (NSArray<UIViewController *> *)popToViewController:(UIViewController *)viewController animated:(BOOL)animated
 
 {
-    EasyNavigationViewController *easyNavigationVC = viewController.easyNavigationController;
+    EasyNavigationViewController *easyNavigationVC = viewController.vcEasyNavController;
     NSInteger index = [easyNavigationVC.easyViewControllers indexOfObject:viewController];
     return [self.navigationController popToViewController:easyNavigationVC.viewControllers[index] animated:animated];
 }
@@ -237,10 +237,10 @@
         viewController.hidesBottomBarWhenPushed = YES;
     }
     
-    viewController.easyNavigationController = (EasyNavigationViewController *)self.navigationController;
-    viewController.backGestureEnabled = viewController.easyNavigationController.backGestureEnabled;
+    viewController.vcEasyNavController = (EasyNavigationViewController *)self.navigationController;
+    viewController.vcBackGestureEnabled = viewController.vcEasyNavController.backGestureEnabled;
     
-    UIImage *backButtonImage = viewController.easyNavigationController.backButtonImage;
+    UIImage *backButtonImage = viewController.vcEasyNavController.backButtonImage;
     
     if (!backButtonImage) {
         backButtonImage = [UIImage imageNamed:@"back.png"];
@@ -248,7 +248,7 @@
     
     viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapBackButton)];
     
-    [self.navigationController pushViewController:[EasyViewController addChildViewController:viewController] animated:animated];
+    [self.navigationController pushViewController:[EasyWarpViewController wrapViewController:viewController] animated:animated];
     
     
 
@@ -262,7 +262,7 @@
 
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
     [self.navigationController dismissViewControllerAnimated:flag completion:completion];
-    self.viewControllers.firstObject.easyNavigationController = nil;
+    self.viewControllers.firstObject.vcEasyNavController = nil;
 }
 
 

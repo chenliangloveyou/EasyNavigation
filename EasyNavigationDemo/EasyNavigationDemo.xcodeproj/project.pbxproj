@@ -21,8 +21,9 @@
 		ADDE98DF1F6127A6002C7779 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98DE1F6127A6002C7779 /* BaseViewController.m */; };
 		ADDE98E21F6127C5002C7779 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98E11F6127C5002C7779 /* HomeViewController.m */; };
 		ADDE98E51F612FF0002C7779 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98E41F612FF0002C7779 /* SecondViewController.m */; };
-		ADDE98E81F614FE8002C7779 /* EasyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98E71F614FE8002C7779 /* EasyViewController.m */; };
+		ADDE98E81F614FE8002C7779 /* EasyWarpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98E71F614FE8002C7779 /* EasyWarpViewController.m */; };
 		ADDE98EB1F615067002C7779 /* UIViewController+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98EA1F615067002C7779 /* UIViewController+EasyNavigationExt.m */; };
+		ADDE98EE1F624BE0002C7779 /* EasyWarpNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98ED1F624BE0002C7779 /* EasyWarpNavigationViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,10 +72,12 @@
 		ADDE98E11F6127C5002C7779 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		ADDE98E31F612FF0002C7779 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
 		ADDE98E41F612FF0002C7779 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		ADDE98E61F614FE8002C7779 /* EasyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyViewController.h; sourceTree = "<group>"; };
-		ADDE98E71F614FE8002C7779 /* EasyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyViewController.m; sourceTree = "<group>"; };
+		ADDE98E61F614FE8002C7779 /* EasyWarpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyWarpViewController.h; sourceTree = "<group>"; };
+		ADDE98E71F614FE8002C7779 /* EasyWarpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyWarpViewController.m; sourceTree = "<group>"; };
 		ADDE98E91F615067002C7779 /* UIViewController+EasyNavigationExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+EasyNavigationExt.h"; sourceTree = "<group>"; };
 		ADDE98EA1F615067002C7779 /* UIViewController+EasyNavigationExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EasyNavigationExt.m"; sourceTree = "<group>"; };
+		ADDE98EC1F624BE0002C7779 /* EasyWarpNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyWarpNavigationViewController.h; sourceTree = "<group>"; };
+		ADDE98ED1F624BE0002C7779 /* EasyWarpNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyWarpNavigationViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,8 +179,10 @@
 			children = (
 				ADDE98D41F612624002C7779 /* EasyNavigationViewController.h */,
 				ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */,
-				ADDE98E61F614FE8002C7779 /* EasyViewController.h */,
-				ADDE98E71F614FE8002C7779 /* EasyViewController.m */,
+				ADDE98EC1F624BE0002C7779 /* EasyWarpNavigationViewController.h */,
+				ADDE98ED1F624BE0002C7779 /* EasyWarpNavigationViewController.m */,
+				ADDE98E61F614FE8002C7779 /* EasyWarpViewController.h */,
+				ADDE98E71F614FE8002C7779 /* EasyWarpViewController.m */,
 				ADDE98D71F6126CC002C7779 /* EasyNavigationBar.h */,
 				ADDE98D81F6126CC002C7779 /* EasyNavigationBar.m */,
 				ADDE98E91F615067002C7779 /* UIViewController+EasyNavigationExt.h */,
@@ -250,7 +255,7 @@
 		6876E74E1F5858CE00DEDFE0 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = chenliangloveyou;
 				TargetAttributes = {
 					6876E7551F5858CE00DEDFE0 = {
@@ -332,8 +337,9 @@
 				ADDE98D91F6126CC002C7779 /* EasyNavigationBar.m in Sources */,
 				6876E75B1F5858CE00DEDFE0 /* main.m in Sources */,
 				ADDE98DF1F6127A6002C7779 /* BaseViewController.m in Sources */,
+				ADDE98EE1F624BE0002C7779 /* EasyWarpNavigationViewController.m in Sources */,
 				ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */,
-				ADDE98E81F614FE8002C7779 /* EasyViewController.m in Sources */,
+				ADDE98E81F614FE8002C7779 /* EasyWarpViewController.m in Sources */,
 				ADDE98E21F6127C5002C7779 /* HomeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,6 +413,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -455,6 +462,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

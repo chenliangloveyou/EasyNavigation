@@ -13,22 +13,22 @@
 
 @implementation UIViewController (EasyNavigationExt)
 
-- (BOOL)backGestureEnabled
+- (BOOL)vcBackGestureEnabled
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue] ;
 }
-- (void)setBackGestureEnabled:(BOOL)backGestureEnabled
+- (void)setVcBackGestureEnabled:(BOOL)vcBackGestureEnabled
 {
-    objc_setAssociatedObject(self, @selector(backGestureEnabled), @(backGestureEnabled), OBJC_ASSOCIATION_RETAIN);
+    objc_setAssociatedObject(self, @selector(vcBackGestureEnabled), @(vcBackGestureEnabled), OBJC_ASSOCIATION_RETAIN);
 }
 
-- (EasyNavigationViewController *)easyNavigationController
+- (EasyNavigationViewController *)vcEasyNavController
 {
     return objc_getAssociatedObject(self, _cmd);
 }
-- (void)setEasyNavigationController:(EasyNavigationViewController *)easyNavigationController
+- (void)setVcEasyNavController:(EasyNavigationViewController *)vcEasyNavController
 {
-    objc_setAssociatedObject(self, @selector(easyNavigationController), easyNavigationController, OBJC_ASSOCIATION_ASSIGN);
+    objc_setAssociatedObject(self, @selector(vcEasyNavController), vcEasyNavController, OBJC_ASSOCIATION_ASSIGN);
 }
 
 @end
