@@ -13,9 +13,9 @@
 @interface UIViewController (EasyNavigationExt)
 
 //返回手势是否可用
-@property (nonatomic,assign)BOOL backGestureEnabled ;
+@property (nonatomic,assign)BOOL vcBackGestureEnabled ;
 
-@property (nonatomic, weak) EasyNavigationViewController *easyNavigationController ;
+@property (nonatomic, weak) EasyNavigationViewController *vcEasyNavController ;
 
 
 @end

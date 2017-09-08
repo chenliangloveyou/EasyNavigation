@@ -1,5 +1,5 @@
 //
-//  EasyViewController.h
+//  EasyWarpViewController.h
 //  EasyNavigationDemo
 //
 //  Created by nf on 2017/9/7.
@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EasyViewController : UIViewController
+@interface EasyWarpViewController : UIViewController
 
 @property (nonatomic, strong, readonly) UIViewController *rootViewController;
 
-+ (EasyViewController *)addChildViewController:(UIViewController *)viewController;
++ (EasyWarpViewController *)wrapViewController:(UIViewController *)viewController;
 
 
 @end
