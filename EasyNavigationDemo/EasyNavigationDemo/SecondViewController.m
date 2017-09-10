@@ -7,7 +7,8 @@
 //
 
 #import "SecondViewController.h"
-
+#import "ThirdViewController.h"
+#import "EasyNavigationController.h"
 @interface SecondViewController ()
 
 @end
@@ -19,9 +20,20 @@
     
     self.title = @"secondVC";
     self.view.backgroundColor = [UIColor purpleColor];
+    
+    UIButton *tempButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+    [self.view addSubview:tempButton ];
+    [tempButton setFrame:CGRectMake(20, 100, 40, 40)];
+    [tempButton addTarget:self action:@selector(temClick) forControlEvents:UIControlEventTouchUpInside];
     // Do any additional setup after loading the view.
 }
 
+- (void)temClick
+{
+    ThirdViewController *secondVC =[[ThirdViewController alloc]init];
+    EasyNavigationController *tempNva = (EasyNavigationController *)self.navigationController ;
+    [tempNva pushViewController:secondVC animated:YES sysNavBar:NO];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

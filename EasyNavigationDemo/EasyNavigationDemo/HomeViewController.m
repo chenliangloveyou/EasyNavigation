@@ -9,6 +9,7 @@
 #import "HomeViewController.h"
 
 #import "SecondViewController.h"
+#import "EasyNavigationController.h"
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -60,7 +61,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     SecondViewController *secondVC =[[SecondViewController alloc]init];
-    [self.navigationController.navigationController pushViewController:secondVC animated:YES];
+    EasyNavigationController *tempNva = (EasyNavigationController *)self.navigationController ;
+    [tempNva pushViewController:secondVC animated:YES sysNavBar:YES];
 //    [self presentViewController:secondVC animated:YES completion:nil];
     
 }

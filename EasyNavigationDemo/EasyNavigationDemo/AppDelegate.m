@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 
+#import "EasyNavigationController.h"
 #import "EasyNavigationViewController.h"
 #import "HomeViewController.h"
 
@@ -21,7 +22,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     
-    EasyNavigationViewController *navVC = [[EasyNavigationViewController alloc]initWithRootViewController:[HomeViewController new]];
+    EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[HomeViewController new]];
+//    navVC.isSystemNavigationBar = YES ;
     self.window.rootViewController  = navVC ;
     
     // Override point for customization after application launch.
