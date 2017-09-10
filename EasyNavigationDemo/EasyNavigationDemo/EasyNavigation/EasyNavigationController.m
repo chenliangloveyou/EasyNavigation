@@ -32,14 +32,16 @@
     
     BOOL      sysNavBar = [[self.navBarDictionary objectForKey:viewController.description] boolValue];
     
+//    [self setNavigationBarHidden:sysNavBar animated:YES];
+    
     self.navigationBar.hidden = sysNavBar ;
 }
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-//    self.isSystemNavigationBar = YES ;
-//         BOOL      sysNavBar = [[self.navBarDictionary objectForKey:viewController.description] boolValue];
-//
-//    self.navigationBar.hidden = !sysNavBar ;
+    self.isSystemNavigationBar = YES ;
+         BOOL      sysNavBar = [[self.navBarDictionary objectForKey:viewController.description] boolValue];
+
+    self.navigationBar.hidden = !sysNavBar ;
 
 }
 - (UIViewController *)popViewControllerAnimated:(BOOL)animated
