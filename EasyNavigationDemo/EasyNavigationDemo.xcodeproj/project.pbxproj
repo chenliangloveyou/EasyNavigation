@@ -15,6 +15,7 @@
 		6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7671F5858CE00DEDFE0 /* LaunchScreen.storyboard */; };
 		6876E7741F5858CF00DEDFE0 /* EasyNavigationDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7731F5858CF00DEDFE0 /* EasyNavigationDemoTests.m */; };
 		6876E77F1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */; };
+		6876E7941F657E7A00DEDFE0 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7931F657E7A00DEDFE0 /* back@2x.png */; };
 		ADDE98D61F612624002C7779 /* EasyNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */; };
 		ADDE98D91F6126CC002C7779 /* EasyNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D81F6126CC002C7779 /* EasyNavigationBar.m */; };
 		ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98DB1F61270F002C7779 /* EasyUtils.m */; };
@@ -60,6 +61,7 @@
 		6876E77A1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyNavigationDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationDemoUITests.m; sourceTree = "<group>"; };
 		6876E7801F5858CF00DEDFE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6876E7931F657E7A00DEDFE0 /* back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "back@2x.png"; sourceTree = "<group>"; };
 		ADDE98D41F612624002C7779 /* EasyNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationViewController.h; sourceTree = "<group>"; };
 		ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationViewController.m; sourceTree = "<group>"; };
 		ADDE98D71F6126CC002C7779 /* EasyNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationBar.h; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 				ADDE98EA1F615067002C7779 /* UIViewController+EasyNavigationExt.m */,
 				ADDE98DA1F61270F002C7779 /* EasyUtils.h */,
 				ADDE98DB1F61270F002C7779 /* EasyUtils.m */,
+				6876E7931F657E7A00DEDFE0 /* back@2x.png */,
 			);
 			path = EasyNavigation;
 			sourceTree = "<group>";
@@ -303,6 +306,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */,
+				6876E7941F657E7A00DEDFE0 /* back@2x.png in Resources */,
 				6876E7661F5858CE00DEDFE0 /* Assets.xcassets in Resources */,
 				6876E7641F5858CE00DEDFE0 /* Main.storyboard in Resources */,
 			);

@@ -60,7 +60,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     SecondViewController *secondVC =[[SecondViewController alloc]init];
-    [self.navigationController pushViewController:secondVC animated:YES];
+    [self.navigationController.navigationController pushViewController:secondVC animated:YES];
+//    [self presentViewController:secondVC animated:YES completion:nil];
     
 }
 

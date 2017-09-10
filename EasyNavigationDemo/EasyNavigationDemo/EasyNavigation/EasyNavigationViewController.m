@@ -212,10 +212,10 @@
 
 
 
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated
-{
-    return [self.navigationController popViewControllerAnimated:animated];
-}
+//- (UIViewController *)popViewControllerAnimated:(BOOL)animated
+//{
+//    return [self popViewControllerAnimated:animated];
+//}
 
 - (NSArray<UIViewController *> *)popToRootViewControllerAnimated:(BOOL)animated
 {
@@ -248,7 +248,7 @@
     
     viewController.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithImage:backButtonImage style:UIBarButtonItemStylePlain target:self action:@selector(didTapBackButton)];
     
-    [self.navigationController pushViewController:[EasyWarpViewController wrapViewController:viewController] animated:animated];
+    [super pushViewController:[EasyWarpViewController wrapViewController:viewController] animated:animated];
     
     
 
@@ -257,7 +257,7 @@
 }
 
 - (void)didTapBackButton {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self popViewControllerAnimated:YES];
 }
 
 -(void)dismissViewControllerAnimated:(BOOL)flag completion:(void (^)(void))completion{
