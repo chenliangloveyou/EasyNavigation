@@ -17,6 +17,9 @@
 //导航栏高度
 #define NAV_HEIGHT 64.0f
 
+//状态栏高度
+#define NAV_STATE_HEIGHT 20.0f 
+
 
 //去除状体栏的屏幕高度
 #define  SCREEN_HEIGHT_EXCEPTSTATUS (SCREEN_HEIGHT - 20.0f)
