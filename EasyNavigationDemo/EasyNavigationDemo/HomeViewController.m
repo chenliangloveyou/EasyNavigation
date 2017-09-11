@@ -9,7 +9,9 @@
 #import "HomeViewController.h"
 
 #import "SecondViewController.h"
+#import "UIViewController+EasyNavigationExt.h"
 #import "EasyNavigationController.h"
+#import "EasyUtils.h"
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -23,14 +25,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor blueColor];
-
+    [self.navigationView setTitle:@"首页"];
+    [self.navigationView removeAllLeftButton];
+ 
+    
+    kWeakSelf(self)
+    [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
+        [weakself.navigationView setTitle:@"点击了更多"];
+    }];
+    
+    UIView *asV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
+    asV.backgroundColor = [UIColor blueColor];
+    [self.navigationView addSubview:asV clickCallback:^(UIView *view) {
+        [weakself.navigationView setTitle:@"hongshe"];
+    }];
+    
+    __block UIView *tempV = [self.navigationView addLeftButtonWithTitle:@"错误了" clickCallBack:^(UIView *view) {
+        [weakself.navigationView addtitleView:asV];
+//        [weakself.navigationView removeAllLeftButton];
+    }];
+    
+    UIView *tempv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 2, 100)];
+    tempv.backgroundColor = [UIColor redColor];
+    [self.navigationView addLeftView:tempv clickCallback:^(UIView *view) {
+        [weakself.navigationView removeLeftView:tempV];
+//        [tempV removeFromSuperview];
+    }];
+    
+   
+    
+    [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"default.png"] clickCallBack:nil];
+    
+    
     [self.view addSubview:self.tableView];
-    self.title = @"首页";
 
     // Do any additional setup after loading the view.
 }
+- (void)backclick
+{
 
+}
 
 #pragma mark - Tableview datasource
 
@@ -62,15 +96,18 @@
     
     SecondViewController *secondVC =[[SecondViewController alloc]init];
     EasyNavigationController *tempNva = (EasyNavigationController *)self.navigationController ;
-    [tempNva pushViewController:secondVC animated:YES sysNavBar:YES];
+    [tempNva pushViewController:secondVC animated:YES];
 //    [self presentViewController:secondVC animated:YES completion:nil];
-    
+
+//    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
+//    view.backgroundColor = [UIColor redColor];
+//    [self.view addSubview:view];
 }
 
 - (UITableView *)tableView
 {
     if (nil == _tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, NAV_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT_EXCEPTNAV)];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _tableView.showsVerticalScrollIndicator = NO ;
         _tableView.dataSource = self ;

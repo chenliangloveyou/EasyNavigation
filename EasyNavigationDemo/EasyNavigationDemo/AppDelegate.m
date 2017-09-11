@@ -23,7 +23,6 @@
     
     
     EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[HomeViewController new]];
-//    navVC.isSystemNavigationBar = YES ;
     self.window.rootViewController  = navVC ;
     
     // Override point for customization after application launch.

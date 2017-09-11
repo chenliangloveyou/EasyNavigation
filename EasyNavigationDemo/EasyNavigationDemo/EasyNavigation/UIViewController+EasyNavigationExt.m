@@ -31,6 +31,31 @@
     objc_setAssociatedObject(self, @selector(vcEasyNavController), vcEasyNavController, OBJC_ASSOCIATION_ASSIGN);
 }
 
+
+- (EasyNavigationView *)navigationView
+{
+    return objc_getAssociatedObject(self, _cmd);
+    
+}
+- (void)setNavigationView:(EasyNavigationView *)navigationView
+{
+    objc_setAssociatedObject(self, @selector(navigationView), navigationView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+}
+
+
 @end
+
+
+
+
+
+
+
+
+
+
+
+
 
 

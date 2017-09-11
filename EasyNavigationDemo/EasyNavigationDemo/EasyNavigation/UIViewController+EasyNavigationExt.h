@@ -10,12 +10,17 @@
 
 @class EasyNavigationViewController ;
 
+#import "EasyNavigationView.h"
+
 @interface UIViewController (EasyNavigationExt)
 
 //返回手势是否可用
 @property (nonatomic,assign)BOOL vcBackGestureEnabled ;
 
 @property (nonatomic, weak) EasyNavigationViewController *vcEasyNavController ;
+
+
+@property (nonatomic,strong)EasyNavigationView *navigationView ;
 
 
 @end

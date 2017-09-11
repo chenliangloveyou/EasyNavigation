@@ -7,6 +7,7 @@
 //
 
 #import "ThirdViewController.h"
+#import "UIViewController+EasyNavigationExt.h"  
 
 @interface ThirdViewController ()
 
@@ -17,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"thirdvc";
+    self.navigationView.backgroundColor = [UIColor redColor];
     self.view.backgroundColor = [UIColor yellowColor];
     // Do any additional setup after loading the view.
 }

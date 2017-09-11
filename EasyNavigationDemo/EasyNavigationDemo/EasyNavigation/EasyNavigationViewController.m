@@ -7,7 +7,7 @@
 //
 
 #import "EasyNavigationViewController.h"
-#import "EasyNavigationBar.h"
+#import "EasyNavigationView.h"
 #import "EasyWarpViewController.h"
 #import "UIViewController+EasyNavigationExt.h"
 
@@ -124,12 +124,12 @@
 
 - (id)init
 {
-  return [super initWithNavigationBarClass:[EasyNavigationBar class] toolbarClass:nil];
+  return [super initWithNavigationBarClass:[EasyNavigationView class] toolbarClass:nil];
 }
 
 - (id)initWithRootViewController:(UIViewController *)rootViewController
 {
-//  self = [super initWithNavigationBarClass:[EasyNavigationBar class] toolbarClass:nil];
+//  self = [super initWithNavigationBarClass:[EasyNavigationView class] toolbarClass:nil];
 //  if (self) {
 //    self.viewControllers = @[rootViewController];
 //  }

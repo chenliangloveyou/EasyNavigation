@@ -10,8 +10,8 @@
 
 @interface EasyNavigationController : UINavigationController
 
-@property (nonatomic,assign)BOOL isSystemNavigationBar ;//是否展示自带的导航条
+//@property (nonatomic,assign)BOOL isSystemNavigationBar ;//是否展示自带的导航条
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated sysNavBar:(BOOL)sysNavBar ;
+//- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated sysNavBar:(BOOL)sysNavBar ;
 
 @end
