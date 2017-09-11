@@ -17,6 +17,7 @@
 		6876E7941F657E7A00DEDFE0 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7931F657E7A00DEDFE0 /* back@2x.png */; };
 		6876E7971F65810E00DEDFE0 /* EasyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7961F65810E00DEDFE0 /* EasyNavigationController.m */; };
 		6876E79A1F658B1F00DEDFE0 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7991F658B1F00DEDFE0 /* ThirdViewController.m */; };
+		6876E79D1F66D88E00DEDFE0 /* EasyNavigationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E79C1F66D88E00DEDFE0 /* EasyNavigationOptions.m */; };
 		ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC4EB761F6697B500CE7060 /* Assets.xcassets */; };
 		ADDE98D61F612624002C7779 /* EasyNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */; };
 		ADDE98D91F6126CC002C7779 /* EasyNavigationView..m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D81F6126CC002C7779 /* EasyNavigationView..m */; };
@@ -67,6 +68,8 @@
 		6876E7961F65810E00DEDFE0 /* EasyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationController.m; sourceTree = "<group>"; };
 		6876E7981F658B1F00DEDFE0 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		6876E7991F658B1F00DEDFE0 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		6876E79B1F66D88E00DEDFE0 /* EasyNavigationOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationOptions.h; sourceTree = "<group>"; };
+		6876E79C1F66D88E00DEDFE0 /* EasyNavigationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationOptions.m; sourceTree = "<group>"; };
 		ADC4EB761F6697B500CE7060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADDE98D41F612624002C7779 /* EasyNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationViewController.h; sourceTree = "<group>"; };
 		ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationViewController.m; sourceTree = "<group>"; };
@@ -196,6 +199,8 @@
 				6876E7931F657E7A00DEDFE0 /* back@2x.png */,
 				ADDE98D71F6126CC002C7779 /* EasyNavigationView.h */,
 				ADDE98D81F6126CC002C7779 /* EasyNavigationView..m */,
+				6876E79B1F66D88E00DEDFE0 /* EasyNavigationOptions.h */,
+				6876E79C1F66D88E00DEDFE0 /* EasyNavigationOptions.m */,
 				6876E7951F65810E00DEDFE0 /* EasyNavigationController.h */,
 				6876E7961F65810E00DEDFE0 /* EasyNavigationController.m */,
 				ADDE98EF1F6661DD002C7779 /* UIView+EasyNavigationExt.h */,
@@ -352,6 +357,7 @@
 				ADDE98D91F6126CC002C7779 /* EasyNavigationView..m in Sources */,
 				6876E79A1F658B1F00DEDFE0 /* ThirdViewController.m in Sources */,
 				6876E75B1F5858CE00DEDFE0 /* main.m in Sources */,
+				6876E79D1F66D88E00DEDFE0 /* EasyNavigationOptions.m in Sources */,
 				6876E7971F65810E00DEDFE0 /* EasyNavigationController.m in Sources */,
 				ADDE98EE1F624BE0002C7779 /* EasyWarpNavigationViewController.m in Sources */,
 				ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */,

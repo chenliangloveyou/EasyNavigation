@@ -8,10 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+#import "EasyNavigationOptions.h"   
+
 typedef void(^clickCallback)(UIView *view);
 
 
 @interface EasyNavigationView : UIView
+
 
 @property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;
 
@@ -46,17 +49,25 @@ typedef void(^clickCallback)(UIView *view);
 - (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback ;
 
 
-- (UIView *)addLeftView:(UIView *)view clickCallback:(clickCallback)callback ;
+#pragma mark - 左边视图
 
+/**
+ * 往左边视图上加一个view
+ */
+- (void)addLeftView:(UIView *)view clickCallback:(clickCallback)callback ;
+
+/**
+ * 创建一个按钮并放到左边视图上
+ */
 - (UIButton *)addLeftButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback ;
 
 - (UIButton *)addLeftButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback ;
 
+
 - (UIButton *)addLeftButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback ;
 
-- (UIButton *)addLeftButtonWithImage:(UIImage *)image backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback ;
-
 - (UIButton *)addLeftButtonWithImage:(UIImage *)image hightImage:(UIImage *)hightImage clickCallBack:(clickCallback)callback ;
+
 
 - (void)removeLeftView:(UIView *)view ;
 
@@ -64,15 +75,24 @@ typedef void(^clickCallback)(UIView *view);
 
 
 
-- (UIView *)addRightView:(UIView *)view clickCallback:(clickCallback)callback ;
+#pragma mark - 右边视图
+
+- (void)addRightView:(UIView *)view clickCallback:(clickCallback)callback ;
 
 - (UIButton *)addRightButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback ;
 
+- (UIButton *)addRightButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback ;
+
+
 - (UIButton *)addRightButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback ;
+
+- (UIButton *)addRightButtonWithImage:(UIImage *)image hightImage:(UIImage *)hightImage clickCallBack:(clickCallback)callback ;
+
 
 - (void)removeRightView:(UIView *)view ;
 
 - (void)removeAllRightButton ;
+
 
 
 - (void)scrollowNavigationBarWithScrollow:(UIScrollView *)scrollow stopPoint:(CGPoint)point ;

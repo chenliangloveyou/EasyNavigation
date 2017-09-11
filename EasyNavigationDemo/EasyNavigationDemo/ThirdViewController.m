@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationView.backgroundColor = [UIColor redColor];
+//    self.navigationView.backgroundColor = [UIColor redColor];
     self.view.backgroundColor = [UIColor yellowColor];
     // Do any additional setup after loading the view.
 }

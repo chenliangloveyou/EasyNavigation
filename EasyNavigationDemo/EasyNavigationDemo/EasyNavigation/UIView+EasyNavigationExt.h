@@ -10,6 +10,10 @@
 
 @interface UIView (EasyNavigationExt)
 
+
+@property(nonatomic) CGFloat width;
+@property(nonatomic) CGFloat height;
+
 /**
  * 获取当前view所在的控制器
  */

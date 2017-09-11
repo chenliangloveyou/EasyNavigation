@@ -34,28 +34,31 @@
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
     
-    UIView *asV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
-    asV.backgroundColor = [UIColor blueColor];
-    [self.navigationView addSubview:asV clickCallback:^(UIView *view) {
-        [weakself.navigationView setTitle:@"hongshe"];
-    }];
+//    UIView *asV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
+//    asV.backgroundColor = [UIColor blueColor];
+//    [self.navigationView addSubview:asV clickCallback:^(UIView *view) {
+//        [weakself.navigationView setTitle:@"hongshe"];
+//    }];
     
-    __block UIView *tempV = [self.navigationView addLeftButtonWithTitle:@"错误了" clickCallBack:^(UIView *view) {
-        [weakself.navigationView addtitleView:asV];
-//        [weakself.navigationView removeAllLeftButton];
-    }];
+//    __block UIView *tempV = [self.navigationView addLeftButtonWithTitle:@"错误了" clickCallBack:^(UIView *view) {
+////        [weakself.navigationView addtitleView:asV];
+////        [weakself.navigationView removeAllLeftButton];
+//    }];
     
-    UIView *tempv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 2, 100)];
-    tempv.backgroundColor = [UIColor redColor];
-    [self.navigationView addLeftView:tempv clickCallback:^(UIView *view) {
-        [weakself.navigationView removeLeftView:tempV];
-//        [tempV removeFromSuperview];
-    }];
+//    UIView *tempv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 2, 100)];
+//    tempv.backgroundColor = [UIColor redColor];
+//    [self.navigationView addLeftView:tempv clickCallback:^(UIView *view) {
+//        [weakself.navigationView removeLeftView:tempV];
+////        [tempV removeFromSuperview];
+//    }];
     
-   
+    [self.navigationView addLeftButtonWithImage:[UIImage imageNamed:@"button_normal.png"] hightImage:[UIImage imageNamed:@"button_select.png"] clickCallBack:^(UIView *view) {
+        
+    }];
     
     [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"default.png"] clickCallBack:nil];
     
+    [self.navigationView addRightButtonWithTitle:@"可惜好啊" clickCallBack:nil];
     
     [self.view addSubview:self.tableView];
 
