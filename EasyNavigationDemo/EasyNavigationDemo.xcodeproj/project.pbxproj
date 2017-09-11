@@ -11,13 +11,13 @@
 		6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */; };
 		6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7601F5858CE00DEDFE0 /* ViewController.m */; };
 		6876E7641F5858CE00DEDFE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7621F5858CE00DEDFE0 /* Main.storyboard */; };
-		6876E7661F5858CE00DEDFE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7651F5858CE00DEDFE0 /* Assets.xcassets */; };
 		6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7671F5858CE00DEDFE0 /* LaunchScreen.storyboard */; };
 		6876E7741F5858CF00DEDFE0 /* EasyNavigationDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7731F5858CF00DEDFE0 /* EasyNavigationDemoTests.m */; };
 		6876E77F1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */; };
 		6876E7941F657E7A00DEDFE0 /* back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7931F657E7A00DEDFE0 /* back@2x.png */; };
 		6876E7971F65810E00DEDFE0 /* EasyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7961F65810E00DEDFE0 /* EasyNavigationController.m */; };
 		6876E79A1F658B1F00DEDFE0 /* ThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7991F658B1F00DEDFE0 /* ThirdViewController.m */; };
+		ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC4EB761F6697B500CE7060 /* Assets.xcassets */; };
 		ADDE98D61F612624002C7779 /* EasyNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */; };
 		ADDE98D91F6126CC002C7779 /* EasyNavigationView..m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D81F6126CC002C7779 /* EasyNavigationView..m */; };
 		ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98DB1F61270F002C7779 /* EasyUtils.m */; };
@@ -54,7 +54,6 @@
 		6876E75F1F5858CE00DEDFE0 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		6876E7601F5858CE00DEDFE0 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		6876E7631F5858CE00DEDFE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		6876E7651F5858CE00DEDFE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6876E7681F5858CE00DEDFE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6876E76A1F5858CE00DEDFE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6876E76F1F5858CF00DEDFE0 /* EasyNavigationDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyNavigationDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,6 +67,7 @@
 		6876E7961F65810E00DEDFE0 /* EasyNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationController.m; sourceTree = "<group>"; };
 		6876E7981F658B1F00DEDFE0 /* ThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdViewController.h; sourceTree = "<group>"; };
 		6876E7991F658B1F00DEDFE0 /* ThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdViewController.m; sourceTree = "<group>"; };
+		ADC4EB761F6697B500CE7060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADDE98D41F612624002C7779 /* EasyNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationViewController.h; sourceTree = "<group>"; };
 		ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationViewController.m; sourceTree = "<group>"; };
 		ADDE98D71F6126CC002C7779 /* EasyNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationView.h; sourceTree = "<group>"; };
@@ -147,8 +147,8 @@
 				6876E7991F658B1F00DEDFE0 /* ThirdViewController.m */,
 				6876E75F1F5858CE00DEDFE0 /* ViewController.h */,
 				6876E7601F5858CE00DEDFE0 /* ViewController.m */,
+				ADC4EB761F6697B500CE7060 /* Assets.xcassets */,
 				6876E7621F5858CE00DEDFE0 /* Main.storyboard */,
-				6876E7651F5858CE00DEDFE0 /* Assets.xcassets */,
 				6876E7671F5858CE00DEDFE0 /* LaunchScreen.storyboard */,
 				6876E76A1F5858CE00DEDFE0 /* Info.plist */,
 				6876E7591F5858CE00DEDFE0 /* Supporting Files */,
@@ -317,7 +317,7 @@
 			files = (
 				6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */,
 				6876E7941F657E7A00DEDFE0 /* back@2x.png in Resources */,
-				6876E7661F5858CE00DEDFE0 /* Assets.xcassets in Resources */,
+				ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */,
 				6876E7641F5858CE00DEDFE0 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

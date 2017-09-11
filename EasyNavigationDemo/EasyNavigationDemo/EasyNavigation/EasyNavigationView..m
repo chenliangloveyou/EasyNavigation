@@ -183,28 +183,34 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         callback(tapgesture.view);
     }
 }
-- (UIButton *)createButtonWithContent:(id)content type:(long)type
+
+- (UIButton *)createButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage image:(UIImage *)image hightImage:(UIImage *)hieghtImage type:(buttonPlaceType)type
 {
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     
-    if ([content isKindOfClass:[NSString class]]) {
-        [button setTitle:content forState:UIControlStateNormal];
+    if (title.length) {
+        [button setTitle:title forState:UIControlStateNormal];
     }
-    else{
-        [button setImage:content forState:UIControlStateNormal];
+    
+    if (backgroundImage) {
+        [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
     }
+    
+    if (image) {
+        [button setImage:image forState:UIControlStateNormal];
+    }
+    
+    if (hieghtImage) {
+        [button setImage:hieghtImage forState:UIControlStateHighlighted];
+    }
+    
 
-    [button setBackgroundColor:[UIColor lightGrayColor]];
+    [button setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [button setTitleColor:[UIColor darkGrayColor] forState:UIControlStateHighlighted];
+
     button.tag = ++easynavigation_button_tag ;
     [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
- 
     
-//    _rightButton.frame = CGRectMake(SCREEN_WIDTH-90, 20.0f,80.0f, KNavHeight-21.0f);
-//    //        _rightButton.backgroundColor = [UIColor redColor];
-//    [_rightButton setTitleColor:kColorDefultCell forState:UIControlStateNormal];
-//    _rightButton.titleLabel.font = kFontBig ;
-//    _rightButton.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight ;
-//    [self addSubview:_rightButton];
     return button ;
 }
 
@@ -232,6 +238,8 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     return view ;
 }
 
+
+
 - (UIButton *)addLeftButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback
 {
     for (UIView *tempView in self.leftViewArray) {
@@ -240,7 +248,8 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         }
     }
     
-    UIButton *button = [self createButtonWithContent:title type:1];
+    UIButton *button = [self createButtonWithTitle:title backgroundImage:nil image:nil hightImage:nil type:buttonPlaceTypeLeft];
+    
     [self addSubview:button];
     
     [self.leftViewArray addObject:button];
@@ -251,7 +260,27 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     
     return button ;
 }
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback
+{
+    
+}
 
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback
+{
+    
+}
+
+- (UIButton *)addLeftButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback
+{
+    
+}
+
+- (UIButton *)addLeftButtonWithImage:(UIImage *)image backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback ;
+
+- (UIButton *)addLeftButtonWithImage:(UIImage *)image hightImage:(UIImage *)hightImage clickCallBack:(clickCallback)callback
+{
+    
+}
 - (UIButton *)addLeftButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback
 {
     
@@ -261,7 +290,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         }
     }
     
-    UIButton *button = [self createButtonWithContent:image type:1];
+    UIButton *button = [self createButtonWithTitle:nil backgroundImage:nil image:image hightImage:nil type:buttonPlaceTypeRight];
     [self addSubview:button];
     
     [self.leftViewArray addObject:button];
