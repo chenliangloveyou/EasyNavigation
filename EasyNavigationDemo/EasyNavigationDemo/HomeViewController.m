@@ -41,7 +41,12 @@
     [self.navigationView navigationAlphaSlowChangeWithScrollow:self.tableView start:NAV_HEIGHT end:NAV_HEIGHT*4];
     
     [self.navigationView navigationScrollStopStateBarWithScrollow:self.tableView];
-    
+    __block int ddd = 100 ;//加上  static __week 结果会是 103 不加是3
+    long (^sum)(int a , int b) = ^long(int a, int b){
+        return ddd+a+b ;
+    };
+    ddd = 0 ;
+    NSLog(@"========== %ld",sum(1,2));
     
     [self.view addSubview:self.tableView];
 

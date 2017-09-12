@@ -39,6 +39,9 @@
 //        rootViewController.navigationBar = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , NAV_HEIGHT)];
 //        [rootViewController.view addSubview:rootViewController.navigationBar];
     }
+//    self.navigationController.navigationBar ;
+//    [self.navigationController setValue:[[EasyNavigationView alloc]init] forKeyPath:@"navigationBar"];
+
     return self ;
 }
 //- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
