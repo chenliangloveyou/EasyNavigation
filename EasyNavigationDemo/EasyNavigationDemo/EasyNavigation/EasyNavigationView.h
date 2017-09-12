@@ -58,6 +58,7 @@ typedef void(^clickCallback)(UIView *view);
 - (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow ;
 
 - (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint end:(CGFloat)endPoint ;
+
 /**
  * 根据scrollview滚动，导航条隐藏或者展示.
  */

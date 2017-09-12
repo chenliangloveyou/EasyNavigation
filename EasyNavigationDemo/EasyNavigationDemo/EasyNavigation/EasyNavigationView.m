@@ -32,10 +32,12 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     buttonPlaceTypeRight ,
 };
 
-@interface EasyNavigationView()<UIScrollViewDelegate>
+@interface EasyNavigationView()
 {
     CGFloat _alphaStartChange ;//alpha改变的开始位置
     CGFloat _alphaEndChange   ;//alpha停止改变的位置
+    
+    UIScrollView *_kvoScrollView ;//用于监听scrollview内容高度的改变
 }
 @property (nonatomic,strong)EasyNavigationOptions *options ;
 
@@ -65,6 +67,12 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 
 
 #pragma mark - life cycle
+
+- (void)dealloc
+{
+    [_kvoScrollView removeObserver:self forKeyPath:@"contentOffset"];
+}
+
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -108,8 +116,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     
 }
 
-
-
+#pragma mark - titleview
 - (void)setTitle:(NSString *)title 
 {
     self.titleLabel.text = title;
@@ -133,60 +140,6 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     }
 }
 
-
-
-#pragma mark - 视图滚动，导航条跟着变化
-/**
- * 根据scrollview的滚动，导航条慢慢渐变
- */
-- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
-{
-    _alphaStartChange = 0 ;
-    _alphaEndChange = NAV_HEIGHT*2.0 ;
-    
-    scrollow.delegate = self ;
-}
-- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint end:(CGFloat)endPoint
-{
-    _alphaStartChange = startPoint ;
-    _alphaEndChange = endPoint ;
-   
-    scrollow.delegate = self ;
-
-}
-/**
- * 根据scrollview滚动，导航条隐藏或者展示.
- */
-- (void)navigationScrollStopStateBarWithScrollow:(UIScrollView *)scrollow
-{
-    scrollow.delegate = self ;
-
-}
-
-/**
- * scorllow滚动，导航栏跟着滚动，最终停在状态栏下
- */
-- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow
-{
-
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    CGFloat contentInsetY =scrollView.contentInset.top ;
-    CGFloat contentOffsetY = scrollView.contentOffset.y;
-    NSLog(@"offsetY %f contentInsetY %f",contentOffsetY,contentInsetY);
-    if (contentOffsetY + contentInsetY> _alphaStartChange){
-        CGFloat alpha = (contentOffsetY + contentInsetY) / _alphaEndChange ;
-        
-        NSLog(@"  alpha %f ",alpha);
-//        self.alpha = alpha ;
-        [self setBackgroundAlpha:alpha];
-    }
-    else{
-        [self setBackgroundAlpha:0];
-    }
-}
 
 #pragma mark - 左边视图
 
@@ -321,6 +274,69 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     [self.rightViewArray removeAllObjects];
 }
 
+
+
+#pragma mark - 视图滚动，导航条跟着变化
+
+/**
+ * 根据scrollview的滚动，导航条慢慢渐变
+ */
+- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
+{
+    _alphaStartChange = 0 ;
+    _alphaEndChange = NAV_HEIGHT*2.0 ;
+    _kvoScrollView = scrollow ;
+    
+    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+}
+- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint end:(CGFloat)endPoint
+{
+    _alphaStartChange = startPoint ;
+    _alphaEndChange = endPoint ;
+    _kvoScrollView = scrollow ;
+    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+/**
+ * 根据scrollview滚动，导航条隐藏或者展示.
+ */
+- (void)navigationScrollStopStateBarWithScrollow:(UIScrollView *)scrollow
+{
+    _kvoScrollView = scrollow ;
+    
+    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+}
+
+/**
+ * scorllow滚动，导航栏跟着滚动，最终停在状态栏下
+ */
+- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow
+{
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    
+    CGFloat contentInsetY =_kvoScrollView.contentInset.top ;
+    CGFloat contentOffsetY = _kvoScrollView.contentOffset.y;
+    NSLog(@"offsetY %f contentInsetY %f",contentOffsetY,contentInsetY);
+    if (contentOffsetY + contentInsetY> _alphaStartChange){
+        CGFloat alpha = (contentOffsetY + contentInsetY) / _alphaEndChange ;
+        
+        NSLog(@"  alpha %f ",alpha);
+        //        self.alpha = alpha ;
+        [self setBackgroundAlpha:alpha];
+    }
+    else{
+        [self setBackgroundAlpha:0];
+    }
+}
 
 #pragma mark - private
 
@@ -467,6 +483,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     _backGroundAlpha = alpha ;
     self.backgroundImageView.alpha = alpha ;
     self.backgroundView.alpha = alpha ;
+    self.lineView.alpha = alpha;
 }
 
 

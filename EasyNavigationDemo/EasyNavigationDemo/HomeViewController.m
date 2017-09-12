@@ -37,19 +37,16 @@
     
     [self.navigationView setBackgroundImage:kImage(@"nav_background_image.png")];
     
-//    [self.navigationView setBackgroundAlpha:0.0];
-//    [self.navigationView navigationAlphaSlowChangeWithScrollow:self.tableView start:0 end:NAV_HEIGHT*3];
+    [self.navigationView setBackgroundAlpha:0.0];
+    [self.navigationView navigationAlphaSlowChangeWithScrollow:self.tableView start:NAV_HEIGHT end:NAV_HEIGHT*4];
     
     [self.navigationView navigationScrollStopStateBarWithScrollow:self.tableView];
     
-    self.view.backgroundColor = [UIColor yellowColor];
+    
     [self.view addSubview:self.tableView];
 
 }
-- (void)backclick
-{
 
-}
 
 #pragma mark - Tableview datasource
 
@@ -97,7 +94,10 @@
         _tableView.showsVerticalScrollIndicator = NO ;
         _tableView.dataSource = self ;
         _tableView.delegate = self ;
-        _tableView.contentInset = UIEdgeInsetsMake(NAV_HEIGHT, 0, 0, 0);
+        
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 160)];
+        img.backgroundColor = [UIColor lightGrayColor];
+        _tableView.tableHeaderView =img ;
     }
     return _tableView ;
 }
