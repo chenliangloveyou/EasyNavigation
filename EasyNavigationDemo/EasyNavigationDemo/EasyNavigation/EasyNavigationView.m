@@ -32,10 +32,16 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     buttonPlaceTypeRight ,
 };
 
-@interface EasyNavigationView()
-
+@interface EasyNavigationView()<UIScrollViewDelegate>
+{
+    CGFloat _alphaStartChange ;//alpha改变的开始位置
+    CGFloat _alphaEndChange   ;//alpha停止改变的位置
+}
 @property (nonatomic,strong)EasyNavigationOptions *options ;
 
+@property (nonatomic,assign)CGFloat backGroundAlpha ;
+
+@property (nonatomic,strong)UIView *backgroundView ;
 @property (nonatomic,strong)UIImageView *backgroundImageView ;
 
 @property (nonatomic,strong) UILabel *titleLabel ;
@@ -52,6 +58,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 @property (nonatomic,strong)NSMutableArray *rightViewArray ;//右边所有的视图
 
 @property (nonatomic,strong)NSMutableDictionary *callbackDictionary ;//回调的数组
+
 @end
 
 @implementation EasyNavigationView
@@ -62,11 +69,16 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 {
     if (self = [super initWithFrame:frame]) {
         
-        self.backgroundColor = [UIColor whiteColor];
-        [self addSubview:self.backgroundImageView];
-        [self addSubview:self.titleLabel];
-
+        self.backgroundColor = [UIColor clearColor];
+        
+        _backGroundAlpha = self.options.backGroundAlpha ;
+        
+        [self addSubview:self.backgroundView];
+        [self addSubview:self.backgroundImageView] ;
+        
+        [self addSubview:self.titleLabel] ;
         [self addSubview:self.lineView];
+        
     }
     return self;
 }
@@ -123,16 +135,58 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 
 
 
-- (void)scrollowNavigationBarWithScrollow:(UIScrollView *)scrollow stopPoint:(CGPoint)point
+#pragma mark - 视图滚动，导航条跟着变化
+/**
+ * 根据scrollview的滚动，导航条慢慢渐变
+ */
+- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
 {
+    _alphaStartChange = 0 ;
+    _alphaEndChange = NAV_HEIGHT*2.0 ;
     
+    scrollow.delegate = self ;
+}
+- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint end:(CGFloat)endPoint
+{
+    _alphaStartChange = startPoint ;
+    _alphaEndChange = endPoint ;
+   
+    scrollow.delegate = self ;
+
+}
+/**
+ * 根据scrollview滚动，导航条隐藏或者展示.
+ */
+- (void)navigationScrollStopStateBarWithScrollow:(UIScrollView *)scrollow
+{
+    scrollow.delegate = self ;
+
 }
 
-- (void)clearBackGroundColorWithScrollow:(UIScrollView *)scrollow
+/**
+ * scorllow滚动，导航栏跟着滚动，最终停在状态栏下
+ */
+- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow
 {
-    
+
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat contentInsetY =scrollView.contentInset.top ;
+    CGFloat contentOffsetY = scrollView.contentOffset.y;
+    NSLog(@"offsetY %f contentInsetY %f",contentOffsetY,contentInsetY);
+    if (contentOffsetY + contentInsetY> _alphaStartChange){
+        CGFloat alpha = (contentOffsetY + contentInsetY) / _alphaEndChange ;
+        
+        NSLog(@"  alpha %f ",alpha);
+//        self.alpha = alpha ;
+        [self setBackgroundAlpha:alpha];
+    }
+    else{
+        [self setBackgroundAlpha:0];
+    }
+}
 
 #pragma mark - 左边视图
 
@@ -316,7 +370,6 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     return button ;
 }
 
-
 - (void)addView:(UIView *)view clickCallback:(clickCallback)callback type:(buttonPlaceType)type
 {
     
@@ -383,7 +436,6 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
             viewWidth = [tempButton.titleLabel.text sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:tempButton.titleLabel.font.fontName size:tempButton.titleLabel.font.pointSize]}].width + 5 ;
         }
         else{
-            
             viewWidth = tempView.width ;
         }
         
@@ -408,12 +460,15 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 
 - (void)setBackgroundImage:(UIImage *)backgroundImage
 {
-    
+    self.backgroundImageView.image = backgroundImage ;
 }
-- (void)setBackgroundClearColor
+- (void)setBackgroundAlpha:(CGFloat)alpha
 {
-    
+    _backGroundAlpha = alpha ;
+    self.backgroundImageView.alpha = alpha ;
+    self.backgroundView.alpha = alpha ;
 }
+
 
 - (void)setLineHidden:(BOOL)lineHidden
 {
@@ -438,11 +493,21 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     }
     return _titleLabel ;
 }
+- (UIView *)backgroundView
+{
+    if (nil == _backgroundView) {
+        _backgroundView = [[UIView alloc]initWithFrame:self.bounds];
+        _backgroundView.backgroundColor = self.options.navBackGroundColor ;
+        _backgroundView.alpha = _backGroundAlpha ;
+    }
+    return _backgroundView ;
+}
 - (UIImageView *)backgroundImageView
 {
     if (nil == _backgroundImageView) {
         _backgroundImageView = [[UIImageView alloc]initWithFrame:self.bounds];
         _backgroundImageView.backgroundColor = [UIColor clearColor];
+        _backgroundImageView.alpha = _backGroundAlpha ;
     }
     return _backgroundImageView ;
 }
@@ -459,7 +524,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 {
     if (nil == _lineView) {
         _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-0.5, self.bounds.size.width, 0.5)];
-        _lineView.backgroundColor = [UIColor lightGrayColor];
+        _lineView.backgroundColor = self.options.navLineColor;
     }
     return _lineView ;
 }

@@ -14,6 +14,7 @@
 
 + (instancetype)shareInstance ;
 
+@property (nonatomic,assign)CGFloat backGroundAlpha ;
 
 @property (nonatomic,strong)UIColor *navBackGroundColor ;
 @property (nonatomic,strong)UIColor *navLineColor ;

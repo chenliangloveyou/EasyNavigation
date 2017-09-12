@@ -24,14 +24,16 @@
 {
     if (self = [super init]) {
         
+        _backGroundAlpha = 0.9 ;
+        
         _navBackGroundColor = [UIColor whiteColor];
-        _navLineColor = [UIColor lightGrayColor];
+        _navLineColor = [UIColor groupTableViewBackgroundColor];
         
         _titleFont = [UIFont boldSystemFontOfSize:18];
         _titleColor = [UIColor darkTextColor];
         
         _buttonTitleFont = [UIFont systemFontOfSize:16];
-        _buttonBackgroundColor = [UIColor lightTextColor];
+        _buttonBackgroundColor = [UIColor clearColor];
         _buttonTitleColor = [UIColor blueColor] ;
         _buttonTitleColorHieght = [UIColor darkTextColor];
         

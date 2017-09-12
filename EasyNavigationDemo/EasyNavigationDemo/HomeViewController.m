@@ -24,45 +24,27 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+
     [self.navigationView setTitle:@"首页"];
-    [self.navigationView removeAllLeftButton];
- 
     
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
     
-//    UIView *asV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 100, 40)];
-//    asV.backgroundColor = [UIColor blueColor];
-//    [self.navigationView addSubview:asV clickCallback:^(UIView *view) {
-//        [weakself.navigationView setTitle:@"hongshe"];
-//    }];
+    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
     
-//    __block UIView *tempV = [self.navigationView addLeftButtonWithTitle:@"错误了" clickCallBack:^(UIView *view) {
-////        [weakself.navigationView addtitleView:asV];
-////        [weakself.navigationView removeAllLeftButton];
-//    }];
+    [self.navigationView setBackgroundImage:kImage(@"nav_background_image.png")];
     
-//    UIView *tempv = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 2, 100)];
-//    tempv.backgroundColor = [UIColor redColor];
-//    [self.navigationView addLeftView:tempv clickCallback:^(UIView *view) {
-//        [weakself.navigationView removeLeftView:tempV];
-////        [tempV removeFromSuperview];
-//    }];
+//    [self.navigationView setBackgroundAlpha:0.0];
+//    [self.navigationView navigationAlphaSlowChangeWithScrollow:self.tableView start:0 end:NAV_HEIGHT*3];
     
-    [self.navigationView addLeftButtonWithImage:[UIImage imageNamed:@"button_normal.png"] hightImage:[UIImage imageNamed:@"button_select.png"] clickCallBack:^(UIView *view) {
-        
-    }];
+    [self.navigationView navigationScrollStopStateBarWithScrollow:self.tableView];
     
-    [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"default.png"] clickCallBack:nil];
-    
-    [self.navigationView addRightButtonWithTitle:@"可惜好啊" clickCallBack:nil];
-    
+    self.view.backgroundColor = [UIColor yellowColor];
     [self.view addSubview:self.tableView];
 
-    // Do any additional setup after loading the view.
 }
 - (void)backclick
 {
@@ -73,7 +55,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataArray.count ;
+    return self.dataArray.count*20 ;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -88,7 +70,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.textLabel.text = self.dataArray[indexPath.row];
+    cell.textLabel.text = self.dataArray[indexPath.row%2];
     
     return cell ;
 }
@@ -110,11 +92,12 @@
 - (UITableView *)tableView
 {
     if (nil == _tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, NAV_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT_EXCEPTNAV)];
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _tableView.showsVerticalScrollIndicator = NO ;
         _tableView.dataSource = self ;
         _tableView.delegate = self ;
+        _tableView.contentInset = UIEdgeInsetsMake(NAV_HEIGHT, 0, 0, 0);
     }
     return _tableView ;
 }

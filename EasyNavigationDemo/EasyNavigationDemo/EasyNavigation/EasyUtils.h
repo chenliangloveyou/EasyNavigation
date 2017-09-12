@@ -55,6 +55,8 @@
 #define   TOP_DICTANCE ((SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))?20:0)
 
 
+//图片
+#define kImage(image)      [UIImage imageNamed:image]
 
 
 //强弱引用
