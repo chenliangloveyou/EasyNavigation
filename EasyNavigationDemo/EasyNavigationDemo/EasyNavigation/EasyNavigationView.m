@@ -55,7 +55,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     CGFloat _scrollSpeed ;     //导航条滚动速度
     
     CGFloat _criticalPoint ;//导航条动画隐藏的临界点
-    BOOL _stopToStateBar ;//动画后是否需要停止在stateBar下面
+    BOOL _stopUpStateBar ;//动画后是否需要停止在stateBar下面
     
     UIScrollView *_kvoScrollView ;//用于监听scrollview内容高度的改变
 }
@@ -95,7 +95,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 - (void)dealloc
 {
-    [_kvoScrollView removeObserver:self forKeyPath:@"contentOffset"];
+    if (_kvoScrollView) {
+        [_kvoScrollView removeObserver:self forKeyPath:@"contentOffset"];
+    }
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -365,7 +367,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     _kvoScrollView = scrollow ;
     _scrollSpeed = speed ;
     _scrollStartPoint = startPoint ;
-    _stopToStateBar = stopStateBar ;
+    _stopUpStateBar = stopStateBar ;
     _kvoScrollView.scrollDistance = startPoint ;
 
     [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
@@ -378,99 +380,10 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
     _kvoScrollView = scrollow ;
     _criticalPoint = criticalPoint ;
-    _stopToStateBar = stopStateBar ;
+    _stopUpStateBar = stopStateBar ;
     
     [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
 
-}
-
-- (void)animationScrollDownWithContentY:(CGFloat)contentY
-{
-    if (_kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
-        
-        self.isScrollingNavigaiton = YES ;
-        NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - contentY );
-        [UIView animateWithDuration:kAnimationDuring animations:^{
-            self.y = 0 ;
-        }completion:^(BOOL finished) {
-            self.isScrollingNavigaiton = NO ;
-            self.y = 0 ;
-            
-            [self changeSubviewsAlpha:1];
-            
-        }] ;
-    }
-}
-
-- (void)animationScrollUpWithContentY:(CGFloat)contentY
-{
-    //只有大于开始滚动的位置，才开始滚动导航条
-    if (contentY > _criticalPoint && contentY - _kvoScrollView.scrollDistance > 20 &&  ! self.isScrollingNavigaiton) {//开始移动导航条
-        
-        self.isScrollingNavigaiton = YES ;
-        
-        [UIView animateWithDuration:kAnimationDuring animations:^{
-            
-            self.y = -(self.height - (_stopToStateBar?NAV_STATE_HEIGHT:0));
-            
-        }completion:^(BOOL finished) {
-            self.isScrollingNavigaiton = NO ;
-            self.y = -(self.height - (_stopToStateBar?NAV_STATE_HEIGHT:0)) ;
-            
-            [self changeSubviewsAlpha:0];
-            
-        }] ;
-    }
-}
-- (void)smoothScrollUpWithContentY:(CGFloat)contentY
-{
-    //只有大于开始滚动的位置，才开始滚动导航条
-    if (contentY > _scrollStartPoint  ) {//开始移动导航条
-        
-        //需要改变的y值
-        CGFloat changeY =(contentY - _kvoScrollView.scrollDistance)*_scrollSpeed  ;
-        
-        //            NSLog(@"\n changeY = %f scrollDistance=%f ",changeY , _kvoScrollView.scrollDistance );
-        
-        if (changeY >= 0 && changeY <= self.height - (_stopToStateBar?NAV_STATE_HEIGHT:0) ) {
-            NSLog(@"%f",changeY);
-            self.y = -changeY ;
-            
-            if (_stopToStateBar ) {
-                if (changeY == self.height-NAV_STATE_HEIGHT) {
-                    [self changeSubviewsAlpha:0];
-                    NSLog(@"alpha changed ==== change ==== f\n\n");
-                    
-                }
-                else if (changeY < self.height - NAV_STATE_HEIGHT){
-                    
-                    CGFloat alpha = 1 - changeY/(self.height-NAV_STATE_HEIGHT) ;
-                    [self changeSubviewsAlpha:alpha];
-                    NSLog(@"alpha changed ==== %f",alpha);
-                }
-            }
-            
-        }
-    }
-}
-- (void)smoothScrollDownWithContentY:(CGFloat)contentY
-{
-    if (_kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
-        
-        self.isScrollingNavigaiton = YES ;
-        // NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - scrollContentY );
-        [UIView animateWithDuration:kAnimationDuring animations:^{
-            self.y = 0 ;
-        }completion:^(BOOL finished) {
-            self.isScrollingNavigaiton = NO ;
-            self.y = 0 ;
-            
-            if (_stopToStateBar) {
-                [self changeSubviewsAlpha:1];
-            }
-            
-        }] ;
-    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -678,6 +591,108 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         
     }
     
+}
+
+#pragma mark 导航条滚动
+
+- (void)animationScrollDownWithContentY:(CGFloat)contentY
+{
+    if (_kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
+        
+        self.isScrollingNavigaiton = YES ;
+        NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - contentY );
+        [UIView animateWithDuration:kAnimationDuring animations:^{
+            self.y = 0 ;
+        }completion:^(BOOL finished) {
+            self.isScrollingNavigaiton = NO ;
+            self.y = 0 ;
+            
+            [self changeSubviewsAlpha:1];
+            
+        }] ;
+    }
+}
+
+- (void)animationScrollUpWithContentY:(CGFloat)contentY
+{
+    //只有大于开始滚动的位置，才开始滚动导航条
+    if (contentY > _criticalPoint && contentY - _kvoScrollView.scrollDistance > 20 &&  ! self.isScrollingNavigaiton) {//开始移动导航条
+        
+        self.isScrollingNavigaiton = YES ;
+        
+        //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
+        CGFloat topOfY = _stopUpStateBar?NAV_STATE_HEIGHT:0 ;
+        
+        [UIView animateWithDuration:kAnimationDuring animations:^{
+            
+            self.y = -(self.height - topOfY );
+            
+        }completion:^(BOOL finished) {
+            self.isScrollingNavigaiton = NO ;
+            self.y = -(self.height - topOfY ) ;
+            
+            [self changeSubviewsAlpha:0];
+            
+        }] ;
+    }
+}
+- (void)smoothScrollUpWithContentY:(CGFloat)contentY
+{
+    //只有大于开始滚动的位置，才开始滚动导航条
+    if (contentY > _scrollStartPoint  ) {//开始移动导航条
+        
+        //需要改变的y值
+        CGFloat changeY =(contentY - _kvoScrollView.scrollDistance)*_scrollSpeed  ;
+        
+        if (changeY < 0) {
+            return ;
+        }
+
+        //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
+        CGFloat topOfY = _stopUpStateBar?NAV_STATE_HEIGHT:0 ;
+        
+        if ( changeY <= self.height - topOfY ) {
+
+            self.y = - changeY ;
+            
+            if (!_stopUpStateBar) {
+                return ;
+            }
+
+            if (changeY == self.height-NAV_STATE_HEIGHT) {
+                    [self changeSubviewsAlpha:0];
+            }
+            else if (changeY < self.height - NAV_STATE_HEIGHT){
+                    
+                CGFloat alpha = 1 - changeY/(self.height-NAV_STATE_HEIGHT) ;
+                [self changeSubviewsAlpha:alpha];
+            }
+            
+        }
+        else{
+            self.y = - self.height - topOfY ;
+        }
+    }
+}
+
+- (void)smoothScrollDownWithContentY:(CGFloat)contentY
+{
+    if (_kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
+        
+        self.isScrollingNavigaiton = YES ;
+        // NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - scrollContentY );
+        [UIView animateWithDuration:kAnimationDuring animations:^{
+            self.y = 0 ;
+        }completion:^(BOOL finished) {
+            self.isScrollingNavigaiton = NO ;
+            self.y = 0 ;
+            
+            if (_stopUpStateBar) {
+                [self changeSubviewsAlpha:1];
+            }
+            
+        }] ;
+    }
 }
 
 //改变子视图的透明度

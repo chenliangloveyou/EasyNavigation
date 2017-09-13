@@ -104,6 +104,10 @@
 
 - (NSArray *)dataArray
 {
+    //自动以返回
+    //返回的时候 页面视图下沉。
+    //拖动屏幕返回
+    //uiscrollview拖动返回
     if (nil == _dataArray) {
         _dataArray = @[@"无导航条",
                        @"渐变",
