@@ -10,6 +10,7 @@
 
 #import "EasyUtils.h"
 #import "UIView+EasyNavigationExt.h"
+#import "UIScrollView+EasyNavigationExt.h"
 
 #import "EasyNavigationOptions.h"
 
@@ -34,8 +35,15 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 
 @interface EasyNavigationView()
 {
+    clickCallback _stateBarTapCallback ;//导航栏点击回到
+    
     CGFloat _alphaStartChange ;//alpha改变的开始位置
     CGFloat _alphaEndChange   ;//alpha停止改变的位置
+    
+    CGFloat _scrollStartPoint ;//导航条滚动的起始点
+    CGFloat _scrollSpeed ;     //导航条滚动速度
+    
+    CGFloat _criticalPoint ;//导航条动画隐藏的临界点
     
     UIScrollView *_kvoScrollView ;//用于监听scrollview内容高度的改变
 }
@@ -61,6 +69,8 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 
 @property (nonatomic,strong)NSMutableDictionary *callbackDictionary ;//回调的数组
 
+
+@property (nonatomic,assign)BOOL isScrollingNavigaiton ;//是否正在滚动导航条
 @end
 
 @implementation EasyNavigationView
@@ -78,6 +88,8 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     if (self = [super initWithFrame:frame]) {
         
         self.backgroundColor = [UIColor clearColor];
+        
+        _isScrollingNavigaiton = NO ;
         
         _backGroundAlpha = self.options.backGroundAlpha ;
         
@@ -127,6 +139,38 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     titleView.center = CGPointMake(self.bounds.size.width/2 , NAV_STATE_HEIGHT+(self.bounds.size.height-NAV_STATE_HEIGHT)/2);
 }
 
+- (void)stateBarTapWithCallback:(clickCallback)callback
+{
+    NSAssert(callback, @"you should deal with this callback");
+    
+    if (callback) {
+        _stateBarTapCallback = [callback copy];
+    }
+    
+}
+- (void)removeStateBarCallback
+{
+    if (nil == _stateBarTapCallback) {
+        _stateBarTapCallback = nil ;
+    }
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+   
+}
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = touches.anyObject ;
+    CGPoint tapLocation = [touch locationInView:self];
+    NSLog(@"moved = %f  == %f",tapLocation.x,tapLocation.y);
+}
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = touches.anyObject ;
+    CGPoint tapLocation = [touch locationInView:self];
+    NSLog(@"%f  == %f",tapLocation.x,tapLocation.y);
+}
 - (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback
 {
     
@@ -300,42 +344,87 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 /**
  * 根据scrollview滚动，导航条隐藏或者展示.
  */
-- (void)navigationScrollStopStateBarWithScrollow:(UIScrollView *)scrollow
+- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed
 {
     _kvoScrollView = scrollow ;
-    
-    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+    _scrollSpeed = speed ;
+    _scrollStartPoint = startPoint ;
+    _kvoScrollView.scrollDistance = startPoint ;
+
+    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+
 }
 
-/**
- * scorllow滚动，导航栏跟着滚动，最终停在状态栏下
- */
-- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow
+- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint
 {
-    
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+    _kvoScrollView = scrollow ;
     
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     
-    CGFloat contentInsetY =_kvoScrollView.contentInset.top ;
-    CGFloat contentOffsetY = _kvoScrollView.contentOffset.y;
-    NSLog(@"offsetY %f contentInsetY %f",contentOffsetY,contentInsetY);
-    if (contentOffsetY + contentInsetY> _alphaStartChange){
-        CGFloat alpha = (contentOffsetY + contentInsetY) / _alphaEndChange ;
+    CGFloat scrollContentY = _kvoScrollView.contentInset.top + _kvoScrollView.contentOffset.y ;//scrollView 在y轴上滚动的距离
+    
+    if (scrollContentY > _alphaStartChange){
+        CGFloat alpha = scrollContentY / _alphaEndChange ;
         
-        NSLog(@"  alpha %f ",alpha);
-        //        self.alpha = alpha ;
-        [self setBackgroundAlpha:alpha];
+//        [self setBackgroundAlpha:alpha];
     }
     else{
-        [self setBackgroundAlpha:0];
+//        [self setBackgroundAlpha:0];
     }
+    
+    
+    CGFloat newPointY = [change[@"new"] CGPointValue].y ;
+    CGFloat oldPointY = [change[@"old"] CGPointValue].y ;
+    
+    ScrollDirection currentDuring = ScrollDirectionUnknow ;
+    
+    if ( newPointY >=  oldPointY ) {// 向上滚动
+        currentDuring = ScrollDirectionUp ;
+        
+        //只有大于开始滚动的位置，才开始滚动导航条
+        if (scrollContentY > _scrollStartPoint) {//开始移动导航条
+            CGFloat changeY =(scrollContentY - _kvoScrollView.scrollDistance)*_scrollSpeed  ;
+            NSLog(@"\n changeY = %f scrollDistance=%f ",changeY , _kvoScrollView.scrollDistance );
+            if (changeY >= 0) {
+                self.y = - changeY ;
+            }
+        }
+    }
+    else if ( newPointY < oldPointY ) {// 向下滚动
+        currentDuring = ScrollDirectionDown ;
+        
+        if (_kvoScrollView.scrollDistance - scrollContentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
+           
+            self.isScrollingNavigaiton = YES ;
+            NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - scrollContentY );
+            [UIView animateWithDuration:0.5 animations:^{
+                self.y = 0 ;
+            }completion:^(BOOL finished) {
+                self.isScrollingNavigaiton = NO ;
+                self.y = 0 ;
+            }] ;
+        }
+    }
+    
+    if (_kvoScrollView.direction != currentDuring) {
+        
+        NSLog(@"方向改变 %ld , 记住位置 %f",currentDuring , scrollContentY );
+        
+        if (_kvoScrollView.direction != ScrollDirectionUnknow) {
+            if (scrollContentY >= 0) {
+                _kvoScrollView.scrollDistance = scrollContentY ;
+            }
+        }
+        
+        _kvoScrollView.direction = currentDuring ;
+
+    }
+    
+    NSLog(@"方向：%ld 滚动距离：%f ",_kvoScrollView.direction,scrollContentY);
+    
 }
 
 #pragma mark - private
@@ -496,13 +585,13 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 
 - (CGFloat)navHeigth
 {
-    return self.bounds.size.height ;
+    return self.height ;
 }
 
 - (UILabel *)titleLabel
 {
     if (nil == _titleLabel) {
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, SCREEN_WIDTH-kTitleViewEdge*2 , self.bounds.size.height - NAV_STATE_HEIGHT)];
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, SCREEN_WIDTH-kTitleViewEdge*2 , self.height - NAV_STATE_HEIGHT)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
@@ -540,7 +629,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 - (UIView *)lineView
 {
     if (nil == _lineView) {
-        _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.bounds.size.height-0.5, self.bounds.size.width, 0.5)];
+        _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.height-0.5, self.width, 0.5)];
         _lineView.backgroundColor = self.options.navLineColor;
     }
     return _lineView ;
