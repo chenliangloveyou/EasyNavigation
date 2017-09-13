@@ -40,8 +40,10 @@
 //    [self.navigationView setBackgroundAlpha:0.0];
 //    [self.navigationView navigationAlphaSlowChangeWithScrollow:self.tableView start:NAV_HEIGHT end:NAV_HEIGHT*4];
     
-    [self.navigationView navigationScrollWithScrollow:self.tableView start:NAV_HEIGHT speed:1];
+//    [self.navigationView navigationScrollWithScrollow:self.tableView start:NAV_HEIGHT speed:1];
+//    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NAV_HEIGHT stopToStateBar:NO];
     
+    [self.navigationView navigationSmoothScroll:self.tableView start:NAV_HEIGHT speed:0.5 stopToStateBar:NO];
     [self.view addSubview:self.tableView];
 
 }
@@ -66,7 +68,7 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.textLabel.text = self.dataArray[indexPath.row%2];
+    cell.textLabel.text = self.dataArray[indexPath.row%self.dataArray.count];
     
     return cell ;
 }
@@ -104,7 +106,12 @@
 - (NSArray *)dataArray
 {
     if (nil == _dataArray) {
-        _dataArray = @[@"无导航条",@"渐变"];
+        _dataArray = @[@"无导航条",
+                       @"渐变",
+                       @"导航条滚动",
+                       @"导航条滚动(到statebar下面停止)",
+                       @"导航条超过一定距离动画滚动",
+                       @"导航条超过一定距离动画滚动(到statebar下面停止)"];
     }
     return _dataArray ;
 }

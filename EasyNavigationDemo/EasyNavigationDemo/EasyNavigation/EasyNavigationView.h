@@ -59,7 +59,7 @@ typedef void(^clickCallback)(UIView *view);
 
 #pragma mark - 视图滚动，导航条跟着变化
 /**
- * 根据scrollview的滚动，导航条慢慢渐变
+ * 根据scrollview的滚动，导航条慢慢变透明
  * startPoint alpha开始改变的坐标
  * endPoint alpha停止改变的坐标
  */
@@ -70,30 +70,19 @@ typedef void(^clickCallback)(UIView *view);
 /**
  * 根据scrollview滚动，导航条隐藏或者展示.
  */
-//- (void)navigationScrollStopStateBarWithScrollow:(UIScrollView *)scrollow ;
-
-/**
- * scorllow滚动，导航栏跟着滚动，最终停在状态栏下
- */
-//- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow animation:(BOOL)animation stateBar:(BOOL)stateBar ;
 
 /**
  * scrollow 需要监听的scrollview
  * startPoint 超过这个点才会开始操作导航条
  * speed 滚动速度
  */
-- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed ;
+- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStateBar:(BOOL)stopStateBar ;
 
 /**
  * 超过临界点 隐藏导航栏
+ * stopStateBar 停止到startBar下面
  */
-- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint ;
-//- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow stateBarStop:(BOOL)stateBarStop ;
-//- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow ;
-//- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow ;
-//- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow animation:(BOOL)animation stateBarStop:(BOOL)stateBarStop start:(CGFloat)startPoint end:(CGFloat)endPoint;
-
-
+- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStateBar:(BOOL)stopStateBar ;
 
 #pragma mark - 左边视图
 

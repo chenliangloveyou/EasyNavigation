@@ -21,6 +21,7 @@
 #define kViewMinWidth  44.0f //左右两边按钮，视图，最小的的宽度
 #define kViewEdge   2.0f //按钮之间的间距
 
+#define kAnimationDuring 0.3f //动画执行时间
 
 static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标示
 
@@ -44,6 +45,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     CGFloat _scrollSpeed ;     //导航条滚动速度
     
     CGFloat _criticalPoint ;//导航条动画隐藏的临界点
+    BOOL _stopToStateBar ;//动画后是否需要停止在stateBar下面
     
     UIScrollView *_kvoScrollView ;//用于监听scrollview内容高度的改变
 }
@@ -53,6 +55,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 
 @property (nonatomic,strong)UIView *backgroundView ;
 @property (nonatomic,strong)UIImageView *backgroundImageView ;
+
 
 @property (nonatomic,strong) UILabel *titleLabel ;
 
@@ -94,7 +97,6 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         _backGroundAlpha = self.options.backGroundAlpha ;
         
         [self addSubview:self.backgroundView];
-        [self addSubview:self.backgroundImageView] ;
         
         [self addSubview:self.titleLabel] ;
         [self addSubview:self.lineView];
@@ -344,21 +346,26 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 /**
  * 根据scrollview滚动，导航条隐藏或者展示.
  */
-- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed
+- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStateBar:(BOOL)stopStateBar
 {
     _kvoScrollView = scrollow ;
     _scrollSpeed = speed ;
     _scrollStartPoint = startPoint ;
+    _stopToStateBar = stopStateBar ;
     _kvoScrollView.scrollDistance = startPoint ;
 
     [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
 
 }
 
-- (void)navigationScrollWithScrollow:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint
+- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStateBar:(BOOL)stopStateBar
 {
     _kvoScrollView = scrollow ;
+    _criticalPoint = criticalPoint ;
+    _stopToStateBar = stopStateBar ;
     
+    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -374,7 +381,88 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     else{
 //        [self setBackgroundAlpha:0];
     }
+    /*
+
+    CGFloat newPointY = [change[@"new"] CGPointValue].y ;
+    CGFloat oldPointY = [change[@"old"] CGPointValue].y ;
     
+    ScrollDirection currentDuring = ScrollDirectionUnknow ;
+    
+    if ( newPointY >=  oldPointY ) {// 向上滚动
+        currentDuring = ScrollDirectionUp ;
+        
+        //只有大于开始滚动的位置，才开始滚动导航条
+        if (scrollContentY > _criticalPoint && scrollContentY - _kvoScrollView.scrollDistance > 20 &&  ! self.isScrollingNavigaiton) {//开始移动导航条
+          
+            self.isScrollingNavigaiton = YES ;
+            
+            [UIView animateWithDuration:kAnimationDuring animations:^{
+              
+                self.y = -(self.height - (_stopToStateBar?20:0));
+                
+            }completion:^(BOOL finished) {
+                self.isScrollingNavigaiton = NO ;
+                self.y = -(self.height - (_stopToStateBar?20:0)) ;
+                
+                for (UIView *subView in self.subviews) {
+                    if ([subView isEqual:self.backgroundView]) {
+                        continue ;
+                    }
+                    if (_backgroundImageView && [subView isEqual:self.backgroundImageView]) {
+                        continue ;
+                    }
+                    subView.alpha = 0 ;
+                }
+                
+            }] ;
+        }
+    }
+    else if ( newPointY < oldPointY ) {// 向下滚动
+        currentDuring = ScrollDirectionDown ;
+        
+        if (_kvoScrollView.scrollDistance - scrollContentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
+           
+            self.isScrollingNavigaiton = YES ;
+            NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - scrollContentY );
+            [UIView animateWithDuration:kAnimationDuring animations:^{
+                self.y = 0 ;
+//                self.alpha = 1 ;
+
+            }completion:^(BOOL finished) {
+                self.isScrollingNavigaiton = NO ;
+                self.y = 0 ;
+//                self.alpha = 1 ;
+
+                for (UIView *subView in self.subviews) {
+                    if ([subView isEqual:self.backgroundView]) {
+                        continue ;
+                    }
+                    if (_backgroundImageView && [subView isEqual:self.backgroundImageView]) {
+                        continue ;
+                    }
+                    subView.alpha = 1 ;
+                }
+            }] ;
+        }
+    }
+    
+    if (_kvoScrollView.direction != currentDuring) {
+        
+        NSLog(@"方向改变 %ld , 记住位置 %f",currentDuring , scrollContentY );
+        
+        if (_kvoScrollView.direction != ScrollDirectionUnknow) {
+            if (scrollContentY >= 0) {
+                _kvoScrollView.scrollDistance = scrollContentY ;
+            }
+        }
+        
+        _kvoScrollView.direction = currentDuring ;
+
+    }
+    
+    NSLog(@"方向：%ld 滚动距离：%f ",_kvoScrollView.direction,scrollContentY);
+    */
+
     
     CGFloat newPointY = [change[@"new"] CGPointValue].y ;
     CGFloat oldPointY = [change[@"old"] CGPointValue].y ;
@@ -397,10 +485,10 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         currentDuring = ScrollDirectionDown ;
         
         if (_kvoScrollView.scrollDistance - scrollContentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
-           
+            
             self.isScrollingNavigaiton = YES ;
             NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - scrollContentY );
-            [UIView animateWithDuration:0.5 animations:^{
+            [UIView animateWithDuration:kAnimationDuring animations:^{
                 self.y = 0 ;
             }completion:^(BOOL finished) {
                 self.isScrollingNavigaiton = NO ;
@@ -420,10 +508,11 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         }
         
         _kvoScrollView.direction = currentDuring ;
-
+        
     }
     
     NSLog(@"方向：%ld 滚动距离：%f ",_kvoScrollView.direction,scrollContentY);
+    
     
 }
 
@@ -566,13 +655,19 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 - (void)setBackgroundImage:(UIImage *)backgroundImage
 {
     self.backgroundImageView.image = backgroundImage ;
+
 }
 - (void)setBackgroundAlpha:(CGFloat)alpha
 {
     _backGroundAlpha = alpha ;
-    self.backgroundImageView.alpha = alpha ;
+    
     self.backgroundView.alpha = alpha ;
     self.lineView.alpha = alpha;
+    
+    if (_backgroundImageView) {
+        self.backgroundImageView.alpha = alpha ;
+    }
+  
 }
 
 
@@ -588,17 +683,8 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     return self.height ;
 }
 
-- (UILabel *)titleLabel
-{
-    if (nil == _titleLabel) {
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, SCREEN_WIDTH-kTitleViewEdge*2 , self.height - NAV_STATE_HEIGHT)];
-        _titleLabel.backgroundColor = [UIColor clearColor];
-        _titleLabel.font = self.options.titleFont ;
-        _titleLabel.textColor = self.options.titleColor ;
-        _titleLabel.textAlignment = NSTextAlignmentCenter ;
-    }
-    return _titleLabel ;
-}
+
+
 - (UIView *)backgroundView
 {
     if (nil == _backgroundView) {
@@ -614,8 +700,26 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         _backgroundImageView = [[UIImageView alloc]initWithFrame:self.bounds];
         _backgroundImageView.backgroundColor = [UIColor clearColor];
         _backgroundImageView.alpha = _backGroundAlpha ;
+        
+        [self insertSubview:_backgroundImageView aboveSubview:self.backgroundView];
     }
     return _backgroundImageView ;
+}
+- (void)stateBarTap
+{
+
+}
+
+- (UILabel *)titleLabel
+{
+    if (nil == _titleLabel) {
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, SCREEN_WIDTH-kTitleViewEdge*2 , self.height - NAV_STATE_HEIGHT)];
+        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.font = self.options.titleFont ;
+        _titleLabel.textColor = self.options.titleColor ;
+        _titleLabel.textAlignment = NSTextAlignmentCenter ;
+    }
+    return _titleLabel ;
 }
 
 - (UIViewController *)viewController
