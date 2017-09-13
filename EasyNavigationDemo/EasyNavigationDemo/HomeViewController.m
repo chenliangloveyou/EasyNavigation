@@ -40,7 +40,6 @@
 //    [self.navigationView setBackgroundAlpha:0.0];
 //    [self.navigationView navigationAlphaSlowChangeWithScrollow:self.tableView start:NAV_HEIGHT end:NAV_HEIGHT*4];
     
-//    [self.navigationView navigationScrollWithScrollow:self.tableView start:NAV_HEIGHT speed:1];
 //    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NAV_HEIGHT stopToStateBar:NO];
     
     [self.navigationView navigationSmoothScroll:self.tableView start:NAV_HEIGHT speed:0.5 stopToStateBar:NO];
