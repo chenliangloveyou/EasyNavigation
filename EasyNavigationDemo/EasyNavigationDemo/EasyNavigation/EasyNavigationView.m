@@ -473,7 +473,7 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         currentDuring = ScrollDirectionUp ;
         
         //只有大于开始滚动的位置，才开始滚动导航条
-        if (scrollContentY > _scrollStartPoint) {//开始移动导航条
+        if (scrollContentY > _scrollStartPoint  ) {//开始移动导航条
             CGFloat changeY =(scrollContentY - _kvoScrollView.scrollDistance)*_scrollSpeed  ;
             NSLog(@"\n changeY = %f scrollDistance=%f ",changeY , _kvoScrollView.scrollDistance );
             if (changeY >= 0) {
@@ -508,7 +508,6 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
         }
         
         _kvoScrollView.direction = currentDuring ;
-        
     }
     
     NSLog(@"方向：%ld 滚动距离：%f ",_kvoScrollView.direction,scrollContentY);
