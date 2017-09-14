@@ -9,9 +9,8 @@
 
 #import "UIViewController+EasyNavigationExt.h"
 
+#import "EasyNavigationController.h"
 #import <objc/runtime.h>
-
-NSString *const GKViewControllerPropertyChangedNotification = @"GKViewControllerPropertyChangedNotification";
 
 
 @implementation UIViewController (EasyNavigationExt)
@@ -25,7 +24,7 @@ NSString *const GKViewControllerPropertyChangedNotification = @"GKViewController
 {
     objc_setAssociatedObject(self, @selector(disableSlidingBackGesture), @(disableSlidingBackGesture), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
-     [[NSNotificationCenter defaultCenter] postNotificationName:GKViewControllerPropertyChangedNotification object:@{@"viewController": self}];
+    [self dealSlidingGestureDelegate];
 }
 
 - (BOOL)customBackGestureEnabel
@@ -36,7 +35,7 @@ NSString *const GKViewControllerPropertyChangedNotification = @"GKViewController
 {
     objc_setAssociatedObject(self, @selector(customBackGestureEnabel), @(customBackGestureEnabel), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:GKViewControllerPropertyChangedNotification object:@{@"viewController": self}];
+    [self dealSlidingGestureDelegate];
 
 }
 
@@ -63,15 +62,39 @@ NSString *const GKViewControllerPropertyChangedNotification = @"GKViewController
 - (EasyNavigationView *)navigationView
 {
     return objc_getAssociatedObject(self, _cmd);
-    
 }
 - (void)setNavigationView:(EasyNavigationView *)navigationView
 {
     objc_setAssociatedObject(self, @selector(navigationView), navigationView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
 }
 
-
+- (void)dealSlidingGestureDelegate
+{
+    EasyNavigationController *navController = (EasyNavigationController *)self.navigationController ;
+    if (nil != navController) {
+        if (self.disableSlidingBackGesture) {
+            navController.interactivePopGestureRecognizer.delegate = nil ;
+            navController.interactivePopGestureRecognizer.enabled = NO ;
+        }
+        else{
+            
+            navController.interactivePopGestureRecognizer.delegate = navController ;
+            navController.interactivePopGestureRecognizer.enabled = YES ;
+            
+            if (self.customBackGestureEnabel) {
+                
+                [navController.interactivePopGestureRecognizer.view addGestureRecognizer:navController.customBackGesture];
+                
+                navController.customBackGesture.delegate = navController.customBackGestureDelegate ;
+                
+                navController.interactivePopGestureRecognizer.delegate = nil;
+                navController.interactivePopGestureRecognizer.enabled  = NO;
+            }
+            
+        }
+    }
+    
+}
 @end
 
 

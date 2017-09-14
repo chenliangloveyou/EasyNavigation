@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-extern NSString *const GKViewControllerPropertyChangedNotification;
-
 
 @class EasyNavigationViewController ;
 
@@ -32,5 +30,9 @@ extern NSString *const GKViewControllerPropertyChangedNotification;
 //当前的导航条
 @property (nonatomic,strong)EasyNavigationView *navigationView ;
 
+/**
+ * 处理侧滑返回手势
+ */
+- (void)dealSlidingGestureDelegate ;
 
 @end

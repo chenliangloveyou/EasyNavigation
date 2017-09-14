@@ -24,12 +24,14 @@
 #import "NavAnimationHiden_1_ViewController.h"
 
 #import "NavSlidingControlViewController.h"
+#import "NavScrollIncludeViewController.h"
 
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView ;
 @property (nonatomic,strong)NSArray *dataArray ;
+@property (nonatomic,strong)NSArray *navDataArray ;
 
 @end
 
@@ -45,10 +47,7 @@
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
     
-    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:^(UIView *view) {
-        NavOperateViewController *op = [[NavOperateViewController alloc]init];
-        [weakself.navigationController pushViewController:op animated:YES];
-    }];
+    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
     
     
     [self.view addSubview:self.tableView];
@@ -59,50 +58,38 @@
 
 #pragma mark - Tableview datasource
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.dataArray.count ;
+}
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataArray.count*20 ;
+    return [self.dataArray[section] count];
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 50 ;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID" forIndexPath:indexPath];
     cell.accessoryType = UITableViewCellStyleValue1;
-    cell.textLabel.text = self.dataArray[indexPath.row%self.dataArray.count];
+    cell.textLabel.textColor = [UIColor blueColor];
+    cell.textLabel.text = self.dataArray[indexPath.section][indexPath.row];
     
     return cell ;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    Class tempVC = nil ;
-    switch (indexPath.row) {
-        case 0: tempVC = [NavEmptyViewController class]; break;
-        case 1:  tempVC =[NavTransparentViewController class]; break ;
-        case 2: tempVC  = [NavAlphaChangeViewController class]; break ;
-        case 3: tempVC = [NavSmoothHidenViewController class]; break ;
-        case 4: tempVC = [NavSmoothHiden_1_ViewController class]; break ;
-        case 5: tempVC = [NavAnimationHidenViewController class]; break ;
-        case 6: tempVC = [NavAnimationHiden_1_ViewController class]; break ;
-        case 7: tempVC = [NavSlidingControlViewController class]; break ;
-        default:
-        {
-            SecondViewController *secondVC =[[SecondViewController alloc]init];
-            EasyNavigationController *tempNva = (EasyNavigationController *)self.navigationController ;
-            [tempNva pushViewController:secondVC animated:YES];
-        }return ;
-    }
+    Class tempVC = self.navDataArray[indexPath.section][indexPath.row] ;
     BaseViewController *vc = [[tempVC alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
-   
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 30 ;
+}
+
+#pragma mark - getter/setter
 - (UITableView *)tableView
 {
     if (nil == _tableView) {
@@ -126,18 +113,31 @@
     //拖动屏幕返回
     //uiscrollview拖动返回
     if (nil == _dataArray) {
-        _dataArray = @[@"无导航条",
-                       @"透明",
-                       @"导航条渐变",
-                       @"导航条滚动隐藏",
-                       @"导航条滚动隐藏(stateBar下停止)",
-                       @"导航条动画隐藏",
-                       @"导航条动画隐藏(stateBar下停止)",
-                       @"自定义侧滑返回手势"];
+        _dataArray = @[@[@"导航栏操作", @"无导航条", @"透明", @"导航条渐变"],
+                       @[@"导航条滚动隐藏", @"导航条滚动隐藏(stateBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(stateBar下停止)"],
+                       @[@"禁用系统返回手势", @"自定义返回手势", @"嵌套scrollview返回"]];
     }
     return _dataArray ;
 }
-
+- (NSArray *)navDataArray
+{
+    if (nil == _navDataArray) {
+        _navDataArray = @[
+                          @[[NavOperateViewController class],
+                            [NavEmptyViewController class],
+                            [NavTransparentViewController class],
+                            [NavAlphaChangeViewController class]],
+                          @[[NavSmoothHidenViewController class],
+                            [NavSmoothHiden_1_ViewController class],
+                            [NavAnimationHidenViewController class],
+                            [NavAnimationHiden_1_ViewController class]],
+                          @[[NavSlidingControlViewController class],
+                            [SecondViewController class],
+                            [NavScrollIncludeViewController class]],
+                          ];
+    }
+    return _navDataArray ;
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

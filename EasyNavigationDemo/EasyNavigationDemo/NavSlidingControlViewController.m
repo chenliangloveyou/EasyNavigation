@@ -12,6 +12,7 @@
 @property (weak, nonatomic) IBOutlet UISwitch *slidingSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *customSlidingSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *customTextField;
+@property (weak, nonatomic) IBOutlet UIView *coverView;
 
 @end
 
@@ -37,6 +38,14 @@
     if ([sender isEqual:self.slidingSwitch]) {
         
         self.disableSlidingBackGesture = !self.slidingSwitch.isOn ;
+        
+        self.coverView.hidden = self.slidingSwitch.isOn ;
+        if (!self.slidingSwitch.isOn) {
+            [self.customSlidingSwitch setOn:NO];
+            self.customBackGestureEnabel = NO ;
+            self.customBackGestureEdge = 0 ;
+            self.customTextField.text = @"";
+        }
     }
     else if ([sender isEqual:self.customSlidingSwitch]){
     

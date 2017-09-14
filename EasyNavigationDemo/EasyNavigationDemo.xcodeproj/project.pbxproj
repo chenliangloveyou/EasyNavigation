@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		682F9E8B1F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9E8A1F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.m */; };
+		682F9E8E1F6AD6E400283DC6 /* NavScrollIncludeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9E8D1F6AD6E400283DC6 /* NavScrollIncludeViewController.m */; };
 		6876E75B1F5858CE00DEDFE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75A1F5858CE00DEDFE0 /* main.m */; };
 		6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */; };
 		6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7601F5858CE00DEDFE0 /* ViewController.m */; };
@@ -59,6 +61,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		682F9E891F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyCustomBackGestureDelegate.h; sourceTree = "<group>"; };
+		682F9E8A1F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyCustomBackGestureDelegate.m; sourceTree = "<group>"; };
+		682F9E8C1F6AD6E400283DC6 /* NavScrollIncludeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavScrollIncludeViewController.h; sourceTree = "<group>"; };
+		682F9E8D1F6AD6E400283DC6 /* NavScrollIncludeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavScrollIncludeViewController.m; sourceTree = "<group>"; };
 		6876E7561F5858CE00DEDFE0 /* EasyNavigationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyNavigationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E75A1F5858CE00DEDFE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6876E75C1F5858CE00DEDFE0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -194,6 +200,8 @@
 				AD0FA1001F6A1FFB00F8AC1A /* NavAnimationHidenViewController.m */,
 				AD0FA1021F6A200600F8AC1A /* NavAnimationHiden_1_ViewController.h */,
 				AD0FA1031F6A200600F8AC1A /* NavAnimationHiden_1_ViewController.m */,
+				682F9E8C1F6AD6E400283DC6 /* NavScrollIncludeViewController.h */,
+				682F9E8D1F6AD6E400283DC6 /* NavScrollIncludeViewController.m */,
 				AD0FA10D1F6A6B3500F8AC1A /* NavSlidingControlViewController.h */,
 				AD0FA10E1F6A6B3500F8AC1A /* NavSlidingControlViewController.m */,
 				AD0FA10F1F6A6B3500F8AC1A /* NavSlidingControlViewController.xib */,
@@ -254,6 +262,8 @@
 				6876E79C1F66D88E00DEDFE0 /* EasyNavigationOptions.m */,
 				6876E7951F65810E00DEDFE0 /* EasyNavigationController.h */,
 				6876E7961F65810E00DEDFE0 /* EasyNavigationController.m */,
+				682F9E891F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.h */,
+				682F9E8A1F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.m */,
 				AD0FA0E41F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.h */,
 				AD0FA0E51F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m */,
 				ADDE98EF1F6661DD002C7779 /* UIView+EasyNavigationExt.h */,
@@ -422,11 +432,13 @@
 				AD0FA0F51F6A169B00F8AC1A /* NavTransparentViewController.m in Sources */,
 				AD0FA0FE1F6A1FED00F8AC1A /* NavSmoothHiden_1_ViewController.m in Sources */,
 				6876E7971F65810E00DEDFE0 /* EasyNavigationController.m in Sources */,
+				682F9E8B1F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.m in Sources */,
 				AD0FA0FB1F6A1FD200F8AC1A /* NavSmoothHidenViewController.m in Sources */,
 				ADDE98EE1F624BE0002C7779 /* EasyWarpNavigationViewController.m in Sources */,
 				ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */,
 				AD0FA0EF1F6A163900F8AC1A /* NavEmptyViewController.m in Sources */,
 				ADDE98E81F614FE8002C7779 /* EasyWarpViewController.m in Sources */,
+				682F9E8E1F6AD6E400283DC6 /* NavScrollIncludeViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

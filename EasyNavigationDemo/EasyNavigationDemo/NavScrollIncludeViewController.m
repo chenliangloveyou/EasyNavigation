@@ -1,23 +1,26 @@
 //
-//  NavEmptyViewController.m
+//  NavScrollIncludeViewController.m
 //  EasyNavigationDemo
 //
-//  Created by nf on 2017/9/14.
+//  Created by Mr_Chen on 17/9/14.
 //  Copyright © 2017年 chenliangloveyou. All rights reserved.
 //
 
-#import "NavEmptyViewController.h"
+#import "NavScrollIncludeViewController.h"
+#import "UIViewController+EasyNavigationExt.h"
 
-@interface NavEmptyViewController ()
+@interface NavScrollIncludeViewController ()
 
 @end
 
-@implementation NavEmptyViewController
+@implementation NavScrollIncludeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-     self.navigationView = nil ;
+    
+    [self.navigationView setTitle:@"嵌套scrollview返回"];
+    
+    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {
