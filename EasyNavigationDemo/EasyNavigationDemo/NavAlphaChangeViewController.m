@@ -19,7 +19,7 @@
     
     [self.navigationView setTitle:@"导航条颜色渐变"];
     
-    [self.navigationView setBackgroundAlpha:0.0];
+    [self.navigationView setNavigationBackgroundAlpha:0.0];
     
 #if 1//以下两个2选1
     [self.navigationView navigationAlphaSlowChangeWithScrollow:self.tableView];

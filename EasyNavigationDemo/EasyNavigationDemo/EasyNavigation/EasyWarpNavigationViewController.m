@@ -41,7 +41,7 @@
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated {
     
     viewController.vcEasyNavController = (EasyNavigationViewController *)self.navigationController;
-    viewController.vcBackGestureEnabled = viewController.vcEasyNavController.vcBackGestureEnabled;
+//    viewController.vcBackGestureEnabled = viewController.vcEasyNavController.vcBackGestureEnabled;
     
     UIImage *backButtonImage = viewController.vcEasyNavController.backButtonImage;
     

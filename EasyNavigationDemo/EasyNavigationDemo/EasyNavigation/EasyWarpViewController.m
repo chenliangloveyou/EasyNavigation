@@ -63,10 +63,10 @@ static NSValue *easyTabBarRectValue;
     }
 }
 
-- (BOOL)backGestureEnabled
-{
-    return self.rootViewController.vcBackGestureEnabled ;
-}
+//- (BOOL)backGestureEnabled
+//{
+//    return self.rootViewController.vcBackGestureEnabled ;
+//}
 - (BOOL)hidesBottomBarWhenPushed
 {
     return self.rootViewController.hidesBottomBarWhenPushed ;

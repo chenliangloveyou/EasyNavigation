@@ -12,17 +12,95 @@
 #import "EasyWarpViewController.h"
 #import "EasyNavigationView.h"
 #import "UIViewController+EasyNavigationExt.h"
+#import "UIView+EasyNavigationExt.h"
 
-@interface EasyNavigationController ()<UINavigationControllerDelegate>
+@interface customBackGestureDelegate : NSObject<UIGestureRecognizerDelegate>
 
-//@property (nonatomic,strong)NSMutableDictionary *navBarDictionary ;//每个页面对应的导航条
-//@property (nonatomic,strong)NSMutableArray *navBarArray ;
+@property (nonatomic,weak)EasyNavigationController *navController ;
+
+@property (nonatomic,weak)id systemGestureTarget ;
+@end
+
+@implementation customBackGestureDelegate
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    
+    // 没有开启自动以返回
+    UIViewController *topViewController = self.navController.topViewController;
+    if (!topViewController.customBackGestureEnabel){
+    return NO;
+    }
+    
+    // 正在做过渡动画
+    if ([[self.navController valueForKey:@"_isTransitioning"] boolValue]){
+        return NO;
+    }
+    
+    // 是否是自定义手势
+    if (![gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
+        return  NO;
+    }
+    
+    UIPanGestureRecognizer *customGesture = (UIPanGestureRecognizer *)gestureRecognizer;
+    
+    // 手势所在视图的速度
+    CGPoint velocity = [customGesture velocityInView:customGesture.view];
+    if (velocity.x < 0) {
+        return NO;
+    }
+
+    // 手势所在的起始点
+    CGPoint startPoint = [customGesture locationInView:customGesture.view];
+    CGFloat allowMax  = topViewController.customBackGestureEdge;
+
+    if (topViewController.customBackGestureEdge > 0 && startPoint.x > allowMax  ) {
+        return NO;
+    }
+    
+    // 获取系统手势的操作
+    SEL action = NSSelectorFromString(@"handleNavigationTransition:");
+    
+    // 把系统侧滑的手势操作给自定义的手势
+    [gestureRecognizer addTarget:self.systemGestureTarget action:action];
+    
+    return YES;
+}
+
+
+@end
+
+@interface EasyNavigationController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
+
 
 @property (nonatomic,strong)UINavigationBar *tempNavBar ;
+
+@property (nonatomic,strong)UIPanGestureRecognizer *customBackGesture ;//自定义侧滑返回
+
+@property (nonatomic,strong)customBackGestureDelegate *customBackGestureDelegate ;//自定义返回的代理
+@property (nonatomic,weak)id systemGestureTarget ;
+
 @end
 
 @implementation EasyNavigationController
 
+- (UIPanGestureRecognizer *)customBackGesture
+{
+    if (nil == _customBackGesture) {
+        _customBackGesture = [[UIPanGestureRecognizer alloc]init];
+        _customBackGesture.maximumNumberOfTouches = 1 ;
+    }
+    return _customBackGesture ;
+}
+- (customBackGestureDelegate *)customBackGestureDelegate
+{
+    if (nil == _customBackGestureDelegate) {
+        _customBackGestureDelegate = [[customBackGestureDelegate alloc]init];
+        _customBackGestureDelegate.navController = self ;
+        _customBackGestureDelegate.systemGestureTarget = self.systemGestureTarget ;
+    }
+    return _customBackGestureDelegate ;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,6 +110,9 @@
     self.navigationBar.hidden = YES ;
     
     self.delegate = self ;
+
+    self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
+    
 }
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController
 {
@@ -43,6 +124,33 @@
 //    [self.navigationController setValue:[[EasyNavigationView alloc]init] forKeyPath:@"navigationBar"];
 
     return self ;
+}
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+//    self.topViewController = viewController ;
+    // 移除全屏滑动手势，重新处理手势
+    if ([self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.systemGestureTarget]) {
+        [self.interactivePopGestureRecognizer.view removeGestureRecognizer:self.systemGestureTarget];
+    }
+   
+    if (viewController.disableSlidingBackGesture) {
+        self.interactivePopGestureRecognizer.delegate = nil ;
+        self.interactivePopGestureRecognizer.enabled = NO ;
+    }
+    else{
+       
+        if (viewController.customBackGestureEnabel) {
+
+            [self.interactivePopGestureRecognizer.view addGestureRecognizer:self.customBackGesture];
+            
+            self.customBackGesture.delegate = self.customBackGestureDelegate ;
+            
+            self.interactivePopGestureRecognizer.delegate = nil;
+            self.interactivePopGestureRecognizer.enabled  = NO;
+        }
+        
+    }
+   
 }
 //- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
 //{
@@ -102,7 +210,7 @@
     
     kWeakSelf(self)
     if (self.viewControllers.count > 0) {
-        UIImage *img =[UIImage imageNamed:@"back@2x.png"] ;
+        UIImage *img =[UIImage imageNamed:@"nav_back_btn@2x.png"] ;
         [viewController.navigationView addLeftButtonWithImage:img  clickCallBack:^(UIView *view) {
             [weakself popViewControllerAnimated:YES];
         }];

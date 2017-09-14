@@ -13,14 +13,34 @@
 
 @implementation UIViewController (EasyNavigationExt)
 
-- (BOOL)vcBackGestureEnabled
+
+- (BOOL)disableSlidingBackGesture
+{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+- (void)setDisableSlidingBackGesture:(BOOL)disableSlidingBackGesture
+{
+    objc_setAssociatedObject(self, @selector(disableSlidingBackGesture), @(disableSlidingBackGesture), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (BOOL)customBackGestureEnabel
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue] ;
 }
-- (void)setVcBackGestureEnabled:(BOOL)vcBackGestureEnabled
+- (void)setCustomBackGestureEnabel:(BOOL)customBackGestureEnabel
 {
-    objc_setAssociatedObject(self, @selector(vcBackGestureEnabled), @(vcBackGestureEnabled), OBJC_ASSOCIATION_RETAIN);
+    objc_setAssociatedObject(self, @selector(customBackGestureEnabel), @(customBackGestureEnabel), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
+- (CGFloat)customBackGestureEdge
+{
+    return [objc_getAssociatedObject(self, _cmd) floatValue] ;
+}
+- (void)setCustomBackGestureEdge:(CGFloat)customBackGestureEdge
+{
+    objc_setAssociatedObject(self, @selector(customBackGestureEdge), @(customBackGestureEdge), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 
 - (EasyNavigationViewController *)vcEasyNavController
 {

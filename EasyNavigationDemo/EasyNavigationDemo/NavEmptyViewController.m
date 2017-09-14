@@ -18,6 +18,8 @@
     [super viewDidLoad];
 
      self.navigationView = nil ;
+    
+    self.disableSlidingBackGesture = YES ;
 }
 
 - (void)didReceiveMemoryWarning {

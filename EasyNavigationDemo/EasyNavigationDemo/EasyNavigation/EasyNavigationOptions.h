@@ -19,6 +19,8 @@
 @property (nonatomic,strong)UIColor *navBackGroundColor ;
 @property (nonatomic,strong)UIColor *navLineColor ;
 
+@property (nonatomic,strong)UIImage *navBackgroundImage ;
+
 @property (nonatomic,strong)UIFont  *titleFont ;//title的字体大小
 @property (nonatomic,strong)UIColor *titleColor ;//title的字体颜色
 

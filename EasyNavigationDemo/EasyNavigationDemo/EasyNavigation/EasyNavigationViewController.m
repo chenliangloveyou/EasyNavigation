@@ -74,24 +74,24 @@
         isRootVC = YES ;
     }
     
-    if (viewController.vcBackGestureEnabled) {
-        
-        if (isRootVC) {
-            [self.view removeGestureRecognizer:self.backGesture];
-        }
-        else{
-            [self.view addGestureRecognizer:self.backGesture];
-        }
-        
-        self.interactivePopGestureRecognizer.delegate = self.backGestureDelegate ;
-        self.interactivePopGestureRecognizer.enabled = NO ;
-    }
-    else{
-        
-        [self.view removeGestureRecognizer:self.backGesture];
-        self.interactivePopGestureRecognizer.delegate = self ;
-        self.interactivePopGestureRecognizer.enabled = !isRootVC ;
-    }
+//    if (viewController.vcBackGestureEnabled) {
+//        
+//        if (isRootVC) {
+//            [self.view removeGestureRecognizer:self.backGesture];
+//        }
+//        else{
+//            [self.view addGestureRecognizer:self.backGesture];
+//        }
+//        
+//        self.interactivePopGestureRecognizer.delegate = self.backGestureDelegate ;
+//        self.interactivePopGestureRecognizer.enabled = NO ;
+//    }
+//    else{
+//        
+//        [self.view removeGestureRecognizer:self.backGesture];
+//        self.interactivePopGestureRecognizer.delegate = self ;
+//        self.interactivePopGestureRecognizer.enabled = !isRootVC ;
+//    }
 }
 
 
@@ -238,7 +238,7 @@
     }
     
     viewController.vcEasyNavController = (EasyNavigationViewController *)self.navigationController;
-    viewController.vcBackGestureEnabled = viewController.vcEasyNavController.backGestureEnabled;
+//    viewController.vcBackGestureEnabled = viewController.vcEasyNavController.backGestureEnabled;
     
     UIImage *backButtonImage = viewController.vcEasyNavController.backButtonImage;
     

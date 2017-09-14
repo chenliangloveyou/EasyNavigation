@@ -13,6 +13,8 @@
 #import "EasyNavigationController.h"
 #import "EasyUtils.h"
 
+#import "NavOperateViewController.h"
+
 #import "NavEmptyViewController.h"
 #import "NavTransparentViewController.h"
 #import "NavAlphaChangeViewController.h"
@@ -41,9 +43,11 @@
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
     
-    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
+    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:^(UIView *view) {
+        NavOperateViewController *op = [[NavOperateViewController alloc]init];
+        [weakself.navigationController pushViewController:op animated:YES];
+    }];
     
-    [self.navigationView setBackgroundImage:kImage(@"nav_background_image.png")];
     
     [self.view addSubview:self.tableView];
     
@@ -75,61 +79,26 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    Class tempVC = nil ;
     switch (indexPath.row) {
-        case 0:
-        {
-            NavEmptyViewController *firstVC = [[NavEmptyViewController alloc ]init];
-            [self.navigationController pushViewController:firstVC animated:YES];
-        }break;
-        case 1:
-        {
-            NavTransparentViewController  *transVC =[[NavTransparentViewController alloc]init];
-            [self.navigationController pushViewController:transVC animated:YES];
-        }break ;
-        case 2:
-        {
-            NavAlphaChangeViewController *alphaVC = [[NavAlphaChangeViewController alloc]init];
-            [self.navigationController pushViewController:alphaVC animated:YES];
-        }break ;
-        case 3:
-        {
-            NavSmoothHidenViewController *alphaVC = [[NavSmoothHidenViewController alloc]init];
-            [self.navigationController pushViewController:alphaVC animated:YES];
-        }break ;
-        case 4:
-        {
-            NavSmoothHiden_1_ViewController *alphaVC = [[NavSmoothHiden_1_ViewController alloc]init];
-            [self.navigationController pushViewController:alphaVC animated:YES];
-        }break ;
-        case 5:
-        {
-            NavAnimationHidenViewController *alphaVC = [[NavAnimationHidenViewController alloc]init];
-            [self.navigationController pushViewController:alphaVC animated:YES];
-        }break ;
-        case 6:
-        {
-            NavAnimationHiden_1_ViewController *alphaVC = [[NavAnimationHiden_1_ViewController alloc]init];
-            [self.navigationController pushViewController:alphaVC animated:YES];
-        }break ;
-        case 7:
-        {
-            NavAlphaChangeViewController *alphaVC = [[NavAlphaChangeViewController alloc]init];
-            [self.navigationController pushViewController:alphaVC animated:YES];
-        }break ;
+        case 0: tempVC = [NavEmptyViewController class]; break;
+        case 1:  tempVC =[NavTransparentViewController class]; break ;
+        case 2: tempVC  = [NavAlphaChangeViewController class]; break ;
+        case 3: tempVC = [NavSmoothHidenViewController class]; break ;
+        case 4: tempVC = [NavSmoothHiden_1_ViewController class]; break ;
+        case 5: tempVC = [NavAnimationHidenViewController class]; break ;
+        case 6: tempVC = [NavAnimationHiden_1_ViewController class]; break ;
+        
         default:
         {
             SecondViewController *secondVC =[[SecondViewController alloc]init];
             EasyNavigationController *tempNva = (EasyNavigationController *)self.navigationController ;
             [tempNva pushViewController:secondVC animated:YES];
-        }
-            break;
+        }return ;
     }
+    BaseViewController *vc = [[tempVC alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
    
-    //    [self presentViewController:secondVC animated:YES completion:nil];
-    
-    //    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
-    //    view.backgroundColor = [UIColor redColor];
-    //    [self.view addSubview:view];
 }
 
 - (UITableView *)tableView
@@ -161,7 +130,8 @@
                        @"导航条滚动隐藏",
                        @"导航条滚动隐藏(stateBar下停止)",
                        @"导航条动画隐藏",
-                       @"导航条动画隐藏(stateBar下停止)",];
+                       @"导航条动画隐藏(stateBar下停止)",
+                       @"自定义侧滑返回手势"];
     }
     return _dataArray ;
 }

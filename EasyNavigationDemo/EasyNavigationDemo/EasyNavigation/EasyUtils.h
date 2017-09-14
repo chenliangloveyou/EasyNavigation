@@ -64,6 +64,11 @@
 #define kStrongSelf(type)__strong typeof(type)type = weak##type;
 
 
+/**打印****/
+#define ISSHOWLOG 1
+#define EasyLog(fmt, ...) if(ISSHOWLOG) { NSLog(fmt,##__VA_ARGS__); }
+
+
 @interface EasyUtils : NSObject
 
 //根据颜色创建一个图片

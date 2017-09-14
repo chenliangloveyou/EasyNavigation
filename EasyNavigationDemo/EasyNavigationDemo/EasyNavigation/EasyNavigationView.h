@@ -38,9 +38,10 @@ typedef void(^clickCallback)(UIView *view);
 @property (nonatomic,assign,readonly)CGFloat navHeigth ;
 
 
-- (void)setBackgroundImage:(UIImage *)backgroundImage ;
+- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage ;
 
-- (void)setBackgroundAlpha:(CGFloat)alpha ;
+- (void)setNavigationBackgroundAlpha:(CGFloat)alpha ;
+- (void)setNavigationBackgroundColor:(UIColor *)color ;
 
 - (void)setTitle:(NSString *)title ;
 - (void)addtitleView:(UIView *)titleView ;

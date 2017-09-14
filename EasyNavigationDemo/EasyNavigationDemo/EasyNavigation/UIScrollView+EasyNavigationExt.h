@@ -21,7 +21,7 @@ typedef NS_ENUM(NSInteger ,ScrollDirection) {
 @property (nonatomic, assign)ScrollDirection direction;//开始改变方向标
 @property (nonatomic, assign)float scrollDistance ;//开始改变方向时scrollview的距离
 
-@property (nonatomic , assign)BOOL isScrolling ; //是否正在动画
+//@property (nonatomic , assign)BOOL isScrolling ; //是否正在动画
 
 
 @property (nonatomic, assign) BOOL enableDirection;

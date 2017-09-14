@@ -18,7 +18,10 @@
     [super viewDidLoad];
 
     [self.navigationView setTitle:@"透明导航条"];
-    [self.navigationView setBackgroundAlpha:0];
+    [self.navigationView setNavigationBackgroundAlpha:0];
+    
+    self.customBackGestureEnabel = YES ;
+    self.customBackGestureEdge = 300 ;
     
 }
 

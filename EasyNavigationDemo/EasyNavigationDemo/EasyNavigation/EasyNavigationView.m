@@ -58,6 +58,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     BOOL _stopUpStateBar ;//动画后是否需要停止在stateBar下面
     
     UIScrollView *_kvoScrollView ;//用于监听scrollview内容高度的改变
+    
 }
 @property (nonatomic,strong)EasyNavigationOptions *options ;
 
@@ -68,6 +69,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 
 @property (nonatomic,strong) UILabel *titleLabel ;
+@property (nonatomic,strong) UIView *titleView ;
 
 @property (nonatomic,strong)UIButton *leftButton ;
 
@@ -116,6 +118,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         [self addSubview:self.titleLabel] ;
         [self addSubview:self.lineView];
         
+        if (self.options.navBackgroundImage) {
+            self.backgroundImageView.image = self.options.navBackgroundImage ;
+        }
     }
     return self;
 }
@@ -135,6 +140,10 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     self.didAddsubView = ^(UIView *view) {
         
         [weakself bringSubviewToFront:weakself.titleLabel];
+        
+        if (weakself.titleView) {
+            [weakself bringSubviewToFront:weakself.titleView];
+        }
     };
 }
 
@@ -152,8 +161,10 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 }
 - (void)addtitleView:(UIView *)titleView
 {
+    self.titleView = titleView ;
+
     [self addSubview:titleView];
-    titleView.center = CGPointMake(self.bounds.size.width/2 , NAV_STATE_HEIGHT+(self.bounds.size.height-NAV_STATE_HEIGHT)/2);
+    titleView.center = CGPointMake(self.width/2 , NAV_STATE_HEIGHT+(self.height-NAV_STATE_HEIGHT)/2);
 }
 
 - (void)stateBarTapWithCallback:(clickCallback)callback
@@ -180,13 +191,13 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     UITouch *touch = touches.anyObject ;
     CGPoint tapLocation = [touch locationInView:self];
-    NSLog(@"moved = %f  == %f",tapLocation.x,tapLocation.y);
+    EasyLog(@"moved = %f  == %f",tapLocation.x,tapLocation.y);
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = touches.anyObject ;
     CGPoint tapLocation = [touch locationInView:self];
-    NSLog(@"%f  == %f",tapLocation.x,tapLocation.y);
+    EasyLog(@"%f  == %f",tapLocation.x,tapLocation.y);
 }
 - (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback
 {
@@ -368,6 +379,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     _scrollSpeed = speed ;
     _scrollStartPoint = startPoint ;
     _stopUpStateBar = stopStateBar ;
+    
     _kvoScrollView.scrollDistance = startPoint ;
 
     [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
@@ -389,7 +401,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     if (![object isEqual:_kvoScrollView] || ![keyPath isEqualToString:@"contentOffset"]) {
-        NSLog(@"监听出现异常 -----> object=%@ , keyPath = %@",object ,keyPath);
+        EasyLog(@"监听出现异常 -----> object=%@ , keyPath = %@",object ,keyPath);
         return ;
     }
     //scrollView 在y轴上滚动的距离
@@ -398,10 +410,10 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (_navigationChangeType == NavigationChangeTypeAlphaChange) {
         if (scrollContentY > _alphaStartChange){
             CGFloat alpha = scrollContentY / _alphaEndChange ;
-             [self setBackgroundAlpha:alpha];
+             [self setNavigationBackgroundAlpha:alpha];
         }
         else{
-             [self setBackgroundAlpha:0];
+             [self setNavigationBackgroundAlpha:0];
         }
     }
     else{
@@ -421,7 +433,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
                 [self smoothScrollUpWithContentY:scrollContentY];
             }
             else{
-                NSLog(@"Attention : the change type is know : %zd",_navigationChangeType );
+                EasyLog(@"Attention : the change type is know : %zd",_navigationChangeType );
             }
         }
         else if ( newPointY < oldPointY ) {// 向下滚动
@@ -434,14 +446,14 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
                 [self smoothScrollDownWithContentY:scrollContentY];
             }
             else{
-                NSLog(@"Attention : the change type is know : %zd",_navigationChangeType );
+                EasyLog(@"Attention : the change type is know : %zd",_navigationChangeType );
             }
             
         }
         
         if (_kvoScrollView.direction != currentDuring) {
             
-            NSLog(@"方向改变 %ld , 记住位置 %f",currentDuring , scrollContentY );
+            EasyLog(@"方向改变 %ld , 记住位置 %f",currentDuring , scrollContentY );
             
             if (_kvoScrollView.direction != ScrollDirectionUnknow) {
                 if (scrollContentY >= 0) {
@@ -453,7 +465,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             
         }
         
-        //    NSLog(@"方向：%ld 滚动距离：%f ",_kvoScrollView.direction,scrollContentY);
+        //    EasyLog(@"方向：%ld 滚动距离：%f ",_kvoScrollView.direction,scrollContentY);
         
     }
 
@@ -600,7 +612,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (_kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
         
         self.isScrollingNavigaiton = YES ;
-        NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - contentY );
+        EasyLog(@"scroll to top %f",_kvoScrollView.scrollDistance - contentY );
         [UIView animateWithDuration:kAnimationDuring animations:^{
             self.y = 0 ;
         }completion:^(BOOL finished) {
@@ -652,7 +664,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         CGFloat topOfY = _stopUpStateBar?NAV_STATE_HEIGHT:0 ;
         
         if ( changeY <= self.height - topOfY ) {
-
+            EasyLog(@"changeY = %F",changeY);
             self.y = - changeY ;
             
             if (!_stopUpStateBar) {
@@ -670,7 +682,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             
         }
         else{
-            self.y = - self.height - topOfY ;
+            self.y = - (self.height - topOfY) ;
         }
     }
 }
@@ -680,7 +692,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (_kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
         
         self.isScrollingNavigaiton = YES ;
-        // NSLog(@"scroll to top %f",_kvoScrollView.scrollDistance - scrollContentY );
+        // EasyLog(@"scroll to top %f",_kvoScrollView.scrollDistance - scrollContentY );
         [UIView animateWithDuration:kAnimationDuring animations:^{
             self.y = 0 ;
         }completion:^(BOOL finished) {
@@ -711,12 +723,12 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 #pragma mark - getter / setter
 
-- (void)setBackgroundImage:(UIImage *)backgroundImage
+- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage
 {
     self.backgroundImageView.image = backgroundImage ;
 
 }
-- (void)setBackgroundAlpha:(CGFloat)alpha
+- (void)setNavigationBackgroundAlpha:(CGFloat)alpha
 {
     _backGroundAlpha = alpha ;
     
@@ -728,7 +740,16 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     }
   
 }
-
+- (void)setNavigationBackgroundColor:(UIColor *)color
+{
+    [self.backgroundView setBackgroundColor:color];
+    
+    if (_backgroundView) {
+        [_backgroundView setBackgroundColor:color];
+    }
+    
+    self.backgroundColor = color ;
+}
 
 - (void)setLineHidden:(BOOL)lineHidden
 {
