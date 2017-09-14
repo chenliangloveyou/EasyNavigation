@@ -8,6 +8,7 @@
 
 #import "BaseViewController.h"
 
+
 @interface BaseViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong)UITableView *tableView ;

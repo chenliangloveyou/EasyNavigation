@@ -28,6 +28,8 @@
 		AD0FA1041F6A200600F8AC1A /* NavAnimationHiden_1_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA1031F6A200600F8AC1A /* NavAnimationHiden_1_ViewController.m */; };
 		AD0FA1071F6A248500F8AC1A /* NavOperateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA1061F6A248500F8AC1A /* NavOperateViewController.m */; };
 		AD0FA1091F6A516100F8AC1A /* nav_back_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */; };
+		AD0FA1101F6A6B3500F8AC1A /* NavSlidingControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA10E1F6A6B3500F8AC1A /* NavSlidingControlViewController.m */; };
+		AD0FA1111F6A6B3500F8AC1A /* NavSlidingControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD0FA10F1F6A6B3500F8AC1A /* NavSlidingControlViewController.xib */; };
 		ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC4EB761F6697B500CE7060 /* Assets.xcassets */; };
 		ADDE98D61F612624002C7779 /* EasyNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */; };
 		ADDE98D91F6126CC002C7779 /* EasyNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */; };
@@ -99,6 +101,9 @@
 		AD0FA1051F6A248500F8AC1A /* NavOperateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavOperateViewController.h; sourceTree = "<group>"; };
 		AD0FA1061F6A248500F8AC1A /* NavOperateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavOperateViewController.m; sourceTree = "<group>"; };
 		AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_btn@2x.png"; sourceTree = "<group>"; };
+		AD0FA10D1F6A6B3500F8AC1A /* NavSlidingControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavSlidingControlViewController.h; sourceTree = "<group>"; };
+		AD0FA10E1F6A6B3500F8AC1A /* NavSlidingControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavSlidingControlViewController.m; sourceTree = "<group>"; };
+		AD0FA10F1F6A6B3500F8AC1A /* NavSlidingControlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavSlidingControlViewController.xib; sourceTree = "<group>"; };
 		ADC4EB761F6697B500CE7060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADDE98D41F612624002C7779 /* EasyNavigationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationViewController.h; sourceTree = "<group>"; };
 		ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationViewController.m; sourceTree = "<group>"; };
@@ -189,6 +194,9 @@
 				AD0FA1001F6A1FFB00F8AC1A /* NavAnimationHidenViewController.m */,
 				AD0FA1021F6A200600F8AC1A /* NavAnimationHiden_1_ViewController.h */,
 				AD0FA1031F6A200600F8AC1A /* NavAnimationHiden_1_ViewController.m */,
+				AD0FA10D1F6A6B3500F8AC1A /* NavSlidingControlViewController.h */,
+				AD0FA10E1F6A6B3500F8AC1A /* NavSlidingControlViewController.m */,
+				AD0FA10F1F6A6B3500F8AC1A /* NavSlidingControlViewController.xib */,
 				ADDE98E31F612FF0002C7779 /* SecondViewController.h */,
 				ADDE98E41F612FF0002C7779 /* SecondViewController.m */,
 				6876E7981F658B1F00DEDFE0 /* ThirdViewController.h */,
@@ -367,6 +375,7 @@
 			files = (
 				AD0FA1091F6A516100F8AC1A /* nav_back_btn@2x.png in Resources */,
 				6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */,
+				AD0FA1111F6A6B3500F8AC1A /* NavSlidingControlViewController.xib in Resources */,
 				ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */,
 				6876E7641F5858CE00DEDFE0 /* Main.storyboard in Resources */,
 			);
@@ -393,6 +402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD0FA1101F6A6B3500F8AC1A /* NavSlidingControlViewController.m in Sources */,
 				ADDE98EB1F615067002C7779 /* UIViewController+EasyNavigationExt.m in Sources */,
 				ADDE98E51F612FF0002C7779 /* SecondViewController.m in Sources */,
 				AD0FA0E61F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m in Sources */,

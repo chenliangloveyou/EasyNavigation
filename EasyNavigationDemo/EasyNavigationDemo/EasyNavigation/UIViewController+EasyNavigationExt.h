@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const GKViewControllerPropertyChangedNotification;
+
+
 @class EasyNavigationViewController ;
 
 #import "EasyNavigationView.h"

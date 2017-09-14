@@ -23,6 +23,8 @@
 #import "NavAnimationHidenViewController.h" 
 #import "NavAnimationHiden_1_ViewController.h"
 
+#import "NavSlidingControlViewController.h"
+
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -88,7 +90,7 @@
         case 4: tempVC = [NavSmoothHiden_1_ViewController class]; break ;
         case 5: tempVC = [NavAnimationHidenViewController class]; break ;
         case 6: tempVC = [NavAnimationHiden_1_ViewController class]; break ;
-        
+        case 7: tempVC = [NavSlidingControlViewController class]; break ;
         default:
         {
             SecondViewController *secondVC =[[SecondViewController alloc]init];

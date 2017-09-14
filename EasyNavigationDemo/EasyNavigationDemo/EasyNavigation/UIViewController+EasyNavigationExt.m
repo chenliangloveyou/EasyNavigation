@@ -6,9 +6,12 @@
 //  Copyright © 2017年 chenliangloveyou. All rights reserved.
 //
 
+
 #import "UIViewController+EasyNavigationExt.h"
 
 #import <objc/runtime.h>
+
+NSString *const GKViewControllerPropertyChangedNotification = @"GKViewControllerPropertyChangedNotification";
 
 
 @implementation UIViewController (EasyNavigationExt)
@@ -21,6 +24,8 @@
 - (void)setDisableSlidingBackGesture:(BOOL)disableSlidingBackGesture
 {
     objc_setAssociatedObject(self, @selector(disableSlidingBackGesture), @(disableSlidingBackGesture), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+     [[NSNotificationCenter defaultCenter] postNotificationName:GKViewControllerPropertyChangedNotification object:@{@"viewController": self}];
 }
 
 - (BOOL)customBackGestureEnabel
@@ -30,6 +35,9 @@
 - (void)setCustomBackGestureEnabel:(BOOL)customBackGestureEnabel
 {
     objc_setAssociatedObject(self, @selector(customBackGestureEnabel), @(customBackGestureEnabel), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:GKViewControllerPropertyChangedNotification object:@{@"viewController": self}];
+
 }
 
 - (CGFloat)customBackGestureEdge

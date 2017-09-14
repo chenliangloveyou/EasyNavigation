@@ -84,27 +84,10 @@
 
 @implementation EasyNavigationController
 
-- (UIPanGestureRecognizer *)customBackGesture
-{
-    if (nil == _customBackGesture) {
-        _customBackGesture = [[UIPanGestureRecognizer alloc]init];
-        _customBackGesture.maximumNumberOfTouches = 1 ;
-    }
-    return _customBackGesture ;
-}
-- (customBackGestureDelegate *)customBackGestureDelegate
-{
-    if (nil == _customBackGestureDelegate) {
-        _customBackGestureDelegate = [[customBackGestureDelegate alloc]init];
-        _customBackGestureDelegate.navController = self ;
-        _customBackGestureDelegate.systemGestureTarget = self.systemGestureTarget ;
-    }
-    return _customBackGestureDelegate ;
-}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
     
     self.navigationBarHidden = NO ;
     self.navigationBar.hidden = YES ;
@@ -113,6 +96,15 @@
 
     self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(viewControllerPropertyChanged:) name:GKViewControllerPropertyChangedNotification object:nil];
+
+}
+- (void)viewControllerPropertyChanged:(NSNotification *)notify {
+    //    UIViewController *topViewController = self.topViewController;
+    
+    UIViewController *vc = (UIViewController *)notify.object[@"viewController"];
+    
+    [self dealSlideGestureWithViewController:vc];
 }
 - (instancetype)initWithRootViewController:(UIViewController *)rootViewController
 {
@@ -125,22 +117,30 @@
 
     return self ;
 }
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-//    self.topViewController = viewController ;
     // 移除全屏滑动手势，重新处理手势
     if ([self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.systemGestureTarget]) {
         [self.interactivePopGestureRecognizer.view removeGestureRecognizer:self.systemGestureTarget];
     }
-   
+    
+    [self dealSlideGestureWithViewController:viewController];
+    
+}
+
+- (void)dealSlideGestureWithViewController:(UIViewController *)viewController
+{
     if (viewController.disableSlidingBackGesture) {
         self.interactivePopGestureRecognizer.delegate = nil ;
         self.interactivePopGestureRecognizer.enabled = NO ;
     }
     else{
-       
+        
+        self.interactivePopGestureRecognizer.delegate = self ;
+        self.interactivePopGestureRecognizer.enabled = YES ;
+        
         if (viewController.customBackGestureEnabel) {
-
+            
             [self.interactivePopGestureRecognizer.view addGestureRecognizer:self.customBackGesture];
             
             self.customBackGesture.delegate = self.customBackGestureDelegate ;
@@ -150,6 +150,11 @@
         }
         
     }
+}
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+
+   
    
 }
 //- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
@@ -245,6 +250,25 @@
 //    }
 //    return _navBarDictionary ;
 //}
+
+- (UIPanGestureRecognizer *)customBackGesture
+{
+    if (nil == _customBackGesture) {
+        _customBackGesture = [[UIPanGestureRecognizer alloc]init];
+        _customBackGesture.maximumNumberOfTouches = 1 ;
+    }
+    return _customBackGesture ;
+}
+- (customBackGestureDelegate *)customBackGestureDelegate
+{
+    if (nil == _customBackGestureDelegate) {
+        _customBackGestureDelegate = [[customBackGestureDelegate alloc]init];
+        _customBackGestureDelegate.navController = self ;
+        _customBackGestureDelegate.systemGestureTarget = self.systemGestureTarget ;
+    }
+    return _customBackGestureDelegate ;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
