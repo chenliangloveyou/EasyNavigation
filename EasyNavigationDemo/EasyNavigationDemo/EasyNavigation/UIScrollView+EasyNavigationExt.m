@@ -14,7 +14,6 @@
 
 - (void)dealloc
 {
-    [self removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 - (ScrollDirection)direction

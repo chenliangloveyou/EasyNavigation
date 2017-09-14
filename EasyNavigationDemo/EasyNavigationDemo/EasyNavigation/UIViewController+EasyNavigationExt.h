@@ -11,6 +11,7 @@
 @class EasyNavigationViewController ;
 
 #import "EasyNavigationView.h"
+#import "EasyUtils.h"
 
 @interface UIViewController (EasyNavigationExt)
 

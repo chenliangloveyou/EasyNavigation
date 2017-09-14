@@ -9,9 +9,9 @@
 #import "AppDelegate.h"
 
 #import "EasyNavigationController.h"
-#import "EasyNavigationViewController.h"
-#import "HomeViewController.h"
-#import "EasyNavigationOptions.h"   
+#import "EasyNavigationOptions.h"
+
+#import "ViewController.h"
 
 @interface AppDelegate ()
 
@@ -23,15 +23,14 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     EasyNavigationOptions *options = [EasyNavigationOptions shareInstance];
-//    options.navBackGroundColor = [UIColor blueColor];
     options.titleColor = [UIColor redColor];
     options.buttonTitleFont = [UIFont systemFontOfSize:18];
-//    options.buttonBackgroundColor = [UIColor lightGrayColor];
 
-    EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[HomeViewController new]];
+    
+    EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[ViewController new]];
     self.window.rootViewController  = navVC ;
     
-    // Override point for customization after application launch.
+
     return YES;
 }
 
