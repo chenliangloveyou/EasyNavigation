@@ -8,7 +8,7 @@
 
 #import "NavSlidingControlViewController.h"
 
-@interface NavSlidingControlViewController ()
+@interface NavSlidingControlViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UISwitch *slidingSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *customSlidingSwitch;
 @property (weak, nonatomic) IBOutlet UITextField *customTextField;
@@ -22,7 +22,15 @@
     
     [self.navigationView setTitle:@"自定义侧滑返回手势"];
     
+    self.customTextField.delegate = self ;
     // Do any additional setup after loading the view from its nib.
+}
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    if ([textField isEqual:self.customTextField]) {
+        self.customBackGestureEdge = textField.text.floatValue ;
+    }
+    return YES ;
 }
 - (IBAction)switchTap:(id)sender {
     
@@ -35,7 +43,10 @@
         self.customBackGestureEnabel = self.customSlidingSwitch.isOn ;
     }
 }
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

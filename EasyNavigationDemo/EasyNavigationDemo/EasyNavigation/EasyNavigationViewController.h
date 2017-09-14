@@ -21,8 +21,7 @@
 
 
 
-- (void)pushViewControllerRetro:(UIViewController *)viewController;
-- (void)popViewControllerRetro;
+
 
 
 

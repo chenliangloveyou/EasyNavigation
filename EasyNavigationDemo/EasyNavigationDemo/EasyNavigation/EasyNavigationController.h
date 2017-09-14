@@ -14,4 +14,7 @@
 
 //- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated sysNavBar:(BOOL)sysNavBar ;
 
+- (void)pushViewControllerRetro:(UIViewController *)viewController;
+- (void)popViewControllerRetro;
+
 @end
