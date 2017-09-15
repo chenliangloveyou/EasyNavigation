@@ -8,22 +8,23 @@
 
 #import "ViewController.h"
 
-#import "SecondViewController.h"
 #import "UIViewController+EasyNavigationExt.h"
 #import "EasyNavigationController.h"
 #import "EasyUtils.h"
 
-#import "NavOperateViewController.h"
 
 #import "NavEmptyViewController.h"
 #import "NavTransparentViewController.h"
 #import "NavAlphaChangeViewController.h"
+#import "NavOperateViewController.h"
+
 #import "NavSmoothHidenViewController.h"
 #import "NavSmoothHiden_1_ViewController.h"
 #import "NavAnimationHidenViewController.h" 
 #import "NavAnimationHiden_1_ViewController.h"
 
-#import "NavSlidingControlViewController.h"
+#import "NavCustomSlidingViewController.h"
+#import "NavSystemSlidingViewController.h"
 #import "NavScrollIncludeViewController.h"
 
 
@@ -131,8 +132,8 @@
                             [NavSmoothHiden_1_ViewController class],
                             [NavAnimationHidenViewController class],
                             [NavAnimationHiden_1_ViewController class]],
-                          @[[NavSlidingControlViewController class],
-                            [SecondViewController class],
+                          @[[NavSystemSlidingViewController class],
+                            [NavCustomSlidingViewController class],
                             [NavScrollIncludeViewController class]],
                           ];
     }
