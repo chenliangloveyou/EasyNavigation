@@ -32,6 +32,7 @@
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake( scrollview.width*i, 0, scrollview.width, scrollview.height)];
         view.backgroundColor = kColorRandom ;
         [scrollview addSubview:view];
+        
     }
 }
 

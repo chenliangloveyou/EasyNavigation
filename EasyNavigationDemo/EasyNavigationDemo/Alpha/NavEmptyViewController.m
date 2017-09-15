@@ -17,7 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-     self.navigationView = nil ;
+    if (self.navigationView) {
+        [self.navigationView removeFromSuperview];
+        self.navigationView = nil ;
+    }
 }
 
 - (void)didReceiveMemoryWarning {

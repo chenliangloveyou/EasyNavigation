@@ -42,17 +42,6 @@
 
 }
 
-- (instancetype)initWithRootViewController:(UIViewController *)rootViewController
-{
-    if (self = [super initWithRootViewController:rootViewController]) {
-//        rootViewController.navigationBar = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , NAV_HEIGHT)];
-//        [rootViewController.view addSubview:rootViewController.navigationBar];
-    }
-//    self.navigationController.navigationBar ;
-//    [self.navigationController setValue:[[EasyNavigationView alloc]init] forKeyPath:@"navigationBar"];
-
-    return self ;
-}
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     // 移除全屏滑动手势
@@ -71,54 +60,7 @@
    
    
 }
-//- (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated;
-//{
 
-    
-//    BOOL      sysNavBar = [[self.navBarDictionary objectForKey:viewController.description] boolValue];
-    
-//    [self setNavigationBarHidden:sysNavBar animated:YES];
-    
-//    self.navigationBar.hidden = sysNavBar ;
-//}
-//- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-//{
-//    self.isSystemNavigationBar = YES ;
-//         BOOL      sysNavBar = [[self.navBarDictionary objectForKey:viewController.description] boolValue];
-
-//    self.navigationBar.hidden = !sysNavBar ;
-
-//}
-//- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC
-//{
-//    
-////    return [super navigationController:navigationController animationControllerForOperation:operation fromViewController:fromVC toViewController:toVC];
-//}
-//- (UIViewController *)popViewControllerAnimated:(BOOL)animated
-//{
-//   UIViewController *tempController = [super popViewControllerAnimated:animated];
-
-//    [self.navBarDictionary removeObjectForKey:tempController.description];
-    
-//    BOOL isSystemNavBar = YES ;
-//    
-//    for (NSString *tempDesc in [self.navBarDictionary allKeys]) {
-//        if ([tempDesc isEqualToString:tempController.description]) {
-//            isSystemNavBar = [[self.navBarDictionary objectForKey:tempController.description] boolValue];
-//            break ;
-//        }
-//    }
-//    
-//    
-//    if (isSystemNavBar) {
-//        self.navigationBar.hidden = NO ;
-//    }
-//    else{
-//        self.navigationBar.hidden = YES ;
-//    }
-    
-//    return tempController ;
-//}
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (self.viewControllers.count > 0 ) {
@@ -138,22 +80,6 @@
     [viewController.view addSubview:viewController.navigationView];
 
     [super pushViewController:viewController animated:animated];
-    
-//    [self.navBarDictionary setObject:@(sysNavBar) forKey:viewController.description];
-
-//    if (sysNavBar == NO) {
-    
-//        UINavigationBar *tempNavBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, NAV_HEIGHT)];
-//        UINavigationItem *tempNavItem = [[UINavigationItem alloc]init];
-//        tempNavBar.items = @[tempNavItem];
-//        
-//        [viewController.view addSubview:tempNavBar];
-//    
-//    _tempNavBar = tempNavBar ;
-    
-//    }
-//    self.navigationBar.hidden = !sysNavBar ;
-    
     
 }
 
@@ -180,7 +106,7 @@
 }
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return UIStatusBarStyleLightContent;
+    return self.topViewController.statusBarStyle ;
 }
 
 //- (NSMutableDictionary *)navBarDictionary

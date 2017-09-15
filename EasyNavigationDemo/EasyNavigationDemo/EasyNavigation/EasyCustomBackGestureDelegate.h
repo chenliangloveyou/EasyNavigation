@@ -13,8 +13,14 @@
 
 @interface EasyCustomBackGestureDelegate : NSObject<UIGestureRecognizerDelegate>
 
+/**
+ * 当前当行控制器
+ */
 @property (nonatomic,weak)EasyNavigationController *navController ;
 
+/**
+ * 用来替换的系统手势事件
+ */
 @property (nonatomic,weak)id systemGestureTarget ;
 
 @end

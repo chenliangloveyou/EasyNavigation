@@ -9,8 +9,6 @@
 #import "ViewController.h"
 
 #import "UIViewController+EasyNavigationExt.h"
-#import "EasyNavigationController.h"
-#import "EasyUtils.h"
 
 
 #import "NavEmptyViewController.h"
@@ -56,7 +54,6 @@
 }
 
 
-
 #pragma mark - Tableview datasource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -82,10 +79,7 @@
     
     Class tempVC = self.navDataArray[indexPath.section][indexPath.row] ;
     BaseViewController *vc = [[tempVC alloc]init];
-    
-    EasyNavigationController *nav = (EasyNavigationController *)self.navigationController;
-    [nav pushViewControllerRetro:vc];
-//    [self.navigationController pushViewController:vc animated:YES];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -112,10 +106,6 @@
 
 - (NSArray *)dataArray
 {
-    //自动以返回
-    //返回的时候 页面视图下沉。
-    //拖动屏幕返回
-    //uiscrollview拖动返回
     if (nil == _dataArray) {
         _dataArray = @[@[@"导航栏操作", @"无导航条", @"透明", @"导航条渐变"],
                        @[@"导航条滚动隐藏", @"导航条滚动隐藏(stateBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(stateBar下停止)"],
