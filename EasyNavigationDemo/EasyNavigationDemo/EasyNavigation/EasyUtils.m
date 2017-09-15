@@ -31,7 +31,6 @@
     CGRect bounds = CGRectMake(0, 0, image.size.width, image.size.height);
     UIRectFill(bounds);
     
-    //改变颜色
     [image drawInRect:bounds blendMode:kCGBlendModeDestinationIn alpha:1.0f];
     
     UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();

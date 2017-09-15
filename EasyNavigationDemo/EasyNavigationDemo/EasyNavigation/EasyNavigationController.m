@@ -9,7 +9,6 @@
 #import "EasyNavigationController.h"
 
 #import "EasyUtils.h"
-#import "EasyWarpViewController.h"
 #import "EasyNavigationView.h"
 #import "UIViewController+EasyNavigationExt.h"
 #import "UIView+EasyNavigationExt.h"
@@ -160,7 +159,7 @@
 
 - (void)pushViewControllerRetro:(UIViewController *)viewController {
     CATransition *transition = [CATransition animation];
-    transition.duration = 0.25;
+    transition.duration = 1.25;
     transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
     transition.type = kCATransitionPush;
     transition.subtype = kCATransitionFromRight;

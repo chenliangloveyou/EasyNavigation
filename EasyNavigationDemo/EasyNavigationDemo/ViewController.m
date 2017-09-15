@@ -82,7 +82,10 @@
     
     Class tempVC = self.navDataArray[indexPath.section][indexPath.row] ;
     BaseViewController *vc = [[tempVC alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    EasyNavigationController *nav = (EasyNavigationController *)self.navigationController;
+    [nav pushViewControllerRetro:vc];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

@@ -8,6 +8,7 @@
 
 #import "NavScrollIncludeViewController.h"
 #import "UIViewController+EasyNavigationExt.h"
+#import "UIView+EasyNavigationExt.h"
 
 @interface NavScrollIncludeViewController ()
 
@@ -20,7 +21,18 @@
     
     [self.navigationView setTitle:@"嵌套scrollview返回"];
     
-    // Do any additional setup after loading the view.
+
+    UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:self.view.bounds];
+    scrollview.contentSize = CGSizeMake(self.view.width*3, 0) ;
+    scrollview.pagingEnabled = YES ;
+    [self.view addSubview:scrollview];
+
+
+    for (int i = 0; i < 3; i++) {
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake( scrollview.width*i, 0, scrollview.width, scrollview.height)];
+        view.backgroundColor = kColorRandom ;
+        [scrollview addSubview:view];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -63,8 +63,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "190"
             endingLineNumber = "190"
-            landmarkName = "-pushViewControllerRetro:"
-            landmarkType = "7">
+            landmarkName = "@implementation EasyNavigationViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -79,7 +79,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "222"
             endingLineNumber = "222"
-            landmarkName = "-popToRootViewControllerAnimated:"
+            landmarkName = "-pushViewController:animated:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -95,7 +95,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "228"
             endingLineNumber = "228"
-            landmarkName = "-popToViewController:animated:"
+            landmarkName = "-pushViewController:animated:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
