@@ -23,7 +23,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
     EasyNavigationOptions *options = [EasyNavigationOptions shareInstance];
-    options.titleColor = [UIColor redColor];
+    options.titleColor = [UIColor blackColor];
     options.buttonTitleFont = [UIFont systemFontOfSize:18];
     options.navBackgroundImage = [UIImage imageNamed:@"nav_background_image.png"];
     

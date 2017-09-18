@@ -18,10 +18,20 @@ typedef NS_ENUM(NSInteger ,ScrollDirection) {
 
 @interface UIScrollView (EasyNavigationExt)
 
-@property (nonatomic, assign)ScrollDirection direction;//开始改变方向标
-@property (nonatomic, assign)float scrollDistance ;//开始改变方向时scrollview的距离
+/**
+ * 开始改变方向标
+ */
+@property (nonatomic, assign)ScrollDirection direction;
 
-//@property (nonatomic , assign)BOOL isScrolling ; //是否正在动画
+/**
+ * 开始改变方向时scrollview的距离
+ */
+@property (nonatomic, assign)float scrollDistance ;
+
+/**
+ *  是否正在动画
+ */
+//@property (nonatomic , assign)BOOL isScrolling ;
 
 
 @property (nonatomic, assign) BOOL enableDirection;

@@ -8,22 +8,21 @@
 
 #import "ViewController.h"
 
-#import "SecondViewController.h"
 #import "UIViewController+EasyNavigationExt.h"
-#import "EasyNavigationController.h"
-#import "EasyUtils.h"
 
-#import "NavOperateViewController.h"
 
 #import "NavEmptyViewController.h"
 #import "NavTransparentViewController.h"
 #import "NavAlphaChangeViewController.h"
+#import "NavOperateViewController.h"
+
 #import "NavSmoothHidenViewController.h"
 #import "NavSmoothHiden_1_ViewController.h"
 #import "NavAnimationHidenViewController.h" 
 #import "NavAnimationHiden_1_ViewController.h"
 
-#import "NavSlidingControlViewController.h"
+#import "NavCustomSlidingViewController.h"
+#import "NavSystemSlidingViewController.h"
 #import "NavScrollIncludeViewController.h"
 
 
@@ -53,7 +52,6 @@
     [self.view addSubview:self.tableView];
     
 }
-
 
 
 #pragma mark - Tableview datasource
@@ -108,10 +106,6 @@
 
 - (NSArray *)dataArray
 {
-    //自动以返回
-    //返回的时候 页面视图下沉。
-    //拖动屏幕返回
-    //uiscrollview拖动返回
     if (nil == _dataArray) {
         _dataArray = @[@[@"导航栏操作", @"无导航条", @"透明", @"导航条渐变"],
                        @[@"导航条滚动隐藏", @"导航条滚动隐藏(stateBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(stateBar下停止)"],
@@ -131,8 +125,8 @@
                             [NavSmoothHiden_1_ViewController class],
                             [NavAnimationHidenViewController class],
                             [NavAnimationHiden_1_ViewController class]],
-                          @[[NavSlidingControlViewController class],
-                            [SecondViewController class],
+                          @[[NavSystemSlidingViewController class],
+                            [NavCustomSlidingViewController class],
                             [NavScrollIncludeViewController class]],
                           ];
     }

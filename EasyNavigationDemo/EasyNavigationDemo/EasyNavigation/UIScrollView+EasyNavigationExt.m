@@ -47,4 +47,40 @@
     return number.integerValue;
 }
 
+
+
+//是否产生一个新的touch对象来响应手势
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    return YES;
+}
+
+
+// 当scrollview上产生一个手势 是否相应事件
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer == self.panGestureRecognizer) {
+      
+        CGPoint point = [self.panGestureRecognizer translationInView:self];
+      
+        UIGestureRecognizerState state = gestureRecognizer.state;
+
+        CGFloat locationDistance = [UIScreen mainScreen].bounds.size.width;
+        
+        if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStatePossible) {
+            CGPoint location = [gestureRecognizer locationInView:self];
+            if (point.x > 0 && location.x < locationDistance && self.contentOffset.x <= 0) {
+                return NO;
+            }
+        }
+    }
+    return YES;
+
+}
+
+
 @end
+
+
+
+

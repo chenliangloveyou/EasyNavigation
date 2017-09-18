@@ -68,6 +68,22 @@
     objc_setAssociatedObject(self, @selector(navigationView), navigationView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (UIStatusBarStyle)statusBarStyle
+{
+    return [objc_getAssociatedObject(self, _cmd) integerValue] ;
+}
+- (void)setStatusBarStyle:(UIStatusBarStyle)statusBarStyle
+{
+    if (self.statusBarStyle == statusBarStyle) {
+        return ;
+    }
+    
+    objc_setAssociatedObject(self, @selector(statusBarStyle), @(statusBarStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+}
+
 - (void)dealSlidingGestureDelegate
 {
     EasyNavigationController *navController = (EasyNavigationController *)self.navigationController ;

@@ -158,6 +158,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (void)setTitle:(NSString *)title 
 {
     self.titleLabel.text = title;
+    
+    [self.titleLabel sizeToFit];
+    self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
 }
 - (void)addtitleView:(UIView *)titleView
 {
