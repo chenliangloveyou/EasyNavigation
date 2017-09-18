@@ -46,25 +46,30 @@
     switch (indexPath.row) {
         case 0:
         {
-            [self.navigationView setTitle:@"我是标题"];
+            kWeakSelf(self)
+            UIButton *addButton  =[UIButton buttonWithType:UIButtonTypeCustom];
+            [addButton setImage:kImage(@"nav_back_btn.png") forState:UIControlStateNormal];
+            [addButton setTitle:@"返回" forState:UIControlStateNormal];
+            [self.navigationView addLeftView:addButton clickCallback:^(UIView *view) {
+                [weakself.navigationController popViewControllerAnimated:YES];
+            }];
+            
         }break;
         case 1:
         {
-            [self.navigationView setTitle:@"我是改变后的标题"];
+            [self.navigationView removeLeftView:self.navigationView.leftButton];
         }break;
         case 2:
         {
-            [self.navigationView removeLeftView:self.navigationView.leftButton];
+            [self.navigationView setTitle:@"我是标题"];
         }break;
         case 3:
         {
-            UIView *titleView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 200, 20)];
-            titleView.backgroundColor = [UIColor blueColor];
-            [self.navigationView addtitleView:titleView];
+            [self.navigationView setTitle:@"我是改变后的标题"];
         }break;
         case 4:
         {
-           __block UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, -10, SCREEN_WIDTH-30, NAV_HEIGHT + 20)];
+           __block UIView *view = [[UIView alloc]initWithFrame:CGRectMake(100, -10, SCREEN_WIDTH-180, NAV_HEIGHT + 20)];
             view.backgroundColor = [UIColor purpleColor];
             [self.navigationView addSubview:view clickCallback:^(UIView *view) {
                 [view removeFromSuperview];
@@ -72,39 +77,26 @@
         }break;
         case 5:
         {
-            kWeakSelf(self)
-            [self.navigationView addRightButtonWithTitle:@"返回" clickCallBack:^(UIView *view) {
-                [weakself.navigationController popViewControllerAnimated:YES];
-            }];
+            [self.navigationView setNavigationBackgroundAlpha:0];
         }break;
         case 6:
         {
-            [self.navigationView removeAllLeftButton];
-            
-        }break;
-        case 7:
-        {
-            [self.navigationView setNavigationBackgroundAlpha:0];
-        }break;
-        case 8:
-        {
             [self.navigationView setBackgroundColor:[UIColor yellowColor]];
         }break;
-        case 9:
+        case 7:
         {
             if (self.navigationView) {
                 [self.navigationView removeFromSuperview];
                 self.navigationView = nil ;
             }
         }break;
-        case 10:
+        case 8:
         {
             if (!self.navigationView) {
                 EasyNavigationView *nav = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , NAV_HEIGHT)];
                 [self setNavigationView:nav];
                 [self.view addSubview:nav];
             }
-           
         }break ;
         default:
             break;
@@ -113,13 +105,12 @@
 - (NSArray *)dataArray
 {
     if (nil == _dataArray) {
-        _dataArray = @[@"增加一个标题",
-                       @"改变标题的字体",
-                       @"移除返回按钮",
-                       @"增加一个titleview",
-                       @"增加一个视图",
-                       @"右边增加一个按钮",
+        _dataArray = @[
+                       @"左边增加一个按钮",
                        @"左边删除一个按钮",
+                       @"增加一个标题",
+                       @"改变标题的字体",
+                       @"增加一个视图",
                        @"导航条透明度改变",
                        @"改变导航条背景颜色",
                        @"移除导航条",

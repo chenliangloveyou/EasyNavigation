@@ -587,6 +587,10 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             UIButton *tempButton = (UIButton *)tempView ;
 
             viewWidth = [tempButton.titleLabel.text sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:tempButton.titleLabel.font.fontName size:tempButton.titleLabel.font.pointSize]}].width + 5 ;
+            
+            if (tempButton.imageView.image) {
+                viewWidth += 20 ;
+            }
         }
         else{
             viewWidth = tempView.width ;
