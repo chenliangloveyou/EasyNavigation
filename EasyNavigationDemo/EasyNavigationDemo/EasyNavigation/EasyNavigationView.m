@@ -15,7 +15,7 @@
 #import "EasyNavigationOptions.h"
 
 
-#define kTitleViewEdge 100.0f //title左右边距
+#define kTitleViewEdge 50.0f //title左右边距
 
 #define kViewMaxWidth 100.0f //左右两边按钮，视图，最大的的宽度
 #define kViewMinWidth  44.0f //左右两边按钮，视图，最小的的宽度
@@ -88,6 +88,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @property (nonatomic,assign)BOOL isScrollingNavigaiton ;//是否正在滚动导航条
 
 @property (nonatomic,assign)NavigationChangeType navigationChangeType ;//导航条改变的类型
+
 @end
 
 @implementation EasyNavigationView
@@ -107,7 +108,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (self = [super initWithFrame:frame]) {
         
         self.backgroundColor = [UIColor clearColor];
-        
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _isScrollingNavigaiton = NO ;
         _navigationChangeType = NavigationChangeTypeUnKnow ;
         
@@ -151,7 +152,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
-    
+    [self layoutTitleviews];
 }
 
 #pragma mark - titleview
@@ -160,14 +161,23 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     self.titleLabel.text = title;
     
     [self.titleLabel sizeToFit];
+    
+    if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
+        self.titleLabel.width = self.width-kTitleViewEdge*2 ;
+    }
     self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+
 }
 - (void)addtitleView:(UIView *)titleView
 {
     self.titleView = titleView ;
 
     [self addSubview:titleView];
-    titleView.center = CGPointMake(self.width/2 , NAV_STATE_HEIGHT+(self.height-NAV_STATE_HEIGHT)/2);
+    
+    if (titleView.width > self.width-kTitleViewEdge*2) {
+        titleView.width = self.width-kTitleViewEdge*2 ;
+    }
+    titleView.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
 }
 
 - (void)stateBarTapWithCallback:(clickCallback)callback
@@ -558,6 +568,26 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     }
 }
 
+- (void)layoutTitleviews
+{
+    if (_titleLabel) {
+        [self.titleLabel sizeToFit];
+        
+        if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
+            self.titleLabel.width = self.width-kTitleViewEdge*2 ;
+        }
+        self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+    }
+    
+    if (_titleView) {
+        
+        if (_titleView.width > self.width-kTitleViewEdge*2) {
+            _titleView.width = self.width-kTitleViewEdge*2 ;
+        }
+        _titleView.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+
+    }
+}
 - (void)layoutSubviewsWithType:(buttonPlaceType)type
 {
     NSMutableArray *tempArray = nil ;
@@ -776,6 +806,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     if (nil == _backgroundView) {
         _backgroundView = [[UIView alloc]initWithFrame:self.bounds];
+        _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _backgroundView.backgroundColor = self.options.navBackGroundColor ;
         _backgroundView.alpha = _backGroundAlpha ;
     }
@@ -785,6 +816,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     if (nil == _backgroundImageView) {
         _backgroundImageView = [[UIImageView alloc]initWithFrame:self.bounds];
+        _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _backgroundImageView.backgroundColor = [UIColor clearColor];
         _backgroundImageView.alpha = _backGroundAlpha ;
         
@@ -821,6 +853,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     if (nil == _lineView) {
         _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.height-0.5, self.width, 0.5)];
+        _lineView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
         _lineView.backgroundColor = self.options.navLineColor;
     }
     return _lineView ;

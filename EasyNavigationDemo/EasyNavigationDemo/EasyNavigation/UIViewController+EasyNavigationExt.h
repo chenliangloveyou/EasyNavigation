@@ -42,7 +42,7 @@
 @property (nonatomic,strong)EasyNavigationView *navigationView ;
 
 /**
- * 当前控制器状态栏颜色
+ * 当前控制器状态栏类型
  */
 @property (nonatomic,assign)UIStatusBarStyle statusBarStyle;
 

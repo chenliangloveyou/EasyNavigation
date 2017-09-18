@@ -22,6 +22,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
+    
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
+    
+//    [[UIApplication sharedApplication] setStatusBarHidden:NO];
+
+    
     EasyNavigationOptions *options = [EasyNavigationOptions shareInstance];
     options.titleColor = [UIColor blackColor];
     options.buttonTitleFont = [UIFont systemFontOfSize:18];
