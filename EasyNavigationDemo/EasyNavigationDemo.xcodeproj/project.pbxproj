@@ -33,12 +33,7 @@
 		AD0FA0E61F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA0E51F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m */; };
 		AD0FA0E91F6A10B900F8AC1A /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */; };
 		AD0FA1091F6A516100F8AC1A /* nav_back_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */; };
-<<<<<<< HEAD
-		AD0FA1101F6A6B3500F8AC1A /* NavSlidingControlViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA10E1F6A6B3500F8AC1A /* NavSlidingControlViewController.m */; };
-		AD0FA1111F6A6B3500F8AC1A /* NavSlidingControlViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD0FA10F1F6A6B3500F8AC1A /* NavSlidingControlViewController.xib */; };
 		AD508B011F6FAF0A0044074E /* nav_back_btn_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */; };
-=======
->>>>>>> b9bd087e9237626df2e538ed6c71584fe3111045
 		ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC4EB761F6697B500CE7060 /* Assets.xcassets */; };
 		ADDE98D91F6126CC002C7779 /* EasyNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */; };
 		ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98DB1F61270F002C7779 /* EasyUtils.m */; };
@@ -114,13 +109,7 @@
 		AD0FA0E71F6A10B900F8AC1A /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_btn@2x.png"; sourceTree = "<group>"; };
-<<<<<<< HEAD
-		AD0FA10D1F6A6B3500F8AC1A /* NavSlidingControlViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavSlidingControlViewController.h; sourceTree = "<group>"; };
-		AD0FA10E1F6A6B3500F8AC1A /* NavSlidingControlViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavSlidingControlViewController.m; sourceTree = "<group>"; };
-		AD0FA10F1F6A6B3500F8AC1A /* NavSlidingControlViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavSlidingControlViewController.xib; sourceTree = "<group>"; };
 		AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_btn_blue@2x.png"; sourceTree = "<group>"; };
-=======
->>>>>>> b9bd087e9237626df2e538ed6c71584fe3111045
 		ADC4EB761F6697B500CE7060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADDE98D71F6126CC002C7779 /* EasyNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationView.h; sourceTree = "<group>"; };
 		ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationView.m; sourceTree = "<group>"; };
@@ -273,19 +262,6 @@
 		6876E78F1F5C4DBA00DEDFE0 /* EasyNavigation */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
-				ADDE98D41F612624002C7779 /* EasyNavigationViewController.h */,
-				ADDE98D51F612624002C7779 /* EasyNavigationViewController.m */,
-				ADDE98EC1F624BE0002C7779 /* EasyWarpNavigationViewController.h */,
-				ADDE98ED1F624BE0002C7779 /* EasyWarpNavigationViewController.m */,
-				ADDE98E61F614FE8002C7779 /* EasyWarpViewController.h */,
-				ADDE98E71F614FE8002C7779 /* EasyWarpViewController.m */,
-				ADDE98DA1F61270F002C7779 /* EasyUtils.h */,
-				ADDE98DB1F61270F002C7779 /* EasyUtils.m */,
-				AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */,
-				AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */,
-=======
->>>>>>> b9bd087e9237626df2e538ed6c71584fe3111045
 				ADDE98D71F6126CC002C7779 /* EasyNavigationView.h */,
 				ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */,
 				6876E79B1F66D88E00DEDFE0 /* EasyNavigationOptions.h */,
@@ -293,6 +269,7 @@
 				ADDE98DA1F61270F002C7779 /* EasyUtils.h */,
 				ADDE98DB1F61270F002C7779 /* EasyUtils.m */,
 				AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */,
+				AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */,
 				6876E7951F65810E00DEDFE0 /* EasyNavigationController.h */,
 				6876E7961F65810E00DEDFE0 /* EasyNavigationController.m */,
 				682F9E891F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.h */,
@@ -418,12 +395,8 @@
 			files = (
 				AD0FA1091F6A516100F8AC1A /* nav_back_btn@2x.png in Resources */,
 				6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */,
-<<<<<<< HEAD
 				AD508B011F6FAF0A0044074E /* nav_back_btn_blue@2x.png in Resources */,
-				AD0FA1111F6A6B3500F8AC1A /* NavSlidingControlViewController.xib in Resources */,
-=======
 				682F9EC11F6C22A800283DC6 /* NavSystemSlidingViewController.xib in Resources */,
->>>>>>> b9bd087e9237626df2e538ed6c71584fe3111045
 				ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */,
 				682F9EC61F6C24B600283DC6 /* NavCustomSlidingViewController.xib in Resources */,
 				6876E7641F5858CE00DEDFE0 /* Main.storyboard in Resources */,

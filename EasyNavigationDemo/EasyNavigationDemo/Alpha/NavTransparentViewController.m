@@ -8,7 +8,7 @@
 
 #import "NavTransparentViewController.h"
 
-@interface NavTransparentViewController ()
+@interface NavTransparentViewController ()<UIScrollViewDelegate>
 
 @end
 
@@ -25,6 +25,10 @@
     
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
