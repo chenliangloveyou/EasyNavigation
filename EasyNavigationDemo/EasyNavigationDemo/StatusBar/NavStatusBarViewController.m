@@ -8,7 +8,8 @@
 
 #import "NavStatusBarViewController.h"
 
-#import "UIViewController+EasyNavigationExt.h"
+#import "EasyNavigation.h"
+
 
 @interface NavStatusBarViewController ()
 

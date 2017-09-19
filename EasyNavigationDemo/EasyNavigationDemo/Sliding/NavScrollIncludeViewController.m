@@ -7,8 +7,7 @@
 //
 
 #import "NavScrollIncludeViewController.h"
-#import "UIViewController+EasyNavigationExt.h"
-#import "UIView+EasyNavigationExt.h"
+#import "EasyNavigation.h"
 
 @interface NavScrollIncludeViewController ()
 

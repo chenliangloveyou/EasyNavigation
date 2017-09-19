@@ -8,8 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "EasyNavigationController.h"
-#import "EasyNavigationOptions.h"
+#import "EasyNavigation.h"
 
 #import "ViewController.h"
 
@@ -21,15 +20,6 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-//    application.statusBarHidden = YES;
-//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationNone];
-
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
-    
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO];
-
     
     EasyNavigationOptions *options = [EasyNavigationOptions shareInstance];
     options.titleColor = [UIColor blackColor];

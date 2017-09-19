@@ -8,7 +8,7 @@
 
 #import "NavSystemSlidingViewController.h"
 
-#import "UIViewController+EasyNavigationExt.h"
+#import "EasyNavigation.h"
 
 @interface NavSystemSlidingViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *alertLabel;

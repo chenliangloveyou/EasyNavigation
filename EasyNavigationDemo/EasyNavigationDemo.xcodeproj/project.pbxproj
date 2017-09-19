@@ -89,6 +89,7 @@
 		682F9EC91F715DC000283DC6 /* NavOperateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavOperateViewController.m; sourceTree = "<group>"; };
 		682F9ECE1F715E8C00283DC6 /* NavEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavEmptyViewController.h; sourceTree = "<group>"; };
 		682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavEmptyViewController.m; sourceTree = "<group>"; };
+		682F9ED11F71625600283DC6 /* EasyNavigation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavigation.h; sourceTree = "<group>"; };
 		6876E7561F5858CE00DEDFE0 /* EasyNavigationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyNavigationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E75A1F5858CE00DEDFE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6876E75C1F5858CE00DEDFE0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -282,6 +283,7 @@
 			children = (
 				ADDE98E91F615067002C7779 /* UIViewController+EasyNavigationExt.h */,
 				ADDE98EA1F615067002C7779 /* UIViewController+EasyNavigationExt.m */,
+				682F9ED11F71625600283DC6 /* EasyNavigation.h */,
 				ADDE98D71F6126CC002C7779 /* EasyNavigationView.h */,
 				ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */,
 				6876E79B1F66D88E00DEDFE0 /* EasyNavigationOptions.h */,

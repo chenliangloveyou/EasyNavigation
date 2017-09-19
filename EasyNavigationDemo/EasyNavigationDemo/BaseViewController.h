@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UIViewController+EasyNavigationExt.h"
+#import "EasyNavigation.h"
+
 
 @interface BaseViewController : UIViewController
 

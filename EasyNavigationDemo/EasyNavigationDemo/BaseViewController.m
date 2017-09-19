@@ -21,7 +21,6 @@
 
     self.automaticallyAdjustsScrollViewInsets = NO ;
 
-    
     [self.view addSubview:self.tableView];
 }
 

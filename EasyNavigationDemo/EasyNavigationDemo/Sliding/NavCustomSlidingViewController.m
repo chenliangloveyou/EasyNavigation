@@ -8,7 +8,8 @@
 
 #import "NavCustomSlidingViewController.h"
 
-#import "UIViewController+EasyNavigationExt.h"
+#import "EasyNavigation.h"
+
 @interface NavCustomSlidingViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;

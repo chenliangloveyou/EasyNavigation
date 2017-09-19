@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 
-#import "UIViewController+EasyNavigationExt.h"
+#import "EasyNavigation.h"
 
 
 #import "NavEmptyViewController.h"
@@ -49,7 +49,7 @@
     }];
     
     [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
-    
+
     self.statusBarStyle = UIStatusBarStyleLightContent ;
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -114,8 +114,8 @@
     if (nil == _dataArray) {
         _dataArray = @[
                        @[@"导航栏操作"],
-                       @[@"无导航条", @"透明", @"导航条渐变"],
-                       @[@"导航条滚动隐藏", @"导航条滚动隐藏(statusBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(statusBar下停止)"],
+                       @[ @"透明", @"导航条渐变"],
+                       @[@"无导航条",@"导航条滚动隐藏", @"导航条滚动隐藏(statusBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(statusBar下停止)"],
                        @[@"禁用系统返回手势", @"自定义返回手势", @"嵌套scrollview返回"],
                        @[@"statusBar状态改变"]];
     }
@@ -126,10 +126,10 @@
     if (nil == _navDataArray) {
         _navDataArray = @[
                           @[[NavOperateViewController class]],
-                          @[[NavEmptyViewController class],
-                            [NavTransparentViewController class],
+                          @[[NavTransparentViewController class],
                             [NavAlphaChangeViewController class]],
-                          @[[NavSmoothHidenViewController class],
+                          @[[NavEmptyViewController class],
+                            [NavSmoothHidenViewController class],
                             [NavSmoothHiden_1_ViewController class],
                             [NavAnimationHidenViewController class],
                             [NavAnimationHiden_1_ViewController class]],

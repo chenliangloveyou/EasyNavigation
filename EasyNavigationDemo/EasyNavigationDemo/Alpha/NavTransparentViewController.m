@@ -19,8 +19,10 @@
 
     [self.navigationView setTitle:@"透明导航条"];
     [self.navigationView setNavigationBackgroundAlpha:0];
-    
+    self.navigationView.lineView.alpha = 1 ;
+   
 }
+
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {

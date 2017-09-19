@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "EasyNavigationController.h"
+#import "EasyNavigationOptions.h"
+
 //屏幕宽度
 #define  SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
 //屏幕高度

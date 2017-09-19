@@ -77,8 +77,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 @property (nonatomic,strong)UIViewController *viewController ;//navigation所在的控制器
 
-@property (nonatomic,strong)UIView *lineView ;//导航条最下面的一条线
-
 @property (nonatomic,strong)NSMutableArray *leftViewArray ;//左边所有的视图
 @property (nonatomic,strong)NSMutableArray *rightViewArray ;//右边所有的视图
 

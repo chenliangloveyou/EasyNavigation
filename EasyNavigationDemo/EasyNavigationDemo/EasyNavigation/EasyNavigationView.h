@@ -30,6 +30,10 @@ typedef void(^clickCallback)(UIView *view);
  */
 @property (nonatomic,strong,readonly)UILabel *titleLabel ;
 
+/**
+ * 导航条下的细线
+ */
+@property (nonatomic,strong)UIView *lineView ;//导航条最下面的一条线
 
 /**
  * 第一个加到导航栏左(右)边的按钮。（如果删除第一个，会替换成第二个，以此类推）
@@ -142,9 +146,12 @@ typedef void(^clickCallback)(UIView *view);
 - (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint end:(CGFloat)endPoint ;
 
 /**
- * scrollow 需要监听的scrollview
- * startPoint 超过这个点才会开始操作导航条
- * speed 滚动速度
+ *  导航条随scrollview滚动而慢慢隐藏
+ *
+ * scrollow 为支持导航条渐变的scrollview，
+ * startPoint 开始渐变scrollow需要滚动的距离，也就是说，只有在self.tableView滚动NAV_HEIGHT后导航条才开始移动。
+ * speed 它的值为:导航条滚动距离/scrollow滚动距离
+ * stopStatusBar 到了状态栏下面的时候是否需要停止
  */
 - (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStatusBar:(BOOL)stopStatusBar ;
 

@@ -26,7 +26,9 @@
     label.text = @"\n以下操作只会对本导航条起作用。\n如果想改变整个工程中导航条属性，请设置EasyNavigationOptions.h中的属性";
     self.tableView.tableHeaderView = label ;
     
-    [self.navigationView addRightButtonWithTitle:@"添加" clickCallBack:nil];
+    [self.navigationView addRightButtonWithTitle:@"添加" clickCallBack:^(UIView *view) {
+        NSLog(@"点击了“添加按钮”");
+    }];
     
 }
 
@@ -52,6 +54,7 @@
             UIButton *addButton  =[UIButton buttonWithType:UIButtonTypeCustom];
             [addButton setImage:kImage(@"nav_btn_back.png") forState:UIControlStateNormal];
             [addButton setTitle:@"返回" forState:UIControlStateNormal];
+            
             [self.navigationView addLeftView:addButton clickCallback:^(UIView *view) {
                 [weakself.navigationController popViewControllerAnimated:YES];
             }];
@@ -87,18 +90,20 @@
         }break;
         case 7:
         {
-            if (self.navigationView) {
-                [self.navigationView removeFromSuperview];
-                self.navigationView = nil ;
-            }
+            self.navigationView.hidden = YES ;
+//            if (self.navigationView) {
+//                [self.navigationView removeFromSuperview];
+//                self.navigationView = nil ;
+//            }
         }break;
         case 8:
         {
-            if (!self.navigationView) {
-                EasyNavigationView *nav = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , NAV_HEIGHT)];
-                [self setNavigationView:nav];
-                [self.view addSubview:nav];
-            }
+            self.navigationView.hidden = NO ;
+//            if (!self.navigationView) {
+//                EasyNavigationView *nav = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , NAV_HEIGHT)];
+//                [self setNavigationView:nav];
+//                [self.view addSubview:nav];
+//            }
         }break ;
         default:
             break;
