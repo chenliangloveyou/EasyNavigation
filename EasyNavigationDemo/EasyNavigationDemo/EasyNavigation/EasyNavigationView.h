@@ -157,6 +157,9 @@ typedef void(^clickCallback)(UIView *view);
 
 /**
  * 超过临界点 隐藏导航栏
+ *
+  * scrollow 为支持导航条渐变的scrollview
+ * criticalPoint 为触发导航条隐藏的点。也就是当scrollview的contentOffset.y值操作这个数的时候，导航条就会隐藏
  * stopStatusBar 停止到startBar下面
  */
 - (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStatusBar:(BOOL)stopStatusBar ;

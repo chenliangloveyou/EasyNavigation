@@ -42,6 +42,10 @@
  */
 @property (nonatomic,assign)CGFloat customBackGestureEdge ;
 
+/**
+ * 当为scrollview的时候是否开启侧滑返回
+ */
+@property (nonatomic,assign)BOOL scrollViewBackEnable ;
 
 /**
  * 当前控制器状态栏类型
