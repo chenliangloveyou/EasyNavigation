@@ -47,6 +47,12 @@
 @property (nonatomic,assign)UIStatusBarStyle statusBarStyle;
 
 /**
+ * 当前控制器的状态栏是否隐藏
+ */
+@property (nonatomic,assign)BOOL statusBarHidden ;
+
+
+/**
  * 处理侧滑返回手势
  */
 - (void)dealSlidingGestureDelegate ;

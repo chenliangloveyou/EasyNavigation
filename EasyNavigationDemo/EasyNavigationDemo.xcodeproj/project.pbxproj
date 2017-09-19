@@ -34,6 +34,8 @@
 		AD0FA0E91F6A10B900F8AC1A /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */; };
 		AD0FA1091F6A516100F8AC1A /* nav_back_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */; };
 		AD508B011F6FAF0A0044074E /* nav_back_btn_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */; };
+		AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5777981F710CB600100E64 /* NavStatusBarViewController.m */; };
+		AD57779B1F710CB600100E64 /* NavStatusBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5777991F710CB600100E64 /* NavStatusBarViewController.xib */; };
 		ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC4EB761F6697B500CE7060 /* Assets.xcassets */; };
 		ADDE98D91F6126CC002C7779 /* EasyNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */; };
 		ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98DB1F61270F002C7779 /* EasyUtils.m */; };
@@ -110,6 +112,9 @@
 		AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_btn@2x.png"; sourceTree = "<group>"; };
 		AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_btn_blue@2x.png"; sourceTree = "<group>"; };
+		AD5777971F710CB600100E64 /* NavStatusBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavStatusBarViewController.h; sourceTree = "<group>"; };
+		AD5777981F710CB600100E64 /* NavStatusBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavStatusBarViewController.m; sourceTree = "<group>"; };
+		AD5777991F710CB600100E64 /* NavStatusBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavStatusBarViewController.xib; sourceTree = "<group>"; };
 		ADC4EB761F6697B500CE7060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADDE98D71F6126CC002C7779 /* EasyNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationView.h; sourceTree = "<group>"; };
 		ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationView.m; sourceTree = "<group>"; };
@@ -221,6 +226,7 @@
 				6876E7601F5858CE00DEDFE0 /* ViewController.m */,
 				AD0FA0E71F6A10B900F8AC1A /* BaseViewController.h */,
 				AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */,
+				AD5777931F710C7C00100E64 /* StatusBar */,
 				682F9EB01F6C215B00283DC6 /* Alpha */,
 				682F9EA61F6C20EF00283DC6 /* Sliding */,
 				682F9E991F6C20AD00283DC6 /* Hidden */,
@@ -282,6 +288,16 @@
 				ADDE98EA1F615067002C7779 /* UIViewController+EasyNavigationExt.m */,
 			);
 			path = EasyNavigation;
+			sourceTree = "<group>";
+		};
+		AD5777931F710C7C00100E64 /* StatusBar */ = {
+			isa = PBXGroup;
+			children = (
+				AD5777971F710CB600100E64 /* NavStatusBarViewController.h */,
+				AD5777981F710CB600100E64 /* NavStatusBarViewController.m */,
+				AD5777991F710CB600100E64 /* NavStatusBarViewController.xib */,
+			);
+			path = StatusBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -397,6 +413,7 @@
 				6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */,
 				AD508B011F6FAF0A0044074E /* nav_back_btn_blue@2x.png in Resources */,
 				682F9EC11F6C22A800283DC6 /* NavSystemSlidingViewController.xib in Resources */,
+				AD57779B1F710CB600100E64 /* NavStatusBarViewController.xib in Resources */,
 				ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */,
 				682F9EC61F6C24B600283DC6 /* NavCustomSlidingViewController.xib in Resources */,
 				6876E7641F5858CE00DEDFE0 /* Main.storyboard in Resources */,
@@ -428,6 +445,7 @@
 				AD0FA0E61F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m in Sources */,
 				682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */,
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
+				AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */,
 				6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */,
 				682F9EC51F6C24B600283DC6 /* NavCustomSlidingViewController.m in Sources */,
 				682F9EA41F6C20AD00283DC6 /* NavSmoothHiden_1_ViewController.m in Sources */,

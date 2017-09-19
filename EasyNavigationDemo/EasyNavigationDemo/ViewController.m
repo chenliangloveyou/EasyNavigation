@@ -25,6 +25,8 @@
 #import "NavSystemSlidingViewController.h"
 #import "NavScrollIncludeViewController.h"
 
+#import "NavStatusBarViewController.h"
+
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -47,6 +49,8 @@
     }];
     
     [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
+    
+    self.statusBarStyle = UIStatusBarStyleLightContent ;
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.tableView];
@@ -84,7 +88,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 30 ;
+    return 10 ;
 }
 
 #pragma mark - getter/setter
@@ -110,7 +114,8 @@
     if (nil == _dataArray) {
         _dataArray = @[@[@"导航栏操作", @"无导航条", @"透明", @"导航条渐变"],
                        @[@"导航条滚动隐藏", @"导航条滚动隐藏(stateBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(stateBar下停止)"],
-                       @[@"禁用系统返回手势", @"自定义返回手势", @"嵌套scrollview返回"]];
+                       @[@"禁用系统返回手势", @"自定义返回手势", @"嵌套scrollview返回"],
+                       @[@"statusBar状态改变"]];
     }
     return _dataArray ;
 }
@@ -129,10 +134,14 @@
                           @[[NavSystemSlidingViewController class],
                             [NavCustomSlidingViewController class],
                             [NavScrollIncludeViewController class]],
+                          @[[NavStatusBarViewController class]]
                           ];
     }
     return _navDataArray ;
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

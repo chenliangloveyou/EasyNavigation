@@ -153,6 +153,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
     [self layoutTitleviews];
+    EasyLog(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
 }
 
 #pragma mark - titleview
@@ -832,7 +833,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (UILabel *)titleLabel
 {
     if (nil == _titleLabel) {
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, SCREEN_WIDTH-kTitleViewEdge*2 , self.height - NAV_STATE_HEIGHT)];
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, self.width-kTitleViewEdge*2 , self.height - NAV_STATE_HEIGHT)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;

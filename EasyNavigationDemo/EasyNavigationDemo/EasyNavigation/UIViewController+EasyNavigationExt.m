@@ -83,6 +83,20 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
 }
+- (BOOL)statusBarHidden
+{
+    return [objc_getAssociatedObject(self, _cmd) boolValue] ;
+}
+- (void)setStatusBarHidden:(BOOL)statusBarHidden
+{
+    if (self.statusBarHidden == statusBarHidden) {
+        return ;
+    }
+    
+    objc_setAssociatedObject(self, @selector(statusBarHidden), @(statusBarHidden), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+}
 
 - (void)dealSlidingGestureDelegate
 {
@@ -111,6 +125,13 @@
     }
     
 }
+
+
+- (BOOL)prefersStatusBarHidden {
+
+    return self.statusBarHidden;
+}
+
 @end
 
 

@@ -29,6 +29,9 @@
     [self.navigationView addRightButtonWithTitle:@"添加" clickCallBack:nil];
     
     self.statusBarStyle = UIStatusBarStyleLightContent ;
+    self.statusBarHidden = YES ;
+
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

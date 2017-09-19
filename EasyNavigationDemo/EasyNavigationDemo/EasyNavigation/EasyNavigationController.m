@@ -43,6 +43,7 @@
     if (navView.width != self.topViewController.view.width) {
         navView.width = self.topViewController.view.width ;
     }
+    [self setNeedsStatusBarAppearanceUpdate];
 
     //1.获取 当前设备 实例
     UIDevice *device = [UIDevice currentDevice] ;
@@ -97,7 +98,8 @@
     self.delegate = self ;
 
     self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
-    
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+
     
 //    [self setStatusBarStyle:UIStatusBarStyleDefault];
 //    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationNone];
@@ -106,6 +108,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDeviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil
      ];
+
 
 }
 
@@ -141,16 +144,21 @@
     [viewController.view addSubview:viewController.navigationView];
 
     [super pushViewController:viewController animated:animated];
+
     
-    EasyLog(@"pushViewController = %@",viewController );
+    EasyNavigationView  *navView = self.topViewController.navigationView ;
+    if (navView.width != self.topViewController.view.width) {
+        navView.width = self.topViewController.view.width ;
+    }
 }
 
-/*
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+- (UIStatusBarStyle)preferredStatusBarStyle
 {
-    
+    return self.topViewController.statusBarStyle ;
 }
-*/
+
+
+
 - (void)pushViewControllerRetro:(UIViewController *)viewController {
     CATransition *transition = [CATransition animation];
     transition.duration = 1.25;
@@ -172,20 +180,7 @@
     
     [self popViewControllerAnimated:NO];
 }
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-    return self.topViewController.statusBarStyle ;
-}
-//设置是否隐藏
-- (BOOL)prefersStatusBarHidden {
-    //    [super prefersStatusBarHidden];
-    return NO;
-}
 
-//设置隐藏动画
-- (UIStatusBarAnimation)preferredStatusBarUpdateAnimation {
-    return UIStatusBarAnimationNone;
-}
 
 //- (NSMutableDictionary *)navBarDictionary
 //{
