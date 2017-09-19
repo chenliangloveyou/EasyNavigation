@@ -511,7 +511,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     
     [button setTitleColor:self.options.buttonTitleColor forState:UIControlStateNormal];
     [button setTitleColor:self.options.buttonTitleColorHieght forState:UIControlStateHighlighted];
-    [button setBackgroundColor:self.options.buttonBackgroundColor];
     button.titleLabel.font = self.options.buttonTitleFont ;
     [button setImageEdgeInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
     
