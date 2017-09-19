@@ -18,9 +18,9 @@
     [super viewDidLoad];
 
     
-    [self.navigationView setTitle:@"导航条滚动隐藏(stateBar下停止)"];
+    [self.navigationView setTitle:@"导航条滚动隐藏(statusBar下停止)"];
     
-    [self.navigationView navigationSmoothScroll:self.tableView start:NAV_HEIGHT speed:0.5 stopToStateBar:YES];
+    [self.navigationView navigationSmoothScroll:self.tableView start:NAV_HEIGHT speed:0.5 stopToStatusBar:YES];
 
 }
 

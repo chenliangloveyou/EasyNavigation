@@ -27,10 +27,10 @@
   
     UIImage *btnImage = nil ;
     if (scrollView.contentOffset.y > 100){
-        btnImage = kImage(@"nav_back_btn_blue.png") ;
+        btnImage = kImage(@"nav_btn_back_blue.png") ;
     }
     else{
-        btnImage = kImage(@"nav_back_btn.png") ;
+        btnImage = kImage(@"nav_btn_back.png") ;
     }
     
     [self.navigationView.leftButton setImage:btnImage forState:UIControlStateNormal];

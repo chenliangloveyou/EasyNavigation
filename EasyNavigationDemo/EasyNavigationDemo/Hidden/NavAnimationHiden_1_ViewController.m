@@ -17,9 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    [self.navigationView setTitle:@"导航条动画隐藏(stateBar下停止)"];
+    [self.navigationView setTitle:@"导航条动画隐藏(statusBar下停止)"];
 
-    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NAV_HEIGHT stopToStateBar:YES];
+    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NAV_HEIGHT stopToStatusBar:YES];
 
 }
 

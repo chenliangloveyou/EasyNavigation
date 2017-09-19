@@ -83,6 +83,7 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
 }
+
 - (BOOL)statusBarHidden
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue] ;

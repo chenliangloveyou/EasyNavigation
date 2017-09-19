@@ -32,10 +32,12 @@
 		6876E79D1F66D88E00DEDFE0 /* EasyNavigationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E79C1F66D88E00DEDFE0 /* EasyNavigationOptions.m */; };
 		AD0FA0E61F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA0E51F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m */; };
 		AD0FA0E91F6A10B900F8AC1A /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */; };
-		AD0FA1091F6A516100F8AC1A /* nav_back_btn@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */; };
-		AD508B011F6FAF0A0044074E /* nav_back_btn_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */; };
 		AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5777981F710CB600100E64 /* NavStatusBarViewController.m */; };
 		AD57779B1F710CB600100E64 /* NavStatusBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5777991F710CB600100E64 /* NavStatusBarViewController.xib */; };
+		AD5777A01F71241000100E64 /* nav_btn_back_blue@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD57779C1F71240F00100E64 /* nav_btn_back_blue@2x.png */; };
+		AD5777A11F71241000100E64 /* nav_btn_back_blue@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD57779D1F71240F00100E64 /* nav_btn_back_blue@3x.png */; };
+		AD5777A21F71241000100E64 /* nav_btn_back@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD57779E1F71241000100E64 /* nav_btn_back@2x.png */; };
+		AD5777A31F71241000100E64 /* nav_btn_back@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = AD57779F1F71241000100E64 /* nav_btn_back@3x.png */; };
 		ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC4EB761F6697B500CE7060 /* Assets.xcassets */; };
 		ADDE98D91F6126CC002C7779 /* EasyNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */; };
 		ADDE98DC1F61270F002C7779 /* EasyUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = ADDE98DB1F61270F002C7779 /* EasyUtils.m */; };
@@ -110,11 +112,13 @@
 		AD0FA0E51F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EasyNavigationExt.m"; sourceTree = "<group>"; };
 		AD0FA0E71F6A10B900F8AC1A /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_btn@2x.png"; sourceTree = "<group>"; };
-		AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_back_btn_blue@2x.png"; sourceTree = "<group>"; };
 		AD5777971F710CB600100E64 /* NavStatusBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavStatusBarViewController.h; sourceTree = "<group>"; };
 		AD5777981F710CB600100E64 /* NavStatusBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavStatusBarViewController.m; sourceTree = "<group>"; };
 		AD5777991F710CB600100E64 /* NavStatusBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavStatusBarViewController.xib; sourceTree = "<group>"; };
+		AD57779C1F71240F00100E64 /* nav_btn_back_blue@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_btn_back_blue@2x.png"; sourceTree = "<group>"; };
+		AD57779D1F71240F00100E64 /* nav_btn_back_blue@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_btn_back_blue@3x.png"; sourceTree = "<group>"; };
+		AD57779E1F71241000100E64 /* nav_btn_back@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_btn_back@2x.png"; sourceTree = "<group>"; };
+		AD57779F1F71241000100E64 /* nav_btn_back@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_btn_back@3x.png"; sourceTree = "<group>"; };
 		ADC4EB761F6697B500CE7060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ADDE98D71F6126CC002C7779 /* EasyNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationView.h; sourceTree = "<group>"; };
 		ADDE98D81F6126CC002C7779 /* EasyNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationView.m; sourceTree = "<group>"; };
@@ -274,8 +278,10 @@
 				6876E79C1F66D88E00DEDFE0 /* EasyNavigationOptions.m */,
 				ADDE98DA1F61270F002C7779 /* EasyUtils.h */,
 				ADDE98DB1F61270F002C7779 /* EasyUtils.m */,
-				AD0FA1081F6A516100F8AC1A /* nav_back_btn@2x.png */,
-				AD508B001F6FAF090044074E /* nav_back_btn_blue@2x.png */,
+				AD57779C1F71240F00100E64 /* nav_btn_back_blue@2x.png */,
+				AD57779D1F71240F00100E64 /* nav_btn_back_blue@3x.png */,
+				AD57779E1F71241000100E64 /* nav_btn_back@2x.png */,
+				AD57779F1F71241000100E64 /* nav_btn_back@3x.png */,
 				6876E7951F65810E00DEDFE0 /* EasyNavigationController.h */,
 				6876E7961F65810E00DEDFE0 /* EasyNavigationController.m */,
 				682F9E891F6AB53E00283DC6 /* EasyCustomBackGestureDelegate.h */,
@@ -409,12 +415,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD0FA1091F6A516100F8AC1A /* nav_back_btn@2x.png in Resources */,
+				AD5777A01F71241000100E64 /* nav_btn_back_blue@2x.png in Resources */,
+				AD5777A21F71241000100E64 /* nav_btn_back@2x.png in Resources */,
 				6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */,
-				AD508B011F6FAF0A0044074E /* nav_back_btn_blue@2x.png in Resources */,
 				682F9EC11F6C22A800283DC6 /* NavSystemSlidingViewController.xib in Resources */,
 				AD57779B1F710CB600100E64 /* NavStatusBarViewController.xib in Resources */,
 				ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */,
+				AD5777A11F71241000100E64 /* nav_btn_back_blue@3x.png in Resources */,
+				AD5777A31F71241000100E64 /* nav_btn_back@3x.png in Resources */,
 				682F9EC61F6C24B600283DC6 /* NavCustomSlidingViewController.xib in Resources */,
 				6876E7641F5858CE00DEDFE0 /* Main.storyboard in Resources */,
 			);

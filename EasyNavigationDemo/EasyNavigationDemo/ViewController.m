@@ -102,7 +102,7 @@
         _tableView.dataSource = self ;
         _tableView.delegate = self ;
         
-        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 160)];
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
         img.backgroundColor = [UIColor lightGrayColor];
         _tableView.tableHeaderView =img ;
     }
@@ -112,8 +112,10 @@
 - (NSArray *)dataArray
 {
     if (nil == _dataArray) {
-        _dataArray = @[@[@"导航栏操作", @"无导航条", @"透明", @"导航条渐变"],
-                       @[@"导航条滚动隐藏", @"导航条滚动隐藏(stateBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(stateBar下停止)"],
+        _dataArray = @[
+                       @[@"导航栏操作"],
+                       @[@"无导航条", @"透明", @"导航条渐变"],
+                       @[@"导航条滚动隐藏", @"导航条滚动隐藏(statusBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(statusBar下停止)"],
                        @[@"禁用系统返回手势", @"自定义返回手势", @"嵌套scrollview返回"],
                        @[@"statusBar状态改变"]];
     }
@@ -123,8 +125,8 @@
 {
     if (nil == _navDataArray) {
         _navDataArray = @[
-                          @[[NavOperateViewController class],
-                            [NavEmptyViewController class],
+                          @[[NavOperateViewController class]],
+                          @[[NavEmptyViewController class],
                             [NavTransparentViewController class],
                             [NavAlphaChangeViewController class]],
                           @[[NavSmoothHidenViewController class],

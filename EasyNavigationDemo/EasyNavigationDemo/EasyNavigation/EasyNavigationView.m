@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 @interface EasyNavigationView()
 {
-    clickCallback _stateBarTapCallback ;//导航栏点击回到
+    clickCallback _statusBarTapCallback ;//导航栏点击回到
     
     CGFloat _alphaStartChange ;//alpha改变的开始位置
     CGFloat _alphaEndChange   ;//alpha停止改变的位置
@@ -55,7 +55,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     CGFloat _scrollSpeed ;     //导航条滚动速度
     
     CGFloat _criticalPoint ;//导航条动画隐藏的临界点
-    BOOL _stopUpStateBar ;//动画后是否需要停止在stateBar下面
+    BOOL _stopUpstatusBar ;//动画后是否需要停止在statusBar下面
     
     UIScrollView *_kvoScrollView ;//用于监听scrollview内容高度的改变
     
@@ -181,19 +181,19 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     titleView.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
 }
 
-- (void)stateBarTapWithCallback:(clickCallback)callback
+- (void)statusBarTapWithCallback:(clickCallback)callback
 {
     NSAssert(callback, @"you should deal with this callback");
     
     if (callback) {
-        _stateBarTapCallback = [callback copy];
+        _statusBarTapCallback = [callback copy];
     }
     
 }
-- (void)removeStateBarCallback
+- (void)removestatusBarCallback
 {
-    if (nil == _stateBarTapCallback) {
-        _stateBarTapCallback = nil ;
+    if (nil == _statusBarTapCallback) {
+        _statusBarTapCallback = nil ;
     }
 }
 
@@ -385,14 +385,14 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 /**
  * 根据scrollview滚动，导航条隐藏或者展示.
  */
-- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStateBar:(BOOL)stopStateBar
+- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStatusBar:(BOOL)stopstatusBar
 {
     _navigationChangeType = NavigationChangeTypeSmooth ;
     
     _kvoScrollView = scrollow ;
     _scrollSpeed = speed ;
     _scrollStartPoint = startPoint ;
-    _stopUpStateBar = stopStateBar ;
+    _stopUpstatusBar = stopstatusBar ;
     
     _kvoScrollView.scrollDistance = startPoint ;
 
@@ -400,13 +400,13 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 }
 
-- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStateBar:(BOOL)stopStateBar
+- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStatusBar:(BOOL)stopstatusBar
 {
     _navigationChangeType = NavigationChangeTypeAnimation ;
 
     _kvoScrollView = scrollow ;
     _criticalPoint = criticalPoint ;
-    _stopUpStateBar = stopStateBar ;
+    _stopUpstatusBar = stopstatusBar ;
     
     [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
 
@@ -671,7 +671,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         self.isScrollingNavigaiton = YES ;
         
         //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = _stopUpStateBar?NAV_STATE_HEIGHT:0 ;
+        CGFloat topOfY = _stopUpstatusBar?NAV_STATE_HEIGHT:0 ;
         
         [UIView animateWithDuration:kAnimationDuring animations:^{
             
@@ -699,13 +699,13 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         }
 
         //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = _stopUpStateBar?NAV_STATE_HEIGHT:0 ;
+        CGFloat topOfY = _stopUpstatusBar?NAV_STATE_HEIGHT:0 ;
         
         if ( changeY <= self.height - topOfY ) {
             EasyLog(@"changeY = %F",changeY);
             self.y = - changeY ;
             
-            if (!_stopUpStateBar) {
+            if (!_stopUpstatusBar) {
                 return ;
             }
 
@@ -737,7 +737,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             self.isScrollingNavigaiton = NO ;
             self.y = 0 ;
             
-            if (_stopUpStateBar) {
+            if (_stopUpstatusBar) {
                 [self changeSubviewsAlpha:1];
             }
             
@@ -825,7 +825,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     }
     return _backgroundImageView ;
 }
-- (void)stateBarTap
+- (void)statusBarTap
 {
 
 }

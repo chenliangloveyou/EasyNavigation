@@ -28,10 +28,6 @@
     
     [self.navigationView addRightButtonWithTitle:@"添加" clickCallBack:nil];
     
-    self.statusBarStyle = UIStatusBarStyleLightContent ;
-    self.statusBarHidden = YES ;
-
-    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -54,7 +50,7 @@
         {
             kWeakSelf(self)
             UIButton *addButton  =[UIButton buttonWithType:UIButtonTypeCustom];
-            [addButton setImage:kImage(@"nav_back_btn.png") forState:UIControlStateNormal];
+            [addButton setImage:kImage(@"nav_btn_back.png") forState:UIControlStateNormal];
             [addButton setTitle:@"返回" forState:UIControlStateNormal];
             [self.navigationView addLeftView:addButton clickCallback:^(UIView *view) {
                 [weakself.navigationController popViewControllerAnimated:YES];
