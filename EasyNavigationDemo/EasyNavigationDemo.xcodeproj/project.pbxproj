@@ -20,7 +20,7 @@
 		682F9EC51F6C24B600283DC6 /* NavCustomSlidingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9EC31F6C24B600283DC6 /* NavCustomSlidingViewController.m */; };
 		682F9EC61F6C24B600283DC6 /* NavCustomSlidingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682F9EC41F6C24B600283DC6 /* NavCustomSlidingViewController.xib */; };
 		682F9ECA1F715DC000283DC6 /* NavOperateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9EC91F715DC000283DC6 /* NavOperateViewController.m */; };
-		682F9ECD1F715E0B00283DC6 /* NavEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9ECC1F715E0B00283DC6 /* NavEmptyViewController.m */; };
+		682F9ED01F715E8C00283DC6 /* NavEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */; };
 		6876E75B1F5858CE00DEDFE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75A1F5858CE00DEDFE0 /* main.m */; };
 		6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */; };
 		6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7601F5858CE00DEDFE0 /* ViewController.m */; };
@@ -87,8 +87,8 @@
 		682F9EC41F6C24B600283DC6 /* NavCustomSlidingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavCustomSlidingViewController.xib; sourceTree = "<group>"; };
 		682F9EC81F715DC000283DC6 /* NavOperateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavOperateViewController.h; sourceTree = "<group>"; };
 		682F9EC91F715DC000283DC6 /* NavOperateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavOperateViewController.m; sourceTree = "<group>"; };
-		682F9ECB1F715E0B00283DC6 /* NavEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavEmptyViewController.h; sourceTree = "<group>"; };
-		682F9ECC1F715E0B00283DC6 /* NavEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavEmptyViewController.m; sourceTree = "<group>"; };
+		682F9ECE1F715E8C00283DC6 /* NavEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavEmptyViewController.h; sourceTree = "<group>"; };
+		682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavEmptyViewController.m; sourceTree = "<group>"; };
 		6876E7561F5858CE00DEDFE0 /* EasyNavigationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyNavigationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E75A1F5858CE00DEDFE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6876E75C1F5858CE00DEDFE0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -158,6 +158,8 @@
 		682F9E991F6C20AD00283DC6 /* Hidden */ = {
 			isa = PBXGroup;
 			children = (
+				682F9ECE1F715E8C00283DC6 /* NavEmptyViewController.h */,
+				682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */,
 				682F9E9A1F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.h */,
 				682F9E9B1F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.m */,
 				682F9E9C1F6C20AD00283DC6 /* NavAnimationHidenViewController.h */,
@@ -173,8 +175,6 @@
 		682F9EA61F6C20EF00283DC6 /* Sliding */ = {
 			isa = PBXGroup;
 			children = (
-				682F9ECB1F715E0B00283DC6 /* NavEmptyViewController.h */,
-				682F9ECC1F715E0B00283DC6 /* NavEmptyViewController.m */,
 				682F9EA91F6C20EF00283DC6 /* NavScrollIncludeViewController.h */,
 				682F9EAA1F6C20EF00283DC6 /* NavScrollIncludeViewController.m */,
 				682F9EC21F6C24B600283DC6 /* NavCustomSlidingViewController.h */,
@@ -458,7 +458,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ADDE98EB1F615067002C7779 /* UIViewController+EasyNavigationExt.m in Sources */,
-				682F9ECD1F715E0B00283DC6 /* NavEmptyViewController.m in Sources */,
+				682F9ED01F715E8C00283DC6 /* NavEmptyViewController.m in Sources */,
 				AD0FA0E61F690B1F00F8AC1A /* UIScrollView+EasyNavigationExt.m in Sources */,
 				682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */,
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
