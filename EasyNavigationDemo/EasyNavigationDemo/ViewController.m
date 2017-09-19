@@ -25,6 +25,8 @@
 #import "NavSystemSlidingViewController.h"
 #import "NavScrollIncludeViewController.h"
 
+#import "NavStatusBarViewController.h"
+
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -48,7 +50,9 @@
     
     [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
     
+    self.statusBarStyle = UIStatusBarStyleLightContent ;
     
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.tableView];
     
 }
@@ -84,7 +88,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 30 ;
+    return 10 ;
 }
 
 #pragma mark - getter/setter
@@ -92,12 +96,13 @@
 {
     if (nil == _tableView) {
         _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
         _tableView.dataSource = self ;
         _tableView.delegate = self ;
         
-        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 160)];
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
         img.backgroundColor = [UIColor lightGrayColor];
         _tableView.tableHeaderView =img ;
     }
@@ -107,9 +112,12 @@
 - (NSArray *)dataArray
 {
     if (nil == _dataArray) {
-        _dataArray = @[@[@"导航栏操作", @"无导航条", @"透明", @"导航条渐变"],
-                       @[@"导航条滚动隐藏", @"导航条滚动隐藏(stateBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(stateBar下停止)"],
-                       @[@"禁用系统返回手势", @"自定义返回手势", @"嵌套scrollview返回"]];
+        _dataArray = @[
+                       @[@"导航栏操作"],
+                       @[@"无导航条", @"透明", @"导航条渐变"],
+                       @[@"导航条滚动隐藏", @"导航条滚动隐藏(statusBar下停止)", @"导航条动画隐藏",  @"导航条动画隐藏(statusBar下停止)"],
+                       @[@"禁用系统返回手势", @"自定义返回手势", @"嵌套scrollview返回"],
+                       @[@"statusBar状态改变"]];
     }
     return _dataArray ;
 }
@@ -117,8 +125,8 @@
 {
     if (nil == _navDataArray) {
         _navDataArray = @[
-                          @[[NavOperateViewController class],
-                            [NavEmptyViewController class],
+                          @[[NavOperateViewController class]],
+                          @[[NavEmptyViewController class],
                             [NavTransparentViewController class],
                             [NavAlphaChangeViewController class]],
                           @[[NavSmoothHidenViewController class],
@@ -128,10 +136,14 @@
                           @[[NavSystemSlidingViewController class],
                             [NavCustomSlidingViewController class],
                             [NavScrollIncludeViewController class]],
+                          @[[NavStatusBarViewController class]]
                           ];
     }
     return _navDataArray ;
 }
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

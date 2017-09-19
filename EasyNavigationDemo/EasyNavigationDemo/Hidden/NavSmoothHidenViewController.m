@@ -19,7 +19,7 @@
 
     [self.navigationView setTitle:@"导航条滚动隐藏"];
 
-    [self.navigationView navigationSmoothScroll:self.tableView start:NAV_HEIGHT speed:0.5 stopToStateBar:NO];
+    [self.navigationView navigationSmoothScroll:self.tableView start:NAV_HEIGHT speed:0.5 stopToStatusBar:NO];
 
 }
 

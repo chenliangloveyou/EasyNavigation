@@ -82,6 +82,7 @@
 // 改变图片的颜色
 + (UIImage *) imageWithTintColor:(UIImage *)image color:(UIColor *)tintColor ;
 
+
 @end
 
 

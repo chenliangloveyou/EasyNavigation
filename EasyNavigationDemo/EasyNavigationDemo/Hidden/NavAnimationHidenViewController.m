@@ -19,7 +19,7 @@
     
     [self.navigationView setTitle:@"导航条动画隐藏"];
 
-    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NAV_HEIGHT stopToStateBar:NO];
+    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NAV_HEIGHT stopToStatusBar:NO];
 
     // Do any additional setup after loading the view.
 }

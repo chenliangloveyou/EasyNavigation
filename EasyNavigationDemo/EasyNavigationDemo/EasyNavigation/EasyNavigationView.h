@@ -79,9 +79,9 @@ typedef void(^clickCallback)(UIView *view);
 /**
  * 导航栏点击事件
  */
-- (void)stateBarTapWithCallback:(clickCallback)callback ;
+- (void)statusBarTapWithCallback:(clickCallback)callback ;
 //移除导航栏上的手势
-- (void)removeStateBarCallback ;
+- (void)removeStatusBarCallback ;
 
 
 #pragma mark - 左边视图
@@ -146,13 +146,13 @@ typedef void(^clickCallback)(UIView *view);
  * startPoint 超过这个点才会开始操作导航条
  * speed 滚动速度
  */
-- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStateBar:(BOOL)stopStateBar ;
+- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStatusBar:(BOOL)stopStatusBar ;
 
 /**
  * 超过临界点 隐藏导航栏
- * stopStateBar 停止到startBar下面
+ * stopStatusBar 停止到startBar下面
  */
-- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStateBar:(BOOL)stopStateBar ;
+- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStatusBar:(BOOL)stopStatusBar ;
 
 
 @end

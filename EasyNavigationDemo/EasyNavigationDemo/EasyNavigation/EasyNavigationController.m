@@ -27,6 +27,14 @@
 
 @implementation EasyNavigationController
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil
+     ];
+    
+    [[UIDevice currentDevice]endGeneratingDeviceOrientationNotifications];
+    
+}
 
 - (void)viewDidLoad
 {
@@ -38,7 +46,13 @@
     self.delegate = self ;
 
     self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
+    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+
+
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDeviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil
+     ];
 
 }
 
@@ -54,13 +68,6 @@
     
 }
 
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-
-   
-   
-}
-
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (self.viewControllers.count > 0 ) {
@@ -71,7 +78,7 @@
     
     kWeakSelf(self)
     if (self.viewControllers.count > 0) {
-        UIImage *img =[UIImage imageNamed:@"nav_back_btn@2x.png"] ;
+        UIImage *img =[UIImage imageNamed:@"nav_btn_back.png"] ;
         [viewController.navigationView addLeftButtonWithImage:img  clickCallBack:^(UIView *view) {
             [weakself popViewControllerAnimated:YES];
         }];
@@ -80,8 +87,20 @@
     [viewController.view addSubview:viewController.navigationView];
 
     [super pushViewController:viewController animated:animated];
+
     
+    EasyNavigationView  *navView = self.topViewController.navigationView ;
+    if (navView.width != self.topViewController.view.width) {
+        navView.width = self.topViewController.view.width ;
+    }
 }
+
+- (UIStatusBarStyle)preferredStatusBarStyle
+{
+    return self.topViewController.statusBarStyle ;
+}
+
+
 
 - (void)pushViewControllerRetro:(UIViewController *)viewController {
     CATransition *transition = [CATransition animation];
@@ -104,11 +123,48 @@
     
     [self popViewControllerAnimated:NO];
 }
-- (UIStatusBarStyle)preferredStatusBarStyle
+
+
+- (void)handleDeviceOrientationDidChange:(UIInterfaceOrientation)interfaceOrientation
 {
-    return self.topViewController.statusBarStyle ;
+    
+    EasyNavigationView  *navView = self.topViewController.navigationView ;
+    if (nil == navView) {
+        return ;
+    }
+    
+    if (navView.width != self.topViewController.view.width) {
+        navView.width = self.topViewController.view.width ;
+    }
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    //1.获取 当前设备 实例
+    UIDevice *device = [UIDevice currentDevice] ;
+    
+    EasyLog(@" %@ = %@",NSStringFromCGRect(self.topViewController.view.frame) , NSStringFromCGRect(navView.frame));
+    
+    switch (device.orientation) {
+        case UIDeviceOrientationUnknown: EasyLog(@"未知方向"); break;
+            
+        case UIDeviceOrientationFaceUp: EasyLog(@"屏幕朝上平躺"); break;
+            
+        case UIDeviceOrientationFaceDown:  EasyLog(@"屏幕朝下平躺");  break;
+            
+        case UIDeviceOrientationLandscapeLeft: EasyLog(@"屏幕向左横置");  break;
+            
+        case UIDeviceOrientationLandscapeRight: EasyLog(@"屏幕向右橫置"); break;
+            
+        case UIDeviceOrientationPortrait:  EasyLog(@"屏幕直立");  break;
+            
+        case UIDeviceOrientationPortraitUpsideDown: EasyLog(@"屏幕直立，上下位置调换了");  break;
+            
+        default: EasyLog(@"无法辨识"); break;
+    }
+    
 }
 
+
+#pragma mark - getter
 //- (NSMutableDictionary *)navBarDictionary
 //{
 //    if (nil == _navBarDictionary) {

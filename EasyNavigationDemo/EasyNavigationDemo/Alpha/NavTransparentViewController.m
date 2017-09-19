@@ -8,7 +8,7 @@
 
 #import "NavTransparentViewController.h"
 
-@interface NavTransparentViewController ()
+@interface NavTransparentViewController ()<UIScrollViewDelegate>
 
 @end
 
@@ -20,11 +20,21 @@
     [self.navigationView setTitle:@"透明导航条"];
     [self.navigationView setNavigationBackgroundAlpha:0];
     
-    self.customBackGestureEnabel = YES ;
-    self.customBackGestureEdge = 300 ;
-    
 }
 
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+  
+    UIImage *btnImage = nil ;
+    if (scrollView.contentOffset.y > 100){
+        btnImage = kImage(@"nav_btn_back_blue.png") ;
+    }
+    else{
+        btnImage = kImage(@"nav_btn_back.png") ;
+    }
+    
+    [self.navigationView.leftButton setImage:btnImage forState:UIControlStateNormal];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

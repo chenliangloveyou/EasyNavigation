@@ -1,41 +1,40 @@
 //
-//  NavSystemSlidingViewController.m
+//  NavStatusBarViewController.m
 //  EasyNavigationDemo
 //
-//  Created by Mr_Chen on 17/9/15.
+//  Created by nf on 2017/9/19.
 //  Copyright © 2017年 chenliangloveyou. All rights reserved.
 //
 
-#import "NavSystemSlidingViewController.h"
+#import "NavStatusBarViewController.h"
 
 #import "UIViewController+EasyNavigationExt.h"
 
-@interface NavSystemSlidingViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *alertLabel;
-@property (weak, nonatomic) IBOutlet UISwitch *changeSwitch;
+@interface NavStatusBarViewController ()
+
+
 
 @end
 
-@implementation NavSystemSlidingViewController
+@implementation NavStatusBarViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationView setTitle:@"系统返回手势"];
+    [self.navigationView setTitle:@"statusBar状态改变"];
     // Do any additional setup after loading the view from its nib.
 }
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated] ;
-    [self.navigationView layoutSubviews  ];
-}
-- (IBAction)changeSwitchClick:(id)sender {
-    
-    UISwitch *cSwitch = (UISwitch *)sender;
 
-    self.disableSlidingBackGesture = !cSwitch.isOn ;
-    self.alertLabel.text = cSwitch.isOn ? @"侧滑返回已打开":@"侧滑返回已关闭";
+- (IBAction)statusBarSwitchClick:(id)sender {
+    UISwitch *barSwitch = (UISwitch *)sender ;
+    self.statusBarHidden = !barSwitch.isOn ;
 }
+- (IBAction)statusBarStyleSwitchClick:(id)sender {
+    
+    UISwitch *barSwitch = (UISwitch *)sender ;
+    self.statusBarStyle = barSwitch.isOn ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent ;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

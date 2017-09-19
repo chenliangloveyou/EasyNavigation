@@ -15,7 +15,7 @@
 #import "EasyNavigationOptions.h"
 
 
-#define kTitleViewEdge 100.0f //title左右边距
+#define kTitleViewEdge 50.0f //title左右边距
 
 #define kViewMaxWidth 100.0f //左右两边按钮，视图，最大的的宽度
 #define kViewMinWidth  44.0f //左右两边按钮，视图，最小的的宽度
@@ -46,7 +46,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 @interface EasyNavigationView()
 {
-    clickCallback _stateBarTapCallback ;//导航栏点击回到
+    clickCallback _statusBarTapCallback ;//导航栏点击回到
     
     CGFloat _alphaStartChange ;//alpha改变的开始位置
     CGFloat _alphaEndChange   ;//alpha停止改变的位置
@@ -55,7 +55,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     CGFloat _scrollSpeed ;     //导航条滚动速度
     
     CGFloat _criticalPoint ;//导航条动画隐藏的临界点
-    BOOL _stopUpStateBar ;//动画后是否需要停止在stateBar下面
+    BOOL _stopUpstatusBar ;//动画后是否需要停止在statusBar下面
     
     UIScrollView *_kvoScrollView ;//用于监听scrollview内容高度的改变
     
@@ -88,6 +88,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @property (nonatomic,assign)BOOL isScrollingNavigaiton ;//是否正在滚动导航条
 
 @property (nonatomic,assign)NavigationChangeType navigationChangeType ;//导航条改变的类型
+
 @end
 
 @implementation EasyNavigationView
@@ -107,7 +108,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (self = [super initWithFrame:frame]) {
         
         self.backgroundColor = [UIColor clearColor];
-        
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         _isScrollingNavigaiton = NO ;
         _navigationChangeType = NavigationChangeTypeUnKnow ;
         
@@ -151,7 +152,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
-    
+    [self layoutTitleviews];
+    EasyLog(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
 }
 
 #pragma mark - titleview
@@ -160,29 +162,38 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     self.titleLabel.text = title;
     
     [self.titleLabel sizeToFit];
+    
+    if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
+        self.titleLabel.width = self.width-kTitleViewEdge*2 ;
+    }
     self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+
 }
 - (void)addtitleView:(UIView *)titleView
 {
     self.titleView = titleView ;
 
     [self addSubview:titleView];
-    titleView.center = CGPointMake(self.width/2 , NAV_STATE_HEIGHT+(self.height-NAV_STATE_HEIGHT)/2);
+    
+    if (titleView.width > self.width-kTitleViewEdge*2) {
+        titleView.width = self.width-kTitleViewEdge*2 ;
+    }
+    titleView.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
 }
 
-- (void)stateBarTapWithCallback:(clickCallback)callback
+- (void)statusBarTapWithCallback:(clickCallback)callback
 {
     NSAssert(callback, @"you should deal with this callback");
     
     if (callback) {
-        _stateBarTapCallback = [callback copy];
+        _statusBarTapCallback = [callback copy];
     }
     
 }
-- (void)removeStateBarCallback
+- (void)removestatusBarCallback
 {
-    if (nil == _stateBarTapCallback) {
-        _stateBarTapCallback = nil ;
+    if (nil == _statusBarTapCallback) {
+        _statusBarTapCallback = nil ;
     }
 }
 
@@ -374,14 +385,14 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 /**
  * 根据scrollview滚动，导航条隐藏或者展示.
  */
-- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStateBar:(BOOL)stopStateBar
+- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStatusBar:(BOOL)stopstatusBar
 {
     _navigationChangeType = NavigationChangeTypeSmooth ;
     
     _kvoScrollView = scrollow ;
     _scrollSpeed = speed ;
     _scrollStartPoint = startPoint ;
-    _stopUpStateBar = stopStateBar ;
+    _stopUpstatusBar = stopstatusBar ;
     
     _kvoScrollView.scrollDistance = startPoint ;
 
@@ -389,13 +400,13 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 }
 
-- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStateBar:(BOOL)stopStateBar
+- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStatusBar:(BOOL)stopstatusBar
 {
     _navigationChangeType = NavigationChangeTypeAnimation ;
 
     _kvoScrollView = scrollow ;
     _criticalPoint = criticalPoint ;
-    _stopUpStateBar = stopStateBar ;
+    _stopUpstatusBar = stopstatusBar ;
     
     [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
 
@@ -558,6 +569,26 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     }
 }
 
+- (void)layoutTitleviews
+{
+    if (_titleLabel) {
+        [self.titleLabel sizeToFit];
+        
+        if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
+            self.titleLabel.width = self.width-kTitleViewEdge*2 ;
+        }
+        self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+    }
+    
+    if (_titleView) {
+        
+        if (_titleView.width > self.width-kTitleViewEdge*2) {
+            _titleView.width = self.width-kTitleViewEdge*2 ;
+        }
+        _titleView.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+
+    }
+}
 - (void)layoutSubviewsWithType:(buttonPlaceType)type
 {
     NSMutableArray *tempArray = nil ;
@@ -587,6 +618,10 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             UIButton *tempButton = (UIButton *)tempView ;
 
             viewWidth = [tempButton.titleLabel.text sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:tempButton.titleLabel.font.fontName size:tempButton.titleLabel.font.pointSize]}].width + 5 ;
+            
+            if (tempButton.imageView.image) {
+                viewWidth += 20 ;
+            }
         }
         else{
             viewWidth = tempView.width ;
@@ -636,7 +671,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         self.isScrollingNavigaiton = YES ;
         
         //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = _stopUpStateBar?NAV_STATE_HEIGHT:0 ;
+        CGFloat topOfY = _stopUpstatusBar?NAV_STATE_HEIGHT:0 ;
         
         [UIView animateWithDuration:kAnimationDuring animations:^{
             
@@ -664,13 +699,13 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         }
 
         //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = _stopUpStateBar?NAV_STATE_HEIGHT:0 ;
+        CGFloat topOfY = _stopUpstatusBar?NAV_STATE_HEIGHT:0 ;
         
         if ( changeY <= self.height - topOfY ) {
             EasyLog(@"changeY = %F",changeY);
             self.y = - changeY ;
             
-            if (!_stopUpStateBar) {
+            if (!_stopUpstatusBar) {
                 return ;
             }
 
@@ -702,7 +737,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             self.isScrollingNavigaiton = NO ;
             self.y = 0 ;
             
-            if (_stopUpStateBar) {
+            if (_stopUpstatusBar) {
                 [self changeSubviewsAlpha:1];
             }
             
@@ -772,6 +807,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     if (nil == _backgroundView) {
         _backgroundView = [[UIView alloc]initWithFrame:self.bounds];
+        _backgroundView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _backgroundView.backgroundColor = self.options.navBackGroundColor ;
         _backgroundView.alpha = _backGroundAlpha ;
     }
@@ -781,6 +817,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     if (nil == _backgroundImageView) {
         _backgroundImageView = [[UIImageView alloc]initWithFrame:self.bounds];
+        _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _backgroundImageView.backgroundColor = [UIColor clearColor];
         _backgroundImageView.alpha = _backGroundAlpha ;
         
@@ -788,7 +825,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     }
     return _backgroundImageView ;
 }
-- (void)stateBarTap
+- (void)statusBarTap
 {
 
 }
@@ -796,7 +833,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (UILabel *)titleLabel
 {
     if (nil == _titleLabel) {
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, SCREEN_WIDTH-kTitleViewEdge*2 , self.height - NAV_STATE_HEIGHT)];
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, self.width-kTitleViewEdge*2 , self.height - NAV_STATE_HEIGHT)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
@@ -817,6 +854,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     if (nil == _lineView) {
         _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.height-0.5, self.width, 0.5)];
+        _lineView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
         _lineView.backgroundColor = self.options.navLineColor;
     }
     return _lineView ;

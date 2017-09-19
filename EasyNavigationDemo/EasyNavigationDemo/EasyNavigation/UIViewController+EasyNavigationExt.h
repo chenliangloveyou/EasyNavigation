@@ -17,21 +17,6 @@
 @interface UIViewController (EasyNavigationExt)
 
 /**
- * 当前控制器 是否 禁止侧滑返回
- */
-@property (nonatomic,assign)BOOL disableSlidingBackGesture ;
-
-/**
- * 是否开始 手势侧滑返回
-*/
-@property (nonatomic,assign)BOOL customBackGestureEnabel ;
-
-/**
- * 如果开启了手势侧滑，那么侧滑距离左边最大的距离
- */
-@property (nonatomic,assign)CGFloat customBackGestureEdge ;
-
-/**
  * 当前的导航控制器
  */
 @property (nonatomic, weak) EasyNavigationViewController *vcEasyNavController ;
@@ -41,10 +26,33 @@
  */
 @property (nonatomic,strong)EasyNavigationView *navigationView ;
 
+
 /**
- * 当前控制器状态栏颜色
+ * 当前控制器 是否 禁止侧滑返回
+ */
+@property (nonatomic,assign)BOOL disableSlidingBackGesture ;
+
+/**
+ * 是否开始 手势侧滑返回
+ */
+@property (nonatomic,assign)BOOL customBackGestureEnabel ;
+
+/**
+ * 如果开启了手势侧滑，那么侧滑距离左边最大的距离
+ */
+@property (nonatomic,assign)CGFloat customBackGestureEdge ;
+
+
+/**
+ * 当前控制器状态栏类型
  */
 @property (nonatomic,assign)UIStatusBarStyle statusBarStyle;
+
+/**
+ * 当前控制器的状态栏是否隐藏
+ */
+@property (nonatomic,assign)BOOL statusBarHidden ;
+
 
 /**
  * 处理侧滑返回手势
