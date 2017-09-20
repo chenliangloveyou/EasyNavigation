@@ -32,7 +32,10 @@
     return YES;
 }
 ```
-【图片】
+_【preview】_
+
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/home@2x.png)
+
 
 ## 导航栏上的控件增删改操作
 
@@ -119,7 +122,11 @@ if (!self.navigationView) {
      [self.view addSubview:nav];
  }
  ```
-【图片】
+_【preview】_
+
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/operate.gif)
+
+
 
 ## 透明度改变
 
@@ -139,7 +146,10 @@ if (!self.navigationView) {
 [self.navigationView navigationAlphaSlowChangeWithScrollow:self.tableView start:NAV_HEIGHT end:NAV_HEIGHT*4];
 ```
 
-【图片】
+_【preview】_
+
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/alpha.gif)
+
 ## 导航条隐藏 
 
 #### 1,无导航条
@@ -174,6 +184,10 @@ if (!self.navigationView) {
  [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NAV_HEIGHT stopToStatusBar:NO];
 ```
 
+【图片】
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/hidden.gif)
+
+
 ## 导航条手势返回手势
 
 #### 1,系统返回手势
@@ -195,6 +209,10 @@ if (!self.navigationView) {
 
 #### 3,嵌套scrollview返回
 
+_【preview】_
+
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/sliding.gif)
+
 
 ## 状态栏改变
 
@@ -205,6 +223,9 @@ if (!self.navigationView) {
  //设置当前状态栏的样式
  self.statusBarStyle =  UIStatusBarStyleDefault ; //UIStatusBarStyleLightContent 
 ```
+_【preview】_
+
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/statusBar.gif)
 
 
 # 实现原理
