@@ -86,7 +86,7 @@
         }break;
         case 6:
         {
-            [self.navigationView setBackgroundColor:[UIColor yellowColor]];
+            [self.navigationView setBackgroundColor:[UIColor orangeColor]];
         }break;
         case 7:
         {
