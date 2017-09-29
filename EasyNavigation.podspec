@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
   s.homepage     = "https://github.com/chenliangloveyou/EasyNavigation.git"
   s.license      = "MIT"
   s.author       = { "chenliangloveyou" => "ios_elite@163.com" }
-  s.source       = { :git => "https://github.com/chenliangloveyou/EasyNavigation.git", :tag => "#{s.version}" }
-  s.source_files = "EasyNavigation/**/*.{h,m}"
+  s.source       = { :git => "https://github.com/chenliangloveyou/EasyNavigation.git", :commit => "e15b05a63067214e04d7ea283e82a10bdb8533f9" }
+  s.source_files = "EasyNavigation/*.{h,m}"
   s.resource     = 'EasyNavigation/EasyNavButton.bundle'
   # s.public_header_files = "Classes/**/*.h"
   s.ios.deployment_target= '7.0'
