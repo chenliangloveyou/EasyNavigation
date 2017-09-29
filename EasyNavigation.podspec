@@ -10,8 +10,8 @@ Pod::Spec.new do |s|
   s.license      = "MIT"
   s.author       = { "chenliangloveyou" => "ios_elite@163.com" }
   s.source       = { :git => "https://github.com/chenliangloveyou/EasyNavigation.git", :tag => "#{s.version}" }
-  s.source_files  = "EasyNavigation/**/*.{h,m}"
-  s.resource    = 'EasyNavigation/EasyNavButton.bundle'
+  s.source_files = "EasyNavigation/**/*.{h,m}"
+  s.resource     = 'EasyNavigation/EasyNavButton.bundle'
   # s.public_header_files = "Classes/**/*.h"
   s.ios.deployment_target= '7.0'
 
