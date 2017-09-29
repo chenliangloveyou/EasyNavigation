@@ -61,6 +61,13 @@
 //图片
 #define kImage(image)      [UIImage imageNamed:image]
 
+//bundle中的图片
+#define EasyImageFile(file) [@"EasyNavButton.bundle" stringByAppendingPathComponent:file]
+
+
+
+// 为通过cocoapods下载安装获取图片路径的宏
+#define RKOTextViewFrameworkSrcName(file) [@"Frameworks/RKOTools.framework/ClearBtnImg.bundle" stringByAppendingPathComponent:file]
 
 //强弱引用
 #define kWeakSelf(type)__weak typeof(type)weak##type = type;
