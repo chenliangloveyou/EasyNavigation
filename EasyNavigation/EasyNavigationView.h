@@ -85,7 +85,7 @@ typedef void(^clickCallback)(UIView *view);
  */
 - (void)statusBarTapWithCallback:(clickCallback)callback ;
 //移除导航栏上的手势
-- (void)removeStatusBarCallback ;
+//- (void)removeStatusBarCallback ;
 
 
 #pragma mark - 左边视图
