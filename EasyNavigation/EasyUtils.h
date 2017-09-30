@@ -18,7 +18,7 @@
 #define  SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
 
 //导航栏高度
-#define NAV_HEIGHT 84.0f
+#define NAV_HEIGHT 64.0f
 
 //状态栏高度
 #define NAV_STATE_HEIGHT 20.0f 
