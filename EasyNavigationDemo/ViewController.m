@@ -54,24 +54,7 @@
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.tableView];
-    
-    
-    /*
-     由于这个库的原理是隐藏系统导航条，自定义一个view作为导航条，
-     1，self.automaticallyAdjustsScrollViewInsets = NO ;用来
-     2，控制器中的view会从左上角的{0,0}开始计算。
-     在添加视图的时候，可以重导航条高度的下面开始添加。
-     当为scrollview的时候可以设置。
-     scrollview.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-     也就是向下收缩导航条高度的距离。
-     
-     
-     这个库是隐藏了系统的导航栏，但是没有
-     
-     这个库的原理是隐藏系统提供的导航栏，在ViewController加到导航栏控制器的桟上时加上一个自定的view作为导航栏。加上的这个view用控制器的分类来保存。所以可以直接作为UIViewController的属性使用。
-     
-     */
-    
+
 }
 
 
