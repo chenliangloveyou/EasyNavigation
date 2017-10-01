@@ -257,14 +257,22 @@ _【preview】_
 
  
 # 注意事项
-
-由于这个库的原理是隐藏系统导航条，自定义一个`view`作为导航条，所以有2点需要注意点地方。
-1，self.automaticallyAdjustsScrollViewInsets = NO ;用来
-2，控制器中的view会从左上角的{0,0}开始计算。
-    在添加视图的时候，可以重导航条高度的下面开始添加。
-    当为scrollview的时候可以设置。`scrollview.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);` 也就是向下收缩导航条高度的距离。
-    
-  
+```
+这个库的原理是隐藏系统提供的导航栏，在ViewController加到导航栏控制器的桟上时加上一个自定的view作为导航栏。
+加上的这个view用控制器的分类来保存。所以可以直接作为UIViewController的属性使用。
+```
+```
+对侧滑控制是对导航控制器的interactivePopGestureRecognizer属性的操作。自定义侧滑是偷偷换掉这个属性的触发条件。
+```
+```
+注意：由于是隐藏了系统导航栏。所以当控制器上第一个视图为scrollview的时候会向下偏移20。
+需要用self.automaticallyAdjustsScrollViewInsets = NO  或者 scrollview.contentInset = UIEdgeInsetsMake(NAV_HEIGHT, 0, 0, 0)来调整视图位置。 
+当控制器的第一个视图不是scrollview(或子类)的时候，需要让出导航栏高度的距离。
+```
+```
+注意：由于隐藏了系统导航条，只要是用EasyNavigationController为控制器的管理工具时
+系统提供的UINavigationBar 和 UINavigationItem 的属性就不能使用了。
+```
 # 期望
 1. 如果在使用过程中遇到任务问题，或者发现使用不够恰当。希望能联系我 email: chenliangloveyou@163.com qq:455158249
 2. 如果您在使用过程中发现bug，希望能在issues中提出。我会持续改进这个库的。
