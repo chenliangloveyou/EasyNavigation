@@ -266,7 +266,8 @@ _【preview】_
 ```
 ```
 注意：由于是隐藏了系统导航栏。所以当控制器上第一个视图为scrollview的时候会向下偏移20。
-需要用self.automaticallyAdjustsScrollViewInsets = NO  或者 scrollview.contentInset = UIEdgeInsetsMake(NAV_HEIGHT, 0, 0, 0)来调整视图位置。  当控制器的第一个视图不是scrollview(或子类)的时候，需要让出导航栏高度的距离。
+需要用self.automaticallyAdjustsScrollViewInsets = NO  或者 scrollview.contentInset = UIEdgeInsetsMake(NAV_HEIGHT, 0, 0, 0)来调整视图位置。 
+当控制器的第一个视图不是scrollview(或子类)的时候，需要让出导航栏高度的距离。
 ```
 ```
 注意：由于隐藏了系统导航条，只要是用EasyNavigationController为控制器的管理工具时
