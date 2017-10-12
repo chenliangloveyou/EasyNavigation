@@ -51,8 +51,7 @@
 
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDeviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil
-     ];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDeviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
 
 }
 
@@ -76,16 +75,13 @@
     
     viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , NAV_HEIGHT)];
     
-    kWeakSelf(self)
     if (self.viewControllers.count > 0) {
-        
-        // 图片路径
+        kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
         [viewController.navigationView addLeftButtonWithImage:img  clickCallBack:^(UIView *view) {
              [weakself popViewControllerAnimated:YES];
         }];
     }
-    
     [viewController.view addSubview:viewController.navigationView];
 
     [super pushViewController:viewController animated:animated];
@@ -140,28 +136,28 @@
     }
     [self setNeedsStatusBarAppearanceUpdate];
     
-    //1.获取 当前设备 实例
-    UIDevice *device = [UIDevice currentDevice] ;
-    
-    EasyLog(@" %@ = %@",NSStringFromCGRect(self.topViewController.view.frame) , NSStringFromCGRect(navView.frame));
-    
-    switch (device.orientation) {
-        case UIDeviceOrientationUnknown: EasyLog(@"未知方向"); break;
-            
-        case UIDeviceOrientationFaceUp: EasyLog(@"屏幕朝上平躺"); break;
-            
-        case UIDeviceOrientationFaceDown:  EasyLog(@"屏幕朝下平躺");  break;
-            
-        case UIDeviceOrientationLandscapeLeft: EasyLog(@"屏幕向左横置");  break;
-            
-        case UIDeviceOrientationLandscapeRight: EasyLog(@"屏幕向右橫置"); break;
-            
-        case UIDeviceOrientationPortrait:  EasyLog(@"屏幕直立");  break;
-            
-        case UIDeviceOrientationPortraitUpsideDown: EasyLog(@"屏幕直立，上下位置调换了");  break;
-            
-        default: EasyLog(@"无法辨识"); break;
-    }
+//    //1.获取 当前设备 实例
+//    UIDevice *device = [UIDevice currentDevice] ;
+//    
+//    EasyLog(@" %@ = %@",NSStringFromCGRect(self.topViewController.view.frame) , NSStringFromCGRect(navView.frame));
+//    
+//    switch (device.orientation) {
+//        case UIDeviceOrientationUnknown: EasyLog(@"未知方向"); break;
+//            
+//        case UIDeviceOrientationFaceUp: EasyLog(@"屏幕朝上平躺"); break;
+//            
+//        case UIDeviceOrientationFaceDown:  EasyLog(@"屏幕朝下平躺");  break;
+//            
+//        case UIDeviceOrientationLandscapeLeft: EasyLog(@"屏幕向左横置");  break;
+//            
+//        case UIDeviceOrientationLandscapeRight: EasyLog(@"屏幕向右橫置"); break;
+//            
+//        case UIDeviceOrientationPortrait:  EasyLog(@"屏幕直立");  break;
+//            
+//        case UIDeviceOrientationPortraitUpsideDown: EasyLog(@"屏幕直立，上下位置调换了");  break;
+//            
+//        default: EasyLog(@"无法辨识"); break;
+//    }
     
 }
 
