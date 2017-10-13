@@ -106,9 +106,8 @@
             _tableView.estimatedSectionHeaderHeight = 0;
             _tableView.estimatedSectionFooterHeight = 0;
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic ;
-        } else {
-            // Fallback on earlier versions
         }
+        
         UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
         img.backgroundColor = [UIColor lightGrayColor];
         _tableView.tableHeaderView =img ;

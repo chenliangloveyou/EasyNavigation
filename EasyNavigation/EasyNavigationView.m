@@ -576,7 +576,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
             self.titleLabel.width = self.width-kTitleViewEdge*2 ;
         }
-        self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+        self.titleLabel.height = (self.height - NAV_STATE_HEIGHT);
+        self.titleLabel.center = CGPointMake(self.center.x, NAV_STATE_HEIGHT+(self.height-NAV_STATE_HEIGHT)/2);
     }
     
     if (_titleView) {
@@ -584,7 +585,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         if (_titleView.width > self.width-kTitleViewEdge*2) {
             _titleView.width = self.width-kTitleViewEdge*2 ;
         }
-        _titleView.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+        _titleView.height = (self.height - NAV_STATE_HEIGHT);
+        _titleView.center = CGPointMake(self.center.x, NAV_STATE_HEIGHT+(self.height-NAV_STATE_HEIGHT)/2 );
 
     }
 }

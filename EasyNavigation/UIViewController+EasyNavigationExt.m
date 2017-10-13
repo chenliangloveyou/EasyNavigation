@@ -116,29 +116,28 @@
 - (void)dealSlidingGestureDelegate
 {
     EasyNavigationController *navController = (EasyNavigationController *)self.navigationController ;
-    if (nil != navController) {
-        if (self.disableSlidingBackGesture) {
-            navController.interactivePopGestureRecognizer.delegate = nil ;
-            navController.interactivePopGestureRecognizer.enabled = NO ;
-        }
-        else{
-            
-            navController.interactivePopGestureRecognizer.delegate = navController ;
-            navController.interactivePopGestureRecognizer.enabled = YES ;
-            
-            if (self.customBackGestureEnabel) {
-                
-                [navController.interactivePopGestureRecognizer.view addGestureRecognizer:navController.customBackGesture];
-                
-                navController.customBackGesture.delegate = navController.customBackGestureDelegate ;
-                
-                navController.interactivePopGestureRecognizer.delegate = nil;
-                navController.interactivePopGestureRecognizer.enabled  = NO;
-            }
-            
-        }
+    if (nil == navController) {
+        return ;
     }
     
+    if (self.disableSlidingBackGesture) {
+        navController.interactivePopGestureRecognizer.delegate = nil ;
+        navController.interactivePopGestureRecognizer.enabled = NO ;
+        return ;
+    }
+    
+    navController.interactivePopGestureRecognizer.delegate = navController ;
+    navController.interactivePopGestureRecognizer.enabled = YES ;
+    
+    if (self.customBackGestureEnabel) {
+        
+        [navController.interactivePopGestureRecognizer.view addGestureRecognizer:navController.customBackGesture];
+        
+        navController.customBackGesture.delegate = navController.customBackGestureDelegate ;
+        
+        navController.interactivePopGestureRecognizer.delegate = nil;
+        navController.interactivePopGestureRecognizer.enabled  = NO;
+    }
 }
 
 - (BOOL)prefersStatusBarHidden

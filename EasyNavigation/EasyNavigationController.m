@@ -31,11 +31,9 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil
-     ];
-    
+    EasyNotificationRemove(UIDeviceOrientationDidChangeNotification) ;
+    EasyNotificationRemove(UIApplicationWillChangeStatusBarFrameNotification) ;
     [[UIDevice currentDevice]endGeneratingDeviceOrientationNotifications];
-    
 }
 
 - (void)viewDidLoad
@@ -47,12 +45,10 @@
     self.delegate = self ;
 
     self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
-//    [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
-
 
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleDeviceOrientationDidChange:) name:UIDeviceOrientationDidChangeNotification object:nil];
+    EasyNotificationAdd(handleDeviceOrientationDidChange:, UIDeviceOrientationDidChangeNotification) ;
+    EasyNotificationAdd(statusBarChangeNoti:, UIApplicationWillChangeStatusBarFrameNotification) ;
 
 }
 
@@ -86,15 +82,26 @@
 
     [super pushViewController:viewController animated:animated];
 
+    CGFloat statusBarH = STATUS_H ;
+    statusBarH = NAV_HEIGHT ;
+    NSLog(@"%f",statusBarH);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         EasyNavigationView  *navView = self.topViewController.navigationView ;
         if (navView.width != self.topViewController.view.width) {
             navView.width = self.topViewController.view.width ;
         }
+        NSLog(@"%f",self.topViewController.view.y);
+        if (self.topViewController.view.y == 20) {
+            
+        }
     });
     
 }
 
+- (void)statusBarChangeNoti:(NSNotification *)notifycation
+{
+    
+}
 - (void)handleDeviceOrientationDidChange:(UIInterfaceOrientation)interfaceOrientation
 {
     
@@ -109,27 +116,27 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
 //    //1.获取 当前设备 实例
-    UIDevice *device = [UIDevice currentDevice] ;
-    
-    EasyLog(@" %@ = %@",NSStringFromCGRect(self.topViewController.view.frame) , NSStringFromCGRect(navView.frame));
-    
-    switch (device.orientation) {
-        case UIDeviceOrientationUnknown: EasyLog(@"未知方向"); break;
-            
-        case UIDeviceOrientationFaceUp: EasyLog(@"屏幕朝上平躺"); break;
-            
-        case UIDeviceOrientationFaceDown:  EasyLog(@"屏幕朝下平躺");  break;
-            
-        case UIDeviceOrientationLandscapeLeft: EasyLog(@"屏幕向左横置");  break;
-            
-        case UIDeviceOrientationLandscapeRight: EasyLog(@"屏幕向右橫置"); break;
-            
-        case UIDeviceOrientationPortrait:  EasyLog(@"屏幕直立");  break;
-            
-        case UIDeviceOrientationPortraitUpsideDown: EasyLog(@"屏幕直立，上下位置调换了");  break;
-            
-        default: EasyLog(@"无法辨识"); break;
-    }
+//    UIDevice *device = [UIDevice currentDevice] ;
+//
+//    EasyLog(@" %@ = %@",NSStringFromCGRect(self.topViewController.view.frame) , NSStringFromCGRect(navView.frame));
+//
+//    switch (device.orientation) {
+//        case UIDeviceOrientationUnknown: EasyLog(@"未知方向"); break;
+//
+//        case UIDeviceOrientationFaceUp: EasyLog(@"屏幕朝上平躺"); break;
+//
+//        case UIDeviceOrientationFaceDown:  EasyLog(@"屏幕朝下平躺");  break;
+//
+//        case UIDeviceOrientationLandscapeLeft: EasyLog(@"屏幕向左横置");  break;
+//
+//        case UIDeviceOrientationLandscapeRight: EasyLog(@"屏幕向右橫置"); break;
+//
+//        case UIDeviceOrientationPortrait:  EasyLog(@"屏幕直立");  break;
+//
+//        case UIDeviceOrientationPortraitUpsideDown: EasyLog(@"屏幕直立，上下位置调换了");  break;
+//
+//        default: EasyLog(@"无法辨识"); break;
+//    }
     
 }
 
@@ -141,13 +148,6 @@
 
 
 #pragma mark - getter
-//- (NSMutableDictionary *)navBarDictionary
-//{
-//    if (nil == _navBarDictionary) {
-//        _navBarDictionary  = [NSMutableDictionary dictionaryWithCapacity:10];
-//    }
-//    return _navBarDictionary ;
-//}
 
 - (UIPanGestureRecognizer *)customBackGesture
 {
