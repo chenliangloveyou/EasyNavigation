@@ -18,7 +18,8 @@
     [super viewDidLoad];
     
     [self.navigationView setTitle:@"导航条颜色渐变"];
-    
+    self.tableView.contentInset = UIEdgeInsetsMake(-STATUS_H, 0, 0, 0);
+
     [self.navigationView setNavigationBackgroundAlpha:0.0];
     
 #if 1//以下两个2选1
