@@ -36,10 +36,15 @@
     self.statusBarStyle = barSwitch.isOn ? UIStatusBarStyleDefault : UIStatusBarStyleLightContent ;
 }
 
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+//
+- (BOOL)prefersStatusBarHidden
+{
+    return self.statusBarHidden;
 }
 
 /*

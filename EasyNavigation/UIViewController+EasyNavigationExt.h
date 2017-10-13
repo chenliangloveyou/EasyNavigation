@@ -57,6 +57,10 @@
  */
 @property (nonatomic,assign)BOOL statusBarHidden ;
 
+/**
+ * 横屏的时候是否显示状态栏 (默认为不显示)
+ */
+@property (nonatomic,assign)BOOL horizontalScreenShowStatusBar ;
 
 /**
  * 处理侧滑返回手势

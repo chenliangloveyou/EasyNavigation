@@ -148,6 +148,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 - (void)layoutSubviews
 {
+    self.height = NAV_HEIGHT ;
+    
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
     [self layoutTitleviews];
@@ -596,7 +598,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         tempArray = self.rightViewArray ;
     }
     
-    CGFloat leftEdge = 10 ;
+    CGFloat leftEdge = 10 + ((ISIPHONE_X&&ISHORIZONTALSCREEM)? 20 : 0);//如果是iPhone X的横屏状态，让出安全区域的距离
     for (int i = 0 ; i < tempArray.count; i++) {
         UIView *tempView = tempArray[i];
         
@@ -851,9 +853,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     if (nil == _lineView) {
         _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.height-0.5, self.width, 0.5)];
-        _lineView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
 
-        _lineView.backgroundColor = self.options.navLineColor;
+        _lineView.backgroundColor = self.options.navLineColor ;//[UIColor redColor];//
     }
     return _lineView ;
 }

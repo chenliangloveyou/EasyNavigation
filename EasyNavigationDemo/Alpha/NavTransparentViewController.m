@@ -17,6 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    self.tableView.contentInset = UIEdgeInsetsMake(STATUS_H, 0, 0, 0);
     [self.navigationView setTitle:@"透明导航条"];
     [self.navigationView setNavigationBackgroundAlpha:0];
     self.navigationView.lineView.alpha = 1 ;

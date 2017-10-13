@@ -9,69 +9,59 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#import "EasyNavigationController.h"
-#import "EasyNavigationOptions.h"
-
-//屏幕宽度
+//屏幕宽高
 #define  SCREEN_WIDTH [[UIScreen mainScreen] bounds].size.width
-//屏幕高度
 #define  SCREEN_HEIGHT [[UIScreen mainScreen] bounds].size.height
-
-//导航栏高度
-#define NAV_HEIGHT 64.0f
-
-//状态栏高度
-#define NAV_STATE_HEIGHT 20.0f 
-
-
-//去除状体栏的屏幕高度
-#define  SCREEN_HEIGHT_EXCEPTSTATUS (SCREEN_HEIGHT - 20.0f)
-//去除状体栏和顶部导航栏之后的屏幕高度
-#define  SCREEN_HEIGHT_EXCEPTNAV (SCREEN_HEIGHT - NAV_HEIGHT)
-//去除状体栏,顶部导航栏和底部工具栏之后的屏幕高度
-#define  SCREEN_HEIGHT_EXCEPTNAVANDTAB (SCREEN_HEIGHT - 110.0f)
-
-//ipad
-#define IS_IPAD (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-//iPhone
-#define IS_IPHONE (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
-//retain屏
-#define IS_RETINA ([[UIScreen mainScreen] scale] >= 2.0)
 //屏幕的高度
 #define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
 
+//屏幕是否是横屏状态
+#define ISHORIZONTALSCREEM UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)
+//#define ISHORIZONTALSCREEM (screenOrientation==UIDeviceOrientationLandscapeLeft || screenOrientation== UIDeviceOrientationLandscapeRight)
+//retain屏
+#define ISRETAIN ([[UIScreen mainScreen] scale] >= 2.0)
+//屏幕尺寸判断
+#define ISIPHONE   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define ISIPHONE_4  (ISIPHONE && SCREEN_MAX_LENGTH == 480.0f) // 4/4s            3.5寸   320*480
+#define ISIPHONE_5  (ISIPHONE && SCREEN_MAX_LENGTH == 568.0f) // 5/5s/se           4寸   320*568
+#define ISIPHONE_6  (ISIPHONE && SCREEN_MAX_LENGTH == 667.0f)  // 6/6s/7/8        4.7寸   375*667
+#define ISIPHONE_6P (ISIPHONE && SCREEN_MAX_LENGTH == 736.0f)  // 6p/6ps/7p/8p    5.5寸   414*736
+#define ISIPHONE_X  (ISIPHONE && SCREEN_MAX_LENGTH == 812.0f)  // iPhonex         5.8寸   375*812
 
-#define isIphone4 (IS_IPHONE && SCREEN_MAX_LENGTH == 480.0f)// 4/4s     3.5寸   320*480
-#define isIphone5 (IS_IPHONE && SCREEN_MAX_LENGTH == 568.0) // 5/5s/se  4寸     320*568
-#define isIphone6 (IS_IPHONE && SCREEN_MAX_LENGTH == 667.0) // 6/6s     4.7寸   375*667
-#define isIphone6P (IS_IPHONE && SCREEN_MAX_LENGTH == 736.0)// 6p/6ps   5.5寸   414*736
+//iOS版本判断
+#define SYSTEM_VERSION ([[UIDevice currentDevice] systemVersion] floatValue])
+#define IS_IOS7_OR_LATER (SYSTEM_VERSION >= 7.0)
+#define IS_IOS8_OR_LATER (SYSTEM_VERSION >= 8.0)
+#define IS_IOS9_OR_LATER (SYSTEM_VERSION >= 9.0)
+#define IS_IOS10_OR_LATER (SYSTEM_VERSION >= 10.0)
+#define IS_IOS11_OR_LATER (SYSTEM_VERSION >= 11.0)
 
-#define VERSION_IOS10_OR_LATER [[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0
-#define VERSION_IOS9_OR_LATER [[[UIDevice currentDevice] systemVersion] floatValue] >= 9.0
-#define VERSION_IOS8_OR_LATER [[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0
-#define VERSION_IOS7_OR_LATER [[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0
+
+//statusbar默认高度
+#define STATUS_H  ([UIApplication sharedApplication].statusBarFrame.size.height)
+
+//状态栏高度
+#define NAV_STATE_HEIGHT (ISHORIZONTALSCREEM ? (ISIPHONE_X ? 0 : STATUS_H) : STATUS_H )
+
+//导航栏高度
+#define NAV_HEIGHT (NAV_STATE_HEIGHT + 44.0f)
+
+
 
 //去掉导航栏后的view的frame
-#define TABLE_FRAME CGRectMake(0, NAV_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT_EXCEPTNAV)
-
-//IOS7以上状态栏高度
-#define   TOP_DICTANCE ((SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"7.0"))?20:0)
+#define TABLE_FRAME CGRectMake(0, NAV_HEIGHT, SCREEN_WIDTH,SCREEN_HEIGHT-NAV_HEIGHT )
 
 
 //图片
-#define kImage(image)      [UIImage imageNamed:image]
+#define kImage(image)   [UIImage imageNamed:image]
 
 //bundle中的图片
 #define EasyImageFile(file) [@"EasyNavButton.bundle" stringByAppendingPathComponent:file]
 
 
-
-// 为通过cocoapods下载安装获取图片路径的宏
-#define RKOTextViewFrameworkSrcName(file) [@"Frameworks/RKOTools.framework/ClearBtnImg.bundle" stringByAppendingPathComponent:file]
-
 //强弱引用
-#define kWeakSelf(type)__weak typeof(type)weak##type = type;
-#define kStrongSelf(type)__strong typeof(type)type = weak##type;
+#define kWeakSelf(type)  __weak typeof(type) weak##type = type;
+#define kStrongSelf(type) __strong typeof(type) type = weak##type;
 
 
 /**打印****/
@@ -85,6 +75,7 @@
 
 
 @interface EasyUtils : NSObject
+
 
 //根据颜色创建一个图片
 + (UIImage *)createImageWithColor:(UIColor *)color ;

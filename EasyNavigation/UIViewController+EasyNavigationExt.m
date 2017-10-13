@@ -99,6 +99,20 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
+- (BOOL)horizontalScreenShowStatusBar
+{
+    return [objc_getAssociatedObject(self, _cmd) boolValue] ;
+}
+-(void)setHorizontalScreenShowStatusBar:(BOOL)horizontalScreenShowStatusBar
+{
+    if (self.horizontalScreenShowStatusBar == horizontalScreenShowStatusBar) {
+        return ;
+    }
+    objc_setAssociatedObject(self, @selector(horizontalScreenShowStatusBar), @(horizontalScreenShowStatusBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    [self setNeedsStatusBarAppearanceUpdate];
+}
+
 - (void)dealSlidingGestureDelegate
 {
     EasyNavigationController *navController = (EasyNavigationController *)self.navigationController ;
@@ -127,11 +141,11 @@
     
 }
 
-
-- (BOOL)prefersStatusBarHidden {
-
+- (BOOL)prefersStatusBarHidden
+{
     return self.statusBarHidden;
 }
+
 
 @end
 

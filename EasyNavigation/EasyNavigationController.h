@@ -14,11 +14,9 @@
 
 //@property (nonatomic,assign)BOOL isSystemNavigationBar ;//是否展示自带的导航条
 
-@property (nonatomic,strong)UIPanGestureRecognizer *customBackGesture ;//自定义侧滑返回
+@property (nonatomic,strong,readonly)UIPanGestureRecognizer *customBackGesture ;//自定义侧滑返回
 
-@property (nonatomic,strong)EasyCustomBackGestureDelegate *customBackGestureDelegate ;//自定义返回的代理
+@property (nonatomic,strong,readonly)EasyCustomBackGestureDelegate *customBackGestureDelegate ;//自定义返回的代理
 
-- (void)pushViewControllerRetro:(UIViewController *)viewController;
-- (void)popViewControllerRetro;
 
 @end
