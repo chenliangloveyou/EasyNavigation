@@ -28,6 +28,7 @@
     [self.navigationView addRightButtonWithTitle:@"添加" clickCallBack:^(UIView *view) {
         NSLog(@"点击了“添加按钮”");
     }];
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

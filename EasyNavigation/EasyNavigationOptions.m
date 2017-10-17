@@ -24,6 +24,8 @@
 {
     if (self = [super init]) {
         
+        _navbigTitleType = NavBigTitleTypeDefault ;
+        
         _backGroundAlpha = 0.9 ;
         
         _navBackGroundColor = [UIColor whiteColor];
