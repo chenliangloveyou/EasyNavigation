@@ -25,6 +25,7 @@
     if (self = [super init]) {
         
         _navbigTitleType = NavBigTitleTypeDefault ;
+        _navTitleAnimationType = NavTitleAnimationTypeStiffFade ;
         
         _backGroundAlpha = 0.9 ;
         
