@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "EasyNavigation/EasyNavigationController.m"
-            timestampString = "530034645.525226"
+            timestampString = "530035495.455234"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
             landmarkName = "-pushViewController:animated:"
             landmarkType = "7">
             <Locations>
@@ -138,11 +138,11 @@
                   moduleName = "EasyNavigationDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chenliang/Documents/GitHub/EasyNavigation/EasyNavigation/EasyNavigationController.m"
-                  timestampString = "530034733.879707"
+                  timestampString = "530035495.557021"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
+                  startingLineNumber = "75"
+                  endingLineNumber = "75"
                   offsetFromSymbolStart = "176">
                </Location>
                <Location
@@ -153,14 +153,30 @@
                   moduleName = "EasyNavigationDemo"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/chenliang/Documents/GitHub/EasyNavigation/EasyNavigation/EasyNavigationController.m"
-                  timestampString = "530034733.883456"
+                  timestampString = "530035495.559468"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
+                  startingLineNumber = "75"
+                  endingLineNumber = "75"
                   offsetFromSymbolStart = "451">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EasyNavigation/EasyNavigationController.m"
+            timestampString = "530035495.455628"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "-navigationController:didShowViewController:animated:"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

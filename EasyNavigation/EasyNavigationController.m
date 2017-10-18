@@ -61,9 +61,11 @@
     
     //重新处理手势
     [viewController dealSlidingGestureDelegate];
+}
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
     
 }
-
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (self.viewControllers.count > 0 ) {
