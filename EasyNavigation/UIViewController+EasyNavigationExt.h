@@ -26,6 +26,14 @@
  */
 @property (nonatomic,strong)EasyNavigationView *navigationView ;
 
+/**
+ * 当前控制器大标题类型
+ */
+@property (assign)NavBigTitleType navbigTitleType ;
+/**
+ * 当前控制器大标题移动动画类型
+ */
+@property (assign)NavTitleAnimationType navTitleAnimationType ;
 
 /**
  * 当前控制器 是否 禁止侧滑返回

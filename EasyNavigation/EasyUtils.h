@@ -79,6 +79,30 @@
 
 
 
+/**
+ * 显示大标题的条件
+ */
+typedef NS_ENUM(NSUInteger , NavBigTitleType) {
+    NavBigTitleTypeDefault = 1 << 0, //所有情况下都不使用大标题 (默认情况)
+    NavBigTitleTypeIOS11   = 1 << 1 ,   //在iOS11系统上使用大标题
+    NavBigTitleTypePlus    = 1 << 2 ,    //在plus尺寸上使用大标题（iphone6plus,iphone7plus,iphone8plus）
+    NavBigTitleTypeIphoneX = 1 << 3 , //在iPhoneX上使用大标题
+    NavBigTitleTypeAll     = 1 << 4 ,     //在所有尺寸和版本上都是用大标题
+    NavBigTitleTypePlusOrX = NavBigTitleTypePlus | NavBigTitleTypeIphoneX , //在plus和X上使用大标题
+    
+};
+
+/**
+ * 显示大标题后，标题移动的动画类型
+ */
+typedef NS_ENUM(NSUInteger , NavTitleAnimationType) {
+    NavTitleAnimationTypeLeftScale = 0,     //从左边缩放
+    NavTitleAnimationTypeCenterScale = 1 ,  //从中间缩放
+    NavTitleAnimationTypeSmoothFade = 2,    //流畅的动画
+    NavTitleAnimationTypeStiffFade = 3 ,    //僵硬的动画
+};
+
+
 @interface EasyUtils : NSObject
 
 
