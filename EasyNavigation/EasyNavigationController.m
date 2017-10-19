@@ -86,15 +86,10 @@
 
     CGFloat statusBarH = STATUS_H ;
     statusBarH = NAV_HEIGHT ;
-    NSLog(@"%f",statusBarH);
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         EasyNavigationView  *navView = self.topViewController.navigationView ;
         if (navView.width != self.topViewController.view.width) {
             navView.width = self.topViewController.view.width ;
-        }
-        NSLog(@"%f",self.topViewController.view.y);
-        if (self.topViewController.view.y == 20) {
-            
         }
     });
     

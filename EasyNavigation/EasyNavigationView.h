@@ -47,6 +47,10 @@ typedef void(^clickCallback)(UIView *view);
  */
 @property (nonatomic,assign,readonly)CGFloat navHeigth ;
 
+/**
+ * 是否正在展示大标题
+ */
+@property (nonatomic,assign,readonly)BOOL isShowBigTitle ;
 
 #pragma mark - 设置属性
 

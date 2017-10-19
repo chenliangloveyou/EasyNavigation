@@ -39,6 +39,8 @@
 		AD0FA0E91F6A10B900F8AC1A /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */; };
 		AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5777981F710CB600100E64 /* NavStatusBarViewController.m */; };
 		AD57779B1F710CB600100E64 /* NavStatusBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5777991F710CB600100E64 /* NavStatusBarViewController.xib */; };
+		AD6940121F988FF8002D7826 /* NSObject+EasyKVO.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6940111F988FF8002D7826 /* NSObject+EasyKVO.m */; };
+		AD6940151F98AF1A002D7826 /* EasyKVOInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6940141F98AF1A002D7826 /* EasyKVOInfo.m */; };
 		ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC4EB761F6697B500CE7060 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +124,10 @@
 		AD5777971F710CB600100E64 /* NavStatusBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavStatusBarViewController.h; sourceTree = "<group>"; };
 		AD5777981F710CB600100E64 /* NavStatusBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavStatusBarViewController.m; sourceTree = "<group>"; };
 		AD5777991F710CB600100E64 /* NavStatusBarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NavStatusBarViewController.xib; sourceTree = "<group>"; };
+		AD6940101F988FF8002D7826 /* NSObject+EasyKVO.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+EasyKVO.h"; sourceTree = "<group>"; };
+		AD6940111F988FF8002D7826 /* NSObject+EasyKVO.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+EasyKVO.m"; sourceTree = "<group>"; };
+		AD6940131F98AF1A002D7826 /* EasyKVOInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyKVOInfo.h; sourceTree = "<group>"; };
+		AD6940141F98AF1A002D7826 /* EasyKVOInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyKVOInfo.m; sourceTree = "<group>"; };
 		ADC4EB761F6697B500CE7060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -293,6 +299,10 @@
 				68A5A5401F7E8BBF00B62899 /* UIView+EasyNavigationExt.m */,
 				68A5A5411F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.h */,
 				68A5A5421F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m */,
+				AD6940101F988FF8002D7826 /* NSObject+EasyKVO.h */,
+				AD6940111F988FF8002D7826 /* NSObject+EasyKVO.m */,
+				AD6940131F98AF1A002D7826 /* EasyKVOInfo.h */,
+				AD6940141F98AF1A002D7826 /* EasyKVOInfo.m */,
 			);
 			path = EasyNavigation;
 			sourceTree = "<group>";
@@ -459,6 +469,7 @@
 				682F9EC51F6C24B600283DC6 /* NavCustomSlidingViewController.m in Sources */,
 				68A5A54B1F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m in Sources */,
 				682F9EA41F6C20AD00283DC6 /* NavSmoothHiden_1_ViewController.m in Sources */,
+				AD6940151F98AF1A002D7826 /* EasyKVOInfo.m in Sources */,
 				682F9ECA1F715DC000283DC6 /* NavOperateViewController.m in Sources */,
 				682F9EB91F6C215B00283DC6 /* NavAlphaChangeViewController.m in Sources */,
 				682F9EBC1F6C215B00283DC6 /* NavTransparentViewController.m in Sources */,
@@ -471,6 +482,7 @@
 				682F9EA51F6C20AD00283DC6 /* NavSmoothHidenViewController.m in Sources */,
 				68A5A5491F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m in Sources */,
 				682F9EAE1F6C20EF00283DC6 /* NavScrollIncludeViewController.m in Sources */,
+				AD6940121F988FF8002D7826 /* NSObject+EasyKVO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

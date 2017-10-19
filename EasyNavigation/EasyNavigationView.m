@@ -11,6 +11,8 @@
 #import "EasyUtils.h"
 #import "UIView+EasyNavigationExt.h"
 #import "UIScrollView+EasyNavigationExt.h"
+#import "UIViewController+EasyNavigationExt.h"
+#import "NSObject+EasyKVO.h"
 
 #import "EasyNavigationOptions.h"
 
@@ -135,7 +137,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             [weakself.viewController.view bringSubviewToFront:weakself];
         }
     };
-    
     self.didAddsubView = ^(UIView *view) {
         
         [weakself bringSubviewToFront:weakself.titleLabel];
@@ -144,11 +145,23 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             [weakself bringSubviewToFront:weakself.titleView];
         }
     };
+    
+    if (self.isShowBigTitle) {
+        [self setNeedsDisplay];
+    }
+    
+    NSLog(@"%@ = %d",self.viewController,self.viewController.navbigTitleType) ;
+    [self.viewController easyAddObserver:self key:@"navbigTitleType" callback:^(id kvoObserver, NSString *kvoKey, id oldValue, id newValue) {
+
+        NSLog(@"%@ == %@ == %@",kvoObserver,kvoKey ,newValue);
+    }];
 }
+
+
 
 - (void)layoutSubviews
 {
-    self.height = NAV_HEIGHT ;
+    self.height = NAV_HEIGHT + (self.isShowBigTitle ? 54 : 0 ) ;
     
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
@@ -796,7 +809,31 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     self.lineView.hidden = lineHidden ;
 }
 
-
+#pragma mark  getter
+- (BOOL)isShowBigTitle
+{
+    BOOL shouldShow = NO ;
+    switch (self.viewController.navbigTitleType) {
+        case NavBigTitleTypeIOS11:
+            shouldShow = IS_IOS11_OR_LATER ;
+            break;
+        case NavBigTitleTypePlus:
+            shouldShow = ISIPHONE_6P ;
+            break ;
+        case NavBigTitleTypeIphoneX:
+            shouldShow = ISIPHONE_X ;
+            break ;
+        case NavBigTitleTypeAll :
+            shouldShow = YES ;
+            break ;
+        case NavBigTitleTypePlusOrX:
+            shouldShow = ISIPHONE_X || ISIPHONE_6P ;
+            break ;
+        default:
+            break;
+    }
+    return shouldShow ;
+}
 - (CGFloat)navHeigth
 {
     return self.height ;
