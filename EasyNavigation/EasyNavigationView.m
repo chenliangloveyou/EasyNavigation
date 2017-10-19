@@ -25,6 +25,9 @@
 
 #define kAnimationDuring 0.3f //动画执行时间
 
+#define kNavNormalHeight 44.0f     //导航栏原始高度
+#define kNavBigTitleHeight 55.0f   //大标题增加出来的高度
+
 static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标示
 
 
@@ -174,13 +177,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     self.titleLabel.text = title;
     
-    [self.titleLabel sizeToFit];
-    
-    if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
-        self.titleLabel.width = self.width-kTitleViewEdge*2 ;
-    }
-    self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
-
+    [self setNeedsDisplay];
 }
 - (void)addtitleView:(UIView *)titleView
 {
@@ -584,13 +581,16 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (void)layoutTitleviews
 {
     if (_titleLabel) {
-        [self.titleLabel sizeToFit];
         
-        if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
-            self.titleLabel.width = self.width-kTitleViewEdge*2 ;
+        if (self.isShowBigTitle) {
+            self.titleLabel.frame = CGRectMake(20, self.navigationOrginalHeight-kNavBigTitleHeight, 0, 0) ;
+            self.titleLabel.font = [UIFont boldSystemFontOfSize:35];
         }
-        self.titleLabel.height = (self.height - STATUSBAR_HEIGHT);
-        self.titleLabel.center = CGPointMake(self.center.x, STATUSBAR_HEIGHT+(self.height-STATUSBAR_HEIGHT)/2);
+        else{
+            self.titleLabel.center = CGPointMake(self.width/2,self.center.y+STATUSBAR_HEIGHT/2);
+            self.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        }
+        [self.titleLabel sizeToFit];
     }
     
     if (_titleView) {
@@ -838,10 +838,10 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 - (CGFloat)navigationOrginalHeight
 {
-    CGFloat orginalHeight = STATUSBAR_HEIGHT + 44 ;
+    CGFloat orginalHeight = STATUSBAR_HEIGHT + kNavNormalHeight ;
     
     if (self.isShowBigTitle) {
-        return orginalHeight + 53 ;
+        return orginalHeight + kNavBigTitleHeight ;
     }
     
     return orginalHeight ;
@@ -879,8 +879,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (UILabel *)titleLabel
 {
     if (nil == _titleLabel) {
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, STATUSBAR_HEIGHT, self.width-kTitleViewEdge*2 , self.height - STATUSBAR_HEIGHT)];
-        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel = [[UILabel alloc]init];
+        _titleLabel.backgroundColor = [UIColor yellowColor];
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
         _titleLabel.textAlignment = NSTextAlignmentCenter ;

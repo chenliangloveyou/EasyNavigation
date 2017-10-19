@@ -44,6 +44,8 @@ typedef void(^clickCallback)(UIView *view);
 
 /**
  * 导航栏初始高度（刚初始化页面，没有对导航条操作是的高度）
+ * 竖屏：statusBar的高度 + 正常高度 + 大标题高度(如果显示)
+ * 横屏：statusBar的高度(如果显示) + 正常高度
  */
 @property (nonatomic,assign,readonly)CGFloat navigationOrginalHeight ;
 
