@@ -58,6 +58,8 @@
 #define kWeakSelf(type)  __weak typeof(type) weak##type = type;
 #define kStrongSelf(type) __strong typeof(type) type = weak##type;
 
+// 是否为空
+#define ISEMPTY(_v) (_v == nil || _v.length == 0)
 
 /**打印****/
 #define ISSHOWLOG 0
