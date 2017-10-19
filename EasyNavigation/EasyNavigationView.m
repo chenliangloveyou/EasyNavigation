@@ -161,7 +161,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 - (void)layoutSubviews
 {
-    self.height = NAV_HEIGHT;// + (self.isShowBigTitle ? 54 : 0 ) ;
+    self.height = self.navigationOrginalHeight ;
     
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
@@ -179,7 +179,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
         self.titleLabel.width = self.width-kTitleViewEdge*2 ;
     }
-    self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+    self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
 
 }
 - (void)addtitleView:(UIView *)titleView
@@ -191,7 +191,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (titleView.width > self.width-kTitleViewEdge*2) {
         titleView.width = self.width-kTitleViewEdge*2 ;
     }
-    titleView.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+    titleView.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
 }
 
 - (void)statusBarTapWithCallback:(clickCallback)callback
@@ -382,7 +382,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
  */
 - (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
 {
-    [self navigationAlphaSlowChangeWithScrollow:scrollow start:0 end:NAV_HEIGHT*2];
+    [self navigationAlphaSlowChangeWithScrollow:scrollow start:0 end:self.navigationOrginalHeight*2];
 }
 - (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint end:(CGFloat)endPoint
 {
@@ -589,8 +589,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
             self.titleLabel.width = self.width-kTitleViewEdge*2 ;
         }
-        self.titleLabel.height = (self.height - NAV_STATE_HEIGHT);
-        self.titleLabel.center = CGPointMake(self.center.x, NAV_STATE_HEIGHT+(self.height-NAV_STATE_HEIGHT)/2);
+        self.titleLabel.height = (self.height - STATUSBAR_HEIGHT);
+        self.titleLabel.center = CGPointMake(self.center.x, STATUSBAR_HEIGHT+(self.height-STATUSBAR_HEIGHT)/2);
     }
     
     if (_titleView) {
@@ -598,8 +598,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         if (_titleView.width > self.width-kTitleViewEdge*2) {
             _titleView.width = self.width-kTitleViewEdge*2 ;
         }
-        _titleView.height = (self.height - NAV_STATE_HEIGHT);
-        _titleView.center = CGPointMake(self.center.x, NAV_STATE_HEIGHT+(self.height-NAV_STATE_HEIGHT)/2 );
+        _titleView.height = (self.height - STATUSBAR_HEIGHT);
+        _titleView.center = CGPointMake(self.center.x, STATUSBAR_HEIGHT+(self.height-STATUSBAR_HEIGHT)/2 );
 
     }
 }
@@ -649,7 +649,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         }
         
         CGFloat tempViewX = type==buttonPlaceTypeLeft ? leftEdge : self.width-leftEdge-viewWidth ;
-        tempView.frame = CGRectMake(tempViewX, NAV_STATE_HEIGHT, viewWidth , self.height-NAV_STATE_HEIGHT-self.lineView.height);
+        tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, viewWidth , self.height-STATUSBAR_HEIGHT-self.lineView.height);
         
         leftEdge += viewWidth+kViewEdge  ;
         
@@ -685,7 +685,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         self.isScrollingNavigaiton = YES ;
         
         //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = _stopUpstatusBar?NAV_STATE_HEIGHT:0 ;
+        CGFloat topOfY = _stopUpstatusBar?STATUSBAR_HEIGHT:0 ;
         
         [UIView animateWithDuration:kAnimationDuring animations:^{
             
@@ -713,7 +713,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         }
 
         //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = _stopUpstatusBar?NAV_STATE_HEIGHT:0 ;
+        CGFloat topOfY = _stopUpstatusBar?STATUSBAR_HEIGHT:0 ;
         
         if ( changeY <= self.height - topOfY ) {
             EasyLog(@"changeY = %F",changeY);
@@ -723,12 +723,12 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
                 return ;
             }
 
-            if (changeY == self.height-NAV_STATE_HEIGHT) {
+            if (changeY == self.height-STATUSBAR_HEIGHT) {
                     [self changeSubviewsAlpha:0];
             }
-            else if (changeY < self.height - NAV_STATE_HEIGHT){
+            else if (changeY < self.height - STATUSBAR_HEIGHT){
                     
-                CGFloat alpha = 1 - changeY/(self.height-NAV_STATE_HEIGHT) ;
+                CGFloat alpha = 1 - changeY/(self.height-STATUSBAR_HEIGHT) ;
                 [self changeSubviewsAlpha:alpha];
             }
             
@@ -810,6 +810,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 }
 
 #pragma mark  getter
+
 - (BOOL)isShowBigTitle
 {
     BOOL shouldShow = NO ;
@@ -834,9 +835,16 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     }
     return shouldShow ;
 }
-- (CGFloat)navHeigth
+
+- (CGFloat)navigationOrginalHeight
 {
-    return self.height ;
+    CGFloat orginalHeight = STATUSBAR_HEIGHT + 44 ;
+    
+    if (self.isShowBigTitle) {
+        return orginalHeight + 53 ;
+    }
+    
+    return orginalHeight ;
 }
 
 
@@ -871,7 +879,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (UILabel *)titleLabel
 {
     if (nil == _titleLabel) {
-        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, NAV_STATE_HEIGHT, self.width-kTitleViewEdge*2 , self.height - NAV_STATE_HEIGHT)];
+        _titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(kTitleViewEdge, STATUSBAR_HEIGHT, self.width-kTitleViewEdge*2 , self.height - STATUSBAR_HEIGHT)];
         _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;

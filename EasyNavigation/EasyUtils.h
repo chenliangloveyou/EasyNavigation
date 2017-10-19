@@ -36,14 +36,11 @@
 #define IS_IOS11_OR_LATER (SYSTEM_VERSION >= 11.0)
 
 
-//statusbar默认高度
-#define STATUS_H  ([UIApplication sharedApplication].statusBarFrame.size.height)
+//statusbar默认高度 orginal
+#define STATUSBAR_ORGINAL_HEIGHT  ([UIApplication sharedApplication].statusBarFrame.size.height)
 
 //状态栏高度
-#define NAV_STATE_HEIGHT (ISHORIZONTALSCREEM ? (ISIPHONE_X ? 0 : STATUS_H) : STATUS_H )
-
-//导航栏高度
-#define NAV_HEIGHT (NAV_STATE_HEIGHT + 44.0f)
+#define STATUSBAR_HEIGHT (ISHORIZONTALSCREEM ? (ISIPHONE_X ? 0 : STATUSBAR_ORGINAL_HEIGHT) : STATUSBAR_ORGINAL_HEIGHT )
 
 
 

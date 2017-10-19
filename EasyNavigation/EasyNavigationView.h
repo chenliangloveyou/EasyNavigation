@@ -43,14 +43,15 @@ typedef void(^clickCallback)(UIView *view);
 @property (nonatomic,strong,readonly)UIButton *rightButton ;
 
 /**
- * 导航栏高度
+ * 导航栏初始高度（刚初始化页面，没有对导航条操作是的高度）
  */
-@property (nonatomic,assign,readonly)CGFloat navHeigth ;
+@property (nonatomic,assign,readonly)CGFloat navigationOrginalHeight ;
 
 /**
  * 是否正在展示大标题
  */
 @property (nonatomic,assign,readonly)BOOL isShowBigTitle ;
+
 
 #pragma mark - 设置属性
 

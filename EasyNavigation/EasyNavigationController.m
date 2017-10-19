@@ -72,7 +72,7 @@
         viewController.hidesBottomBarWhenPushed = YES;
     }
     
-    viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , NAV_HEIGHT)];
+    viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , viewController.navigationView.navigationOrginalHeight)];
     if (self.viewControllers.count > 0) {
         kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
@@ -84,8 +84,6 @@
 
     [super pushViewController:viewController animated:animated];
 
-    CGFloat statusBarH = STATUS_H ;
-    statusBarH = NAV_HEIGHT ;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         EasyNavigationView  *navView = self.topViewController.navigationView ;
         if (navView.width != self.topViewController.view.width) {
