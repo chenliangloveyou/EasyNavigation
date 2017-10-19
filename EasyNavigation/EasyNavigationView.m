@@ -161,7 +161,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 - (void)layoutSubviews
 {
-    self.height = NAV_HEIGHT + (self.isShowBigTitle ? 54 : 0 ) ;
+    self.height = NAV_HEIGHT;// + (self.isShowBigTitle ? 54 : 0 ) ;
     
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];

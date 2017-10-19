@@ -46,7 +46,7 @@
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
-        weakself.navbigTitleType = NavBigTitleTypePlusOrX ;
+//        weakself.navbigTitleType = NavBigTitleTypePlusOrX ;
     }];
     
     [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
