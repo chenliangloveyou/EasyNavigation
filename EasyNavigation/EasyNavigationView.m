@@ -177,7 +177,13 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     self.titleLabel.text = title;
     
-    [self setNeedsDisplay];
+    [self.titleLabel sizeToFit];
+    
+    if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
+        self.titleLabel.width = self.width-kTitleViewEdge*2 ;
+    }
+    self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+
 }
 - (void)addtitleView:(UIView *)titleView
 {
@@ -591,6 +597,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         else{
             self.titleLabel.center = CGPointMake(self.width/2,self.center.y+STATUSBAR_HEIGHT/2);
             self.titleLabel.font = self.options.titleFont ;
+        }
+        if (ISEMPTY(self.titleLabel.text)) {
+            self.titleLabel.width = 1 ;
         }
     }
     

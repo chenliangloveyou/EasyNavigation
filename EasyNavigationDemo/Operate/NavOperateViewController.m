@@ -29,7 +29,7 @@
         NSLog(@"点击了“添加按钮”");
     }];
     
-    self.navbigTitleType = NavBigTitleTypeIOS11 ;
+//    self.navbigTitleType = NavBigTitleTypeIOS11 ;
     
 }
 
