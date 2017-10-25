@@ -149,15 +149,15 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         }
     };
     
-    if (self.isShowBigTitle) {
-        [self setNeedsDisplay];
-    }
+//    if (self.isShowBigTitle) {
+//        [self setNeedsDisplay];
+//    }
     
-    NSLog(@"%@ = %d",self.viewController,self.viewController.navbigTitleType) ;
-    [self.viewController easyAddObserver:self key:@"navbigTitleType" callback:^(id kvoObserver, NSString *kvoKey, id oldValue, id newValue) {
-
-        NSLog(@"%@ == %@ == %@",kvoObserver,kvoKey ,newValue);
-    }];
+//    NSLog(@"%@ = %d",self.viewController,self.viewController.navbigTitleType) ;
+//    [self.viewController easyAddObserver:self key:@"navbigTitleType" callback:^(id kvoObserver, NSString *kvoKey, id oldValue, id newValue) {
+//
+//        NSLog(@"%@ == %@ == %@",kvoObserver,kvoKey ,newValue);
+//    }];
 }
 
 
@@ -581,16 +581,17 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (void)layoutTitleviews
 {
     if (_titleLabel) {
-        
+
+        [self.titleLabel sizeToFit];
+
         if (self.isShowBigTitle) {
             self.titleLabel.frame = CGRectMake(20, self.navigationOrginalHeight-kNavBigTitleHeight, 0, 0) ;
             self.titleLabel.font = [UIFont boldSystemFontOfSize:35];
         }
         else{
             self.titleLabel.center = CGPointMake(self.width/2,self.center.y+STATUSBAR_HEIGHT/2);
-            self.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+            self.titleLabel.font = self.options.titleFont ;
         }
-        [self.titleLabel sizeToFit];
     }
     
     if (_titleView) {
@@ -880,7 +881,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 {
     if (nil == _titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.backgroundColor = [UIColor yellowColor];
+        _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
         _titleLabel.textAlignment = NSTextAlignmentCenter ;
