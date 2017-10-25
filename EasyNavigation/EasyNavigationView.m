@@ -182,7 +182,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
         self.titleLabel.width = self.width-kTitleViewEdge*2 ;
     }
-    self.titleLabel.center = CGPointMake(self.center.x, self.center.y+NAV_STATE_HEIGHT/2);
+    self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
 
 }
 - (void)addtitleView:(UIView *)titleView
@@ -590,17 +590,20 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
         [self.titleLabel sizeToFit];
 
+        
         if (self.isShowBigTitle) {
             self.titleLabel.frame = CGRectMake(20, self.navigationOrginalHeight-kNavBigTitleHeight, 0, 0) ;
             self.titleLabel.font = [UIFont boldSystemFontOfSize:35];
         }
         else{
-            self.titleLabel.center = CGPointMake(self.width/2,self.center.y+STATUSBAR_HEIGHT/2);
+            if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
+                self.titleLabel.width = self.width-kTitleViewEdge*2 ;
+            }
+            self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
+
             self.titleLabel.font = self.options.titleFont ;
         }
-        if (ISEMPTY(self.titleLabel.text)) {
-            self.titleLabel.width = 1 ;
-        }
+        
     }
     
     if (_titleView) {
