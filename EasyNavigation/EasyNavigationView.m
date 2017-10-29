@@ -185,7 +185,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
 
 }
-- (void)addtitleView:(UIView *)titleView
+- (void)addTitleView:(UIView *)titleView
 {
     self.titleView = titleView ;
 
@@ -594,6 +594,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         if (self.isShowBigTitle) {
             self.titleLabel.frame = CGRectMake(20, self.navigationOrginalHeight-kNavBigTitleHeight, 0, 0) ;
             self.titleLabel.font = [UIFont boldSystemFontOfSize:35];
+            
         }
         else{
             if (self.titleLabel.width > self.width-kTitleViewEdge*2) {

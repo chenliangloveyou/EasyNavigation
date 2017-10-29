@@ -80,7 +80,7 @@ typedef void(^clickCallback)(UIView *view);
 /**
  * 设置导航栏的titleview
  */
-- (void)addtitleView:(UIView *)titleView ;
+- (void)addTitleView:(UIView *)titleView ;
 
 /**
  * 向导航栏上添加一个视图
