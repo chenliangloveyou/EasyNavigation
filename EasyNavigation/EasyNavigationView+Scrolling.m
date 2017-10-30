@@ -10,13 +10,70 @@
 
 #import "UIScrollView+EasyNavigationExt.h"
 #import "UIView+EasyNavigationExt.h"
-
+#import <objc/runtime.h>
 
 
 #define kAnimationDuring 0.3f //动画执行时间
 
+//@interface EasyNavigationView (Scrolling)
+//
+//@end
+
 @implementation EasyNavigationView (Scrolling)
 
+- (void)setAlphaEndChange:(CGFloat)alphaEndChange
+{
+    objc_setAssociatedObject(self, @selector(alphaEndChange), @(alphaEndChange), OBJC_ASSOCIATION_ASSIGN);
+}
+- (CGFloat)alphaEndChange
+{
+    return [objc_getAssociatedObject(self, _cmd) floatValue];
+}
+- (void)setAlphaStartChange:(CGFloat)alphaStartChange
+{
+    objc_setAssociatedObject(self, @selector(alphaStartChange), @(alphaStartChange), OBJC_ASSOCIATION_ASSIGN);
+}
+- (CGFloat)alphaStartChange
+{
+    return [objc_getAssociatedObject(self, _cmd) floatValue];
+}
+
+- (void)setScrollStartPoint:(CGFloat)scrollStartPoint
+{
+    objc_setAssociatedObject(self, @selector(scrollStartPoint), @(scrollStartPoint), OBJC_ASSOCIATION_ASSIGN);
+}
+- (CGFloat)scrollStartPoint
+{
+    return [objc_getAssociatedObject(self, _cmd) floatValue];
+}
+- (void)setCriticalPoint:(CGFloat)criticalPoint
+{
+    objc_setAssociatedObject(self, @selector(criticalPoint), @(criticalPoint), OBJC_ASSOCIATION_ASSIGN);
+}
+- (CGFloat)criticalPoint
+{
+    return [objc_getAssociatedObject(self, _cmd) floatValue];
+}
+
+- (void)setStopUpstatusBar:(BOOL)stopUpstatusBar
+{
+    objc_setAssociatedObject(self, @selector(stopUpstatusBar), @(stopUpstatusBar), OBJC_ASSOCIATION_ASSIGN);
+}
+- (BOOL)stopUpstatusBar
+{
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
+
+//- (void)setScrollingSpeed:(CGFloat)scrollingSpeed
+//{
+//    objc_setAssociatedObject(self, @selector(scrollingSpeed), @(scrollingSpeed), OBJC_ASSOCIATION_ASSIGN);
+//
+//}
+//- (CGFloat)scrollingSpeed
+//{
+//    return [objc_getAssociatedObject(self, _cmd) floatValue];
+//}
 
 
 #pragma mark - 视图滚动，导航条跟着变化
@@ -47,7 +104,7 @@
     self.navigationChangeType = NavigationChangeTypeSmooth ;
     
     self.kvoScrollView = scrollow ;
-    self.scrollSpeed = speed ;
+    self.scrollingSpeed = speed ;
     self.scrollStartPoint = startPoint ;
     self.stopUpstatusBar = stopstatusBar ;
     
@@ -191,7 +248,8 @@
     if (contentY > self.scrollStartPoint  ) {//开始移动导航条
         
         //需要改变的y值
-        CGFloat changeY =(contentY - self.kvoScrollView.scrollDistance)*self.scrollSpeed  ;
+        CGFloat scrollSpeed = self.scrollingSpeed ;
+        CGFloat changeY =(contentY - self.kvoScrollView.scrollDistance)*scrollSpeed  ;
         
         if (changeY < 0) {
             return ;

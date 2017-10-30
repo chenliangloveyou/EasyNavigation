@@ -11,8 +11,14 @@
 @interface EasyNavigationView (Scrolling)
 
 
-
 #pragma mark - 视图滚动，导航条跟着变化
+
+@property (nonatomic,assign) CGFloat alphaStartChange ;//alpha改变的开始位置
+@property (nonatomic,assign) CGFloat alphaEndChange   ;//alpha停止改变的位置
+@property (nonatomic,assign) CGFloat scrollStartPoint ;//导航条滚动的起始点
+@property (nonatomic,assign) CGFloat criticalPoint ;//导航条动画隐藏的临界点
+@property (nonatomic,assign) BOOL stopUpstatusBar ;//动画后是否需要停止在statusBar下面
+
 
 /**
  * 根据scrollview的滚动，导航条慢慢变透明

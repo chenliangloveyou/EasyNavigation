@@ -11,14 +11,15 @@
 @implementation EasyNavigationView (LeftButton)
 
 
-#pragma mark - 左边视图
-
 - (void)addLeftView:(UIView *)view clickCallback:(clickCallback)callback
 {
-    [self addView:view clickCallback:callback type:buttonPlaceTypeLeft];
+    [self addView:view
+    clickCallback:callback
+             type:buttonPlaceTypeLeft];
 }
 
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title
+                       clickCallBack:(clickCallback)callback
 {
     return [self createButtonWithTitle:title
                        backgroundImage:nil
@@ -27,7 +28,9 @@
                               callback:callback
                                   type:0];
 }
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title image:(UIImage *)image clickCallBack:(clickCallback)callback
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title
+                               image:(UIImage *)image
+                       clickCallBack:(clickCallback)callback
 {
     return [self createButtonWithTitle:title
                        backgroundImage:nil
@@ -36,7 +39,9 @@
                               callback:callback
                                   type:0];
 }
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title
+                     backgroundImage:(UIImage *)backgroundImage
+                       clickCallBack:(clickCallback)callback
 {
     return [self createButtonWithTitle:title
                        backgroundImage:backgroundImage
@@ -46,7 +51,8 @@
                                   type:buttonPlaceTypeLeft];
 }
 
-- (UIButton *)addLeftButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback
+- (UIButton *)addLeftButtonWithImage:(UIImage *)image
+                       clickCallBack:(clickCallback)callback
 {
     return [self createButtonWithTitle:nil
                        backgroundImage:nil
@@ -56,7 +62,9 @@
                                   type:buttonPlaceTypeLeft];
 }
 
-- (UIButton *)addLeftButtonWithImage:(UIImage *)image hightImage:(UIImage *)hightImage clickCallBack:(clickCallback)callback
+- (UIButton *)addLeftButtonWithImage:(UIImage *)image
+                          hightImage:(UIImage *)hightImage
+                       clickCallBack:(clickCallback)callback
 {
     return [self createButtonWithTitle:nil
                        backgroundImage:nil
@@ -65,7 +73,11 @@
                               callback:callback
                                   type:buttonPlaceTypeLeft];
 }
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title image:(UIImage *)image hightImage:(UIImage *)hightImage backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title
+                               image:(UIImage *)image
+                          hightImage:(UIImage *)hightImage
+                     backgroundImage:(UIImage *)backgroundImage
+                       clickCallBack:(clickCallback)callback
 {
     return [self createButtonWithTitle:title
                        backgroundImage:backgroundImage

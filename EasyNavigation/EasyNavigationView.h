@@ -37,12 +37,8 @@ typedef void(^clickCallback)(UIView *view);
 }
 @property (nonatomic,assign)NavigationChangeType navigationChangeType ;//导航条改变的类型
 
-@property (nonatomic,assign) CGFloat alphaStartChange ;//alpha改变的开始位置
-@property (nonatomic,assign) CGFloat alphaEndChange   ;//alpha停止改变的位置
-@property (nonatomic,assign) CGFloat scrollStartPoint ;//导航条滚动的起始点
-@property (nonatomic,assign) CGFloat scrollSpeed ;     //导航条滚动速度
-@property (nonatomic,assign) CGFloat criticalPoint ;//导航条动画隐藏的临界点
-@property (nonatomic,assign) BOOL stopUpstatusBar ;//动画后是否需要停止在statusBar下面
+@property (nonatomic,assign) CGFloat scrollingSpeed ;     //导航条滚动速度
+
 @property (nonatomic,strong) UIScrollView *kvoScrollView ;//用于监听scrollview内容高度的改变
 @property (nonatomic,assign)BOOL isScrollingNavigaiton ;//是否正在滚动导航条
 
@@ -134,16 +130,31 @@ typedef void(^clickCallback)(UIView *view);
 
 
 
+/**
+ * 导航条 左边所有视图
+ */
+@property (nonatomic,strong)NSMutableArray *leftViewArray ;
 
-@property (nonatomic,strong)NSMutableArray *leftViewArray ;//左边所有的视图
+/**
+ * 导航条 右边所有视图
+ */
 @property (nonatomic,strong)NSMutableArray *rightViewArray ;//右边所有的视图
 
+#pragma mark - 私有方法
+
+/**
+ * 创建一个按钮
+ */
 - (UIButton *)createButtonWithTitle:(NSString *)title
                     backgroundImage:(UIImage *)backgroundImage
                               image:(UIImage *)image
                          hightImage:(UIImage *)hieghtImage
                            callback:(clickCallback)callback
                                type:(buttonPlaceType)type ;
+
+/**
+ * 往左右两天添加一个视图
+ */
 - (void)addView:(UIView *)view
   clickCallback:(clickCallback)callback
            type:(buttonPlaceType)type ;
