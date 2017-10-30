@@ -76,8 +76,8 @@
     if (self.viewControllers.count > 0) {
         kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
-        [viewController.navigationView addLeftButtonWithImage:img  clickCallBack:^(UIView *view) {
-             [weakself popViewControllerAnimated:YES];
+        [viewController.navigationView addLeftButtonWithTitle:@"     " image:img clickCallBack:^(UIView *view) {
+            [weakself popViewControllerAnimated:YES];
         }];
     }
     [viewController.view addSubview:viewController.navigationView];

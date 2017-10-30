@@ -27,7 +27,15 @@
                               callback:callback
                                   type:0];
 }
-
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title image:(UIImage *)image clickCallBack:(clickCallback)callback
+{
+    return [self createButtonWithTitle:title
+                       backgroundImage:nil
+                                 image:image
+                            hightImage:nil
+                              callback:callback
+                                  type:0];
+}
 - (UIButton *)addLeftButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback
 {
     return [self createButtonWithTitle:title

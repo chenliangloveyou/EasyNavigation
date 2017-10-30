@@ -54,8 +54,8 @@
             kWeakSelf(self)
             UIButton *addButton  =[UIButton buttonWithType:UIButtonTypeCustom];
             [addButton setImage:kImage(@"nav_btn_back.png") forState:UIControlStateNormal];
-            [addButton setTitle:@"返回" forState:UIControlStateNormal];
-            
+            [addButton setTitle:@" 返回" forState:UIControlStateNormal];
+            [addButton setFrame:CGRectMake(0, 0, 60, 44)];
             [self.navigationView addLeftView:addButton clickCallback:^(UIView *view) {
                 [weakself.navigationController popViewControllerAnimated:YES];
             }];

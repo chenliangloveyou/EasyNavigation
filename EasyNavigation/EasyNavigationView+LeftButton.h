@@ -22,6 +22,8 @@
  */
 - (UIButton *)addLeftButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback ;
 
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title image:(UIImage *)image clickCallBack:(clickCallback)callback ;
+
 - (UIButton *)addLeftButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback ;
 
 - (UIButton *)addLeftButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback ;
