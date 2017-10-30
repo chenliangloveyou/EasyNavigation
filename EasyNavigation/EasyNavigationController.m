@@ -12,7 +12,7 @@
 #import "EasyNavigationView.h"
 #import "UIViewController+EasyNavigationExt.h"
 #import "UIView+EasyNavigationExt.h"
-
+#import "EasyNavigationView+LeftButton.m"
 
 
 @interface EasyNavigationController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>

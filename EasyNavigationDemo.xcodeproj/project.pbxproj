@@ -42,6 +42,8 @@
 		AD6940121F988FF8002D7826 /* NSObject+EasyKVO.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6940111F988FF8002D7826 /* NSObject+EasyKVO.m */; };
 		AD6940151F98AF1A002D7826 /* EasyKVOInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = AD6940141F98AF1A002D7826 /* EasyKVOInfo.m */; };
 		ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ADC4EB761F6697B500CE7060 /* Assets.xcassets */; };
+		ADFE65901FA729D4002286DF /* EasyNavigationView+LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */; };
+		ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE65921FA72B46002286DF /* EasyNavigationView+RightButton.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +131,10 @@
 		AD6940131F98AF1A002D7826 /* EasyKVOInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyKVOInfo.h; sourceTree = "<group>"; };
 		AD6940141F98AF1A002D7826 /* EasyKVOInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyKVOInfo.m; sourceTree = "<group>"; };
 		ADC4EB761F6697B500CE7060 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ADFE658E1FA729D4002286DF /* EasyNavigationView+LeftButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EasyNavigationView+LeftButton.h"; sourceTree = "<group>"; };
+		ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+LeftButton.m"; sourceTree = "<group>"; };
+		ADFE65911FA72B46002286DF /* EasyNavigationView+RightButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EasyNavigationView+RightButton.h"; sourceTree = "<group>"; };
+		ADFE65921FA72B46002286DF /* EasyNavigationView+RightButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+RightButton.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -293,6 +299,10 @@
 				68A5A53A1F7E8BBF00B62899 /* EasyNavigationView.m */,
 				68A5A53B1F7E8BBF00B62899 /* EasyUtils.h */,
 				68A5A53C1F7E8BBF00B62899 /* EasyUtils.m */,
+				ADFE658E1FA729D4002286DF /* EasyNavigationView+LeftButton.h */,
+				ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */,
+				ADFE65911FA72B46002286DF /* EasyNavigationView+RightButton.h */,
+				ADFE65921FA72B46002286DF /* EasyNavigationView+RightButton.m */,
 				68A5A53D1F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.h */,
 				68A5A53E1F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m */,
 				68A5A53F1F7E8BBF00B62899 /* UIView+EasyNavigationExt.h */,
@@ -463,6 +473,7 @@
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
 				AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */,
 				68A5A5431F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.m in Sources */,
+				ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */,
 				68A5A5451F7E8BBF00B62899 /* EasyNavigationController.m in Sources */,
 				6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */,
 				68A5A5481F7E8BBF00B62899 /* EasyUtils.m in Sources */,
@@ -482,6 +493,7 @@
 				682F9EA51F6C20AD00283DC6 /* NavSmoothHidenViewController.m in Sources */,
 				68A5A5491F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m in Sources */,
 				682F9EAE1F6C20EF00283DC6 /* NavScrollIncludeViewController.m in Sources */,
+				ADFE65901FA729D4002286DF /* EasyNavigationView+LeftButton.m in Sources */,
 				AD6940121F988FF8002D7826 /* NSObject+EasyKVO.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

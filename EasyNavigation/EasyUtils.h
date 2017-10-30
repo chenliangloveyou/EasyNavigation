@@ -111,7 +111,8 @@ typedef NS_ENUM(NSUInteger , NavTitleAnimationType) {
 // 改变图片的颜色
 + (UIImage *) imageWithTintColor:(UIImage *)image color:(UIColor *)tintColor ;
 
-
+//调整图片大小
++ (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size ;
 @end
 
 

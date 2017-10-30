@@ -13,5 +13,6 @@
 #import "EasyNavigationOptions.h"
 #import "UIViewController+EasyNavigationExt.h"
 #import "UIView+EasyNavigationExt.h"
-
+#import "EasyNavigationView+LeftButton.h"
+#import "EasyNavigationView+RightButton.h"
 #endif /* EasyNavigation_h */

@@ -19,25 +19,17 @@
 
 #define kTitleViewEdge 50.0f //title左右边距
 
-#define kViewMaxWidth 100.0f //左右两边按钮，视图，最大的的宽度
-#define kViewMinWidth  44.0f //左右两边按钮，视图，最小的的宽度
-#define kViewEdge   2.0f //按钮之间的间距
 
 #define kAnimationDuring 0.3f //动画执行时间
 
 #define kNavNormalHeight 44.0f     //导航栏原始高度
 #define kNavBigTitleHeight 55.0f   //大标题增加出来的高度
 
+#define kButtonInsetsWH 5.0f //按钮图文距按钮边缘的距离
+#define kButtonMaxW  60.0f //按钮文字最大的长度
+
 static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标示
 
-
-/**
- * 创建视图的位置，放在左边还是右边
- */
-typedef NS_ENUM(NSUInteger , buttonPlaceType) {
-    buttonPlaceTypeLeft ,
-    buttonPlaceTypeRight ,
-};
 
 /**
  * 导航条改变的类型
@@ -82,8 +74,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 @property (nonatomic,strong)UIViewController *viewController ;//navigation所在的控制器
 
-@property (nonatomic,strong)NSMutableArray *leftViewArray ;//左边所有的视图
-@property (nonatomic,strong)NSMutableArray *rightViewArray ;//右边所有的视图
 
 @property (nonatomic,strong)NSMutableDictionary *callbackDictionary ;//回调的数组
 
@@ -243,138 +233,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 }
 
 
-#pragma mark - 左边视图
-
-- (void)addLeftView:(UIView *)view clickCallback:(clickCallback)callback
-{
-    [self addView:view clickCallback:callback type:buttonPlaceTypeLeft];
-}
-
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback
-{
-   return [self createButtonWithTitle:title
-                      backgroundImage:nil
-                                image:nil
-                           hightImage:nil
-                             callback:callback
-                                 type:buttonPlaceTypeLeft];
-}
-
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback
-{
-    return [self createButtonWithTitle:title
-                       backgroundImage:backgroundImage
-                                 image:nil
-                            hightImage:nil
-                              callback:callback
-                                  type:buttonPlaceTypeLeft];
-}
-
-- (UIButton *)addLeftButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback
-{
-    return [self createButtonWithTitle:nil
-                       backgroundImage:nil
-                                 image:image
-                            hightImage:nil
-                              callback:callback
-                                  type:buttonPlaceTypeLeft];
-}
-
-- (UIButton *)addLeftButtonWithImage:(UIImage *)image hightImage:(UIImage *)hightImage clickCallBack:(clickCallback)callback
-{
-    return [self createButtonWithTitle:nil
-                       backgroundImage:nil
-                                 image:image
-                            hightImage:hightImage
-                              callback:callback
-                                  type:buttonPlaceTypeLeft];
-}
-
-
-- (void)removeLeftView:(UIView *)view
-{
-    for (UIView *tempView in self.leftViewArray) {
-        if ([tempView isEqual:view]) {
-            [view removeFromSuperview];
-        }
-    }
-    [self.leftViewArray removeObject:view];
-}
-
-- (void)removeAllLeftButton
-{
-    for (UIView *tempView in self.leftViewArray) {
-        [tempView removeFromSuperview];
-    }
-    [self.leftViewArray removeAllObjects];
-}
-
-
-#pragma mark - 右边视图
-
-- (void)addRightView:(UIView *)view clickCallback:(clickCallback)callback
-{
-    [self addView:view clickCallback:callback type:buttonPlaceTypeRight];
-}
-
-- (UIButton *)addRightButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback
-{
-    return [self createButtonWithTitle:title
-                       backgroundImage:nil
-                                 image:nil
-                            hightImage:nil
-                              callback:callback
-                                  type:buttonPlaceTypeRight];
-}
-
-- (UIButton *)addRightButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback
-{
-    return [self createButtonWithTitle:title
-                       backgroundImage:backgroundImage
-                                 image:nil
-                            hightImage:nil
-                              callback:callback
-                                  type:buttonPlaceTypeRight];
-}
-
-- (UIButton *)addRightButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback
-{
-    return [self createButtonWithTitle:nil
-                       backgroundImage:nil
-                                 image:image
-                            hightImage:nil
-                              callback:callback
-                                  type:buttonPlaceTypeRight];
-}
-
-- (UIButton *)addRightButtonWithImage:(UIImage *)image hightImage:(UIImage *)hightImage clickCallBack:(clickCallback)callback
-{
-    return [self createButtonWithTitle:nil
-                       backgroundImage:nil
-                                 image:image
-                            hightImage:hightImage
-                              callback:callback
-                                  type:buttonPlaceTypeRight];
-}
-
-
-- (void)removeRightView:(UIView *)view
-{
-    for (UIView *tempView in self.rightViewArray) {
-        if ([tempView isEqual:view]) {
-            [view removeFromSuperview];
-        }
-    }
-    [self.rightViewArray removeObject:view];
-}
-
-- (void)removeAllRightButton
-{
-    for (UIView *tempView in self.rightViewArray) {
-        [tempView removeFromSuperview];
-    }
-    [self.rightViewArray removeAllObjects];
-}
 
 
 
@@ -504,35 +362,56 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 #pragma mark - private
 
-- (UIButton *)createButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage image:(UIImage *)image hightImage:(UIImage *)hieghtImage callback:(clickCallback)callback type:(buttonPlaceType)type
+- (UIButton *)createButtonWithTitle:(NSString *)title
+                    backgroundImage:(UIImage *)backgroundImage
+                              image:(UIImage *)image
+                         hightImage:(UIImage *)hieghtImage
+                           callback:(clickCallback)callback
+                               type:(buttonPlaceType)type
 {
     
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    
-    if (title.length) {
-        [button setTitle:title forState:UIControlStateNormal];
+    if (hieghtImage) {
+        NSAssert(image, @"you should set a image when hava a heightimage !") ;
     }
     
+    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [button setTitleColor:self.options.buttonTitleColor forState:UIControlStateNormal];
+    [button setTitleColor:self.options.buttonTitleColorHieght forState:UIControlStateHighlighted];
+    [button.titleLabel setFont:self.options.buttonTitleFont] ;
+    [button setContentEdgeInsets:UIEdgeInsetsMake(0, -kButtonInsetsWH, 0, 0)];
+
+    CGFloat buttonW = kButtonInsetsWH ;
+    if (image) {
+        CGFloat imageHeight = kNavNormalHeight-2*kButtonInsetsWH ;
+        if (image.size.height > imageHeight ) {
+            CGFloat imageWidth = (image.size.width/image.size.height)*imageHeight ;
+            image = [EasyUtils scaleToSize:image size:CGSizeMake(imageWidth, imageHeight)] ;
+        }
+        buttonW +=  image.size.width + kButtonInsetsWH;
+//        [button setImageEdgeInsets:UIEdgeInsetsMake(0, -kButtonInsetsWH, 0, 0)];
+    }
+    if (!ISEMPTY(title)) {
+        CGFloat titleW = [title sizeWithAttributes:@{NSFontAttributeName: self.options.buttonTitleFont}].width ;
+        if (titleW > kButtonMaxW) {
+            titleW = kButtonMaxW ;
+        }
+        buttonW += titleW + kButtonInsetsWH ;
+//        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -kButtonInsetsWH)];
+    }
+    [button setFrame:CGRectMake(0, 0, buttonW, kNavNormalHeight)];
+    
+    if (!ISEMPTY(title)) {
+        [button setTitle:title forState:UIControlStateNormal];
+    }
     if (backgroundImage) {
         [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
     }
-    
     if (image) {
         [button setImage:image forState:UIControlStateNormal];
     }
-    
     if (hieghtImage) {
         [button setImage:hieghtImage forState:UIControlStateHighlighted];
     }
-    
-    [button setTitleColor:self.options.buttonTitleColor forState:UIControlStateNormal];
-    [button setTitleColor:self.options.buttonTitleColorHieght forState:UIControlStateHighlighted];
-    button.titleLabel.font = self.options.buttonTitleFont ;
-    [button setImageEdgeInsets:UIEdgeInsetsMake(3, 3, 3, 3)];
-    
-    button.tag = ++easynavigation_button_tag ;
-    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
     [self addSubview:button];
     
     if (type == buttonPlaceTypeLeft) {
@@ -542,10 +421,16 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
         [self.rightViewArray addObject:button];
     }
     
+    button.tag = ++easynavigation_button_tag ;
+    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     if (callback) {
         [self.callbackDictionary setObject:[callback copy] forKey:@(button.tag)];
     }
     
+//    button.titleLabel.backgroundColor = [UIColor yellowColor];
+//    button.imageView.backgroundColor = [UIColor blueColor];
+//    [button setBackgroundColor:[UIColor redColor]];
     return button ;
 }
 
@@ -640,32 +525,10 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
             }
         }
         
-        CGFloat viewWidth = 0 ;
-        if ([tempView isKindOfClass:[UIButton class]]) {
-            
-            UIButton *tempButton = (UIButton *)tempView ;
-
-            viewWidth = [tempButton.titleLabel.text sizeWithAttributes:@{NSFontAttributeName: [UIFont fontWithName:tempButton.titleLabel.font.fontName size:tempButton.titleLabel.font.pointSize]}].width + 5 ;
-    
-            if (tempButton.imageView.image) {
-                viewWidth += 20 ;
-            }
-        }
-        else{
-            viewWidth = tempView.width ;
-        }
+        CGFloat tempViewX = type==buttonPlaceTypeLeft ? leftEdge : self.width-leftEdge-tempView.width ;
+        tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, tempView.width , tempView.height);
         
-        if (viewWidth < kViewMinWidth) {
-            viewWidth = kViewMinWidth ;
-        }
-        if (viewWidth > kViewMaxWidth) {//36 - 20
-            viewWidth = kViewMaxWidth ;
-        }
-        
-        CGFloat tempViewX = type==buttonPlaceTypeLeft ? leftEdge : self.width-leftEdge-viewWidth ;
-        tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, viewWidth , self.height-STATUSBAR_HEIGHT-self.lineView.height);
-        
-        leftEdge += viewWidth+kViewEdge  ;
+        leftEdge += tempView.width ;
         
     }
     
@@ -857,7 +720,7 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     if (self.isShowBigTitle) {
         return orginalHeight + kNavBigTitleHeight ;
     }
-    
+
     return orginalHeight ;
 }
 

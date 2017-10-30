@@ -10,6 +10,14 @@
 
 #import "EasyNavigationOptions.h"   
 
+/**
+ * 创建视图的位置，放在左边还是右边
+ */
+typedef NS_ENUM(NSUInteger , buttonPlaceType) {
+    buttonPlaceTypeLeft ,
+    buttonPlaceTypeRight ,
+};
+
 typedef void(^clickCallback)(UIView *view);
 
 
@@ -95,49 +103,10 @@ typedef void(^clickCallback)(UIView *view);
 //- (void)removeStatusBarCallback ;
 
 
-#pragma mark - 左边视图
-
-/**
- * 往左边视图上加一个view
- */
-- (void)addLeftView:(UIView *)view clickCallback:(clickCallback)callback ;
-
-/**
- * 创建一个按钮并放到左边视图上
- */
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback ;
-
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback ;
-
-
-- (UIButton *)addLeftButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback ;
-
-- (UIButton *)addLeftButtonWithImage:(UIImage *)image hightImage:(UIImage *)hightImage clickCallBack:(clickCallback)callback ;
-
-
-- (void)removeLeftView:(UIView *)view ;
-
-- (void)removeAllLeftButton ;
 
 
 
-#pragma mark - 右边视图
 
-- (void)addRightView:(UIView *)view clickCallback:(clickCallback)callback ;
-
-- (UIButton *)addRightButtonWithTitle:(NSString *)title clickCallBack:(clickCallback)callback ;
-
-- (UIButton *)addRightButtonWithTitle:(NSString *)title backgroundImage:(UIImage *)backgroundImage clickCallBack:(clickCallback)callback ;
-
-
-- (UIButton *)addRightButtonWithImage:(UIImage *)image clickCallBack:(clickCallback)callback ;
-
-- (UIButton *)addRightButtonWithImage:(UIImage *)image hightImage:(UIImage *)hightImage clickCallBack:(clickCallback)callback ;
-
-
-- (void)removeRightView:(UIView *)view ;
-
-- (void)removeAllRightButton ;
 
 
 
@@ -172,6 +141,19 @@ typedef void(^clickCallback)(UIView *view);
 - (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStatusBar:(BOOL)stopStatusBar ;
 
 
+
+@property (nonatomic,strong)NSMutableArray *leftViewArray ;//左边所有的视图
+@property (nonatomic,strong)NSMutableArray *rightViewArray ;//右边所有的视图
+
+- (UIButton *)createButtonWithTitle:(NSString *)title
+                    backgroundImage:(UIImage *)backgroundImage
+                              image:(UIImage *)image
+                         hightImage:(UIImage *)hieghtImage
+                           callback:(clickCallback)callback
+                               type:(buttonPlaceType)type ;
+- (void)addView:(UIView *)view
+  clickCallback:(clickCallback)callback
+           type:(buttonPlaceType)type ;
 @end
 
 

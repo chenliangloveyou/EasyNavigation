@@ -48,10 +48,23 @@
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
     
-    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
+    [self.navigationView addLeftButtonWithImage:kImage(@"button_normal.png")
+                                     hightImage:kImage(@"button_select.png")
+                                  clickCallBack:nil];
+    
+    [self.navigationView addLeftButtonWithTitle:@"更信内容"
+                                backgroundImage:kImage(@"button_normal.png")
+                                  clickCallBack:nil];
+    
+    [self.navigationView addLeftButtonWithTitle:@" 返回"
+                                          image:kImage(@"nav_btn_back.png")
+                                     hightImage:kImage(@"nav_btn_back_blue.png")
+                                backgroundImage:nil
+                                  clickCallBack:nil];
+   
 
     self.statusBarStyle = UIStatusBarStyleLightContent ;
-//    self.navbigTitleType = NavBigTitleTypeAll ;
+    self.navbigTitleType = NavBigTitleTypeAll ;
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.tableView];
