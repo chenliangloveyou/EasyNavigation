@@ -82,6 +82,7 @@
  * 显示大标题的条件
  */
 typedef NS_ENUM(NSUInteger , NavBigTitleType) {
+    NavBigTitleTypeUnknow  = 0 ,     //没有设置大标题属性
     NavBigTitleTypeDefault = 1 << 0, //所有情况下都不使用大标题 (默认情况)
     NavBigTitleTypeIOS11   = 1 << 1 ,   //在iOS11系统上使用大标题
     NavBigTitleTypePlus    = 1 << 2 ,    //在plus尺寸上使用大标题（iphone6plus,iphone7plus,iphone8plus）

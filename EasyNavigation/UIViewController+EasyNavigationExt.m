@@ -24,6 +24,7 @@
 {
     objc_setAssociatedObject(self, @selector(navbigTitleType), @(navbigTitleType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
 - (NavTitleAnimationType)navTitleAnimationType
 {
     return [objc_getAssociatedObject(self, _cmd) integerValue];
@@ -32,6 +33,8 @@
 {
     objc_setAssociatedObject(self, @selector(navTitleAnimationType), @(navTitleAnimationType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
+
+
 - (BOOL)disableSlidingBackGesture
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue];

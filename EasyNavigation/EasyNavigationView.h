@@ -36,11 +36,12 @@ typedef void(^clickCallback)(UIView *view);
 @property (nonatomic,assign) CGFloat scrollingSpeed ;     //导航条滚动速度
 @property (nonatomic,strong) UIScrollView *kvoScrollView ;//用于监听scrollview内容高度的改变
 
-@property (nonatomic,strong)UIView *backgroundView ;
 
 /**
  * 导航栏的背景视图
  */
+@property (nonatomic,strong)UIView *backgroundView ;
+
 @property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;
 
 /**
@@ -58,12 +59,6 @@ typedef void(^clickCallback)(UIView *view);
  */
 @property (nonatomic,strong)UIView *lineView ;//导航条最下面的一条线
 
-/**
- * 第一个加到导航栏左(右)边的按钮。（如果删除第一个，会替换成第二个，以此类推）
- * 如果想拿到第二个加上去的，在创建的时候返回。
- */
-@property (nonatomic,strong,readonly)UIButton *leftButton ;
-@property (nonatomic,strong,readonly)UIButton *rightButton ;
 
 /**
  * 导航栏初始高度（刚初始化页面，没有对导航条操作是的高度）
@@ -118,6 +113,13 @@ typedef void(^clickCallback)(UIView *view);
 //- (void)removeStatusBarCallback ;
 
 
+
+/**
+ * 第一个加到导航栏左(右)边的按钮。（如果删除第一个，会替换成第二个，以此类推）
+ * 如果想拿到第二个加上去的，在创建的时候返回。
+ */
+@property (nonatomic,strong,readonly)UIButton *leftButton ;
+@property (nonatomic,strong,readonly)UIButton *rightButton ;
 
 /**
  * 导航条 左边所有视图
