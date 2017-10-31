@@ -118,14 +118,17 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 - (void)layoutSubviews
 {
-    self.height = self.viewController.navigationOrginalHeight ;
     
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
     [self layoutTitleviews];
     EasyLog(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
 }
-
+- (void)changeNavigationHeight
+{
+    self.height = self.viewController.navigationOrginalHeight ;
+    [self layoutSubviews];
+}
 - (void)layoutTitleviews
 {
     if (_titleLabel) {
@@ -439,7 +442,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 {
     if (nil == _titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.backgroundColor = [UIColor redColor];
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
         _titleLabel.textAlignment = NSTextAlignmentCenter ;
@@ -451,6 +454,9 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 {
     if (nil == _viewController) {
         _viewController = [self currentViewController] ;
+        if (nil == _viewController) {
+            EasyLog(@"attention: the viewController is empty !") ;
+        }
     }
     return _viewController ;
 }

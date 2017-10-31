@@ -17,25 +17,6 @@
 @implementation UIViewController (EasyNavigationExt)
 
 
-- (NavBigTitleType)navbigTitleType
-{
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
-}
-- (void)setNavbigTitleType:(NavBigTitleType)navbigTitleType
-{
-    objc_setAssociatedObject(self, @selector(navbigTitleType), @(navbigTitleType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (NavTitleAnimationType)navTitleAnimationType
-{
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
-}
-- (void)setNavTitleAnimationType:(NavTitleAnimationType)navTitleAnimationType
-{
-    objc_setAssociatedObject(self, @selector(navTitleAnimationType), @(navTitleAnimationType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-
 - (BOOL)disableSlidingBackGesture
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue];
@@ -127,6 +108,29 @@
             break;
     }
     return shouldShow ;
+}
+
+- (NavBigTitleType)navbigTitleType
+{
+    return [objc_getAssociatedObject(self, _cmd) integerValue];
+}
+- (void)setNavbigTitleType:(NavBigTitleType)navbigTitleType
+{
+    objc_setAssociatedObject(self, @selector(navbigTitleType), @(navbigTitleType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    
+    //设置大标题的时候，通知导航条刷新高度
+    if (self.navigationView) {
+        [self.navigationView changeNavigationHeight];
+    }
+}
+
+- (NavTitleAnimationType)navTitleAnimationType
+{
+    return [objc_getAssociatedObject(self, _cmd) integerValue];
+}
+- (void)setNavTitleAnimationType:(NavTitleAnimationType)navTitleAnimationType
+{
+    objc_setAssociatedObject(self, @selector(navTitleAnimationType), @(navTitleAnimationType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 

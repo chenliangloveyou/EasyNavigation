@@ -68,7 +68,7 @@
 #define ISEMPTY(_v) (_v == nil || _v.length == 0)
 
 /**打印****/
-#define ISSHOWLOG 0
+#define ISSHOWLOG 1
 #define EasyLog(fmt, ...) if(ISSHOWLOG) { NSLog(fmt,##__VA_ARGS__); }
 
 

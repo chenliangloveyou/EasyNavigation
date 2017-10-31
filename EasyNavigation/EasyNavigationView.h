@@ -60,7 +60,8 @@ typedef void(^clickCallback)(UIView *view);
 @property (nonatomic,strong)UIView *lineView ;//导航条最下面的一条线
 
 
-
+//改变导航条的高度
+- (void)changeNavigationHeight ;
 
 #pragma mark - 设置属性
 
