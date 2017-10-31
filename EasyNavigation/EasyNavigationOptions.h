@@ -53,7 +53,11 @@
 /**
  * titleLabel 字体大小
  */
-@property (nonatomic,strong)UIFont  *titleFont ;
+@property (nonatomic,strong)UIFont *titleFont ;
+/**
+ * 大标题显示的字体
+ */
+@property (nonatomic,strong)UIFont *titleBigFount ;
 /**
  * titleLabel 字体颜色
  */

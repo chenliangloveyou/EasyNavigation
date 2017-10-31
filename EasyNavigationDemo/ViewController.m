@@ -99,6 +99,7 @@
         _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.contentInset = UIEdgeInsetsMake(self.navigationOrginalHeight, 0, 0, 0);
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
         _tableView.dataSource = self ;
         _tableView.delegate = self ;

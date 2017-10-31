@@ -60,17 +60,6 @@ typedef void(^clickCallback)(UIView *view);
 @property (nonatomic,strong)UIView *lineView ;//导航条最下面的一条线
 
 
-/**
- * 导航栏初始高度（刚初始化页面，没有对导航条操作是的高度）
- * 竖屏：statusBar的高度 + 正常高度 + 大标题高度(如果显示)
- * 横屏：statusBar的高度(如果显示) + 正常高度
- */
-@property (nonatomic,assign,readonly)CGFloat navigationOrginalHeight ;
-
-/**
- * 是否正在展示大标题
- */
-@property (nonatomic,assign,readonly)BOOL isShowBigTitle ;
 
 
 #pragma mark - 设置属性

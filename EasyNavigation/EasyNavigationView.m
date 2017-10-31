@@ -17,17 +17,13 @@
 #import "EasyNavigationOptions.h"
 
 
-#define kTitleViewEdge 50.0f //title左右边距
+#define kTitleViewEdge 60.0f //title左右边距
 
-
-#define kNavNormalHeight 44.0f     //导航栏原始高度
-#define kNavBigTitleHeight 55.0f   //大标题增加出来的高度
 
 #define kButtonInsetsWH 5.0f //按钮图文距按钮边缘的距离
 #define kButtonMaxW  60.0f //按钮文字最大的长度
 
 static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标示
-
 
 
 @interface EasyNavigationView()
@@ -122,7 +118,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 - (void)layoutSubviews
 {
-    self.height = self.navigationOrginalHeight ;
+    self.height = self.viewController.navigationOrginalHeight ;
     
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
@@ -130,6 +126,36 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     EasyLog(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
 }
 
+- (void)layoutTitleviews
+{
+    if (_titleLabel) {
+        
+        if (self.viewController.isShowBigTitle) {
+            self.titleLabel.frame = CGRectMake(20, self.viewController.navigationOrginalHeight-kNavBigTitleHeight, 0, 0) ;
+            self.titleLabel.font = self.options.titleBigFount ;
+            [self.titleLabel sizeToFit];
+            
+        }
+        else{
+            if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
+                self.titleLabel.width = self.width-kTitleViewEdge*2 ;
+            }
+            self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
+            
+            self.titleLabel.font = self.options.titleFont ;
+        }
+        
+    }
+    
+    if (_titleView) {
+        
+        if (_titleView.width > self.width-kTitleViewEdge*2) {
+            _titleView.width = self.width-kTitleViewEdge*2 ;
+        }
+        _titleView.height = (self.height - STATUSBAR_HEIGHT);
+        _titleView.center = CGPointMake(self.center.x, STATUSBAR_HEIGHT+(self.height-STATUSBAR_HEIGHT)/2 );
+    }
+}
 #pragma mark - titleview
 - (void)setTitle:(NSString *)title 
 {
@@ -153,39 +179,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         titleView.width = self.width-kTitleViewEdge*2 ;
     }
     titleView.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
-}
-
-- (void)statusBarTapWithCallback:(clickCallback)callback
-{
-    NSAssert(callback, @"you should deal with this callback");
-    
-    if (callback) {
-        _statusBarTapCallback = [callback copy];
-    }
-    
-}
-- (void)removestatusBarCallback
-{
-    if (nil == _statusBarTapCallback) {
-        _statusBarTapCallback = nil ;
-    }
-}
-
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-   
-}
-- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    UITouch *touch = touches.anyObject ;
-    CGPoint tapLocation = [touch locationInView:self];
-    EasyLog(@"moved = %f  == %f",tapLocation.x,tapLocation.y);
-}
-- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    UITouch *touch = touches.anyObject ;
-    CGPoint tapLocation = [touch locationInView:self];
-    EasyLog(@"%f  == %f",tapLocation.x,tapLocation.y);
 }
 
 
@@ -314,38 +307,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     }
 }
 
-- (void)layoutTitleviews
-{
-    if (_titleLabel) {
-
-        [self.titleLabel sizeToFit];
-
-        if (self.isShowBigTitle) {
-            self.titleLabel.frame = CGRectMake(20, self.navigationOrginalHeight-kNavBigTitleHeight, 0, 0) ;
-            self.titleLabel.font = [UIFont boldSystemFontOfSize:35];
-            
-        }
-        else{
-            if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
-                self.titleLabel.width = self.width-kTitleViewEdge*2 ;
-            }
-            self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
-
-            self.titleLabel.font = self.options.titleFont ;
-        }
-        
-    }
-    
-    if (_titleView) {
-        
-        if (_titleView.width > self.width-kTitleViewEdge*2) {
-            _titleView.width = self.width-kTitleViewEdge*2 ;
-        }
-        _titleView.height = (self.height - STATUSBAR_HEIGHT);
-        _titleView.center = CGPointMake(self.center.x, STATUSBAR_HEIGHT+(self.height-STATUSBAR_HEIGHT)/2 );
-
-    }
-}
 - (void)layoutSubviewsWithType:(buttonPlaceType)type
 {
     NSMutableArray *tempArray = nil ;
@@ -373,9 +334,41 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, tempView.width , tempView.height);
         
         leftEdge += tempView.width ;
-        
     }
     
+}
+
+- (void)statusBarTapWithCallback:(clickCallback)callback
+{
+    NSAssert(callback, @"you should deal with this callback");
+    
+    if (callback) {
+        _statusBarTapCallback = [callback copy];
+    }
+    
+}
+- (void)removestatusBarCallback
+{
+    if (nil == _statusBarTapCallback) {
+        _statusBarTapCallback = nil ;
+    }
+}
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    
+}
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = touches.anyObject ;
+    CGPoint tapLocation = [touch locationInView:self];
+    EasyLog(@"moved = %f  == %f",tapLocation.x,tapLocation.y);
+}
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = touches.anyObject ;
+    CGPoint tapLocation = [touch locationInView:self];
+    EasyLog(@"%f  == %f",tapLocation.x,tapLocation.y);
 }
 
 
@@ -414,41 +407,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 #pragma mark  getter
 
-- (BOOL)isShowBigTitle
-{
-    BOOL shouldShow = NO ;
-    switch (self.viewController.navbigTitleType) {
-        case NavBigTitleTypeIOS11:
-            shouldShow = IS_IOS11_OR_LATER ;
-            break;
-        case NavBigTitleTypePlus:
-            shouldShow = ISIPHONE_6P ;
-            break ;
-        case NavBigTitleTypeIphoneX:
-            shouldShow = ISIPHONE_X ;
-            break ;
-        case NavBigTitleTypeAll :
-            shouldShow = YES ;
-            break ;
-        case NavBigTitleTypePlusOrX:
-            shouldShow = ISIPHONE_X || ISIPHONE_6P ;
-            break ;
-        default:
-            break;
-    }
-    return shouldShow ;
-}
-
-- (CGFloat)navigationOrginalHeight
-{
-    CGFloat orginalHeight = STATUSBAR_HEIGHT + kNavNormalHeight ;
-    
-    if (self.isShowBigTitle) {
-        return orginalHeight + kNavBigTitleHeight ;
-    }
-
-    return orginalHeight ;
-}
 
 - (UIView *)backgroundView
 {

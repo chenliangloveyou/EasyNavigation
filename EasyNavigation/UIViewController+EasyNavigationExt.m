@@ -10,6 +10,7 @@
 #import "UIViewController+EasyNavigationExt.h"
 
 #import "EasyNavigationController.h"
+#import "EasyUtils.h"
 #import <objc/runtime.h>
 
 
@@ -87,6 +88,48 @@
     objc_setAssociatedObject(self, @selector(navigationView), navigationView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (CGFloat)navigationOrginalHeight
+{
+    CGFloat orginalHeight = STATUSBAR_HEIGHT + kNavNormalHeight ;
+    
+    if (self.isShowBigTitle) {
+        CGFloat additionalHeight = ISHORIZONTALSCREEM ? 0 : kNavBigTitleHeight ;
+        return orginalHeight + additionalHeight ;
+    }
+    
+    return orginalHeight ;
+}
+
+- (BOOL)isShowBigTitle
+{
+    if (ISHORIZONTALSCREEM) {//如果屏幕是水平方向，不要大标题
+        return NO ;
+    }
+    
+    BOOL shouldShow = NO ;
+    switch (self.navbigTitleType) {
+        case NavBigTitleTypeIOS11:
+            shouldShow = IS_IOS11_OR_LATER ;
+            break;
+        case NavBigTitleTypePlus:
+            shouldShow = ISIPHONE_6P ;
+            break ;
+        case NavBigTitleTypeIphoneX:
+            shouldShow = ISIPHONE_X ;
+            break ;
+        case NavBigTitleTypeAll :
+            shouldShow = YES ;
+            break ;
+        case NavBigTitleTypePlusOrX:
+            shouldShow = ISIPHONE_X || ISIPHONE_6P ;
+            break ;
+        default:
+            break;
+    }
+    return shouldShow ;
+}
+
+
 - (UIStatusBarStyle)statusBarStyle
 {
     return [objc_getAssociatedObject(self, _cmd) integerValue] ;
@@ -122,6 +165,7 @@
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue] ;
 }
+
 -(void)setHorizontalScreenShowStatusBar:(BOOL)horizontalScreenShowStatusBar
 {
     if (self.horizontalScreenShowStatusBar == horizontalScreenShowStatusBar) {

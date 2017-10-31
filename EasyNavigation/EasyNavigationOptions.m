@@ -33,6 +33,7 @@
         _navLineColor = [UIColor groupTableViewBackgroundColor];
         
         _titleFont = [UIFont boldSystemFontOfSize:18];
+        _titleBigFount = [UIFont boldSystemFontOfSize:35] ;
         _titleColor = [UIColor darkTextColor];
         
         _buttonTitleFont = [UIFont systemFontOfSize:16];

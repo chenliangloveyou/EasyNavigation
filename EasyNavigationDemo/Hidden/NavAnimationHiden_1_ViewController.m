@@ -19,7 +19,7 @@
 
     [self.navigationView setTitle:@"导航条动画隐藏(statusBar下停止)"];
 
-    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:self.navigationView.navigationOrginalHeight stopToStatusBar:YES];
+    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:self.navigationOrginalHeight stopToStatusBar:YES];
 
 }
 

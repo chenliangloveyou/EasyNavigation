@@ -39,6 +39,12 @@
 //statusbar默认高度 orginal
 #define STATUSBAR_ORGINAL_HEIGHT  ([UIApplication sharedApplication].statusBarFrame.size.height)
 
+//导航栏原始高度
+#define kNavNormalHeight 44.0f
+
+//大标题增加出来的高度
+#define kNavBigTitleHeight 55.0f
+
 //状态栏高度
 #define STATUSBAR_HEIGHT (ISHORIZONTALSCREEM ? (ISIPHONE_X ? 0 : STATUSBAR_ORGINAL_HEIGHT) : STATUSBAR_ORGINAL_HEIGHT )
 

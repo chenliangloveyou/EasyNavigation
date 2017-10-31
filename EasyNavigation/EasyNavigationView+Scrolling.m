@@ -10,6 +10,7 @@
 
 #import "UIScrollView+EasyNavigationExt.h"
 #import "UIView+EasyNavigationExt.h"
+#import "UIViewController+EasyNavigationExt.h"
 #import <objc/runtime.h>
 
 
@@ -34,7 +35,7 @@ static char NAVIGATION_CHANGE_TYPE ;//导航条改变的类型
 {
     [self navigationAlphaSlowChangeWithScrollow:scrollow
                                           start:0
-                                            end:self.navigationOrginalHeight*2];
+                                            end:100];
 }
 - (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
                                         start:(CGFloat)startPoint
