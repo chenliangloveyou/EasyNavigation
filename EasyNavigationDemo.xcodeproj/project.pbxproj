@@ -290,10 +290,10 @@
 		68A5A5301F7E8BBF00B62899 /* EasyNavigation */ = {
 			isa = PBXGroup;
 			children = (
+				68A5A5341F7E8BBF00B62899 /* EasyNavigation.h */,
 				68A5A5311F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.h */,
 				68A5A5321F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.m */,
 				68A5A5331F7E8BBF00B62899 /* EasyNavButton.bundle */,
-				68A5A5341F7E8BBF00B62899 /* EasyNavigation.h */,
 				68A5A5351F7E8BBF00B62899 /* EasyNavigationController.h */,
 				68A5A5361F7E8BBF00B62899 /* EasyNavigationController.m */,
 				68A5A5371F7E8BBF00B62899 /* EasyNavigationOptions.h */,

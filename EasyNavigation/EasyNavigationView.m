@@ -33,8 +33,8 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @interface EasyNavigationView()
 {
     clickCallback _statusBarTapCallback ;//导航栏点击回到
-    
 }
+
 @property (nonatomic,strong)EasyNavigationOptions *options ;
 
 @property (nonatomic,assign)CGFloat backGroundAlpha ;
@@ -51,11 +51,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 @property (nonatomic,strong)UIViewController *viewController ;//navigation所在的控制器
 
-
 @property (nonatomic,strong)NSMutableDictionary *callbackDictionary ;//回调的数组
-
-
-
 
 @end
 
@@ -77,13 +73,10 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         
         self.backgroundColor = [UIColor clearColor];
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        _isScrollingNavigaiton = NO ;
-        _navigationChangeType = NavigationChangeTypeUnKnow ;
         
         _backGroundAlpha = self.options.backGroundAlpha ;
         
         [self addSubview:self.backgroundView];
-        
         [self addSubview:self.titleLabel] ;
         [self addSubview:self.lineView];
         
@@ -194,6 +187,8 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     CGPoint tapLocation = [touch locationInView:self];
     EasyLog(@"%f  == %f",tapLocation.x,tapLocation.y);
 }
+
+
 - (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback
 {
     
@@ -206,7 +201,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         [self.callbackDictionary setObject:[callback copy] forKey:@(view.tag)];
     }
 }
-
 
 
 
@@ -326,7 +320,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
         [self.titleLabel sizeToFit];
 
-        
         if (self.isShowBigTitle) {
             self.titleLabel.frame = CGRectMake(20, self.navigationOrginalHeight-kNavBigTitleHeight, 0, 0) ;
             self.titleLabel.font = [UIFont boldSystemFontOfSize:35];
@@ -391,7 +384,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 - (void)setNavigationBackgroundImage:(UIImage *)backgroundImage
 {
     self.backgroundImageView.image = backgroundImage ;
-
 }
 - (void)setNavigationBackgroundAlpha:(CGFloat)alpha
 {
@@ -403,7 +395,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (_backgroundImageView) {
         self.backgroundImageView.alpha = alpha ;
     }
-  
 }
 - (void)setNavigationBackgroundColor:(UIColor *)color
 {
@@ -412,7 +403,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (_backgroundView) {
         [_backgroundView setBackgroundColor:color];
     }
-    
     self.backgroundColor = color ;
 }
 
@@ -459,8 +449,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
     return orginalHeight ;
 }
-
-
 
 - (UIView *)backgroundView
 {

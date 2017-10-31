@@ -32,15 +32,9 @@ typedef void(^clickCallback)(UIView *view);
 
 
 @interface EasyNavigationView : UIView
-{
-
-}
-@property (nonatomic,assign)NavigationChangeType navigationChangeType ;//导航条改变的类型
 
 @property (nonatomic,assign) CGFloat scrollingSpeed ;     //导航条滚动速度
-
 @property (nonatomic,strong) UIScrollView *kvoScrollView ;//用于监听scrollview内容高度的改变
-@property (nonatomic,assign)BOOL isScrollingNavigaiton ;//是否正在滚动导航条
 
 @property (nonatomic,strong)UIView *backgroundView ;
 
@@ -122,11 +116,6 @@ typedef void(^clickCallback)(UIView *view);
 - (void)statusBarTapWithCallback:(clickCallback)callback ;
 //移除导航栏上的手势
 //- (void)removeStatusBarCallback ;
-
-
-
-
-
 
 
 

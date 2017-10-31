@@ -15,66 +15,15 @@
 
 #define kAnimationDuring 0.3f //动画执行时间
 
-//@interface EasyNavigationView (Scrolling)
-//
-//@end
+static char ALPHA_START_CHANGE; //alpha改变的开始位置
+static char ALPHA_END_CHANGE   ;//alpha停止改变的位置
+static char SCROLL_START_POINT ;//导航条滚动的起始点
+static char CRITICAL_POINT ;        //导航条动画隐藏的临界点
+static char STOP_UP_STATUS_BAR ;    //动画后是否需要停止在statusBar下面
+static char IS_SCROLLING_NAVIGATION  ;//是否正在滚动导航条
+static char NAVIGATION_CHANGE_TYPE ;//导航条改变的类型
 
 @implementation EasyNavigationView (Scrolling)
-
-- (void)setAlphaEndChange:(CGFloat)alphaEndChange
-{
-    objc_setAssociatedObject(self, @selector(alphaEndChange), @(alphaEndChange), OBJC_ASSOCIATION_ASSIGN);
-}
-- (CGFloat)alphaEndChange
-{
-    return [objc_getAssociatedObject(self, _cmd) floatValue];
-}
-- (void)setAlphaStartChange:(CGFloat)alphaStartChange
-{
-    objc_setAssociatedObject(self, @selector(alphaStartChange), @(alphaStartChange), OBJC_ASSOCIATION_ASSIGN);
-}
-- (CGFloat)alphaStartChange
-{
-    return [objc_getAssociatedObject(self, _cmd) floatValue];
-}
-
-- (void)setScrollStartPoint:(CGFloat)scrollStartPoint
-{
-    objc_setAssociatedObject(self, @selector(scrollStartPoint), @(scrollStartPoint), OBJC_ASSOCIATION_ASSIGN);
-}
-- (CGFloat)scrollStartPoint
-{
-    return [objc_getAssociatedObject(self, _cmd) floatValue];
-}
-- (void)setCriticalPoint:(CGFloat)criticalPoint
-{
-    objc_setAssociatedObject(self, @selector(criticalPoint), @(criticalPoint), OBJC_ASSOCIATION_ASSIGN);
-}
-- (CGFloat)criticalPoint
-{
-    return [objc_getAssociatedObject(self, _cmd) floatValue];
-}
-
-- (void)setStopUpstatusBar:(BOOL)stopUpstatusBar
-{
-    objc_setAssociatedObject(self, @selector(stopUpstatusBar), @(stopUpstatusBar), OBJC_ASSOCIATION_ASSIGN);
-}
-- (BOOL)stopUpstatusBar
-{
-    return [objc_getAssociatedObject(self, _cmd) boolValue];
-}
-
-
-//- (void)setScrollingSpeed:(CGFloat)scrollingSpeed
-//{
-//    objc_setAssociatedObject(self, @selector(scrollingSpeed), @(scrollingSpeed), OBJC_ASSOCIATION_ASSIGN);
-//
-//}
-//- (CGFloat)scrollingSpeed
-//{
-//    return [objc_getAssociatedObject(self, _cmd) floatValue];
-//}
-
 
 #pragma mark - 视图滚动，导航条跟着变化
 
@@ -83,9 +32,13 @@
  */
 - (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
 {
-    [self navigationAlphaSlowChangeWithScrollow:scrollow start:0 end:self.navigationOrginalHeight*2];
+    [self navigationAlphaSlowChangeWithScrollow:scrollow
+                                          start:0
+                                            end:self.navigationOrginalHeight*2];
 }
-- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow start:(CGFloat)startPoint end:(CGFloat)endPoint
+- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
+                                        start:(CGFloat)startPoint
+                                          end:(CGFloat)endPoint
 {
     self.navigationChangeType = NavigationChangeTypeAlphaChange ;
     
@@ -93,13 +46,19 @@
     self.alphaEndChange = endPoint ;
     self.kvoScrollView = scrollow ;
     
-    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:NULL];
+    [scrollow addObserver:self
+               forKeyPath:@"contentOffset"
+                  options:NSKeyValueObservingOptionNew
+                  context:NULL];
 }
 
 /**
  * 根据scrollview滚动，导航条隐藏或者展示.
  */
-- (void)navigationSmoothScroll:(UIScrollView *)scrollow start:(CGFloat)startPoint speed:(CGFloat)speed stopToStatusBar:(BOOL)stopstatusBar
+- (void)navigationSmoothScroll:(UIScrollView *)scrollow
+                         start:(CGFloat)startPoint
+                         speed:(CGFloat)speed
+               stopToStatusBar:(BOOL)stopstatusBar
 {
     self.navigationChangeType = NavigationChangeTypeSmooth ;
     
@@ -110,11 +69,16 @@
     
     self.kvoScrollView.scrollDistance = startPoint ;
     
-    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [scrollow addObserver:self
+               forKeyPath:@"contentOffset"
+                  options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                  context:NULL];
     
 }
 
-- (void)navigationAnimationScroll:(UIScrollView *)scrollow criticalPoint:(CGFloat)criticalPoint stopToStatusBar:(BOOL)stopstatusBar
+- (void)navigationAnimationScroll:(UIScrollView *)scrollow
+                    criticalPoint:(CGFloat)criticalPoint 
+                  stopToStatusBar:(BOOL)stopstatusBar
 {
     self.navigationChangeType = NavigationChangeTypeAnimation ;
     
@@ -122,7 +86,10 @@
     self.criticalPoint = criticalPoint ;
     self.stopUpstatusBar = stopstatusBar ;
     
-    [scrollow addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+    [scrollow addObserver:self
+               forKeyPath:@"contentOffset"
+                  options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                  context:NULL];
     
 }
 
@@ -315,5 +282,77 @@
         subView.alpha = alpha ;
     }
 }
+
+#pragma mark - getter/setter
+
+- (void)setAlphaStartChange:(CGFloat)alphaStartChange
+{
+    objc_setAssociatedObject(self, &ALPHA_START_CHANGE, @(alphaStartChange), OBJC_ASSOCIATION_RETAIN);
+}
+- (CGFloat)alphaStartChange
+{
+    return [objc_getAssociatedObject(self, &ALPHA_START_CHANGE) floatValue];
+}
+
+- (void)setAlphaEndChange:(CGFloat)alphaEndChange
+{
+    objc_setAssociatedObject(self, &ALPHA_END_CHANGE, @(alphaEndChange), OBJC_ASSOCIATION_ASSIGN);
+}
+- (CGFloat)alphaEndChange
+{
+    return [objc_getAssociatedObject(self, &ALPHA_END_CHANGE) floatValue];
+}
+
+- (void)setScrollStartPoint:(CGFloat)scrollStartPoint
+{
+    objc_setAssociatedObject(self, &SCROLL_START_POINT, @(scrollStartPoint), OBJC_ASSOCIATION_ASSIGN);
+}
+- (CGFloat)scrollStartPoint
+{
+    return [objc_getAssociatedObject(self,  &SCROLL_START_POINT) floatValue];
+}
+- (void)setCriticalPoint:(CGFloat)criticalPoint
+{
+    objc_setAssociatedObject(self, &CRITICAL_POINT, @(criticalPoint), OBJC_ASSOCIATION_ASSIGN);
+}
+- (CGFloat)criticalPoint
+{
+    return [objc_getAssociatedObject(self, &CRITICAL_POINT) floatValue];
+}
+
+- (void)setStopUpstatusBar:(BOOL)stopUpstatusBar
+{
+    objc_setAssociatedObject(self, &STOP_UP_STATUS_BAR, @(stopUpstatusBar), OBJC_ASSOCIATION_ASSIGN);
+}
+- (BOOL)stopUpstatusBar
+{
+    return [objc_getAssociatedObject(self, &STOP_UP_STATUS_BAR) boolValue];
+}
+- (void)setIsScrollingNavigaiton:(BOOL)isScrollingNavigaiton
+{
+    objc_setAssociatedObject(self, &IS_SCROLLING_NAVIGATION, @(isScrollingNavigaiton), OBJC_ASSOCIATION_ASSIGN);
+}
+- (BOOL)isScrollingNavigaiton
+{
+    return [objc_getAssociatedObject(self, &IS_SCROLLING_NAVIGATION) boolValue];
+}
+- (void)setNavigationChangeType:(NavigationChangeType)navigationChangeType
+{
+    objc_setAssociatedObject(self, &NAVIGATION_CHANGE_TYPE, @(navigationChangeType), OBJC_ASSOCIATION_ASSIGN);
+}
+- (NavigationChangeType)navigationChangeType
+{
+    return [objc_getAssociatedObject(self, &NAVIGATION_CHANGE_TYPE) integerValue];
+}
+//- (void)setScrollingSpeed:(CGFloat)scrollingSpeed
+//{
+//    objc_setAssociatedObject(self, @selector(scrollingSpeed), @(scrollingSpeed), OBJC_ASSOCIATION_ASSIGN);
+//
+//}
+//- (CGFloat)scrollingSpeed
+//{
+//    return [objc_getAssociatedObject(self, _cmd) floatValue];
+//}
+
 
 @end
