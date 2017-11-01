@@ -10,7 +10,6 @@
 ![](https://img.shields.io/cocoapods/v/{EasyNavigation}.svg?style=flat)
 ![](https://img.shields.io/badge/platform-ios-lightgrey.svg)
 [![](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
-[![](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/chenliangloveyou/EasyNavigation)
 
 
 # 集成方法
