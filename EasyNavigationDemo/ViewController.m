@@ -41,13 +41,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationView setTitle:@"首页"];
+    [self.navigationView setTitle:@""];
     
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
+        weakself.navbigTitleType = NavBigTitleTypeAll ;
     }];
-    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") clickCallBack:nil];
+    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") clickCallBack:^(UIView *view) {
+        weakself.navbigTitleType = 0 ;
+    }];
     
 
     self.statusBarStyle = UIStatusBarStyleLightContent ;

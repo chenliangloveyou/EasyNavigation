@@ -29,6 +29,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @interface EasyNavigationView()
 {
     clickCallback _statusBarTapCallback ;//导航栏点击回到
+    
 }
 
 @property (nonatomic,strong)EasyNavigationOptions *options ;
@@ -103,18 +104,9 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         }
     };
     
-//    if (self.isShowBigTitle) {
-//        [self setNeedsDisplay];
-//    }
-    
-//    NSLog(@"%@ = %d",self.viewController,self.viewController.navbigTitleType) ;
-//    [self.viewController easyAddObserver:self key:@"navbigTitleType" callback:^(id kvoObserver, NSString *kvoKey, id oldValue, id newValue) {
-//
-//        NSLog(@"%@ == %@ == %@",kvoObserver,kvoKey ,newValue);
-//    }];
+    self.height = self.viewController.navigationOrginalHeight ;
+
 }
-
-
 
 - (void)layoutSubviews
 {
@@ -140,6 +132,8 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
             
         }
         else{
+            [self.titleLabel sizeToFit];
+
             if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
                 self.titleLabel.width = self.width-kTitleViewEdge*2 ;
             }
@@ -159,17 +153,12 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         _titleView.center = CGPointMake(self.center.x, STATUSBAR_HEIGHT+(self.height-STATUSBAR_HEIGHT)/2 );
     }
 }
+
 #pragma mark - titleview
 - (void)setTitle:(NSString *)title 
 {
     self.titleLabel.text = title;
-    
     [self.titleLabel sizeToFit];
-    
-    if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
-        self.titleLabel.width = self.width-kTitleViewEdge*2 ;
-    }
-    self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
 
 }
 - (void)addTitleView:(UIView *)titleView
@@ -442,7 +431,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 {
     if (nil == _titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.backgroundColor = [UIColor redColor];
+        _titleLabel.backgroundColor = [UIColor clearColor];
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
         _titleLabel.textAlignment = NSTextAlignmentCenter ;

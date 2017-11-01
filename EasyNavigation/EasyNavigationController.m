@@ -111,8 +111,13 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
 //    //1.获取 当前设备 实例
-//    UIDevice *device = [UIDevice currentDevice] ;
-//
+    UIDevice *device = [UIDevice currentDevice] ;
+
+    if (!(device.orientation==UIDeviceOrientationUnknown ||
+        device.orientation==UIDeviceOrientationFaceUp ||
+        device.orientation==UIDeviceOrientationFaceDown)) {
+        [navView changeNavigationHeight];
+    }
 //    EasyLog(@" %@ = %@",NSStringFromCGRect(self.topViewController.view.frame) , NSStringFromCGRect(navView.frame));
 //
 //    switch (device.orientation) {

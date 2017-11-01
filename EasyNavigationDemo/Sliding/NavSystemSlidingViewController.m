@@ -27,7 +27,6 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated] ;
-    [self.navigationView layoutSubviews  ];
 }
 - (IBAction)changeSwitchClick:(id)sender {
     
