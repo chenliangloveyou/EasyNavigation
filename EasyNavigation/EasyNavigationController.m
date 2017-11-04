@@ -73,6 +73,7 @@
     }
     
     viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , viewController.navigationOrginalHeight)];
+    EasyLog(@"EasyNavigation create : %p",viewController.navigationView);
     if (self.viewControllers.count > 0) {
         kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;

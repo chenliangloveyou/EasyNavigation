@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.navigationView setTitle:@""];
+    [self.navigationView setTitle:@"首页"];
     
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
@@ -55,6 +55,7 @@
 
     self.statusBarStyle = UIStatusBarStyleLightContent ;
 //    self.navbigTitleType = NavBigTitleTypeAll ;
+//    self.navigationView.scrollview = self.tableView ;
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.tableView];
