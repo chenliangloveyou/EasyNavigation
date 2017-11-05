@@ -297,6 +297,43 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         //scrollView 在y轴上滚动的距离
         CGFloat scrollContentY = self.kvoScrollView.contentInset.top + self.kvoScrollView.contentOffset.y ;
         
+//        CGFloat orginalHeight = self.viewController.navigationOrginalHeight ;
+//        NSLog(@"=== %f",scrollContentY);
+//        if (scrollContentY <= 0) {
+//            if (self.height != orginalHeight) {
+//                self.height = orginalHeight ;
+//            }
+//            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 ;
+////            self.titleLabel.left = 20 ;
+////            self.titleLabel.font = self.options.titleBigFount ;
+//        }
+//        else if(scrollContentY < kNavBigTitleHeight){
+//            if (self.height != orginalHeight - scrollContentY) {
+//                self.height = orginalHeight - scrollContentY ;
+//            }
+//            
+//            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 - scrollContentY ;
+//            NSLog(@"ff %f",orginalHeight-kNavBigTitleHeight/2 - scrollContentY);
+////            CGFloat changeX = ((self.width-self.titleLabel.width)/2 - 20)/kNavBigTitleHeight*kNavBigTitleHeight ;
+////            self.titleLabel.left= 20 + 40 ;
+//            
+////            CGFloat fountF = 18 + (35-18)*scrollContentY/(kNavBigTitleHeight) ;
+////            NSLog(@"%f  -=== %f",changeX,fountF);
+////            self.titleLabel.font = [UIFont boldSystemFontOfSize: fountF ] ;
+//
+//        }
+//        else{
+//            if (self.height != orginalHeight - kNavBigTitleHeight ) {
+//                self.height = orginalHeight - kNavBigTitleHeight ;
+//            }
+//            
+//            self.titleLabel.centerY = STATUSBAR_HEIGHT + kNavNormalHeight/2 ;
+////            self.titleLabel.left= (self.width-self.titleLabel.width)/2 ;
+////            self.titleLabel.font = self.options.titleFont ;
+//
+//        }
+        
+
         if (self.navigationChangeType == NavigationChangeTypeAlphaChange) {
             if (scrollContentY > self.alphaStartChange){
                 CGFloat alpha = scrollContentY / self.alphaEndChange ;
@@ -326,37 +363,10 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
                     EasyLog(@"Attention : the change type is know : %zd",self.navigationChangeType );
                 }
                 
-//                if (scrollContentY>0 && scrollContentY < 64) {
-//                    if (self.height > 64) {
-//                        self.height = self.viewController.navigationOrginalHeight - scrollContentY ;
-////                        self.titleLabel.alpha =
-//                    }
-//                }
-//                else if(scrollContentY <= 0){
-//                    if (self.height != 64) {
-//                        self.height = 64 ;
-//                    }
-//                }
-                
-//                NSLog(@"%f = ",scrollContentY);
-
-                
             }
             else if ( newPointY < oldPointY ) {// 向下滚动
-                currentDuring = ScrollDirectionDown ;
-//                NSLog(@"%f = ",scrollContentY);
 
-//                if (scrollContentY>0 && scrollContentY < 64) {
-//                    if (self.height < self.viewController.navigationOrginalHeight) {
-//                        self.height = 64 + (64-scrollContentY) ;
-//                    }
-//                }
-//                else if(scrollContentY >= 64){
-//                    if (self.height != self.viewController.navigationOrginalHeight) {
-//                        self.height = self.viewController.navigationOrginalHeight ;
-//                    }
-//                }
-               
+                currentDuring = ScrollDirectionDown ;
                 
                 if (self.navigationChangeType == NavigationChangeTypeAnimation) {
                     [self animationScrollDownWithContentY:scrollContentY];
@@ -756,7 +766,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 {
     if (nil == _titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.backgroundColor = [UIColor clearColor];
+        _titleLabel.backgroundColor =[UIColor clearColor]; // [UIColor yellowColor]; //
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
         _titleLabel.textAlignment = NSTextAlignmentCenter ;

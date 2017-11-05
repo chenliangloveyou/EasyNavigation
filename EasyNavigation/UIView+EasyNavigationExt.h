@@ -16,6 +16,14 @@
 @property(nonatomic) CGFloat width;
 @property(nonatomic) CGFloat height;
 
+@property(nonatomic) CGFloat centerX;
+@property(nonatomic) CGFloat centerY;
+
+@property(nonatomic,assign) CGFloat left;
+@property(nonatomic) CGFloat top;
+@property(nonatomic) CGFloat right;
+@property(nonatomic) CGFloat bottom;
+
 /**
  * 获取当前view所在的控制器
  */
