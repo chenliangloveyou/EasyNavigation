@@ -90,20 +90,17 @@
 
 - (void)removeLeftView:(UIView *)view
 {
-    for (UIView *tempView in self.leftViewArray) {
-        if ([tempView isEqual:view]) {
-            [view removeFromSuperview];
-        }
-    }
-    [self.leftViewArray removeObject:view];
+    [self removeView:view type:buttonPlaceTypeLeft];
 }
 
 - (void)removeAllLeftButton
 {
     for (UIView *tempView in self.leftViewArray) {
-        [tempView removeFromSuperview];
+        [self removeView:tempView type:buttonPlaceTypeLeft];
     }
-    [self.leftViewArray removeAllObjects];
 }
 
 @end
+
+
+

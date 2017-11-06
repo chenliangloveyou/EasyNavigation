@@ -127,15 +127,24 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 - (void)layoutSubviews
 {
     
+    
+    [super layoutSubviews];
+    
+    [self layoutTitleviews];
+
+    EasyLog(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
+}
+- (void)layoutNavigationSubviews
+{
+    self.height = self.viewController.navigationOrginalHeight ;
+
     [self layoutSubviewsWithType:buttonPlaceTypeLeft];
     [self layoutSubviewsWithType:buttonPlaceTypeRight];
     [self layoutTitleviews];
-    EasyLog(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
 }
 - (void)changeNavigationHeight
 {
     self.height = self.viewController.navigationOrginalHeight ;
-    [self layoutSubviews];
 }
 - (void)layoutTitleviews
 {
@@ -311,12 +320,12 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 //            if (self.height != orginalHeight - scrollContentY) {
 //                self.height = orginalHeight - scrollContentY ;
 //            }
-//            
+//
 //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 - scrollContentY ;
 //            NSLog(@"ff %f",orginalHeight-kNavBigTitleHeight/2 - scrollContentY);
 ////            CGFloat changeX = ((self.width-self.titleLabel.width)/2 - 20)/kNavBigTitleHeight*kNavBigTitleHeight ;
 ////            self.titleLabel.left= 20 + 40 ;
-//            
+//
 ////            CGFloat fountF = 18 + (35-18)*scrollContentY/(kNavBigTitleHeight) ;
 ////            NSLog(@"%f  -=== %f",changeX,fountF);
 ////            self.titleLabel.font = [UIFont boldSystemFontOfSize: fountF ] ;
@@ -326,7 +335,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 //            if (self.height != orginalHeight - kNavBigTitleHeight ) {
 //                self.height = orginalHeight - kNavBigTitleHeight ;
 //            }
-//            
+//
 //            self.titleLabel.centerY = STATUSBAR_HEIGHT + kNavNormalHeight/2 ;
 ////            self.titleLabel.left= (self.width-self.titleLabel.width)/2 ;
 ////            self.titleLabel.font = self.options.titleFont ;
@@ -577,36 +586,56 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (hieghtImage) {
         [button setImage:hieghtImage forState:UIControlStateHighlighted];
     }
-    [self addSubview:button];
-    
-    if (type == buttonPlaceTypeLeft) {
-        [self.leftViewArray addObject:button];
-    }
-    else{
-        [self.rightViewArray addObject:button];
-    }
-    
-    button.tag = ++easynavigation_button_tag ;
-    [button addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    
-    if (callback) {
-        [self.callbackDictionary setObject:[callback copy] forKey:@(button.tag)];
-    }
-    
+   
+    [self addView:button clickCallback:callback type:type];
 //    button.titleLabel.backgroundColor = [UIColor yellowColor];
 //    button.imageView.backgroundColor = [UIColor blueColor];
 //    [button setBackgroundColor:[UIColor redColor]];
     return button ;
 }
 
+
+- (void)layoutSubviewsWithType:(buttonPlaceType)type
+{
+    NSMutableArray *tempArray = type==buttonPlaceTypeLeft ? self.leftViewArray : self.rightViewArray ;
+    
+    CGFloat leftEdge = 10 + ((ISIPHONE_X&&ISHORIZONTALSCREEM)? 20 : 0);//如果是iPhone X的横屏状态，让出安全区域的距离
+    for (int i = 0 ; i < tempArray.count; i++) {
+        UIView *tempView = tempArray[i];
+        
+        if (i == 0) {
+            if (type == buttonPlaceTypeLeft) {
+                self.leftButton = (UIButton *)tempView ;
+            }
+            else{
+                self.rightButton = (UIButton *)tempView ;
+            }
+        }
+        
+        CGFloat tempViewX = 0 ;
+        if( type==buttonPlaceTypeLeft ){
+            tempViewX = leftEdge ;
+        }
+        else{
+            tempViewX = SCREEN_WIDTH - leftEdge-tempView.width ;
+        }
+        tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, tempView.width , tempView.height);
+        
+        leftEdge += tempView.width ;
+    }
+    
+}
 - (void)addView:(UIView *)view clickCallback:(clickCallback)callback type:(buttonPlaceType)type
 {
-    
     view.tag = ++easynavigation_button_tag ;
-    [view addTapCallBack:self sel:@selector(viewClick:)];
     
-    [self addSubview:view];
-    
+    if ([view isKindOfClass:[UIButton class]]) {
+        [(UIButton *)view addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    else{
+        [view addTapCallBack:self sel:@selector(viewClick:)];
+    }
+
     if (type == buttonPlaceTypeLeft) {
         [self.leftViewArray addObject:view];
     }
@@ -617,8 +646,37 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (callback) {
         [self.callbackDictionary setObject:[callback copy] forKey:@(view.tag)];
     }
+    
+    [self addSubview:view];
+    [self layoutSubviewsWithType:type];
 }
 
+- (void)removeView:(UIView *)view type:(buttonPlaceType)type
+{
+    
+    if (type == buttonPlaceTypeLeft) {
+        for (UIView *tempView in self.leftViewArray) {
+            if ([tempView isEqual:view]) {
+                [view removeFromSuperview];
+            }
+        }
+        [self.leftViewArray removeObject:view];
+        [self layoutSubviewsWithType:type];
+
+    }
+    else{
+        for (UIView *tempView in self.rightViewArray) {
+            if ([tempView isEqual:view]) {
+                [view removeFromSuperview];
+            }
+        }
+        [self.rightViewArray removeObject:view];
+        [self layoutSubviewsWithType:type];
+
+    }
+    
+    
+}
 - (void)buttonClick:(UIButton *)button
 {
     clickCallback callback = [self.callbackDictionary objectForKey:@(button.tag)];
@@ -634,36 +692,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     }
 }
 
-- (void)layoutSubviewsWithType:(buttonPlaceType)type
-{
-    NSMutableArray *tempArray = nil ;
-    if (type == buttonPlaceTypeLeft) {
-        tempArray = self.leftViewArray ;
-    }
-    else{
-        tempArray = self.rightViewArray ;
-    }
-    
-    CGFloat leftEdge = 10 + ((ISIPHONE_X&&ISHORIZONTALSCREEM)? 20 : 0);//如果是iPhone X的横屏状态，让出安全区域的距离
-    for (int i = 0 ; i < tempArray.count; i++) {
-        UIView *tempView = tempArray[i];
-        
-        if (i == 0) {
-            if (type == buttonPlaceTypeLeft) {
-                self.leftButton = (UIButton *)tempView ;
-            }
-            else{
-                self.rightButton = (UIButton *)tempView ;
-            }
-        }
-        
-        CGFloat tempViewX = type==buttonPlaceTypeLeft ? leftEdge : self.width-leftEdge-tempView.width ;
-        tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, tempView.width , tempView.height);
-        
-        leftEdge += tempView.width ;
-    }
-    
-}
 
 - (void)statusBarTapWithCallback:(clickCallback)callback
 {

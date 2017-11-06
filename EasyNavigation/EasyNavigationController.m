@@ -31,7 +31,6 @@
 
 - (void)dealloc
 {
-    EasyNotificationRemove(UIDeviceOrientationDidChangeNotification) ;
     EasyNotificationRemove(UIApplicationWillChangeStatusBarFrameNotification) ;
     [[UIDevice currentDevice]endGeneratingDeviceOrientationNotifications];
 }
@@ -47,8 +46,8 @@
     self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
 
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    EasyNotificationAdd(handleDeviceOrientationDidChange:, UIDeviceOrientationDidChangeNotification) ;
-    EasyNotificationAdd(statusBarChangeNoti:, UIApplicationWillChangeStatusBarFrameNotification) ;
+
+    EasyNotificationAdd(statusBarChangeNoti:, UIApplicationDidChangeStatusBarFrameNotification) ;
 
 }
 
@@ -96,51 +95,31 @@
 
 - (void)statusBarChangeNoti:(NSNotification *)notifycation
 {
-    
-}
-- (void)handleDeviceOrientationDidChange:(UIInterfaceOrientation)interfaceOrientation
-{
-    
+
+    [self setNeedsStatusBarAppearanceUpdate];
+
     EasyNavigationView  *navView = self.topViewController.navigationView ;
-    if (nil == navView) {
-        return ;
-    }
+    if (!navView)  return ;
     
     if (navView.width != self.topViewController.view.width) {
         navView.width = self.topViewController.view.width ;
     }
-    [self setNeedsStatusBarAppearanceUpdate];
-    
-//    //1.获取 当前设备 实例
+
+    [navView layoutNavigationSubviews];
+
     UIDevice *device = [UIDevice currentDevice] ;
 
-    if (!(device.orientation==UIDeviceOrientationUnknown ||
-        device.orientation==UIDeviceOrientationFaceUp ||
-        device.orientation==UIDeviceOrientationFaceDown)) {
-        [navView changeNavigationHeight];
+    if (device.orientation == UIDeviceOrientationPortrait || device.orientation == UIDeviceOrientationPortraitUpsideDown) {
+        NSLog(@"竖屏 ====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
     }
-//    EasyLog(@" %@ = %@",NSStringFromCGRect(self.topViewController.view.frame) , NSStringFromCGRect(navView.frame));
-//
-//    switch (device.orientation) {
-//        case UIDeviceOrientationUnknown: EasyLog(@"未知方向"); break;
-//
-//        case UIDeviceOrientationFaceUp: EasyLog(@"屏幕朝上平躺"); break;
-//
-//        case UIDeviceOrientationFaceDown:  EasyLog(@"屏幕朝下平躺");  break;
-//
-//        case UIDeviceOrientationLandscapeLeft: EasyLog(@"屏幕向左横置");  break;
-//
-//        case UIDeviceOrientationLandscapeRight: EasyLog(@"屏幕向右橫置"); break;
-//
-//        case UIDeviceOrientationPortrait:  EasyLog(@"屏幕直立");  break;
-//
-//        case UIDeviceOrientationPortraitUpsideDown: EasyLog(@"屏幕直立，上下位置调换了");  break;
-//
-//        default: EasyLog(@"无法辨识"); break;
-//    }
+    else if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
+        NSLog(@"横屏====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
+    }
+    else{
+        NSLog(@"未知状态====== %zd",device.orientation );
+    }
     
 }
-
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {

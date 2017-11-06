@@ -88,22 +88,18 @@
 }
 
 
+
+
 - (void)removeRightView:(UIView *)view
 {
-    for (UIView *tempView in self.rightViewArray) {
-        if ([tempView isEqual:view]) {
-            [view removeFromSuperview];
-        }
-    }
-    [self.rightViewArray removeObject:view];
+    [self removeView:view type:buttonPlaceTypeRight];
 }
 
 - (void)removeAllRightButton
 {
     for (UIView *tempView in self.rightViewArray) {
-        [tempView removeFromSuperview];
+        [self removeView:tempView type:buttonPlaceTypeRight];
     }
-    [self.rightViewArray removeAllObjects];
 }
 
 

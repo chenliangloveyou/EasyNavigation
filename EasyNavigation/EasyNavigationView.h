@@ -144,7 +144,7 @@ typedef void(^clickCallback)(UIView *view);
 
 
 
-
+- (void)layoutNavigationSubviews ;
 
 /**
  * 第一个加到导航栏左(右)边的按钮。（如果删除第一个，会替换成第二个，以此类推）
@@ -176,11 +176,18 @@ typedef void(^clickCallback)(UIView *view);
                                type:(buttonPlaceType)type ;
 
 /**
- * 往左右两天添加一个视图
+ * 往左右两边添加一个视图
  */
 - (void)addView:(UIView *)view
   clickCallback:(clickCallback)callback
            type:(buttonPlaceType)type ;
+
+/**
+ * 往左右两边删除一个视图
+ */
+- (void)removeView:(UIView *)view
+              type:(buttonPlaceType)type ;
+
 @end
 
 
