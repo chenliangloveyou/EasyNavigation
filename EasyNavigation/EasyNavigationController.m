@@ -71,18 +71,19 @@
         viewController.hidesBottomBarWhenPushed = YES;
     }
     
+    [super pushViewController:viewController animated:animated];
+
     viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , viewController.navigationOrginalHeight)];
+    [viewController.view addSubview:viewController.navigationView];
     EasyLog(@"EasyNavigation create : %p",viewController.navigationView);
-    if (self.viewControllers.count > 0) {
+    if (self.viewControllers.count > 1) {
         kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
         [viewController.navigationView addLeftButtonWithTitle:@"     " image:img clickCallBack:^(UIView *view) {
             [weakself popViewControllerAnimated:YES];
         }];
     }
-    [viewController.view addSubview:viewController.navigationView];
 
-    [super pushViewController:viewController animated:animated];
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         EasyNavigationView  *navView = self.topViewController.navigationView ;
