@@ -19,6 +19,15 @@ typedef NS_ENUM(NSUInteger , buttonPlaceType) {
 };
 
 /**
+ *
+ */
+typedef NS_ENUM(NSUInteger , navViewPlaceType) {
+    navViewPlaceTypeLeft ,
+    navViewPlaceTypeCenter ,
+    navViewPlaceTypeRight ,
+};
+
+/**
  * 导航条改变的类型
  */
 typedef NS_ENUM(NSUInteger , NavigationChangeType) {

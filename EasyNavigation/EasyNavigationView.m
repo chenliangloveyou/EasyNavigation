@@ -57,8 +57,8 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @property (nonatomic,assign)CGFloat stopUpstatusBar ;    //动画后是否需要停止在statusBar下面
 @property (nonatomic,assign)CGFloat isScrollingNavigaiton  ;//是否正在滚动导航条
 @property (nonatomic,assign)CGFloat navigationChangeType ;//导航条改变的类型
-@property (nonatomic,assign) CGFloat scrollingSpeed ;     //导航条滚动速度
-@property (nonatomic,strong) UIScrollView *kvoScrollView ;//用于监听scrollview内容高度的改变
+@property (nonatomic,assign)CGFloat scrollingSpeed ;     //导航条滚动速度
+@property (nonatomic,strong)UIScrollView *kvoScrollView ;//用于监听scrollview内容高度的改变
 
 @end
 
@@ -113,7 +113,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     self.didAddsubView = ^(UIView *view) {
 
         [weakself bringSubviewToFront:weakself.titleLabel];
-
         if (weakself.titleView) {
             [weakself bringSubviewToFront:weakself.titleView];
         }
@@ -125,8 +124,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 - (void)layoutSubviews
 {
-    
-    
     [super layoutSubviews];
     
     [self layoutTitleviews];
@@ -673,8 +670,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         [self layoutSubviewsWithType:type];
 
     }
-    
-    
 }
 - (void)buttonClick:(UIButton *)button
 {

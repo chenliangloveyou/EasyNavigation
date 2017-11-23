@@ -12,14 +12,26 @@
 
 + (instancetype)shareInstance
 {
-    static EasyNavigationOptions *share = nil ;
+    return [[self alloc]init];
+}
+static EasyNavigationOptions *_share = nil ;
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
     static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        share = [[EasyNavigationOptions alloc]init];
+    dispatch_once(&onceToken,^{
+        _share = [super allocWithZone:zone];
     });
-    return share;
+    return _share;
+}
+- (id)copyWithZone:(NSZone *)zone
+{
+    return _share;
 }
 
+- (id)mutableCopyWithZone:(NSZone *)zone
+{
+    return _share;
+}
 - (instancetype)init
 {
     if (self = [super init]) {
