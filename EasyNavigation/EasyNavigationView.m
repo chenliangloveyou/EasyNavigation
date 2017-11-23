@@ -30,7 +30,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @interface EasyNavigationView()<UIScrollViewDelegate>
 {
     clickCallback _statusBarTapCallback ;//导航栏点击回到
-    
 }
 
 @property (nonatomic,strong)EasyNavigationOptions *options ;

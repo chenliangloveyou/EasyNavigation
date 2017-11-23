@@ -161,10 +161,11 @@ typedef void(^clickCallback)(UIView *view);
 /**
  * 导航条 右边所有视图
  */
-@property (nonatomic,strong)NSMutableArray *rightViewArray ;//右边所有的视图
+@property (nonatomic,strong)NSMutableArray *rightViewArray ;
+
+
 
 #pragma mark - 私有方法
-
 /**
  * 创建一个按钮
  */
@@ -174,14 +175,12 @@ typedef void(^clickCallback)(UIView *view);
                          hightImage:(UIImage *)hieghtImage
                            callback:(clickCallback)callback
                                type:(buttonPlaceType)type ;
-
 /**
  * 往左右两边添加一个视图
  */
 - (void)addView:(UIView *)view
   clickCallback:(clickCallback)callback
            type:(buttonPlaceType)type ;
-
 /**
  * 往左右两边删除一个视图
  */
@@ -189,6 +188,10 @@ typedef void(^clickCallback)(UIView *view);
               type:(buttonPlaceType)type ;
 
 @end
+
+
+
+
 
 
 
