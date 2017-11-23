@@ -79,9 +79,10 @@
     if (self.viewControllers.count > 1) {
         kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
-        [viewController.navigationView addLeftButtonWithTitle:@"     " image:img clickCallBack:^(UIView *view) {
+       UIButton *backButton = [viewController.navigationView addLeftButtonWithTitle:@"     " image:img clickCallBack:^(UIView *view) {
             [weakself popViewControllerAnimated:YES];
         }];
+        viewController.navigationView.backButton = backButton ;
     }
 
 
@@ -106,7 +107,7 @@
         navView.width = self.topViewController.view.width ;
     }
 
-    [navView layoutNavigationSubviews];
+    [navView layoutNavSubViews];
 
     UIDevice *device = [UIDevice currentDevice] ;
 

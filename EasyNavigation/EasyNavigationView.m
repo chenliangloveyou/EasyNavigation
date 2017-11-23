@@ -22,7 +22,6 @@ static void *const kScorllViewObservingKVO = @"kScorllViewObservingKVO" ;
 #define kTitleViewEdge 60.0f //title左右边距
 
 #define kButtonInsetsWH 5.0f //按钮图文距按钮边缘的距离
-#define kButtonMaxW  60.0f //按钮文字最大的长度
 
 static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标示
 
@@ -42,9 +41,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @property (nonatomic,strong) UILabel *titleLabel ;
 @property (nonatomic,strong) UIView *titleView ;
 
-@property (nonatomic,strong)UIButton *leftButton ;
-
-@property (nonatomic,strong)UIButton *rightButton ;
 
 @property (nonatomic,weak)UIViewController *viewController ;//navigation所在的控制器
 
@@ -105,95 +101,107 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     
     kWeakSelf(self)
     self.viewController.view.didAddsubView = ^(UIView *view) {
-
+        
         if (![view isEqual:weakself]) {
             [weakself.viewController.view bringSubviewToFront:weakself];
         }
     };
     self.didAddsubView = ^(UIView *view) {
-
+        
         [weakself bringSubviewToFront:weakself.titleLabel];
         if (weakself.titleView) {
             [weakself bringSubviewToFront:weakself.titleView];
         }
     };
     
-    self.height = self.viewController.navigationOrginalHeight ;
-
+    [self layoutNavSubViews] ;
+    
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
-    [self layoutTitleviews];
-
     EasyLog(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
 }
-- (void)layoutNavigationSubviews
-{
-    self.height = self.viewController.navigationOrginalHeight ;
 
-    [self layoutSubviewsWithType:buttonPlaceTypeLeft];
-    [self layoutSubviewsWithType:buttonPlaceTypeRight];
-    [self layoutTitleviews];
-}
-- (void)changeNavigationHeight
+
+- (void)layoutNavSubViews
 {
+    //三个视图全部刷新位置。左边--->右边--->中间
     self.height = self.viewController.navigationOrginalHeight ;
-}
-- (void)layoutTitleviews
-{
-    if (_titleLabel) {
+    
+    //如果是iPhone X的横屏状态，让出安全区域的距离
+    __block CGFloat leftEdge = 10 + ((ISIPHONE_X&&ISHORIZONTALSCREEM)? 20 : 0);
+    [self.leftViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIView *tempView = (UIView *)obj ;
+        tempView.frame = CGRectMake(leftEdge, STATUSBAR_HEIGHT, tempView.width , tempView.height);
+        leftEdge += tempView.width ;
+    }];
+    
+    __block CGFloat rightEdge = 10 + ((ISIPHONE_X&&ISHORIZONTALSCREEM)? 20 : 0) ;
+    [self.rightViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        UIView *tempView = (UIView *)obj ;
+        CGFloat tempViewX = self.width - rightEdge - tempView.width ;
+        tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, tempView.width , tempView.height);
+        rightEdge += tempView.width ;
+    }];
+    
+    if (_titleView) {//如果有titleview 就不显示标题
         
-        if (self.viewController.isShowBigTitle) {
-            self.titleLabel.frame = CGRectMake(20, self.viewController.navigationOrginalHeight-kNavBigTitleHeight, 0, 0) ;
-            self.titleLabel.font = self.options.titleBigFount ;
-            [self.titleLabel sizeToFit];
-            
-        }
-        else{
-            [self.titleLabel sizeToFit];
+        [self layoutNacCenterView:_titleView leftEdge:leftEdge rightEdge:rightEdge];
 
-            if (self.titleLabel.width > self.width-kTitleViewEdge*2) {
-                self.titleLabel.width = self.width-kTitleViewEdge*2 ;
-            }
-            self.titleLabel.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
-            
-            self.titleLabel.font = self.options.titleFont ;
+        if (_titleLabel) {
+            _titleLabel.hidden = YES ;
         }
         
+        return ;
     }
     
-    if (_titleView) {
-        
-        if (_titleView.width > self.width-kTitleViewEdge*2) {
-            _titleView.width = self.width-kTitleViewEdge*2 ;
-        }
-        _titleView.height = (self.height - STATUSBAR_HEIGHT);
-        _titleView.center = CGPointMake(self.center.x, STATUSBAR_HEIGHT+(self.height-STATUSBAR_HEIGHT)/2 );
+    if (!_titleLabel) return ;
+    
+    _titleLabel.hidden = NO ;
+    [self layoutNacCenterView:_titleLabel leftEdge:leftEdge rightEdge:rightEdge];
+}
+
+- (void)layoutNacCenterView:(UIView *)tempView leftEdge:(CGFloat)leftEdge rightEdge:(CGFloat)rightEdge
+{
+    //获取控件的宽度
+    CGFloat tempWidth = tempView.width ;
+    if ([tempView isKindOfClass:[UILabel class]]) {
+        tempWidth = [_titleLabel.text sizeWithAttributes:@{NSFontAttributeName: _titleLabel.font}].width ;
     }
+    
+    CGFloat tempX = leftEdge ;
+    if (self.width-leftEdge-rightEdge < tempWidth) {//title显示不下。
+        tempWidth = self.width-leftEdge-rightEdge ;
+    }
+    else{
+        if (((self.width-tempWidth)/2 > leftEdge) && ((self.width-tempWidth)/2 > rightEdge)) {
+            tempX = (self.width-tempWidth)/2 ;
+        }
+        else if((self.width-tempWidth)/2 > leftEdge){
+            tempX = self.width - rightEdge - tempWidth ;
+        }
+    }
+    tempView.frame = CGRectMake(tempX, STATUSBAR_HEIGHT, tempWidth, kNavNormalHeight) ;
+    
 }
 
 #pragma mark - titleview
 - (void)setTitle:(NSString *)title 
 {
     self.titleLabel.text = title;
-    [self.titleLabel sizeToFit];
-
+    
+    [self layoutNavSubViews];
 }
 - (void)addTitleView:(UIView *)titleView
 {
     self.titleView = titleView ;
-
     [self addSubview:titleView];
     
-    if (titleView.width > self.width-kTitleViewEdge*2) {
-        titleView.width = self.width-kTitleViewEdge*2 ;
-    }
-    titleView.center = CGPointMake(self.center.x, self.center.y+STATUSBAR_HEIGHT/2);
+    [self layoutNavSubViews];
 }
-
 
 - (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback
 {
@@ -214,11 +222,11 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     [self addObserveForScrollview:scrollview];
     
     self.kvoScrollView = scrollview ;
-//    self.kvoScrollView.delegate= self ;
+    //    self.kvoScrollView.delegate= self ;
 }
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-//    NSLog(@"==============") ;
+    //    NSLog(@"==============") ;
 }
 /**
  * 根据scrollview的滚动，导航条慢慢渐变
@@ -291,8 +299,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-//    NSLog(@"111111111111111") ;
-
+    
     if (context == kScorllViewObservingKVO) {
         if (![object isEqual:self.kvoScrollView] || ![keyPath isEqualToString:@"contentOffset"]) {
             EasyLog(@"监听出现异常 -----> object=%@ , keyPath = %@",object ,keyPath);
@@ -302,43 +309,43 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         //scrollView 在y轴上滚动的距离
         CGFloat scrollContentY = self.kvoScrollView.contentInset.top + self.kvoScrollView.contentOffset.y ;
         
-//        CGFloat orginalHeight = self.viewController.navigationOrginalHeight ;
-//        NSLog(@"=== %f",scrollContentY);
-//        if (scrollContentY <= 0) {
-//            if (self.height != orginalHeight) {
-//                self.height = orginalHeight ;
-//            }
-//            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 ;
-////            self.titleLabel.left = 20 ;
-////            self.titleLabel.font = self.options.titleBigFount ;
-//        }
-//        else if(scrollContentY < kNavBigTitleHeight){
-//            if (self.height != orginalHeight - scrollContentY) {
-//                self.height = orginalHeight - scrollContentY ;
-//            }
-//
-//            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 - scrollContentY ;
-//            NSLog(@"ff %f",orginalHeight-kNavBigTitleHeight/2 - scrollContentY);
-////            CGFloat changeX = ((self.width-self.titleLabel.width)/2 - 20)/kNavBigTitleHeight*kNavBigTitleHeight ;
-////            self.titleLabel.left= 20 + 40 ;
-//
-////            CGFloat fountF = 18 + (35-18)*scrollContentY/(kNavBigTitleHeight) ;
-////            NSLog(@"%f  -=== %f",changeX,fountF);
-////            self.titleLabel.font = [UIFont boldSystemFontOfSize: fountF ] ;
-//
-//        }
-//        else{
-//            if (self.height != orginalHeight - kNavBigTitleHeight ) {
-//                self.height = orginalHeight - kNavBigTitleHeight ;
-//            }
-//
-//            self.titleLabel.centerY = STATUSBAR_HEIGHT + kNavNormalHeight/2 ;
-////            self.titleLabel.left= (self.width-self.titleLabel.width)/2 ;
-////            self.titleLabel.font = self.options.titleFont ;
-//
-//        }
+        //        CGFloat orginalHeight = self.viewController.navigationOrginalHeight ;
+        //        NSLog(@"=== %f",scrollContentY);
+        //        if (scrollContentY <= 0) {
+        //            if (self.height != orginalHeight) {
+        //                self.height = orginalHeight ;
+        //            }
+        //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 ;
+        ////            self.titleLabel.left = 20 ;
+        ////            self.titleLabel.font = self.options.titleBigFount ;
+        //        }
+        //        else if(scrollContentY < kNavBigTitleHeight){
+        //            if (self.height != orginalHeight - scrollContentY) {
+        //                self.height = orginalHeight - scrollContentY ;
+        //            }
+        //
+        //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 - scrollContentY ;
+        //            NSLog(@"ff %f",orginalHeight-kNavBigTitleHeight/2 - scrollContentY);
+        ////            CGFloat changeX = ((self.width-self.titleLabel.width)/2 - 20)/kNavBigTitleHeight*kNavBigTitleHeight ;
+        ////            self.titleLabel.left= 20 + 40 ;
+        //
+        ////            CGFloat fountF = 18 + (35-18)*scrollContentY/(kNavBigTitleHeight) ;
+        ////            NSLog(@"%f  -=== %f",changeX,fountF);
+        ////            self.titleLabel.font = [UIFont boldSystemFontOfSize: fountF ] ;
+        //
+        //        }
+        //        else{
+        //            if (self.height != orginalHeight - kNavBigTitleHeight ) {
+        //                self.height = orginalHeight - kNavBigTitleHeight ;
+        //            }
+        //
+        //            self.titleLabel.centerY = STATUSBAR_HEIGHT + kNavNormalHeight/2 ;
+        ////            self.titleLabel.left= (self.width-self.titleLabel.width)/2 ;
+        ////            self.titleLabel.font = self.options.titleFont ;
+        //
+        //        }
         
-
+        
         if (self.navigationChangeType == NavigationChangeTypeAlphaChange) {
             if (scrollContentY > self.alphaStartChange){
                 CGFloat alpha = scrollContentY / self.alphaEndChange ;
@@ -370,7 +377,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
                 
             }
             else if ( newPointY < oldPointY ) {// 向下滚动
-
+                
                 currentDuring = ScrollDirectionDown ;
                 
                 if (self.navigationChangeType == NavigationChangeTypeAnimation) {
@@ -457,10 +464,10 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (contentY > self.scrollStartPoint  ) {//开始移动导航条
         
         //需要改变的y值
-        CGFloat scrollSpeed = self.scrollingSpeed ;
+        CGFloat scrollSpeed = self.scrollingSpeed ;//导航条滚动的速度
         CGFloat changeY =(contentY - self.kvoScrollView.scrollDistance)*scrollSpeed  ;
         
-        if (changeY < 0) {
+        if (changeY < 0) {//表明方向有问题
             return ;
         }
         
@@ -471,17 +478,14 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
             EasyLog(@"changeY = %F",changeY);
             self.y = - changeY ;
             
-            if (!self.stopUpstatusBar) {
-                return ;
-            }
-            
-            if (changeY == self.height-STATUSBAR_HEIGHT) {
+            if (changeY > (self.height-STATUSBAR_HEIGHT)-5) {//这个地方有待考虑
                 [self changeSubviewsAlpha:0];
             }
             else if (changeY < self.height - STATUSBAR_HEIGHT){
                 
                 CGFloat alpha = 1 - changeY/(self.height-STATUSBAR_HEIGHT) ;
                 [self changeSubviewsAlpha:alpha];
+                
             }
             
         }
@@ -503,9 +507,9 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
             self.isScrollingNavigaiton = NO ;
             self.y = 0 ;
             
-            if (self.stopUpstatusBar) {
-                [self changeSubviewsAlpha:1];
-            }
+            //            if (self.stopUpstatusBar) {
+            [self changeSubviewsAlpha:1];
+            //            }
             
         }] ;
     }
@@ -523,7 +527,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         }
         
         BOOL isBackground = subView == self.subviews.firstObject ;
-//        bool isViewHidden = subView.alpha < FLT_EPSILON;
+        //        bool isViewHidden = subView.alpha < FLT_EPSILON;
         if (!isBackground ){
             subView.alpha = alpha;
         }
@@ -549,7 +553,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     [button setTitleColor:self.options.buttonTitleColorHieght forState:UIControlStateHighlighted];
     [button.titleLabel setFont:self.options.buttonTitleFont] ;
     [button setContentEdgeInsets:UIEdgeInsetsMake(0, -kButtonInsetsWH, 0, 0)];
-
+    
     CGFloat buttonW = kButtonInsetsWH ;
     if (image) {
         CGFloat imageHeight = kNavNormalHeight-2*kButtonInsetsWH ;
@@ -558,15 +562,12 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
             image = [EasyUtils scaleToSize:image size:CGSizeMake(imageWidth, imageHeight)] ;
         }
         buttonW +=  image.size.width + kButtonInsetsWH;
-//        [button setImageEdgeInsets:UIEdgeInsetsMake(0, -kButtonInsetsWH, 0, 0)];
+        //        [button setImageEdgeInsets:UIEdgeInsetsMake(0, -kButtonInsetsWH, 0, 0)];
     }
     if (!ISEMPTY(title)) {
         CGFloat titleW = [title sizeWithAttributes:@{NSFontAttributeName: self.options.buttonTitleFont}].width ;
-        if (titleW > kButtonMaxW) {
-            titleW = kButtonMaxW ;
-        }
         buttonW += titleW + kButtonInsetsWH ;
-//        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -kButtonInsetsWH)];
+        //        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -kButtonInsetsWH)];
     }
     [button setFrame:CGRectMake(0, 0, buttonW, kNavNormalHeight)];
     
@@ -582,45 +583,15 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (hieghtImage) {
         [button setImage:hieghtImage forState:UIControlStateHighlighted];
     }
-   
+    
     [self addView:button clickCallback:callback type:type];
-//    button.titleLabel.backgroundColor = [UIColor yellowColor];
-//    button.imageView.backgroundColor = [UIColor blueColor];
-//    [button setBackgroundColor:[UIColor redColor]];
+    //    button.titleLabel.backgroundColor = [UIColor yellowColor];
+    //    button.imageView.backgroundColor = [UIColor blueColor];
+    //    [button setBackgroundColor:[UIColor redColor]];
     return button ;
 }
 
 
-- (void)layoutSubviewsWithType:(buttonPlaceType)type
-{
-    NSMutableArray *tempArray = type==buttonPlaceTypeLeft ? self.leftViewArray : self.rightViewArray ;
-    
-    CGFloat leftEdge = 10 + ((ISIPHONE_X&&ISHORIZONTALSCREEM)? 20 : 0);//如果是iPhone X的横屏状态，让出安全区域的距离
-    for (int i = 0 ; i < tempArray.count; i++) {
-        UIView *tempView = tempArray[i];
-        
-        if (i == 0) {
-            if (type == buttonPlaceTypeLeft) {
-                self.leftButton = (UIButton *)tempView ;
-            }
-            else{
-                self.rightButton = (UIButton *)tempView ;
-            }
-        }
-        
-        CGFloat tempViewX = 0 ;
-        if( type==buttonPlaceTypeLeft ){
-            tempViewX = leftEdge ;
-        }
-        else{
-            tempViewX = SCREEN_WIDTH - leftEdge-tempView.width ;
-        }
-        tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, tempView.width , tempView.height);
-        
-        leftEdge += tempView.width ;
-    }
-    
-}
 - (void)addView:(UIView *)view clickCallback:(clickCallback)callback type:(buttonPlaceType)type
 {
     view.tag = ++easynavigation_button_tag ;
@@ -631,7 +602,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     else{
         [view addTapCallBack:self sel:@selector(viewClick:)];
     }
-
+    
     if (type == buttonPlaceTypeLeft) {
         [self.leftViewArray addObject:view];
     }
@@ -644,7 +615,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     }
     
     [self addSubview:view];
-    [self layoutSubviewsWithType:type];
+    [self layoutNavSubViews];
 }
 
 - (void)removeView:(UIView *)view type:(buttonPlaceType)type
@@ -657,8 +628,8 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
             }
         }
         [self.leftViewArray removeObject:view];
-        [self layoutSubviewsWithType:type];
-
+        [self layoutNavSubViews];
+        
     }
     else{
         for (UIView *tempView in self.rightViewArray) {
@@ -667,8 +638,8 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
             }
         }
         [self.rightViewArray removeObject:view];
-        [self layoutSubviewsWithType:type];
-
+        [self layoutNavSubViews];
+        
     }
 }
 - (void)buttonClick:(UIButton *)button
@@ -781,14 +752,14 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 }
 - (void)statusBarTap
 {
-
+    
 }
 
 - (UILabel *)titleLabel
 {
     if (nil == _titleLabel) {
         _titleLabel = [[UILabel alloc]init];
-        _titleLabel.backgroundColor =[UIColor clearColor]; // [UIColor yellowColor]; //
+        _titleLabel.backgroundColor = [UIColor clearColor]; //[UIColor yellowColor]; //
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
         _titleLabel.textAlignment = NSTextAlignmentCenter ;
@@ -812,7 +783,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (nil == _lineView) {
         _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.height-0.5, self.width, 0.5)];
         _lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
-
+        
         _lineView.backgroundColor = self.options.navLineColor ;//[UIColor redColor];//
     }
     return _lineView ;

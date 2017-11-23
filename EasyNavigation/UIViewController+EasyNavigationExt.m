@@ -120,7 +120,7 @@
     
     //设置大标题的时候，通知导航条刷新高度
     if (self.navigationView) {
-        [self.navigationView changeNavigationHeight];
+        [self.navigationView layoutNavSubViews];
     }
 }
 

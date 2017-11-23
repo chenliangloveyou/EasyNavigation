@@ -72,8 +72,8 @@ typedef void(^clickCallback)(UIView *view);
 @property (nonatomic,strong)UIView *lineView ;//导航条最下面的一条线
 
 
-//改变导航条的高度
-- (void)changeNavigationHeight ;
+//重新布局导航条控件
+- (void)layoutNavSubViews ;
 
 #pragma mark - 设置属性
 
@@ -153,14 +153,12 @@ typedef void(^clickCallback)(UIView *view);
 
 
 
-- (void)layoutNavigationSubviews ;
-
 /**
  * 第一个加到导航栏左(右)边的按钮。（如果删除第一个，会替换成第二个，以此类推）
  * 如果想拿到第二个加上去的，在创建的时候返回。
  */
-@property (nonatomic,strong,readonly)UIButton *leftButton ;
-@property (nonatomic,strong,readonly)UIButton *rightButton ;
+@property (nonatomic,strong)UIButton *backButton ;
+//@property (nonatomic,strong,readonly)UIButton *rightButton ;
 
 /**
  * 导航条 左边所有视图

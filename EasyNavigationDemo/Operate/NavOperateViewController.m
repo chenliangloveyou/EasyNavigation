@@ -49,18 +49,26 @@
         case 0:
         {
             kWeakSelf(self)
-            UIButton *addButton  =[UIButton buttonWithType:UIButtonTypeCustom];
-            [addButton setImage:kImage(@"nav_btn_back.png") forState:UIControlStateNormal];
-            [addButton setTitle:@" 返回" forState:UIControlStateNormal];
-            [addButton setFrame:CGRectMake(0, 0, 60, 44)];
-            [self.navigationView addLeftView:addButton clickCallback:^(UIView *view) {
+//            UIButton *addButton  =[UIButton buttonWithType:UIButtonTypeCustom];
+//            [addButton setImage:kImage(@"nav_btn_back.png") forState:UIControlStateNormal];
+//            [addButton setTitle:@" 返回" forState:UIControlStateNormal];
+//            [addButton setFrame:CGRectMake(0, 0, 60, 44)];
+//            [self.navigationView addLeftView:addButton clickCallback:^(UIView *view) {
+//                [weakself.navigationController popViewControllerAnimated:YES];
+//            }];
+            
+            [self.navigationView addLeftButtonWithTitle:@"新增fadd一个" clickCallBack:^(UIView *view) {
                 [weakself.navigationController popViewControllerAnimated:YES];
             }];
             
         }break;
         case 1:
         {
-            [self.navigationView removeLeftView:self.navigationView.leftButton];
+            if (!self.navigationView.leftViewArray) {
+                return ;
+            }
+            UIView *leftView = self.navigationView.leftViewArray.firstObject ;
+            [self.navigationView removeLeftView:leftView];
         }break;
         case 2:
         {

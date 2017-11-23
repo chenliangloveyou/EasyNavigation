@@ -36,7 +36,7 @@
         btnImage = kImage(@"nav_btn_back.png") ;
     }
     
-    [self.navigationView.leftButton setImage:btnImage forState:UIControlStateNormal];
+    [self.navigationView.backButton setImage:btnImage forState:UIControlStateNormal];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

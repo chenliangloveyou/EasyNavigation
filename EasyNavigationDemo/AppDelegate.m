@@ -31,7 +31,6 @@
     EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[ViewController new]];
     self.window.rootViewController  = navVC ;
     
-
     return YES;
 }
 
