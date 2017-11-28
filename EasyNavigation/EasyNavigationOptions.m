@@ -10,27 +10,31 @@
 
 @implementation EasyNavigationOptions
 
+static EasyNavigationOptions *_navigationShare = nil ;
 + (instancetype)shareInstance
 {
-    return [[self alloc]init];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _navigationShare = [[EasyNavigationOptions alloc] init];
+    });
+    return _navigationShare;
 }
-static EasyNavigationOptions *_share = nil ;
 + (instancetype)allocWithZone:(struct _NSZone *)zone
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken,^{
-        _share = [super allocWithZone:zone];
+        _navigationShare = [super allocWithZone:zone];
     });
-    return _share;
+    return _navigationShare;
 }
 - (id)copyWithZone:(NSZone *)zone
 {
-    return _share;
+    return _navigationShare;
 }
 
 - (id)mutableCopyWithZone:(NSZone *)zone
 {
-    return _share;
+    return _navigationShare;
 }
 - (instancetype)init
 {
