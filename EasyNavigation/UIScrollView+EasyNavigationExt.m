@@ -12,9 +12,9 @@
 
 @implementation UIScrollView (EasyNavigationExt)
 
-- (void)dealloc
-{
-}
+//- (void)dealloc
+//{
+//}
 
 - (ScrollDirection)direction
 {

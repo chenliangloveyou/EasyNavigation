@@ -8,6 +8,6 @@
 
 #import "BaseViewController.h"
 
-@interface NavAnimationHiden_1_ViewController : UITableViewController
+@interface NavAnimationHiden_1_ViewController : BaseViewController
 
 @end
