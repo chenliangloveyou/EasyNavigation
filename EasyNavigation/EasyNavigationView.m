@@ -394,7 +394,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
             
             if (self.kvoScrollView.direction != currentDuring) {
                 
-                EasyLog(@"方向改变 %ld , 记住位置 %f",currentDuring , scrollContentY );
+                EasyLog(@"方向改变 %zd , 记住位置 %f",currentDuring , scrollContentY );
                 
                 if (self.kvoScrollView.direction != ScrollDirectionUnknow) {
                     if (scrollContentY >= 0) {
