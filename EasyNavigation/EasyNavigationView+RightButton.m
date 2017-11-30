@@ -26,7 +26,7 @@
                                  image:nil
                             hightImage:nil
                               callback:callback
-                                  type:0];
+                                  type:buttonPlaceTypeRight];
 }
 - (UIButton *)addRightButtonWithTitle:(NSString *)title
                                image:(UIImage *)image
@@ -37,7 +37,7 @@
                                  image:image
                             hightImage:nil
                               callback:callback
-                                  type:0];
+                                  type:buttonPlaceTypeRight];
 }
 - (UIButton *)addRightButtonWithTitle:(NSString *)title
                      backgroundImage:(UIImage *)backgroundImage

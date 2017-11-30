@@ -22,6 +22,7 @@
     [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:self.navigationOrginalHeight stopToStatusBar:YES];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
 
+    [self.navigationView addRightButtonWithTitle:@"添加按钮" clickCallBack:nil];
 }
 
 /*
