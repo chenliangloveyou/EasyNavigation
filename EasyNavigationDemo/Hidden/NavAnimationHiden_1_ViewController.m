@@ -21,7 +21,10 @@
 
     [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:self.navigationOrginalHeight stopToStatusBar:YES];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
-
+    kWeakSelf(self)
+    [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
+        [weakself.navigationView setTitle:@"点击了更多"];
+    }];
     [self.navigationView addRightButtonWithTitle:@"添加按钮" clickCallBack:nil];
 }
 

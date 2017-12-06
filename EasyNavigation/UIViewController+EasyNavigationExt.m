@@ -10,7 +10,7 @@
 #import "UIViewController+EasyNavigationExt.h"
 
 #import "EasyNavigationController.h"
-#import "EasyUtils.h"
+#import "EasyNavigationUtils.h"
 #import <objc/runtime.h>
 
 

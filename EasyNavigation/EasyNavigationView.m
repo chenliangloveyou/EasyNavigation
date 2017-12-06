@@ -8,7 +8,7 @@
 
 #import "EasyNavigationView.h"
 
-#import "EasyUtils.h"
+#import "EasyNavigationUtils.h"
 #import "UIView+EasyNavigationExt.h"
 #import "UIScrollView+EasyNavigationExt.h"
 #import "UIViewController+EasyNavigationExt.h"
@@ -559,7 +559,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         CGFloat imageHeight = kNavNormalHeight-2*kButtonInsetsWH ;
         if (image.size.height > imageHeight ) {
             CGFloat imageWidth = (image.size.width/image.size.height)*imageHeight ;
-            image = [EasyUtils scaleToSize:image size:CGSizeMake(imageWidth, imageHeight)] ;
+            image = [EasyNavigationUtils scaleToSize:image size:CGSizeMake(imageWidth, imageHeight)] ;
         }
         buttonW +=  image.size.width + kButtonInsetsWH;
         //        [button setImageEdgeInsets:UIEdgeInsetsMake(0, -kButtonInsetsWH, 0, 0)];
@@ -602,9 +602,26 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     else{
         [view addTapCallBack:self sel:@selector(viewClick:)];
     }
-    
+   
     if (type == buttonPlaceTypeLeft) {
-        [self.leftViewArray addObject:view];
+        @synchronized(self.leftViewArray){
+            [self.leftViewArray addObject:view];
+            __block NSInteger tidx =-1;
+            [self.leftViewArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                //@" "
+                if ([obj isKindOfClass:[UIButton class]]) {
+                    UIButton * btn = (UIButton *)obj;
+                    if ([btn.titleLabel.text isEqualToString:@"     "]) {
+                        //is back button
+                        tidx= idx;
+                        *stop =YES;
+                    }
+                }
+            }];
+            if(tidx>0){
+                [self.leftViewArray exchangeObjectAtIndex:0 withObjectAtIndex:tidx];
+            }
+        }
     }
     else{
         [self.rightViewArray addObject:view];
@@ -821,7 +838,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 //- (void)drawRect:(CGRect)rect
 //{
-//    [[EasyUtils createImageWithColor:[UIColor redColor]] drawInRect:rect];
+//    [[EasyNavigationUtils createImageWithColor:[UIColor redColor]] drawInRect:rect];
 //}
 //
 //- (void)layoutSubviews
