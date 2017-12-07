@@ -74,7 +74,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         }
     }
 }
-
+#warning ------库刚出来不久，很多同学跟我也反馈了问题，我也一直在改进。所以还希望能关注GitHub上我的更新。如果遇到问题欢迎提issue和也可以跟我探讨(qq:455158249)
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -602,9 +602,26 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     else{
         [view addTapCallBack:self sel:@selector(viewClick:)];
     }
-    
+   
     if (type == buttonPlaceTypeLeft) {
-        [self.leftViewArray addObject:view];
+        @synchronized(self.leftViewArray){
+            [self.leftViewArray addObject:view];
+            __block NSInteger tidx =-1;
+            [self.leftViewArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                //@" "
+                if ([obj isKindOfClass:[UIButton class]]) {
+                    UIButton * btn = (UIButton *)obj;
+                    if ([btn.titleLabel.text isEqualToString:@"     "]) {
+                        //is back button
+                        tidx= idx;
+                        *stop =YES;
+                    }
+                }
+            }];
+            if(tidx>0){
+                [self.leftViewArray exchangeObjectAtIndex:0 withObjectAtIndex:tidx];
+            }
+        }
     }
     else{
         [self.rightViewArray addObject:view];

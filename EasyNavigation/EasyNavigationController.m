@@ -42,13 +42,13 @@
     self.navigationBarHidden = NO ;
     self.navigationBar.hidden = YES ;
     self.delegate = self ;
-
+    
     self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
-
+    
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-
+    
     EasyNotificationAdd(statusBarChangeNoti:, UIApplicationDidChangeStatusBarFrameNotification) ;
-
+    
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
@@ -72,7 +72,7 @@
     }
     
     [super pushViewController:viewController animated:animated];
-
+    
     viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , viewController.navigationOrginalHeight)];
     [viewController.view addSubview:viewController.navigationView];
     
@@ -80,13 +80,13 @@
     if (self.viewControllers.count > 1) {
         kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
-       UIButton *backButton = [viewController.navigationView addLeftButtonWithTitle:@"     " image:img clickCallBack:^(UIView *view) {
+        UIButton *backButton = [viewController.navigationView addLeftButtonWithTitle:@"     " image:img clickCallBack:^(UIView *view) {
             [weakself popViewControllerAnimated:YES];
         }];
         viewController.navigationView.backButton = backButton ;
     }
-
-
+    
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         EasyNavigationView  *navView = self.topViewController.navigationView ;
         if (navView.width != self.topViewController.view.width) {
@@ -98,20 +98,20 @@
 
 - (void)statusBarChangeNoti:(NSNotification *)notifycation
 {
-
+    
     [self setNeedsStatusBarAppearanceUpdate];
-
+    
     EasyNavigationView  *navView = self.topViewController.navigationView ;
     if (!navView)  return ;
     
     if (navView.width != self.topViewController.view.width) {
         navView.width = self.topViewController.view.width ;
     }
-
+    
     [navView layoutNavSubViews];
-
+    
     UIDevice *device = [UIDevice currentDevice] ;
-
+    
     if (device.orientation == UIDeviceOrientationPortrait || device.orientation == UIDeviceOrientationPortraitUpsideDown) {
         NSLog(@"竖屏 ====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
     }
@@ -156,13 +156,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
