@@ -1,5 +1,5 @@
 //
-//  EasyUtils.h
+//  EasyNavigationUtils.h
 //  EasyNavigationDemo
 //
 //  Created by nf on 2017/9/7.
@@ -109,7 +109,7 @@ typedef NS_ENUM(NSUInteger , NavTitleAnimationType) {
 };
 
 
-@interface EasyUtils : NSObject
+@interface EasyNavigationUtils : NSObject
 
 
 //根据颜色创建一个图片

@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import <UIKit/UIKit.h>
-#import "EasyUtils.h"
+#import "EasyNavigationUtils.h"
 
 
 @interface EasyNavigationOptions : NSObject

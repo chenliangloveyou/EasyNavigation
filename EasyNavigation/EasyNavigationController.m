@@ -8,7 +8,7 @@
 
 #import "EasyNavigationController.h"
 
-#import "EasyUtils.h"
+#import "EasyNavigationUtils.h"
 #import "EasyNavigationView.h"
 #import "UIViewController+EasyNavigationExt.h"
 #import "UIView+EasyNavigationExt.h"

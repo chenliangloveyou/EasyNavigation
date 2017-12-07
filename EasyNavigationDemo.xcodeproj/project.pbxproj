@@ -32,7 +32,7 @@
 		68A5A5451F7E8BBF00B62899 /* EasyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5361F7E8BBF00B62899 /* EasyNavigationController.m */; };
 		68A5A5461F7E8BBF00B62899 /* EasyNavigationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5381F7E8BBF00B62899 /* EasyNavigationOptions.m */; };
 		68A5A5471F7E8BBF00B62899 /* EasyNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A53A1F7E8BBF00B62899 /* EasyNavigationView.m */; };
-		68A5A5481F7E8BBF00B62899 /* EasyUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A53C1F7E8BBF00B62899 /* EasyUtils.m */; };
+		68A5A5481F7E8BBF00B62899 /* EasyNavigationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A53C1F7E8BBF00B62899 /* EasyNavigationUtils.m */; };
 		68A5A5491F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A53E1F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m */; };
 		68A5A54A1F7E8BBF00B62899 /* UIView+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5401F7E8BBF00B62899 /* UIView+EasyNavigationExt.m */; };
 		68A5A54B1F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5421F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m */; };
@@ -113,8 +113,8 @@
 		68A5A5381F7E8BBF00B62899 /* EasyNavigationOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationOptions.m; sourceTree = "<group>"; };
 		68A5A5391F7E8BBF00B62899 /* EasyNavigationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationView.h; sourceTree = "<group>"; };
 		68A5A53A1F7E8BBF00B62899 /* EasyNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationView.m; sourceTree = "<group>"; };
-		68A5A53B1F7E8BBF00B62899 /* EasyUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyUtils.h; sourceTree = "<group>"; };
-		68A5A53C1F7E8BBF00B62899 /* EasyUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyUtils.m; sourceTree = "<group>"; };
+		68A5A53B1F7E8BBF00B62899 /* EasyNavigationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationUtils.h; sourceTree = "<group>"; };
+		68A5A53C1F7E8BBF00B62899 /* EasyNavigationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationUtils.m; sourceTree = "<group>"; };
 		68A5A53D1F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+EasyNavigationExt.h"; sourceTree = "<group>"; };
 		68A5A53E1F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+EasyNavigationExt.m"; sourceTree = "<group>"; };
 		68A5A53F1F7E8BBF00B62899 /* UIView+EasyNavigationExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+EasyNavigationExt.h"; sourceTree = "<group>"; };
@@ -297,8 +297,8 @@
 				68A5A5381F7E8BBF00B62899 /* EasyNavigationOptions.m */,
 				68A5A5391F7E8BBF00B62899 /* EasyNavigationView.h */,
 				68A5A53A1F7E8BBF00B62899 /* EasyNavigationView.m */,
-				68A5A53B1F7E8BBF00B62899 /* EasyUtils.h */,
-				68A5A53C1F7E8BBF00B62899 /* EasyUtils.m */,
+				68A5A53B1F7E8BBF00B62899 /* EasyNavigationUtils.h */,
+				68A5A53C1F7E8BBF00B62899 /* EasyNavigationUtils.m */,
 				ADFE658E1FA729D4002286DF /* EasyNavigationView+LeftButton.h */,
 				ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */,
 				ADFE65911FA72B46002286DF /* EasyNavigationView+RightButton.h */,
@@ -476,7 +476,7 @@
 				ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */,
 				68A5A5451F7E8BBF00B62899 /* EasyNavigationController.m in Sources */,
 				6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */,
-				68A5A5481F7E8BBF00B62899 /* EasyUtils.m in Sources */,
+				68A5A5481F7E8BBF00B62899 /* EasyNavigationUtils.m in Sources */,
 				682F9EC51F6C24B600283DC6 /* NavCustomSlidingViewController.m in Sources */,
 				68A5A54B1F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m in Sources */,
 				682F9EA41F6C20AD00283DC6 /* NavSmoothHiden_1_ViewController.m in Sources */,

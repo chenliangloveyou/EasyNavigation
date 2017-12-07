@@ -1,14 +1,14 @@
 //
-//  EasyUtils.m
+//  EasyNavigationUtils.m
 //  EasyNavigationDemo
 //
 //  Created by nf on 2017/9/7.
 //  Copyright © 2017年 chenliangloveyou. All rights reserved.
 //
 
-#import "EasyUtils.h"
+#import "EasyNavigationUtils.h"
 
-@implementation EasyUtils
+@implementation EasyNavigationUtils
 
 #pragma mark - 根据颜色创建图片
 + (UIImage *)createImageWithColor:(UIColor *)color
