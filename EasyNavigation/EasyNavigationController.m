@@ -43,8 +43,6 @@
     self.navigationBar.hidden = YES ;
     self.delegate = self ;
     
-    self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
-    
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     
     EasyNotificationAdd(statusBarChangeNoti:, UIApplicationDidChangeStatusBarFrameNotification) ;
@@ -53,6 +51,10 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+
+}
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
     // 移除全屏滑动手势
     if ([self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.systemGestureTarget]) {
         [self.interactivePopGestureRecognizer.view removeGestureRecognizer:self.systemGestureTarget];
@@ -60,10 +62,6 @@
     
     //重新处理手势
     [viewController dealSlidingGestureDelegate];
-}
-- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    
 }
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
@@ -95,12 +93,18 @@
     });
     
 }
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
+    
     if (gestureRecognizer == self.interactivePopGestureRecognizer) {
-
+        // 屏蔽调用rootViewController的滑动返回手势
         if (self.viewControllers.count<=1||self.visibleViewController==self.viewControllers.firstObject) {
             return NO;
+        }
+        //禁止侧滑了不让返回
+        if (self.topViewController.disableSlidingBackGesture) {
+            return NO ;
         }
     }
     return YES;
@@ -159,7 +163,13 @@
     }
     return _customBackGestureDelegate ;
 }
-
+- (id)systemGestureTarget
+{
+    if (nil == _systemGestureTarget) {
+        _systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
+    }
+    return _systemGestureTarget ;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

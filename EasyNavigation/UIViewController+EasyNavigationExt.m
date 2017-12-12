@@ -37,7 +37,7 @@
     objc_setAssociatedObject(self, @selector(customBackGestureEnabel), @(customBackGestureEnabel), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     [self dealSlidingGestureDelegate];
-
+    
 }
 
 - (CGFloat)customBackGestureEdge
@@ -50,11 +50,11 @@
 }
 
 
-- (EasyNavigationViewController *)vcEasyNavController
+- (EasyNavigationController *)vcEasyNavController
 {
     return objc_getAssociatedObject(self, _cmd);
 }
-- (void)setVcEasyNavController:(EasyNavigationViewController *)vcEasyNavController
+- (void)setVcEasyNavController:(EasyNavigationController *)vcEasyNavController
 {
     objc_setAssociatedObject(self, @selector(vcEasyNavController), vcEasyNavController, OBJC_ASSOCIATION_ASSIGN);
 }
@@ -145,7 +145,7 @@
     }
     
     objc_setAssociatedObject(self, @selector(statusBarStyle), @(statusBarStyle), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-
+    
     [self setNeedsStatusBarAppearanceUpdate];
     
 }
@@ -187,14 +187,12 @@
         return ;
     }
     
-    if (self.disableSlidingBackGesture) {
-        navController.interactivePopGestureRecognizer.delegate = nil ;
-        navController.interactivePopGestureRecognizer.enabled = NO ;
-        return ;
+    if (navController.interactivePopGestureRecognizer.delegate != navController) {
+        navController.interactivePopGestureRecognizer.delegate = navController ;
     }
-    
-    navController.interactivePopGestureRecognizer.delegate = navController ;
-    navController.interactivePopGestureRecognizer.enabled = YES ;
+    if (!navController.interactivePopGestureRecognizer.enabled) {
+        navController.interactivePopGestureRecognizer.enabled = YES ;
+    }
     
     if (self.customBackGestureEnabel) {
         
@@ -202,9 +200,11 @@
         
         navController.customBackGesture.delegate = navController.customBackGestureDelegate ;
         
-        navController.interactivePopGestureRecognizer.delegate = nil;
-        navController.interactivePopGestureRecognizer.enabled  = NO;
+        //        navController.interactivePopGestureRecognizer.delegate = nil;
+        //        navController.interactivePopGestureRecognizer.enabled  = NO;
     }
+    
+    
 }
 
 - (BOOL)prefersStatusBarHidden
