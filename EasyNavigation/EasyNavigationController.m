@@ -95,6 +95,16 @@
     });
     
 }
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    if (gestureRecognizer == self.interactivePopGestureRecognizer) {
+
+        if (self.viewControllers.count<=1||self.visibleViewController==self.viewControllers.firstObject) {
+            return NO;
+        }
+    }
+    return YES;
+}
 
 - (void)statusBarChangeNoti:(NSNotification *)notifycation
 {
