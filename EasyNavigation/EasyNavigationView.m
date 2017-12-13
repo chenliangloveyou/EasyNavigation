@@ -184,7 +184,12 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
             tempX = self.width - rightEdge - tempWidth ;
         }
     }
-    tempView.frame = CGRectMake(tempX, STATUSBAR_HEIGHT, tempWidth, kNavNormalHeight) ;
+    
+    if (tempView.height == 0) {
+        tempView.height = kNavNormalHeight ;
+    }
+    CGFloat tempY = STATUSBAR_HEIGHT + (self.height-STATUSBAR_HEIGHT-tempView.height)/2 ;
+    tempView.frame = CGRectMake(tempX, tempY, tempWidth, tempView.height) ;
     
 }
 

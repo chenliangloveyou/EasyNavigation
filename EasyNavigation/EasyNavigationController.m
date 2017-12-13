@@ -72,7 +72,6 @@
     [super pushViewController:viewController animated:animated];
     
     viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , viewController.navigationOrginalHeight)];
-    [viewController.view addSubview:viewController.navigationView];
     
     EasyLog(@"EasyNavigation create : %p",viewController.navigationView);
     if (self.viewControllers.count > 1) {
@@ -83,7 +82,8 @@
         }];
         viewController.navigationView.backButton = backButton ;
     }
-    
+    [viewController.view addSubview:viewController.navigationView];
+
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         EasyNavigationView  *navView = self.topViewController.navigationView ;
