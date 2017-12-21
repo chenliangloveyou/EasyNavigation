@@ -140,7 +140,7 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return self.topViewController.statusBarStyle ;
+    return !self.topViewController.statusBarStyle ;
 }
 
 

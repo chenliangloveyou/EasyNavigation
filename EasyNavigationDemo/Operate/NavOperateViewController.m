@@ -25,7 +25,7 @@
     label.textAlignment = NSTextAlignmentCenter ;
     label.text = @"\n以下操作只会对本导航条起作用。\n如果想改变整个工程中导航条属性，请设置EasyNavigationOptions.h中的属性";
     self.tableView.tableHeaderView = label ;
-    
+    self.statusBarStyle = UIStatusBarStyleLightContent ;
 //    self.navbigTitleType = NavBigTitleTypeIOS11 ;
     
 }
