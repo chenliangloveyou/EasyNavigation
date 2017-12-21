@@ -42,7 +42,8 @@
     [super viewDidLoad];
     
     [self.navigationView setTitle:@"首页"];
-    
+    self.statusBarStyle = UIStatusBarStyleLightContent ;
+
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
@@ -51,7 +52,6 @@
     }];
     
 
-    self.statusBarStyle = UIStatusBarStyleLightContent ;
 //    self.navbigTitleType = NavBigTitleTypeAll ;
 //    self.navigationView.scrollview = self.tableView ;
     
