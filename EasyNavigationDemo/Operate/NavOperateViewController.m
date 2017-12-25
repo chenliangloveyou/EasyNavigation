@@ -25,9 +25,9 @@
     label.textAlignment = NSTextAlignmentCenter ;
     label.text = @"\n以下操作只会对本导航条起作用。\n如果想改变整个工程中导航条属性，请设置EasyNavigationOptions.h中的属性";
     self.tableView.tableHeaderView = label ;
-    [self.navigationView addRightButtonWithTitle:@"添加" clickCallBack:^(UIView *view) {
-        NSLog(@"点击了“添加按钮”");
-    }];
+    self.statusBarStyle = UIStatusBarStyleLightContent ;
+//    self.navbigTitleType = NavBigTitleTypeIOS11 ;
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -49,18 +49,26 @@
         case 0:
         {
             kWeakSelf(self)
-            UIButton *addButton  =[UIButton buttonWithType:UIButtonTypeCustom];
-            [addButton setImage:kImage(@"nav_btn_back.png") forState:UIControlStateNormal];
-            [addButton setTitle:@"返回" forState:UIControlStateNormal];
+//            UIButton *addButton  =[UIButton buttonWithType:UIButtonTypeCustom];
+//            [addButton setImage:kImage(@"nav_btn_back.png") forState:UIControlStateNormal];
+//            [addButton setTitle:@" 返回" forState:UIControlStateNormal];
+//            [addButton setFrame:CGRectMake(0, 0, 60, 44)];
+//            [self.navigationView addLeftView:addButton clickCallback:^(UIView *view) {
+//                [weakself.navigationController popViewControllerAnimated:YES];
+//            }];
             
-            [self.navigationView addLeftView:addButton clickCallback:^(UIView *view) {
+            [self.navigationView addLeftButtonWithTitle:@"新增fadd一个" clickCallBack:^(UIView *view) {
                 [weakself.navigationController popViewControllerAnimated:YES];
             }];
             
         }break;
         case 1:
         {
-            [self.navigationView removeLeftView:self.navigationView.leftButton];
+            if (!self.navigationView.leftViewArray) {
+                return ;
+            }
+            UIView *leftView = self.navigationView.leftViewArray.firstObject ;
+            [self.navigationView removeLeftView:leftView];
         }break;
         case 2:
         {
@@ -72,7 +80,7 @@
         }break;
         case 4:
         {
-           __block UIView *view = [[UIView alloc]initWithFrame:CGRectMake(100, -10, SCREEN_WIDTH-180, NAV_HEIGHT + 20)];
+           __block UIView *view = [[UIView alloc]initWithFrame:CGRectMake(100, -10, SCREEN_WIDTH-180, self.navigationOrginalHeight + 20)];
             view.backgroundColor = [UIColor purpleColor];
             [self.navigationView addSubview:view clickCallback:^(UIView *view) {
                 [view removeFromSuperview];

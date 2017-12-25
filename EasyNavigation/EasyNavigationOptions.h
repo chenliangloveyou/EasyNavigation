@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 
 #import <UIKit/UIKit.h>
+#import "EasyNavigationUtils.h"
+
 
 @interface EasyNavigationOptions : NSObject
 
@@ -17,6 +19,15 @@
  * 只需在APPdelegate里面设置一次，全局适用。
  */
 + (instancetype)shareInstance ;
+
+/**
+ * 导航条使用大标题类型（如果在单个控制器中没有设置类型，就是使用这里设置的类型）
+ */
+@property (assign)NavBigTitleType navbigTitleType ;
+/**
+ * 导航条大标题移动动画类型 (有效前提：navbigTitleType不为NavBigTitleTypeDefault)
+ */
+@property (assign)NavTitleAnimationType navTitleAnimationType ;
 
 /**
  * 导航条的透明度
@@ -42,7 +53,11 @@
 /**
  * titleLabel 字体大小
  */
-@property (nonatomic,strong)UIFont  *titleFont ;
+@property (nonatomic,strong)UIFont *titleFont ;
+/**
+ * 大标题显示的字体
+ */
+@property (nonatomic,strong)UIFont *titleBigFount ;
 /**
  * titleLabel 字体颜色
  */

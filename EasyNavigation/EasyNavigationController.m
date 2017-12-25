@@ -8,11 +8,11 @@
 
 #import "EasyNavigationController.h"
 
-#import "EasyUtils.h"
+#import "EasyNavigationUtils.h"
 #import "EasyNavigationView.h"
 #import "UIViewController+EasyNavigationExt.h"
 #import "UIView+EasyNavigationExt.h"
-
+#import "EasyNavigationView+LeftButton.h"
 
 
 @interface EasyNavigationController ()<UINavigationControllerDelegate,UIGestureRecognizerDelegate>
@@ -31,7 +31,6 @@
 
 - (void)dealloc
 {
-    EasyNotificationRemove(UIDeviceOrientationDidChangeNotification) ;
     EasyNotificationRemove(UIApplicationWillChangeStatusBarFrameNotification) ;
     [[UIDevice currentDevice]endGeneratingDeviceOrientationNotifications];
 }
@@ -43,16 +42,18 @@
     self.navigationBarHidden = NO ;
     self.navigationBar.hidden = YES ;
     self.delegate = self ;
-
-    self.systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
-
+    
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    EasyNotificationAdd(handleDeviceOrientationDidChange:, UIDeviceOrientationDidChangeNotification) ;
-    EasyNotificationAdd(statusBarChangeNoti:, UIApplicationWillChangeStatusBarFrameNotification) ;
-
+    
+    EasyNotificationAdd(statusBarChangeNoti:, UIApplicationDidChangeStatusBarFrameNotification) ;
+    
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+
+}
+- (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     // 移除全屏滑动手势
     if ([self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.systemGestureTarget]) {
@@ -61,89 +62,85 @@
     
     //重新处理手势
     [viewController dealSlidingGestureDelegate];
-    
 }
-
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
     if (self.viewControllers.count > 0 ) {
         viewController.hidesBottomBarWhenPushed = YES;
     }
     
-    viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , NAV_HEIGHT)];
-    if (self.viewControllers.count > 0) {
+    [super pushViewController:viewController animated:animated];
+    
+    viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , viewController.navigationOrginalHeight)];
+    
+    EasyLog(@"EasyNavigation create : %p",viewController.navigationView);
+    if (self.viewControllers.count > 1) {
         kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
-        [viewController.navigationView addLeftButtonWithImage:img  clickCallBack:^(UIView *view) {
-             [weakself popViewControllerAnimated:YES];
+        UIButton *backButton = [viewController.navigationView addLeftButtonWithTitle:@"     " image:img clickCallBack:^(UIView *view) {
+            [weakself popViewControllerAnimated:YES];
         }];
+        viewController.navigationView.backButton = backButton ;
     }
     [viewController.view addSubview:viewController.navigationView];
 
-    [super pushViewController:viewController animated:animated];
-
-    CGFloat statusBarH = STATUS_H ;
-    statusBarH = NAV_HEIGHT ;
-    NSLog(@"%f",statusBarH);
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         EasyNavigationView  *navView = self.topViewController.navigationView ;
         if (navView.width != self.topViewController.view.width) {
             navView.width = self.topViewController.view.width ;
         }
-        NSLog(@"%f",self.topViewController.view.y);
-        if (self.topViewController.view.y == 20) {
-            
-        }
     });
     
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    
+    if (gestureRecognizer == self.interactivePopGestureRecognizer) {
+        // 屏蔽调用rootViewController的滑动返回手势
+        if (self.viewControllers.count<=1||self.visibleViewController==self.viewControllers.firstObject) {
+            return NO;
+        }
+        //禁止侧滑了不让返回
+        if (self.topViewController.disableSlidingBackGesture) {
+            return NO ;
+        }
+    }
+    return YES;
 }
 
 - (void)statusBarChangeNoti:(NSNotification *)notifycation
 {
     
-}
-- (void)handleDeviceOrientationDidChange:(UIInterfaceOrientation)interfaceOrientation
-{
+    [self setNeedsStatusBarAppearanceUpdate];
     
     EasyNavigationView  *navView = self.topViewController.navigationView ;
-    if (nil == navView) {
-        return ;
-    }
+    if (!navView)  return ;
     
     if (navView.width != self.topViewController.view.width) {
         navView.width = self.topViewController.view.width ;
     }
-    [self setNeedsStatusBarAppearanceUpdate];
     
-//    //1.获取 当前设备 实例
-//    UIDevice *device = [UIDevice currentDevice] ;
-//
-//    EasyLog(@" %@ = %@",NSStringFromCGRect(self.topViewController.view.frame) , NSStringFromCGRect(navView.frame));
-//
-//    switch (device.orientation) {
-//        case UIDeviceOrientationUnknown: EasyLog(@"未知方向"); break;
-//
-//        case UIDeviceOrientationFaceUp: EasyLog(@"屏幕朝上平躺"); break;
-//
-//        case UIDeviceOrientationFaceDown:  EasyLog(@"屏幕朝下平躺");  break;
-//
-//        case UIDeviceOrientationLandscapeLeft: EasyLog(@"屏幕向左横置");  break;
-//
-//        case UIDeviceOrientationLandscapeRight: EasyLog(@"屏幕向右橫置"); break;
-//
-//        case UIDeviceOrientationPortrait:  EasyLog(@"屏幕直立");  break;
-//
-//        case UIDeviceOrientationPortraitUpsideDown: EasyLog(@"屏幕直立，上下位置调换了");  break;
-//
-//        default: EasyLog(@"无法辨识"); break;
-//    }
+    [navView layoutNavSubViews];
+    
+    UIDevice *device = [UIDevice currentDevice] ;
+    
+    if (device.orientation == UIDeviceOrientationPortrait || device.orientation == UIDeviceOrientationPortraitUpsideDown) {
+        NSLog(@"竖屏 ====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
+    }
+    else if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
+        NSLog(@"横屏====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
+    }
+    else{
+        NSLog(@"未知状态====== %zd",device.orientation );
+    }
     
 }
 
-
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return self.topViewController.statusBarStyle ;
+    return !self.topViewController.statusBarStyle ;
 }
 
 
@@ -166,20 +163,26 @@
     }
     return _customBackGestureDelegate ;
 }
-
+- (id)systemGestureTarget
+{
+    if (nil == _systemGestureTarget) {
+        _systemGestureTarget = self.interactivePopGestureRecognizer.delegate ;
+    }
+    return _systemGestureTarget ;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

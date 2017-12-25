@@ -19,13 +19,13 @@
 
     [self.navigationView setTitle:@"导航条动画隐藏(statusBar下停止)"];
 
-    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NAV_HEIGHT stopToStatusBar:YES];
-
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:self.navigationOrginalHeight stopToStatusBar:YES];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
+    kWeakSelf(self)
+    [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
+        [weakself.navigationView setTitle:@"点击了更多"];
+    }];
+    [self.navigationView addRightButtonWithTitle:@"添加按钮" clickCallBack:nil];
 }
 
 /*

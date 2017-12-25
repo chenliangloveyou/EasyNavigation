@@ -1,5 +1,5 @@
 //
-//  EasyUtils.h
+//  EasyNavigationUtils.h
 //  EasyNavigationDemo
 //
 //  Created by nf on 2017/9/7.
@@ -36,14 +36,17 @@
 #define IS_IOS11_OR_LATER (SYSTEM_VERSION >= 11.0)
 
 
-//statusbar默认高度
-#define STATUS_H  ([UIApplication sharedApplication].statusBarFrame.size.height)
+//statusbar默认高度 orginal
+#define STATUSBAR_ORGINAL_HEIGHT  ([UIApplication sharedApplication].statusBarFrame.size.height)
+
+//导航栏原始高度
+#define kNavNormalHeight 44.0f
+
+//大标题增加出来的高度
+#define kNavBigTitleHeight 55.0f
 
 //状态栏高度
-#define NAV_STATE_HEIGHT (ISHORIZONTALSCREEM ? (ISIPHONE_X ? 0 : STATUS_H) : STATUS_H )
-
-//导航栏高度
-#define NAV_HEIGHT (NAV_STATE_HEIGHT + 44.0f)
+#define STATUSBAR_HEIGHT (ISHORIZONTALSCREEM ? (ISIPHONE_X ? 0 : STATUSBAR_ORGINAL_HEIGHT) : STATUSBAR_ORGINAL_HEIGHT )
 
 
 
@@ -61,6 +64,8 @@
 #define kWeakSelf(type)  __weak typeof(type) weak##type = type;
 #define kStrongSelf(type) __strong typeof(type) type = weak##type;
 
+// 是否为空
+#define ISEMPTY(_v) (_v == nil || _v.length == 0)
 
 /**打印****/
 #define ISSHOWLOG 0
@@ -79,7 +84,32 @@
 
 
 
-@interface EasyUtils : NSObject
+/**
+ * 显示大标题的条件
+ */
+typedef NS_ENUM(NSUInteger , NavBigTitleType) {
+    NavBigTitleTypeUnknow  = 0 ,     //没有设置大标题属性
+    NavBigTitleTypeDefault = 1 << 0, //所有情况下都不使用大标题 (默认情况)
+    NavBigTitleTypeIOS11   = 1 << 1 ,   //在iOS11系统上使用大标题
+    NavBigTitleTypePlus    = 1 << 2 ,    //在plus尺寸上使用大标题（iphone6plus,iphone7plus,iphone8plus）
+    NavBigTitleTypeIphoneX = 1 << 3 , //在iPhoneX上使用大标题
+    NavBigTitleTypeAll     = 1 << 4 ,     //在所有尺寸和版本上都是用大标题
+    NavBigTitleTypePlusOrX = NavBigTitleTypePlus | NavBigTitleTypeIphoneX , //在plus和X上使用大标题
+    
+};
+
+/**
+ * 显示大标题后，标题移动的动画类型
+ */
+typedef NS_ENUM(NSUInteger , NavTitleAnimationType) {
+    NavTitleAnimationTypeLeftScale = 0,     //从左边缩放
+    NavTitleAnimationTypeCenterScale = 1 ,  //从中间缩放
+    NavTitleAnimationTypeSmoothFade = 2,    //流畅的动画
+    NavTitleAnimationTypeStiffFade = 3 ,    //僵硬的动画
+};
+
+
+@interface EasyNavigationUtils : NSObject
 
 
 //根据颜色创建一个图片
@@ -88,7 +118,8 @@
 // 改变图片的颜色
 + (UIImage *) imageWithTintColor:(UIImage *)image color:(UIColor *)tintColor ;
 
-
+//调整图片大小
++ (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size ;
 @end
 
 

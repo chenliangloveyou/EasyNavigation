@@ -5,12 +5,10 @@
 
 
 ![](https://img.shields.io/cocoapods/v/EasyNavigation.svg?style=flat)
-![](https://img.shields.io/cocoapods/dw/EasyNavigation.svg)
 ![](https://img.shields.io/badge/language-ObjectiveC-orange.svg)
 ![](https://img.shields.io/cocoapods/v/{EasyNavigation}.svg?style=flat)
 ![](https://img.shields.io/badge/platform-ios-lightgrey.svg)
 [![](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
-[![](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/chenliangloveyou/EasyNavigation)
 
 
 # 集成方法
@@ -276,9 +274,9 @@ _【preview】_
 # 期望
 1. 如果在使用过程中遇到任务问题，或者发现使用不够恰当。希望能联系我 email: chenliangloveyou@163.com qq:455158249
 2. 如果您在使用过程中发现bug，希望能在issues中提出。我会持续改进这个库的。
-3. 如果喜欢，希望能给个star。
+3. 如果喜欢，希望能给个star，你们的start是我优化这个库的动力。
 
- 近期我第一个任务就是解决issue中的两个问题。最近确实比较忙，请给我时间。
+
 
 
 

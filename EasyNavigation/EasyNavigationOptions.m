@@ -10,19 +10,38 @@
 
 @implementation EasyNavigationOptions
 
+static EasyNavigationOptions *_navigationShare = nil ;
 + (instancetype)shareInstance
 {
-    static EasyNavigationOptions *share = nil ;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        share = [[EasyNavigationOptions alloc]init];
+        _navigationShare = [[EasyNavigationOptions alloc] init];
     });
-    return share;
+    return _navigationShare;
+}
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken,^{
+        _navigationShare = [super allocWithZone:zone];
+    });
+    return _navigationShare;
+}
+- (id)copyWithZone:(NSZone *)zone
+{
+    return _navigationShare;
 }
 
+- (id)mutableCopyWithZone:(NSZone *)zone
+{
+    return _navigationShare;
+}
 - (instancetype)init
 {
     if (self = [super init]) {
+        
+        _navbigTitleType = NavBigTitleTypeDefault ;
+        _navTitleAnimationType = NavTitleAnimationTypeStiffFade ;
         
         _backGroundAlpha = 0.9 ;
         
@@ -30,6 +49,7 @@
         _navLineColor = [UIColor groupTableViewBackgroundColor];
         
         _titleFont = [UIFont boldSystemFontOfSize:18];
+        _titleBigFount = [UIFont boldSystemFontOfSize:35] ;
         _titleColor = [UIColor darkTextColor];
         
         _buttonTitleFont = [UIFont systemFontOfSize:16];

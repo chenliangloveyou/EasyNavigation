@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tableView.contentInset = UIEdgeInsetsMake(-STATUS_H, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(-STATUSBAR_HEIGHT, 0, 0, 0);
   
     [self.navigationView setTitle:@"透明导航条"];
     [self.navigationView setNavigationBackgroundAlpha:0];
@@ -36,7 +36,7 @@
         btnImage = kImage(@"nav_btn_back.png") ;
     }
     
-    [self.navigationView.leftButton setImage:btnImage forState:UIControlStateNormal];
+    [self.navigationView.backButton setImage:btnImage forState:UIControlStateNormal];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

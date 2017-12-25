@@ -42,15 +42,20 @@
     [super viewDidLoad];
     
     [self.navigationView setTitle:@"首页"];
-    
+    self.statusBarStyle = UIStatusBarStyleDefault ;
+
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
+    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") clickCallBack:^(UIView *view) {
+        NavOperateViewController *nav=  [[NavOperateViewController alloc]init];
+        [weakself.navigationController pushViewController:nav animated:YES];
+    }];
     
-    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") hightImage:kImage(@"button_select.png") clickCallBack:nil];
 
-    self.statusBarStyle = UIStatusBarStyleLightContent ;
+//    self.navbigTitleType = NavBigTitleTypeAll ;
+//    self.navigationView.scrollview = self.tableView ;
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.tableView];
@@ -80,7 +85,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+  
     Class tempVC = self.navDataArray[indexPath.section][indexPath.row] ;
     BaseViewController *vc = [[tempVC alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -98,6 +103,7 @@
         _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.contentInset = UIEdgeInsetsMake(self.navigationOrginalHeight, 0, 0, 0);
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
         _tableView.dataSource = self ;
         _tableView.delegate = self ;
