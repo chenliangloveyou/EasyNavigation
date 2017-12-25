@@ -86,7 +86,6 @@ _【preview】_
 self.rightButton = [self.navigationView addRightButtonWithTitle:@"添加" clickCallBack:nil];
  //在某处使用这个按钮
  [self.rightButton setTitle:@"改变了" forState:UIControlStateNormal];
-
 ```
 ```
 //添加一个带图片的按钮，如果这个按钮只有点击事件，可以这样写，更加简洁。
