@@ -62,11 +62,13 @@
 
 - (EasyNavigationView *)navigationView
 {
-    return objc_getAssociatedObject(self, _cmd);
-}
-- (void)setNavigationView:(EasyNavigationView *)navigationView
-{
-    objc_setAssociatedObject(self, @selector(navigationView), navigationView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    EasyNavigationView *navView = objc_getAssociatedObject(self, _cmd);
+    if (nil == navView) {
+        navView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , self.navigationOrginalHeight)];
+        objc_setAssociatedObject(self, @selector(navigationView), navView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        [self.view addSubview:navView];
+    }
+    return navView ;
 }
 
 - (CGFloat)navigationOrginalHeight

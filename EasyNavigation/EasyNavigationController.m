@@ -55,6 +55,13 @@
 }
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        EasyNavigationView  *navView = self.topViewController.navigationView ;
+        if (navView.width != self.topViewController.view.width) {
+            navView.width = self.topViewController.view.width ;
+        }
+    });
+    
     // 移除全屏滑动手势
     if ([self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.systemGestureTarget]) {
         [self.interactivePopGestureRecognizer.view removeGestureRecognizer:self.systemGestureTarget];
@@ -71,9 +78,6 @@
     
     [super pushViewController:viewController animated:animated];
     
-    viewController.navigationView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH , viewController.navigationOrginalHeight)];
-    
-    EasyLog(@"EasyNavigation create : %p",viewController.navigationView);
     if (self.viewControllers.count > 1) {
         kWeakSelf(self)
         UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
@@ -82,15 +86,6 @@
         }];
         viewController.navigationView.backButton = backButton ;
     }
-    [viewController.view addSubview:viewController.navigationView];
-
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        EasyNavigationView  *navView = self.topViewController.navigationView ;
-        if (navView.width != self.topViewController.view.width) {
-            navView.width = self.topViewController.view.width ;
-        }
-    });
     
 }
 
