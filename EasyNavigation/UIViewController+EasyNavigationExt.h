@@ -19,7 +19,7 @@
 /**
  * 当前的导航控制器
  */
-@property (nonatomic, weak) EasyNavigationController *vcEasyNavController ;
+//@property (nonatomic, weak) EasyNavigationController *vcEasyNavController ;
 
 /**
  * 当前的导航条

@@ -52,15 +52,15 @@
 }
 
 
-- (EasyNavigationController *)vcEasyNavController
-{
-    EasyNavigationController *vcNav=  objc_getAssociatedObject(self, _cmd);
-    if (nil == vcNav) {
-        vcNav = (EasyNavigationController *)self.navigationController ;
-        objc_setAssociatedObject(self, @selector(vcEasyNavController), vcNav, OBJC_ASSOCIATION_ASSIGN);
-    }
-    return vcNav ;
-}
+//- (EasyNavigationController *)vcEasyNavController
+//{
+//    EasyNavigationController *vcNav=  objc_getAssociatedObject(self, _cmd);
+//    if (nil == vcNav) {
+//        vcNav = (EasyNavigationController *)self.navigationController ;
+//        objc_setAssociatedObject(self, @selector(vcEasyNavController), vcNav, OBJC_ASSOCIATION_ASSIGN);
+//    }
+//    return vcNav ;
+//}
 
 - (EasyNavigationView *)navigationView
 {
