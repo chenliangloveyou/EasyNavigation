@@ -29,7 +29,7 @@
 
     for (int i = 0; i < 3; i++) {
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake( scrollview.width*i, 0, scrollview.width, scrollview.height)];
-        view.backgroundColor = kColorRandom ;
+        view.backgroundColor = kColorRandom_N ;
         [scrollview addSubview:view];
         
     }

@@ -48,7 +48,7 @@
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
-    [self.navigationView addRightButtonWithImage:kImage(@"button_normal.png") clickCallBack:^(UIView *view) {
+    [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
         NavOperateViewController *nav=  [[NavOperateViewController alloc]init];
         [weakself.navigationController pushViewController:nav animated:YES];
     }];
@@ -103,7 +103,7 @@
         _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
         _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        _tableView.contentInset = UIEdgeInsetsMake(self.navigationOrginalHeight, 0, 0, 0);
+        _tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
         _tableView.dataSource = self ;
         _tableView.delegate = self ;
@@ -114,7 +114,7 @@
             _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic ;
         }
         
-        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 60)];
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
         img.backgroundColor = [UIColor lightGrayColor];
         _tableView.tableHeaderView =img ;
     }

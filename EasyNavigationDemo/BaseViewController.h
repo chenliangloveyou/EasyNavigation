@@ -10,6 +10,7 @@
 
 #import "EasyNavigation.h"
 
+#define kWeakSelf(type)__weak typeof(type)weak##type = type;
 
 @interface BaseViewController : UIViewController
 

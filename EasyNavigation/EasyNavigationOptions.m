@@ -43,7 +43,7 @@ static EasyNavigationOptions *_navigationShare = nil ;
         _navbigTitleType = NavBigTitleTypeDefault ;
         _navTitleAnimationType = NavTitleAnimationTypeStiffFade ;
         
-        _backGroundAlpha = 0.9 ;
+        _backGroundAlpha = 1.0f ;
         
         _navBackGroundColor = [UIColor whiteColor];
         _navLineColor = [UIColor groupTableViewBackgroundColor];
@@ -54,8 +54,8 @@ static EasyNavigationOptions *_navigationShare = nil ;
         
         _buttonTitleFont = [UIFont systemFontOfSize:16];
         _buttonTitleColor = [UIColor blueColor] ;
-        _buttonTitleColorHieght = [UIColor darkTextColor];
-        
+        _buttonTitleColorHieght =  [[UIColor blueColor] colorWithAlphaComponent:0.3];
+
     }
     return self ;
 }
