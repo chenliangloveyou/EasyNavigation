@@ -24,7 +24,7 @@
       4. ......
 
 ### cocoapods安装
-1. 在你的podfile文件中加入这句话 `pod 'EasyNavigation','~>1.0.1'`
+1. 在你的podfile文件中加入这句话 `pod 'EasyNavigation','~>1.0'`
 2. 包含头文件`#import <EasyNavigation/EasyNavigation.h>`
 3. 和`手动导入`一样
 
