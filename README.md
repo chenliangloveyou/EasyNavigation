@@ -3,10 +3,35 @@
 一款超级简单的导航条管理工具。完全自定义导航条。没有`UINavigationBar` 和 `UINavigationItem` 这两个类。完全是对`UIView`的操作。
 所有操作都能一行代码，操作之间完全独立，互不影响。
 
-# 操作介绍
 
-## 配置全局导航栏属性
-这一步操作可以确保每一个控制器上头都有一个自定义的导航条。
+![](https://img.shields.io/cocoapods/v/EasyNavigation.svg?style=flat)
+![](https://img.shields.io/badge/language-ObjectiveC-orange.svg)
+![](https://img.shields.io/cocoapods/v/{EasyNavigation}.svg?style=flat)
+![](https://img.shields.io/badge/platform-ios-lightgrey.svg)
+[![](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
+
+
+# 集成方法
+
+### 手动导入
+1. 将工程中的`EasyNavigation`拖入工程中
+2. 包含`'EasyNavigation.h`的头文件
+3. 使用：
+    1. 设置全局信息:`EasyNavigationOptions *options = [EasyNavigationOptions shareInstance].titleColor = [UIColor blackColor];`
+    2. 设置全局信息自定义:`EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[ViewController new]];`
+    3. 在当前控制器上添加一个标题：`[self.navigationView setTitle:@"我是标题"];`
+    4. 在当前导航条右边添加一个按钮：` [self.navigationView addRightButtonWithTitle:@"提交" clickCallBack:^(UIView *view) { NSLog(@"提交按钮被点击!");//notice：这个callback会强引用控制器，请用weakself. }];`
+      4. ......
+
+### cocoapods安装
+1. 在你的podfile文件中加入这句话 `pod 'EasyNavigation','~>1.0'`
+2. 包含头文件`#import <EasyNavigation/EasyNavigation.h>`
+3. 和`手动导入`一样
+
+
+# 使用详解
+
+__配置全局导航栏属性__ 这一步操作可以确保每一个控制器上头都有一个自定义的导航条。
 
 * (1) 包涵头文件
 * (2) (可省略)改变一些导航条的全局设置，但是如果省略的就会默认使用其单例里面的设置信息
@@ -34,7 +59,7 @@
 ```
 _【preview】_
 
-![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/home@2x.png)
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/nav_preview/home@2x.png)
 
 
 ## 导航栏上的控件增删改操作
@@ -124,7 +149,7 @@ if (!self.navigationView) {
  ```
 _【preview】_
 
-![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/operate.gif)
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/nav_preview/operate.gif)
 
 
 
@@ -148,7 +173,7 @@ _【preview】_
 
 _【preview】_
 
-![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/alpha.gif)
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/nav_preview/alpha.gif)
 
 ## 导航条隐藏 
 
@@ -185,7 +210,7 @@ _【preview】_
 ```
 
 【图片】
-![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/hidden.gif)
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/nav_preview/hidden.gif)
 
 
 ## 导航条手势返回手势
@@ -211,7 +236,7 @@ _【preview】_
 
 _【preview】_
 
-![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/sliding.gif)
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/nav_preview/sliding.gif)
 
 
 ## 状态栏改变
@@ -225,14 +250,34 @@ _【preview】_
 ```
 _【preview】_
 
-![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/EasyNavigationDemo/EasyNavigationDemo/nav_preview/statusBar.gif)
+![image](https://github.com/chenliangloveyou/EasyNavigation/blob/master/nav_preview/statusBar.gif)
 
 
-# 实现原理
+ 
+# 注意事项
+```
+这个库的原理是隐藏系统提供的导航栏，在ViewController加到导航栏控制器的桟上时加上一个自定的view作为导航栏。
+加上的这个view用控制器的分类来保存。所以可以直接作为UIViewController的属性使用。
+```
+```
+对侧滑控制是对导航控制器的interactivePopGestureRecognizer属性的操作。自定义侧滑是偷偷换掉这个属性的触发条件。
+```
+```
+注意：由于是隐藏了系统导航栏。所以当控制器上第一个视图为scrollview的时候会向下偏移20。
+需要用self.automaticallyAdjustsScrollViewInsets = NO  或者 scrollview.contentInset = UIEdgeInsetsMake(NAV_HEIGHT, 0, 0, 0)来调整视图位置。 
+当控制器的第一个视图不是scrollview(或子类)的时候，需要让出导航栏高度的距离。
+```
+```
+注意：由于隐藏了系统导航条，只要是用EasyNavigationController为控制器的管理工具时
+系统提供的UINavigationBar 和 UINavigationItem 的属性就不能使用了。
+```
+# 期望
+1. 如果在使用过程中遇到任务问题，或者发现使用不够恰当。希望能联系我 email: chenliangloveyou@163.com qq:455158249
+2. 如果您在使用过程中发现bug，希望能在issues中提出。我会持续改进这个库的。
+3. 如果喜欢，希望能给个star，你们的start是我优化这个库的动力。
 
 
-由于这个库的原理是隐藏系统导航条，自定义一个`view`作为导航条，所以有2点需要注意点地方。
-1，self.automaticallyAdjustsScrollViewInsets = NO ;
-2，控制器中的view会从左上角的{0,0}开始计算。
-    在添加视图的时候，可以重导航条高度的下面开始添加。
-    当为scrollview的时候可以设置。`scrollview.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);` 也就是向下收缩导航条高度的距离。
+
+
+
+
