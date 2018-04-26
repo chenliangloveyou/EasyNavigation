@@ -49,7 +49,8 @@
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
     [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
-        NavOperateViewController *nav=  [[NavOperateViewController alloc]init];
+        NavStatusBarViewController *nav=  [[NavStatusBarViewController alloc]init];
+        [nav.navigationView setTitle:@"您好"];
         [weakself.navigationController pushViewController:nav animated:YES];
     }];
     
