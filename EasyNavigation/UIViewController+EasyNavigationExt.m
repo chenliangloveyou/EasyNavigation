@@ -83,11 +83,11 @@
             __weak typeof(self)weakSelf = self;
             UIButton *backButton = [navView addLeftButtonWithTitle:title image:img clickCallBack:^(UIView *view) {
                 
-                 NSArray *viewControllers = weakSelf.viewControllers ;
+                 NSArray *viewControllers = weakSelf.navigationController.viewControllers ;
                  if (viewControllers.count > 1) {
-                        if ([viewControllers objectAtIndex:viewControllers.count -1] == weakSelf.topViewController) {
+                        if ([viewControllers objectAtIndex:viewControllers.count -1] == weakSelf) {
                           //push方式
-                         [weakSelf popViewControllerAnimated:YES];
+                         [weakSelf.navigationController popViewControllerAnimated:YES];
                         }
                  }
                  else{
