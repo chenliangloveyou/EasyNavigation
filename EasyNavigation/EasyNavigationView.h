@@ -78,6 +78,11 @@ typedef void(^clickCallback)(UIView *view);
  * 设置导航栏的titleview
  */
 - (void)setTitle:(NSString *)title ;
+/**
+ 获取当前标题
+ */
+- (NSString *)title ;
+
 - (void)addTitleView:(UIView *)titleView ;
 
 /**

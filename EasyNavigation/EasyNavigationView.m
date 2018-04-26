@@ -240,6 +240,10 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     
     [self layoutNavSubViews];
 }
+- (NSString *)title {
+    return self.titleLabel.text;
+}
+
 - (void)addTitleView:(UIView *)titleView
 {
     self.titleView = titleView ;
