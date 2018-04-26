@@ -31,7 +31,7 @@
 
 - (void)dealloc
 {
-    EasyNotificationRemove(UIApplicationWillChangeStatusBarFrameNotification) ;
+    [[NSNotificationCenter defaultCenter]  removeObserver:self name:UIApplicationWillChangeStatusBarFrameNotification object:nil];
     [[UIDevice currentDevice]endGeneratingDeviceOrientationNotifications];
 }
 
@@ -42,33 +42,54 @@
     self.navigationBarHidden = NO ;
     self.navigationBar.hidden = YES ;
     self.delegate = self ;
-    
+
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-    
-    EasyNotificationAdd(statusBarChangeNoti:, UIApplicationDidChangeStatusBarFrameNotification) ;
-    
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(statusBarChangeNoti:) name:UIApplicationDidChangeStatusBarFrameNotification object:nil];
+
 }
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-
+   
 }
 - (void)navigationController:(UINavigationController *)navigationController didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        EasyNavigationView  *navView = self.topViewController.navigationView ;
-        if (navView.width != self.topViewController.view.width) {
-            navView.width = self.topViewController.view.width ;
-        }
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        EasyNavigationView  *navView = self.topViewController.navigationView ;
+//        if (navView.width != self.topViewController.view.width) {
+//            navView.width = self.topViewController.view.width ;
+//        }
+//        if (self.view.width != SCREEN_WIDTH) {
+//            navView.centerX = self.view.centerX ;
+//        }
+//    });
     
     // 移除全屏滑动手势
     if ([self.interactivePopGestureRecognizer.view.gestureRecognizers containsObject:self.systemGestureTarget]) {
         [self.interactivePopGestureRecognizer.view removeGestureRecognizer:self.systemGestureTarget];
     }
-    
+ 
     //重新处理手势
     [viewController dealSlidingGestureDelegate];
+   
+}
+- (void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers
+{
+    
+}
+
+- (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated
+{
+    UIViewController *lastVC = viewControllers.lastObject ;
+    NSAssert(lastVC, @"the viewcontrollers array is empty !");
+
+    if (self.viewControllers.count > 0 ) {
+        lastVC.hidesBottomBarWhenPushed = YES;
+    }
+    
+    [super setViewControllers:viewControllers animated:YES];
+
 }
 - (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
@@ -76,15 +97,18 @@
         viewController.hidesBottomBarWhenPushed = YES;
     }
     
-    [super pushViewController:viewController animated:animated];
+    // 修改返回按钮样式
+    if ([EasyNavigationOptions shareInstance].btnTitleType == FBackBtnTitleType_System && [self isKindOfClass:[EasyNavigationController class]]) {
+        UIViewController * vc = self.viewControllers.lastObject;
+        [EasyNavigationOptions shareInstance].navigationBackButtonTitle = [vc.navigationView title];
+    }
     
-    if (self.viewControllers.count > 1) {
-        kWeakSelf(self)
-        UIImage *img = [UIImage imageNamed:EasyImageFile(@"nav_btn_back.png")] ;
-        UIButton *backButton = [viewController.navigationView addLeftButtonWithTitle:@"     " image:img clickCallBack:^(UIView *view) {
-            [weakself popViewControllerAnimated:YES];
-        }];
-        viewController.navigationView.backButton = backButton ;
+    [super pushViewController:viewController animated:animated];
+
+    if (IsIphoneX_N()) {  // 修改tabBra的frame
+        CGRect frame = self.tabBarController.tabBar.frame;
+        frame.origin.y = ScreenHeight_N() - frame.size.height;
+        self.tabBarController.tabBar.frame = frame;
     }
     
 }
@@ -104,38 +128,43 @@
     }
     return YES;
 }
-
+- (void)setTitle:(NSString *)title
+{
+    if (self.topViewController.navigationView) {
+        [self.navigationView setTitle:title];
+    }
+}
 - (void)statusBarChangeNoti:(NSNotification *)notifycation
 {
-    
+
     [self setNeedsStatusBarAppearanceUpdate];
-    
+
     EasyNavigationView  *navView = self.topViewController.navigationView ;
     if (!navView)  return ;
     
     if (navView.width != self.topViewController.view.width) {
         navView.width = self.topViewController.view.width ;
     }
-    
+
     [navView layoutNavSubViews];
-    
+
     UIDevice *device = [UIDevice currentDevice] ;
-    
+
     if (device.orientation == UIDeviceOrientationPortrait || device.orientation == UIDeviceOrientationPortraitUpsideDown) {
-        NSLog(@"竖屏 ====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
+        EasyLog_N(@"竖屏 ====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
     }
     else if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
-        NSLog(@"横屏====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
+        EasyLog_N(@"横屏====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
     }
     else{
-        NSLog(@"未知状态====== %zd",device.orientation );
+        EasyLog_N(@"未知状态====== %zd",device.orientation );
     }
     
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return !self.topViewController.statusBarStyle ;
+    return self.topViewController.statusBarStyle ;
 }
 
 
@@ -171,13 +200,13 @@
 }
 
 /*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
 
 @end

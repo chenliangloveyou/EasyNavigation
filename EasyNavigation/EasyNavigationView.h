@@ -47,59 +47,42 @@ typedef void(^clickCallback)(UIView *view);
  * 导航条滚动，大标题(如果有) 改变的驱动力。会根据这个scrollview的滚动而滚动
  * 
  */
-@property (nonatomic,strong)UIScrollView *scrollview ;
+//@property (nonatomic,strong)UIScrollView *scrollview ;
 
 /**
- * 导航栏的背景视图
+ * 导航栏的背景
+ * 导航栏的背景图片
  */
-@property (nonatomic,strong)UIView *backgroundView ;
-
+@property (nonatomic,strong,readonly)UIView *backgroundView ;
 @property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;
 
 /**
- * 是否隐藏导航栏下面的细线
- */
-@property (nonatomic,assign)BOOL lineHidden ;
-
-/**
- * 导航栏的标题
- */
-@property (nonatomic,strong,readonly)UILabel *titleLabel ;
-
-/**
- * 导航条下的细线
- */
-@property (nonatomic,strong)UIView *lineView ;//导航条最下面的一条线
-
-
-//重新布局导航条控件
-- (void)layoutNavSubViews ;
-
-#pragma mark - 设置属性
-
-/**
  * 设置导航栏的背景图片
- */
-- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage ;
-
-/**
  * 设置导航栏的透明度
- */
-- (void)setNavigationBackgroundAlpha:(CGFloat)alpha ;
-
-/**
  * 设置导航栏的背景颜色
  */
+- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage ;
+- (void)setNavigationBackgroundAlpha:(CGFloat)alpha ;
 - (void)setNavigationBackgroundColor:(UIColor *)color ;
+
+
+/**
+ * 导航栏的标题，可以用来设置属性。
+ * 导航条最下面的一条线，可以用来设置属性.(也可以直接用.hidden来隐藏)
+ */
+@property (nonatomic,strong,readonly)UILabel *titleLabel ;
+@property (nonatomic,strong,readonly)UIView *lineView ;
 
 /**
  * 设置导航栏的title
- */
-- (void)setTitle:(NSString *)title ;
-
-/**
  * 设置导航栏的titleview
  */
+- (void)setTitle:(NSString *)title ;
+/**
+ 获取当前标题
+ */
+- (NSString *)title ;
+
 - (void)addTitleView:(UIView *)titleView ;
 
 /**
@@ -107,13 +90,32 @@ typedef void(^clickCallback)(UIView *view);
  */
 - (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback ;
 
+
+//重新布局导航条控件
+- (void)layoutNavSubViews ;
+
+/**
+ * 导航栏返回按钮 （左上角）
+ * 可以用来改变外观，改变事件请用下面的navigationBackButtonCallback。
+ *
+ * 导航栏返回按钮的事件 （左上角的返回按钮，如果实现了它将不会调用库里面的popViewControllerAnimated：）
+ */
+@property (nonatomic,strong)UIButton *navigationBackButton ;
+@property (nonatomic,strong)clickCallback navigationBackButtonCallback ;
+
+/**
+ * 导航条 左边/右边 所有视图
+ */
+@property (nonatomic,strong)NSMutableArray *leftViewArray ;
+@property (nonatomic,strong)NSMutableArray *rightViewArray ;
+
+
 /**
  * 导航栏点击事件
  */
 - (void)statusBarTapWithCallback:(clickCallback)callback ;
 //移除导航栏上的手势
 //- (void)removeStatusBarCallback ;
-
 
 
 /**
@@ -152,26 +154,6 @@ typedef void(^clickCallback)(UIView *view);
                   stopToStatusBar:(BOOL)stopStatusBar ;
 
 
-
-/**
- * 第一个加到导航栏左(右)边的按钮。（如果删除第一个，会替换成第二个，以此类推）
- * 如果想拿到第二个加上去的，在创建的时候返回。
- */
-@property (nonatomic,strong)UIButton *backButton ;
-//@property (nonatomic,strong,readonly)UIButton *rightButton ;
-
-/**
- * 导航条 左边所有视图
- */
-@property (nonatomic,strong)NSMutableArray *leftViewArray ;
-
-/**
- * 导航条 右边所有视图
- */
-@property (nonatomic,strong)NSMutableArray *rightViewArray ;
-
-
-
 #pragma mark - 私有方法
 /**
  * 创建一个按钮
@@ -183,14 +165,11 @@ typedef void(^clickCallback)(UIView *view);
                            callback:(clickCallback)callback
                                type:(buttonPlaceType)type ;
 /**
- * 往左右两边添加一个视图
+ * 往左右两边 添加/删除 一个视图
  */
 - (void)addView:(UIView *)view
   clickCallback:(clickCallback)callback
            type:(buttonPlaceType)type ;
-/**
- * 往左右两边删除一个视图
- */
 - (void)removeView:(UIView *)view
               type:(buttonPlaceType)type ;
 

@@ -12,6 +12,7 @@
 #import "UIView+EasyNavigationExt.h"
 #import "UIScrollView+EasyNavigationExt.h"
 #import "UIViewController+EasyNavigationExt.h"
+#import "EasyNavigationButton.h"
 #import "NSObject+EasyKVO.h"
 
 #import "EasyNavigationOptions.h"
@@ -21,7 +22,6 @@ static void *const kScorllViewObservingKVO = @"kScorllViewObservingKVO" ;
 
 #define kTitleViewEdge 60.0f //title左右边距
 
-#define kButtonInsetsWH 5.0f //按钮图文距按钮边缘的距离
 
 static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标示
 
@@ -35,11 +35,13 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 @property (nonatomic,assign)CGFloat backGroundAlpha ;
 
+@property (nonatomic,strong)UIView *backgroundView ;
 @property (nonatomic,strong)UIImageView *backgroundImageView ;
-
 
 @property (nonatomic,strong) UILabel *titleLabel ;
 @property (nonatomic,strong) UIView *titleView ;
+@property (nonatomic,strong) UIView *lineView ;
+
 
 
 @property (nonatomic,weak)UIViewController *viewController ;//navigation所在的控制器
@@ -61,20 +63,44 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @implementation EasyNavigationView
 
 
+- (UIButton *)createButtonWithTitle:(NSString *)title
+                    backgroundImage:(UIImage *)backgroundImage
+                              image:(UIImage *)image
+                         hightImage:(UIImage *)hieghtImage
+                           callback:(clickCallback)callback
+                               type:(buttonPlaceType)type
+{
+    
+    if (hieghtImage) {
+        NSAssert(image, @"you should set a image when hava a heightimage !") ;
+    }
+    
+    EasyNavigationButton *button = [EasyNavigationButton buttonWithTitle:title image:image];
+    
+    if (backgroundImage) {
+        [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+    }
+    if (hieghtImage) {
+        [button setImage:hieghtImage forState:UIControlStateHighlighted];
+    }
+    [self addView:button clickCallback:callback type:type];
+    return button ;
+}
+
 #pragma mark - life cycle
 
 - (void)dealloc
 {
-    NSLog(@"dealoc %@",self );
+    EasyLog_N(@"dealoc %@",self );
     if (self.kvoScrollView) {
         @try{
             [self.kvoScrollView removeObserver:self forKeyPath:@"contentOffset" context:kScorllViewObservingKVO];
         }@catch (NSException * e) {
-            EasyLog(@"scroview kvo has problem : %@",e);
+            EasyLog_N(@"scroview kvo has problem : %@",e);
         }
     }
 }
-#warning ------库刚出来不久，很多同学跟我也反馈了问题，我也一直在改进。所以还希望能关注GitHub上我的更新。如果遇到问题欢迎提issue和也可以跟我探讨(qq:455158249)
+
 - (id)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
@@ -95,22 +121,28 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     return self;
 }
 
+- (void)willMoveToWindow:(nullable UIWindow *)newWindow
+{
+    [self layoutNavSubViews];
+}
+- (void)didMoveToWindow{}
+
 - (void)didMoveToSuperview
 {
     [super didMoveToSuperview];
     
-    kWeakSelf(self)
+    __weak typeof(self)weakSelf = self;
     self.viewController.view.didAddsubView = ^(UIView *view) {
         
-        if (![view isEqual:weakself]) {
-            [weakself.viewController.view bringSubviewToFront:weakself];
+        if (![view isEqual:weakSelf]) {
+            [weakSelf.viewController.view bringSubviewToFront:weakSelf];
         }
     };
     self.didAddsubView = ^(UIView *view) {
         
-        [weakself bringSubviewToFront:weakself.titleLabel];
-        if (weakself.titleView) {
-            [weakself bringSubviewToFront:weakself.titleView];
+        [weakSelf bringSubviewToFront:weakSelf.titleLabel];
+        if (weakSelf.titleView) {
+            [weakSelf bringSubviewToFront:weakSelf.titleView];
         }
     };
     
@@ -122,35 +154,43 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 {
     [super layoutSubviews];
     
-    EasyLog(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
+    if (self.width != self.viewController.view.width) {
+        self.width = self.viewController.view.width ;
+    }
+    
+    [self layoutNavSubViews];
+    EasyLog_N(@"self = %@ backview = %@ backImagev = %@  line = %@",NSStringFromCGRect(self.bounds),NSStringFromCGRect(self.backgroundView.bounds),NSStringFromCGRect(self.backgroundImageView.bounds),NSStringFromCGRect(self.lineView.bounds) );
 }
 
 
 - (void)layoutNavSubViews
 {
     //三个视图全部刷新位置。左边--->右边--->中间
-    self.height = self.viewController.navigationOrginalHeight ;
+    if (self.height != NavigationHeight_N()) {
+        self.height = NavigationHeight_N() ;
+    }
     
+    CGFloat subViewY = self.height - NavigationNorlmalHeight_N() ;
     //如果是iPhone X的横屏状态，让出安全区域的距离
-    __block CGFloat leftEdge = 10 + ((ISIPHONE_X&&ISHORIZONTALSCREEM)? 20 : 0);
+    __block CGFloat leftEdge = 10 + ((IsIphoneX_N()&&ScreenIsHorizontal_N())? 20 : 0);
     [self.leftViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIView *tempView = (UIView *)obj ;
-        tempView.frame = CGRectMake(leftEdge, STATUSBAR_HEIGHT, tempView.width , tempView.height);
+        tempView.frame = CGRectMake(leftEdge, subViewY, tempView.width , tempView.height);
         leftEdge += tempView.width ;
     }];
     
-    __block CGFloat rightEdge = 10 + ((ISIPHONE_X&&ISHORIZONTALSCREEM)? 20 : 0) ;
+    __block CGFloat rightEdge = 10 + ((IsIphoneX_N()&&ScreenIsHorizontal_N())? 20 : 0) ;
     [self.rightViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIView *tempView = (UIView *)obj ;
         CGFloat tempViewX = self.width - rightEdge - tempView.width ;
-        tempView.frame = CGRectMake(tempViewX, STATUSBAR_HEIGHT, tempView.width , tempView.height);
+        tempView.frame = CGRectMake(tempViewX, subViewY, tempView.width , tempView.height);
         rightEdge += tempView.width ;
     }];
     
     if (_titleView) {//如果有titleview 就不显示标题
         
         [self layoutNacCenterView:_titleView leftEdge:leftEdge rightEdge:rightEdge];
-
+        
         if (_titleLabel) {
             _titleLabel.hidden = YES ;
         }
@@ -169,7 +209,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     //获取控件的宽度
     CGFloat tempWidth = tempView.width ;
     if ([tempView isKindOfClass:[UILabel class]]) {
-        tempWidth = [_titleLabel.text sizeWithAttributes:@{NSFontAttributeName: _titleLabel.font}].width ;
+        tempWidth = [((UILabel *)tempView).text sizeWithAttributes:@{NSFontAttributeName: _titleLabel.font}].width ;
     }
     
     CGFloat tempX = leftEdge ;
@@ -186,9 +226,9 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     }
     
     if (tempView.height == 0) {
-        tempView.height = kNavNormalHeight ;
+        tempView.height = NavigationNorlmalHeight_N() ;
     }
-    CGFloat tempY = STATUSBAR_HEIGHT + (self.height-STATUSBAR_HEIGHT-tempView.height)/2 ;
+    CGFloat tempY = self.height - NavigationNorlmalHeight_N() + (NavigationNorlmalHeight_N()-tempView.height)/2 ;
     tempView.frame = CGRectMake(tempX, tempY, tempWidth, tempView.height) ;
     
 }
@@ -200,6 +240,10 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     
     [self layoutNavSubViews];
 }
+- (NSString *)title {
+    return self.titleLabel.text;
+}
+
 - (void)addTitleView:(UIView *)titleView
 {
     self.titleView = titleView ;
@@ -221,17 +265,17 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     }
 }
 
-- (void)setScrollview:(UIScrollView *)scrollview
-{
-    _scrollview = scrollview ;
-    [self addObserveForScrollview:scrollview];
-    
-    self.kvoScrollView = scrollview ;
-    //    self.kvoScrollView.delegate= self ;
-}
+//- (void)setScrollview:(UIScrollView *)scrollview
+//{
+//    _scrollview = scrollview ;
+//    [self addObserveForScrollview:scrollview];
+//    
+//    self.kvoScrollView = scrollview ;
+//    //    self.kvoScrollView.delegate= self ;
+//}
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    //    NSLog(@"==============") ;
+    
 }
 /**
  * 根据scrollview的滚动，导航条慢慢渐变
@@ -305,119 +349,120 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     
-    if (context == kScorllViewObservingKVO) {
-        if (![object isEqual:self.kvoScrollView] || ![keyPath isEqualToString:@"contentOffset"]) {
-            EasyLog(@"监听出现异常 -----> object=%@ , keyPath = %@",object ,keyPath);
-            return ;
-        }
-        
-        //scrollView 在y轴上滚动的距离
-        CGFloat scrollContentY = self.kvoScrollView.contentInset.top + self.kvoScrollView.contentOffset.y ;
-        
-        //        CGFloat orginalHeight = self.viewController.navigationOrginalHeight ;
-        //        NSLog(@"=== %f",scrollContentY);
-        //        if (scrollContentY <= 0) {
-        //            if (self.height != orginalHeight) {
-        //                self.height = orginalHeight ;
-        //            }
-        //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 ;
-        ////            self.titleLabel.left = 20 ;
-        ////            self.titleLabel.font = self.options.titleBigFount ;
-        //        }
-        //        else if(scrollContentY < kNavBigTitleHeight){
-        //            if (self.height != orginalHeight - scrollContentY) {
-        //                self.height = orginalHeight - scrollContentY ;
-        //            }
-        //
-        //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 - scrollContentY ;
-        //            NSLog(@"ff %f",orginalHeight-kNavBigTitleHeight/2 - scrollContentY);
-        ////            CGFloat changeX = ((self.width-self.titleLabel.width)/2 - 20)/kNavBigTitleHeight*kNavBigTitleHeight ;
-        ////            self.titleLabel.left= 20 + 40 ;
-        //
-        ////            CGFloat fountF = 18 + (35-18)*scrollContentY/(kNavBigTitleHeight) ;
-        ////            NSLog(@"%f  -=== %f",changeX,fountF);
-        ////            self.titleLabel.font = [UIFont boldSystemFontOfSize: fountF ] ;
-        //
-        //        }
-        //        else{
-        //            if (self.height != orginalHeight - kNavBigTitleHeight ) {
-        //                self.height = orginalHeight - kNavBigTitleHeight ;
-        //            }
-        //
-        //            self.titleLabel.centerY = STATUSBAR_HEIGHT + kNavNormalHeight/2 ;
-        ////            self.titleLabel.left= (self.width-self.titleLabel.width)/2 ;
-        ////            self.titleLabel.font = self.options.titleFont ;
-        //
-        //        }
-        
-        
-        if (self.navigationChangeType == NavigationChangeTypeAlphaChange) {
-            if (scrollContentY > self.alphaStartChange){
-                CGFloat alpha = scrollContentY / self.alphaEndChange ;
-                [self setNavigationBackgroundAlpha:alpha];
-            }
-            else{
-                [self setNavigationBackgroundAlpha:0];
-            }
+    if (context != kScorllViewObservingKVO) {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return ;
+    }
+    
+    if (![object isEqual:self.kvoScrollView] || ![keyPath isEqualToString:@"contentOffset"]) {
+        EasyLog_N(@"监听出现异常 -----> object=%@ , keyPath = %@",object ,keyPath);
+        return ;
+    }
+    
+    //scrollView 在y轴上滚动的距离
+    CGFloat scrollContentY = self.kvoScrollView.contentInset.top + self.kvoScrollView.contentOffset.y ;
+    
+    //        CGFloat orginalHeight = self.viewController.navigationOrginalHeight ;
+    //        NSLog(@"=== %f",scrollContentY);
+    //        if (scrollContentY <= 0) {
+    //            if (self.height != orginalHeight) {
+    //                self.height = orginalHeight ;
+    //            }
+    //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 ;
+    ////            self.titleLabel.left = 20 ;
+    ////            self.titleLabel.font = self.options.titleBigFount ;
+    //        }
+    //        else if(scrollContentY < kNavBigTitleHeight){
+    //            if (self.height != orginalHeight - scrollContentY) {
+    //                self.height = orginalHeight - scrollContentY ;
+    //            }
+    //
+    //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 - scrollContentY ;
+    //            NSLog(@"ff %f",orginalHeight-kNavBigTitleHeight/2 - scrollContentY);
+    ////            CGFloat changeX = ((self.width-self.titleLabel.width)/2 - 20)/kNavBigTitleHeight*kNavBigTitleHeight ;
+    ////            self.titleLabel.left= 20 + 40 ;
+    //
+    ////            CGFloat fountF = 18 + (35-18)*scrollContentY/(kNavBigTitleHeight) ;
+    ////            NSLog(@"%f  -=== %f",changeX,fountF);
+    ////            self.titleLabel.font = [UIFont boldSystemFontOfSize: fountF ] ;
+    //
+    //        }
+    //        else{
+    //            if (self.height != orginalHeight - kNavBigTitleHeight ) {
+    //                self.height = orginalHeight - kNavBigTitleHeight ;
+    //            }
+    //
+    //            self.titleLabel.centerY = kStatusBarHeight + kNavNormalHeight_N/2 ;
+    ////            self.titleLabel.left= (self.width-self.titleLabel.width)/2 ;
+    ////            self.titleLabel.font = self.options.titleFont ;
+    //
+    //        }
+    
+    
+    if (self.navigationChangeType == NavigationChangeTypeAlphaChange) {
+        if (scrollContentY > self.alphaStartChange){
+            CGFloat alpha = scrollContentY / self.alphaEndChange ;
+            [self setNavigationBackgroundAlpha:alpha];
         }
         else{
-            
-            CGFloat newPointY = [[change objectForKey:@"new"] CGPointValue].y ;
-            CGFloat oldPointY = [[change objectForKey:@"old"] CGPointValue].y ;
-            
-            ScrollDirection currentDuring = ScrollDirectionUnknow ;
-            
-            if ( newPointY >=  oldPointY ) {// 向上滚动
-                currentDuring = ScrollDirectionUp ;
-                
-                if (self.navigationChangeType == NavigationChangeTypeAnimation) {
-                    [self animationScrollUpWithContentY:scrollContentY];
-                }
-                else if (self.navigationChangeType == NavigationChangeTypeSmooth){
-                    [self smoothScrollUpWithContentY:scrollContentY];
-                }
-                else{
-                    EasyLog(@"Attention : the change type is know : %zd",self.navigationChangeType );
-                }
-                
-            }
-            else if ( newPointY < oldPointY ) {// 向下滚动
-                
-                currentDuring = ScrollDirectionDown ;
-                
-                if (self.navigationChangeType == NavigationChangeTypeAnimation) {
-                    [self animationScrollDownWithContentY:scrollContentY];
-                }
-                else if (self.navigationChangeType == NavigationChangeTypeSmooth){
-                    [self smoothScrollDownWithContentY:scrollContentY];
-                }
-                else{
-                    EasyLog(@"Attention : the change type is know : %zd",self.navigationChangeType );
-                }
-                
-            }
-            
-            if (self.kvoScrollView.direction != currentDuring) {
-                
-                EasyLog(@"方向改变 %zd , 记住位置 %f",currentDuring , scrollContentY );
-                
-                if (self.kvoScrollView.direction != ScrollDirectionUnknow) {
-                    if (scrollContentY >= 0) {
-                        self.kvoScrollView.scrollDistance = scrollContentY ;
-                    }
-                }
-                
-                self.kvoScrollView.direction = currentDuring ;
-                
-            }
-            
-            //    EasyLog(@"方向：%ld 滚动距离：%f ",self.kvoScrollView.direction,scrollContentY);
-            
+            [self setNavigationBackgroundAlpha:0];
         }
     }
     else{
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        
+        CGFloat newPointY = [[change objectForKey:@"new"] CGPointValue].y ;
+        CGFloat oldPointY = [[change objectForKey:@"old"] CGPointValue].y ;
+        
+        ScrollDirection currentDuring = ScrollDirectionUnknow ;
+        
+        if ( newPointY >=  oldPointY ) {// 向上滚动
+            currentDuring = ScrollDirectionUp ;
+            
+            if (self.navigationChangeType == NavigationChangeTypeAnimation) {
+                [self animationScrollUpWithContentY:scrollContentY];
+            }
+            else if (self.navigationChangeType == NavigationChangeTypeSmooth){
+                [self smoothScrollUpWithContentY:scrollContentY];
+            }
+            else{
+                EasyLog_N(@"Attention : the change type is know : %zd",self.navigationChangeType );
+            }
+            
+        }
+        else if ( newPointY < oldPointY ) {// 向下滚动
+            
+            currentDuring = ScrollDirectionDown ;
+            
+            if (self.navigationChangeType == NavigationChangeTypeAnimation) {
+                [self animationScrollDownWithContentY:scrollContentY];
+            }
+            else if (self.navigationChangeType == NavigationChangeTypeSmooth){
+                [self smoothScrollDownWithContentY:scrollContentY];
+            }
+            else{
+                EasyLog_N(@"Attention : the change type is know : %zd",self.navigationChangeType );
+            }
+            
+        }
+        
+        if (self.kvoScrollView.direction != currentDuring) {
+            
+            EasyLog_N(@"方向改变 %zd , 记住位置 %f",currentDuring , scrollContentY );
+            
+            if (self.kvoScrollView.direction != ScrollDirectionUnknow) {
+                if (scrollContentY >= 0) {
+                    self.kvoScrollView.scrollDistance = scrollContentY ;
+                }
+            }
+            
+            self.kvoScrollView.direction = currentDuring ;
+            
+        }
+        
+        //    EasyLog_N(@"方向：%ld 滚动距离：%f ",self.kvoScrollView.direction,scrollContentY);
+        
     }
+    
 }
 
 #pragma mark 导航条滚动
@@ -427,7 +472,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (self.kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
         
         self.isScrollingNavigaiton = YES ;
-        EasyLog(@"scroll to top %f",self.kvoScrollView.scrollDistance - contentY );
+        EasyLog_N(@"scroll to top %f",self.kvoScrollView.scrollDistance - contentY );
         [UIView animateWithDuration:kAnimationDuring animations:^{
             self.y = 0 ;
         }completion:^(BOOL finished) {
@@ -448,7 +493,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         self.isScrollingNavigaiton = YES ;
         
         //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = self.stopUpstatusBar?STATUSBAR_HEIGHT:0 ;
+        CGFloat topOfY = self.stopUpstatusBar?StatusBarHeight_N():0 ;
         
         [UIView animateWithDuration:kAnimationDuring animations:^{
             
@@ -477,18 +522,18 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         }
         
         //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = self.stopUpstatusBar?STATUSBAR_HEIGHT:0 ;
+        CGFloat topOfY = self.stopUpstatusBar?StatusBarHeight_N():0 ;
         
         if ( changeY <= self.height - topOfY ) {
-            EasyLog(@"changeY = %F",changeY);
+            EasyLog_N(@"changeY = %F",changeY);
             self.y = - changeY ;
             
-            if (changeY > (self.height-STATUSBAR_HEIGHT)-5) {//这个地方有待考虑
+            if (changeY > (self.height-StatusBarHeight_N())-5) {//这个地方有待考虑
                 [self changeSubviewsAlpha:0];
             }
-            else if (changeY < self.height - STATUSBAR_HEIGHT){
+            else if (changeY < self.height - StatusBarHeight_N()){
                 
-                CGFloat alpha = 1 - changeY/(self.height-STATUSBAR_HEIGHT) ;
+                CGFloat alpha = 1 - changeY/(self.height-StatusBarHeight_N()) ;
                 [self changeSubviewsAlpha:alpha];
                 
             }
@@ -505,7 +550,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (self.kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
         
         self.isScrollingNavigaiton = YES ;
-        // EasyLog(@"scroll to top %f",self.kvoScrollView.scrollDistance - scrollContentY );
+        // EasyLog_N(@"scroll to top %f",self.kvoScrollView.scrollDistance - scrollContentY );
         [UIView animateWithDuration:kAnimationDuring animations:^{
             self.y = 0 ;
         }completion:^(BOOL finished) {
@@ -541,61 +586,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 #pragma mark - private
 
-- (UIButton *)createButtonWithTitle:(NSString *)title
-                    backgroundImage:(UIImage *)backgroundImage
-                              image:(UIImage *)image
-                         hightImage:(UIImage *)hieghtImage
-                           callback:(clickCallback)callback
-                               type:(buttonPlaceType)type
-{
-    
-    if (hieghtImage) {
-        NSAssert(image, @"you should set a image when hava a heightimage !") ;
-    }
-    
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitleColor:self.options.buttonTitleColor forState:UIControlStateNormal];
-    [button setTitleColor:self.options.buttonTitleColorHieght forState:UIControlStateHighlighted];
-    [button.titleLabel setFont:self.options.buttonTitleFont] ;
-    [button setContentEdgeInsets:UIEdgeInsetsMake(0, -kButtonInsetsWH, 0, 0)];
-    
-    CGFloat buttonW = kButtonInsetsWH ;
-    if (image) {
-        CGFloat imageHeight = kNavNormalHeight-2*kButtonInsetsWH ;
-        if (image.size.height > imageHeight ) {
-            CGFloat imageWidth = (image.size.width/image.size.height)*imageHeight ;
-            image = [EasyNavigationUtils scaleToSize:image size:CGSizeMake(imageWidth, imageHeight)] ;
-        }
-        buttonW +=  image.size.width + kButtonInsetsWH;
-        //        [button setImageEdgeInsets:UIEdgeInsetsMake(0, -kButtonInsetsWH, 0, 0)];
-    }
-    if (!ISEMPTY(title)) {
-        CGFloat titleW = [title sizeWithAttributes:@{NSFontAttributeName: self.options.buttonTitleFont}].width ;
-        buttonW += titleW + kButtonInsetsWH ;
-        //        [button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -kButtonInsetsWH)];
-    }
-    [button setFrame:CGRectMake(0, 0, buttonW, kNavNormalHeight)];
-    
-    if (!ISEMPTY(title)) {
-        [button setTitle:title forState:UIControlStateNormal];
-    }
-    if (backgroundImage) {
-        [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-    }
-    if (image) {
-        [button setImage:image forState:UIControlStateNormal];
-    }
-    if (hieghtImage) {
-        [button setImage:hieghtImage forState:UIControlStateHighlighted];
-    }
-    
-    [self addView:button clickCallback:callback type:type];
-    //    button.titleLabel.backgroundColor = [UIColor yellowColor];
-    //    button.imageView.backgroundColor = [UIColor blueColor];
-    //    [button setBackgroundColor:[UIColor redColor]];
-    return button ;
-}
-
 
 - (void)addView:(UIView *)view clickCallback:(clickCallback)callback type:(buttonPlaceType)type
 {
@@ -607,20 +597,15 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     else{
         [view addTapCallBack:self sel:@selector(viewClick:)];
     }
-   
+    
     if (type == buttonPlaceTypeLeft) {
         @synchronized(self.leftViewArray){
             [self.leftViewArray addObject:view];
             __block NSInteger tidx =-1;
             [self.leftViewArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                //@" "
-                if ([obj isKindOfClass:[UIButton class]]) {
-                    UIButton * btn = (UIButton *)obj;
-                    if ([btn.titleLabel.text isEqualToString:@"     "]) {
-                        //is back button
-                        tidx= idx;
-                        *stop =YES;
-                    }
+                if ([obj isEqual:self.navigationBackButton]) {
+                    tidx= idx;
+                    *stop =YES;
                 }
             }];
             if(tidx>0){
@@ -637,7 +622,8 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     }
     
     [self addSubview:view];
-    [self layoutNavSubViews];
+    
+//    [self layoutNavSubViews];
 }
 
 - (void)removeView:(UIView *)view type:(buttonPlaceType)type
@@ -696,6 +682,27 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     }
 }
 
+- (void)setNavigationBackButtonCallback:(clickCallback)navigationBackButtonCallback
+{
+    if (!navigationBackButtonCallback) {
+        NSAssert(NO, @"you can't  add a empty callback ! : %@",self.viewController);
+        return ;
+    }
+    UIButton *backBtn = self.navigationBackButton ;
+    if (!backBtn) {
+        NSAssert(NO, @"you should add a back button before add a callback ! : %@",self.viewController);
+        return ;
+    }
+    clickCallback callback = [self.callbackDictionary objectForKey:@(backBtn.tag)];
+    if (!callback) {
+        EasyLog_N(@"attention: this contoller's back button is empty ! : %@",self.viewController);
+    }
+    
+    [self.callbackDictionary removeObjectForKey:@(backBtn.tag)];
+    [self.callbackDictionary setObject:[navigationBackButtonCallback copy] forKey:@(backBtn.tag)];
+    
+}
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
@@ -704,13 +711,13 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 {
     UITouch *touch = touches.anyObject ;
     CGPoint tapLocation = [touch locationInView:self];
-    EasyLog(@"moved = %f  == %f",tapLocation.x,tapLocation.y);
+    EasyLog_N(@"moved = %f  == %f",tapLocation.x,tapLocation.y);
 }
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     UITouch *touch = touches.anyObject ;
     CGPoint tapLocation = [touch locationInView:self];
-    EasyLog(@"%f  == %f",tapLocation.x,tapLocation.y);
+    EasyLog_N(@"%f  == %f",tapLocation.x,tapLocation.y);
 }
 
 
@@ -741,11 +748,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     self.backgroundColor = color ;
 }
 
-- (void)setLineHidden:(BOOL)lineHidden
-{
-    _lineHidden = lineHidden ;
-    self.lineView.hidden = lineHidden ;
-}
 
 #pragma mark  getter
 
@@ -794,7 +796,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     if (nil == _viewController) {
         _viewController = [self currentViewController] ;
         if (nil == _viewController) {
-            EasyLog(@"attention: the viewController is empty !") ;
+            EasyLog_N(@"attention: the viewController is empty !") ;
         }
     }
     return _viewController ;
@@ -846,12 +848,5 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 //    [[EasyNavigationUtils createImageWithColor:[UIColor redColor]] drawInRect:rect];
 //}
 //
-//- (void)layoutSubviews
-//{
-//    [super layoutSubviews];
-//    
-//    if (self.statusView) {
-//        self.statusView.frame = CGRectMake(0, 0 - kSpaceToCoverStatusBars, CGRectGetWidth(self.bounds), kSpaceToCoverStatusBars);
-//    }
-//}
+
 @end

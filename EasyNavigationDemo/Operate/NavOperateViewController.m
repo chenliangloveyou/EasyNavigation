@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UILabel *label  =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 180)];
+    UILabel *label  =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 180)];
     label.numberOfLines = 0 ;
     label.backgroundColor = [UIColor lightGrayColor];
     label.textAlignment = NSTextAlignmentCenter ;
@@ -80,7 +80,7 @@
         }break;
         case 4:
         {
-           __block UIView *view = [[UIView alloc]initWithFrame:CGRectMake(100, -10, SCREEN_WIDTH-180, self.navigationOrginalHeight + 20)];
+           __block UIView *view = [[UIView alloc]initWithFrame:CGRectMake(100, -10, ScreenWidth_N()-180, NavigationHeight_N() + 20)];
             view.backgroundColor = [UIColor purpleColor];
             [self.navigationView addSubview:view clickCallback:^(UIView *view) {
                 [view removeFromSuperview];

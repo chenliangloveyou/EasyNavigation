@@ -11,6 +11,18 @@
 #import <UIKit/UIKit.h>
 #import "EasyNavigationUtils.h"
 
+/**
+ 返回按钮样式
+ 
+ - FBackBtnTitleType_Default: 默认为返回图标，没有文字
+ - FBackBtnTitleType_System: 系统样式，返回图标 + 上级页面标题
+ */
+typedef NS_ENUM(NSUInteger, FBackBtnTitleType) {
+    FBackBtnTitleType_Default = 0,
+    FBackBtnTitleType_System,
+    
+};
+
 
 @interface EasyNavigationOptions : NSObject
 
@@ -19,6 +31,12 @@
  * 只需在APPdelegate里面设置一次，全局适用。
  */
 + (instancetype)shareInstance ;
+
+/**
+ 设置返回按钮标题样式
+ */
+@property (nonatomic, assign) FBackBtnTitleType btnTitleType;
+
 
 /**
  * 导航条使用大标题类型（如果在单个控制器中没有设置类型，就是使用这里设置的类型）
@@ -79,5 +97,9 @@
  */
 @property (nonatomic,strong)UIColor *buttonTitleColorHieght ;
 
-
+/**
+ * 系统返回按钮 图片/文字 更改
+ */
+@property (nonatomic,strong)UIImage *navigationBackButtonImage ;
+@property (nonatomic,strong)NSString *navigationBackButtonTitle ;
 @end

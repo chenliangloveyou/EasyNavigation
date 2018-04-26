@@ -19,7 +19,7 @@
 
     [self.navigationView setTitle:@"导航条动画隐藏(statusBar下停止)"];
 
-    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:self.navigationOrginalHeight stopToStatusBar:YES];
+    [self.navigationView navigationAnimationScroll:self.tableView criticalPoint:NavigationHeight_N() stopToStatusBar:YES];
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {

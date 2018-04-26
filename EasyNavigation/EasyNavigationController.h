@@ -12,7 +12,7 @@
 
 @interface EasyNavigationController : UINavigationController<UIGestureRecognizerDelegate>
 
-//@property (nonatomic,assign)BOOL isSystemNavigationBar ;//是否展示自带的导航条
+@property (nonatomic,assign)BOOL isSystemNavigationBar ;//是否展示自带的导航条
 
 @property (nonatomic,strong,readonly)UIPanGestureRecognizer *customBackGesture ;//自定义侧滑返回
 

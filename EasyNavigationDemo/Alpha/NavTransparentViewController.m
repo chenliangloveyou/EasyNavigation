@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.tableView.contentInset = UIEdgeInsetsMake(-STATUSBAR_HEIGHT, 0, 0, 0);
+    self.tableView.contentInset = UIEdgeInsetsMake(-StatusBarHeight_N(), 0, 0, 0);
   
     [self.navigationView setTitle:@"透明导航条"];
     [self.navigationView setNavigationBackgroundAlpha:0];
@@ -30,13 +30,13 @@
   
     UIImage *btnImage = nil ;
     if (scrollView.contentOffset.y > 100){
-        btnImage = kImage(@"nav_btn_back_blue.png") ;
+        btnImage = [UIImage imageNamed:@"nav_btn_back_blue.png"] ;
     }
     else{
-        btnImage = kImage(@"nav_btn_back.png") ;
+        btnImage = [UIImage imageNamed:@"nav_btn_back.png"] ;
     }
     
-    [self.navigationView.backButton setImage:btnImage forState:UIControlStateNormal];
+    [self.navigationView.navigationBackButton setImage:btnImage forState:UIControlStateNormal];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
