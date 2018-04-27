@@ -425,7 +425,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
                 [self smoothScrollUpWithContentY:scrollContentY];
             }
             else{
-                EasyLog_N(@"Attention : the change type is know : %zd",self.navigationChangeType );
+                EasyLog_N(@"Attention : the change type is know : %f",self.navigationChangeType );
             }
             
         }
@@ -440,7 +440,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
                 [self smoothScrollDownWithContentY:scrollContentY];
             }
             else{
-                EasyLog_N(@"Attention : the change type is know : %zd",self.navigationChangeType );
+                EasyLog_N(@"Attention : the change type is know : %f",self.navigationChangeType );
             }
             
         }
@@ -682,6 +682,41 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     }
 }
 
+- (void)setNavigationBackButton:(UIButton *)navigationBackButton
+{
+    
+    if (_navigationBackButton) {
+        [_navigationBackButton removeFromSuperview];
+        [self.leftViewArray removeObject:_navigationBackButton];
+        _navigationBackButton = nil ;
+    }
+    
+    
+    _navigationBackButton = navigationBackButton ;
+    
+    __block NSInteger backButtonIndex = -1 ;
+    [self.leftViewArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isEqual:navigationBackButton]) {
+            backButtonIndex = idx;
+            *stop =YES;
+        }
+    }];
+    @synchronized(self.leftViewArray){
+        if (backButtonIndex == -1) {//表示数组中不存在
+            [self.leftViewArray insertObject:navigationBackButton atIndex:0];
+        }else{
+            [self.leftViewArray exchangeObjectAtIndex:0 withObjectAtIndex:backButtonIndex];
+        }
+    }
+   
+    if (!navigationBackButton.superview) {
+        [self addSubview:navigationBackButton];
+    }else if(![navigationBackButton.superview isEqual:self]){
+        [navigationBackButton removeFromSuperview];
+        [self addSubview:navigationBackButton];
+    }
+    [self layoutNavSubViews];
+}
 - (void)setNavigationBackButtonCallback:(clickCallback)navigationBackButtonCallback
 {
     if (!navigationBackButtonCallback) {

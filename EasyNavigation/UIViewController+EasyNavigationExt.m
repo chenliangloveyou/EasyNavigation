@@ -91,10 +91,8 @@
                 //present方式
                 [weakSelf dismissViewControllerAnimated:YES completion:nil];
             }
-            
         }];
         navView.navigationBackButton = backButton ;
-        
     }
 }
 - (EasyNavigationView *)navigationView
