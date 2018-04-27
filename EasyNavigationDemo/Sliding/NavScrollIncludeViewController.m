@@ -19,7 +19,6 @@
     [super viewDidLoad];
     
     [self.navigationView setTitle:@"嵌套scrollview返回"];
-    
 
     UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:self.view.bounds];
     scrollview.contentSize = CGSizeMake(self.view.width*3, 0) ;
