@@ -62,35 +62,59 @@
 //    return vcNav ;
 //}
 
+- (void)checkNavigationHasController:(EasyNavigationView *)navView
+{
+    if (!self.navigationController) {
+        NSAssert(NO, @"attention: this controller's navigationcontroller is null: %@",self);
+    }
+    
+    if (self.navigationController.viewControllers.count > 1) {
+        UIImage *img = [UIImage imageNamed:EasyImageFile_N(@"nav_btn_back.png")] ;
+        if ([EasyNavigationOptions shareInstance].navigationBackButtonImage) {
+            img = [EasyNavigationOptions shareInstance].navigationBackButtonImage ;
+        }
+        NSString *title = @"      " ;
+        if ([EasyNavigationOptions shareInstance].navigationBackButtonTitle) {
+            title = [EasyNavigationOptions shareInstance].navigationBackButtonTitle ;
+        }
+        __weak typeof(self)weakSelf = self;
+        UIButton *backButton = [navView addLeftButtonWithTitle:title image:img clickCallBack:^(UIView *view) {
+            
+            NSArray *viewControllers = weakSelf.navigationController.viewControllers ;
+            if (viewControllers.count > 1) {
+                if ([viewControllers objectAtIndex:viewControllers.count -1] == weakSelf) {
+                    //push方式
+                    [weakSelf.navigationController popViewControllerAnimated:YES];
+                }
+            }
+            else{
+                //present方式
+                [weakSelf dismissViewControllerAnimated:YES completion:nil];
+            }
+            
+        }];
+        navView.navigationBackButton = backButton ;
+        
+    }
+}
 - (EasyNavigationView *)navigationView
 {
     EasyNavigationView *navView = objc_getAssociatedObject(self, _cmd);
     if (nil == navView) {
         navView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N() , NavigationHeight_N())];
         
-        if (!self.navigationController) {
-            NSAssert(NO, @"attention: this controller's navigationcontroller is null: %@",self);
-        }
-        if (self.navigationController.viewControllers.count > 1) {
-            UIImage *img = [UIImage imageNamed:EasyImageFile_N(@"nav_btn_back.png")] ;
-            if ([EasyNavigationOptions shareInstance].navigationBackButtonImage) {
-                img = [EasyNavigationOptions shareInstance].navigationBackButtonImage ;
-            }
-            NSString *title = @"      " ;
-            if ([EasyNavigationOptions shareInstance].navigationBackButtonTitle) {
-                title = [EasyNavigationOptions shareInstance].navigationBackButtonTitle ;
-            }
-            __weak typeof(self)weakSelf = self;
-            UIButton *backButton = [navView addLeftButtonWithTitle:title image:img clickCallBack:^(UIView *view) {
-                [weakSelf.navigationController popViewControllerAnimated:YES];
-            }];
-            navView.navigationBackButton = backButton ;
-        }
-
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(checkNavigationHasController:) object:navView];
+        [self performSelector:@selector(checkNavigationHasController:) withObject:navView afterDelay:0.01];
+       
         [self willChangeValueForKey:NSStringFromClass([EasyNavigationView class])];
         objc_setAssociatedObject(self, @selector(navigationView), navView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
         [self didChangeValueForKey:NSStringFromClass([EasyNavigationView class])];
-        [self.view addSubview:navView];
+      
+        __weak typeof(self)weakSelf = self;
+        __weak typeof(EasyNavigationView *)weakNav = navView;
+        dispatch_main_async_safe_easyN(^{
+            [weakSelf.view addSubview:weakNav];
+        });
         
     }
     return navView ;

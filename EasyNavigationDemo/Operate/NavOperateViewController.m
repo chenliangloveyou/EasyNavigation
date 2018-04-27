@@ -15,9 +15,14 @@
 @end
 
 @implementation NavOperateViewController
-
+- (void)dealloc
+{
+    
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.navigationView setTitle:@"随意操作导航条"];
     
     UILabel *label  =[[UILabel alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 180)];
     label.numberOfLines = 0 ;
@@ -57,7 +62,7 @@
 //                [weakself.navigationController popViewControllerAnimated:YES];
 //            }];
             
-            [self.navigationView addLeftButtonWithTitle:@"新增fadd一个" clickCallBack:^(UIView *view) {
+            [self.navigationView addLeftButtonWithTitle:@"新增按钮" clickCallBack:^(UIView *view) {
                 [weakself.navigationController popViewControllerAnimated:YES];
             }];
             
