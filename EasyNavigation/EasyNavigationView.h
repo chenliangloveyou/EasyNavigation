@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "EasyNavigationOptions.h"   
+#import "EasyNavigationOptions.h"
+#import "EasyNavButton.h"
 
 /**
  * 创建视图的位置，放在左边还是右边
@@ -37,7 +38,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
     NavigationChangeTypeSmooth ,
 };
 
-typedef void(^clickCallback)(UIView *view);
 
 
 @interface EasyNavigationView : UIView
@@ -153,6 +153,10 @@ typedef void(^clickCallback)(UIView *view);
                     criticalPoint:(CGFloat)criticalPoint
                   stopToStatusBar:(BOOL)stopStatusBar ;
 
+
+#pragma mark - 左右两天添加按钮
+
+- (UIButton *)addLeftButtonWithConfig:(EasyNavButtonConfig *(^)(void))config ;
 
 #pragma mark - 私有方法
 /**

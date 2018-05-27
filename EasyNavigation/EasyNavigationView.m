@@ -63,6 +63,27 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @implementation EasyNavigationView
 
 
+#pragma mark - 左右两天添加按钮
+- (UIButton *)addLeftButtonWithConfig:(EasyNavButtonConfig *(^)(void))config
+{
+    
+    NSAssert(config, @"there shoud have a superview!") ;
+    
+    if (nil == config) {
+        EasyNavButtonConfig *(^configTemp)(void) = ^EasyNavButtonConfig *{
+            return  [EasyNavButtonConfig shared];
+        };
+        config = configTemp ;
+    }
+    
+    EasyNavButtonConfig *tempConfig = config ? config() : nil ;
+   
+    EasyNavButton *button = [EasyNavButton buttonWithConfig:tempConfig];
+   
+    [self addView:button clickCallback:tempConfig.callback type:buttonPlaceTypeLeft];
+
+    return button ;
+}
 - (UIButton *)createButtonWithTitle:(NSString *)title
                     backgroundImage:(UIImage *)backgroundImage
                               image:(UIImage *)image

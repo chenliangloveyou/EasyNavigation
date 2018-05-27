@@ -48,6 +48,12 @@
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
+    
+    [self.navigationView addLeftButtonWithConfig:^EasyNavButtonConfig *{
+        return [EasyNavButtonConfig shared]
+        .setTitle(@"好的")
+        .setTitleFont([UIFont systemFontOfSize:12]);
+    }];
     [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
         NavStatusBarViewController *nav=  [[NavStatusBarViewController alloc]init];
         [nav.navigationView setTitle:@"您好"];
