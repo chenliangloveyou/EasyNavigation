@@ -44,36 +44,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 
 
 /**
- * 导航条滚动，大标题(如果有) 改变的驱动力。会根据这个scrollview的滚动而滚动
- * 
- */
-//@property (nonatomic,strong)UIScrollView *scrollview ;
-
-/**
- * 导航栏的背景
- * 导航栏的背景图片
- */
-@property (nonatomic,strong,readonly)UIView *backgroundView ;
-@property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;
-
-/**
- * 设置导航栏的背景图片
- * 设置导航栏的透明度
- * 设置导航栏的背景颜色
- */
-- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage ;
-- (void)setNavigationBackgroundAlpha:(CGFloat)alpha ;
-- (void)setNavigationBackgroundColor:(UIColor *)color ;
-
-
-/**
- * 导航栏的标题，可以用来设置属性。
- * 导航条最下面的一条线，可以用来设置属性.(也可以直接用.hidden来隐藏)
- */
-@property (nonatomic,strong,readonly)UILabel *titleLabel ;
-@property (nonatomic,strong,readonly)UIView *lineView ;
-
-/**
  * 设置导航栏的title
  * 设置导航栏的titleview
  */
@@ -83,16 +53,29 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
  */
 - (NSString *)title ;
 
-- (void)addTitleView:(UIView *)titleView ;
 
-/**
- * 向导航栏上添加一个视图
- */
-- (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback ;
+@property (nonatomic,strong,readonly)UIView *backgroundView ;
+@property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;
+
+@property (nonatomic,strong,readonly)UILabel *titleLabel ;
+@property (nonatomic,strong,readonly)UIView *lineView ;
 
 
-//重新布局导航条控件
-- (void)layoutNavSubViews ;
+@property (nonatomic,assign)CGFloat backgroundAlpha ;
+@property (nonatomic,strong)UIColor *backgroundColor ;
+@property (nonatomic,strong)UIImage *backgroundImage ;
+
+
+@property (nonatomic,assign)CGFloat  bottomLineHeigth ;
+@property (nonatomic,strong)UIColor *bottomLineColor ;
+
+@property (nonatomic,strong)UIFont  *titleFont ;
+@property (nonatomic,strong)UIColor *titleColor ;
+
+
+@property (nonatomic,strong)UIImage *navigationBackButtonImage ;
+@property (nonatomic,strong)NSString *navigationBackButtonTitle ;
+
 
 /**
  * 导航栏返回按钮 （左上角）
@@ -103,12 +86,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @property (nonatomic,strong)UIButton *navigationBackButton ;
 @property (nonatomic,strong)clickCallback navigationBackButtonCallback ;
 
-/**
- * 导航条 左边/右边 所有视图
- */
-@property (nonatomic,strong)NSMutableArray *leftViewArray ;
-@property (nonatomic,strong)NSMutableArray *rightViewArray ;
-
 
 /**
  * 导航栏点击事件
@@ -116,6 +93,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 - (void)statusBarTapWithCallback:(clickCallback)callback ;
 //移除导航栏上的手势
 //- (void)removeStatusBarCallback ;
+//重新布局导航条控件
+- (void)layoutNavSubViews ;
+
 
 
 /**
@@ -153,10 +133,48 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
                     criticalPoint:(CGFloat)criticalPoint
                   stopToStatusBar:(BOOL)stopStatusBar ;
 
+/**
+ * 设置导航栏的背景图片
+ * 设置导航栏的透明度
+ * 设置导航栏的背景颜色
+ */
+- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage ;
+- (void)setNavigationBackgroundAlpha:(CGFloat)alpha ;
+- (void)setNavigationBackgroundColor:(UIColor *)color ;
 
-#pragma mark - 左右两天添加按钮
+//向导航栏上添加一个视图
+- (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback ;
+
+
+
+#pragma mark - 左右两边添加按钮
+
+/**
+ * 导航条 左边/右边 所有视图
+ */
+@property (nonatomic,strong)NSMutableArray *leftViewArray ;
+@property (nonatomic,strong)NSMutableArray *rightViewArray ;
+
+
 
 - (UIButton *)addLeftButtonWithConfig:(EasyNavButtonConfig *(^)(void))config ;
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title callback:(clickCallback)callback ;
+- (UIButton *)addLeftButtonWithImageName:(NSString *)imageName callback:(clickCallback)callback ;
+- (void)addLeftView:(UIView *)view callback:(clickCallback)callback ;
+
+- (UIButton *)addRightButtonWithConfig:(EasyNavButtonConfig *(^)(void))config ;
+- (UIButton *)addRightButtonWithTitle:(NSString *)title callback:(clickCallback)callback ;
+- (UIButton *)addRightButtonWithImageName:(NSString *)imageName callback:(clickCallback)callback ;
+- (void)addRightView:(UIView *)view callback:(clickCallback)callback ;
+
+- (void)addTitleView:(UIView *)titleView ;
+- (void)addTitleView:(UIView *)titleView callback:(clickCallback)callback ;
+
+- (void)addView:(UIView *)view ;
+- (void)addView:(UIView *)view callback:(clickCallback)callback ;
+
+- (void)removeView:(UIView *)view ;
+
 
 #pragma mark - 私有方法
 /**
