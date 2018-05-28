@@ -43,58 +43,51 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @interface EasyNavigationView : UIView
 
 
-/**
- * 设置导航栏的title
- * 设置导航栏的titleview
- */
-- (void)setTitle:(NSString *)title ;
-/**
- 获取当前标题
- */
-- (NSString *)title ;
-
-
+//背景设备
 @property (nonatomic,strong,readonly)UIView *backgroundView ;
-@property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;
-
-@property (nonatomic,strong,readonly)UILabel *titleLabel ;
-@property (nonatomic,strong,readonly)UIView *lineView ;
-
-
-@property (nonatomic,assign)CGFloat backgroundAlpha ;
+@property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;//可不可以不要这个属性？
+@property (nonatomic,assign)CGFloat  backgroundAlpha ;
 @property (nonatomic,strong)UIColor *backgroundColor ;
 @property (nonatomic,strong)UIImage *backgroundImage ;
+- (EasyNavigationView *(^)(CGFloat ))setBackgroundAlpha ;
+- (EasyNavigationView *(^)(UIColor *))setBackgroundColor ;
+- (EasyNavigationView *(^)(UIImage *))setBackgroundImage ;
 
 
-@property (nonatomic,assign)CGFloat  bottomLineHeigth ;
-@property (nonatomic,strong)UIColor *bottomLineColor ;
+//下面的线条设置
+@property (nonatomic,strong,readonly)UIView *lineView ;
+@property (nonatomic,assign)CGFloat  lineViewHeigth ;
+@property (nonatomic,strong)UIColor *lineViewColor ;
+@property (nonatomic,assign)BOOL lineViewHidden ;
+- (EasyNavigationView *(^)(CGFloat ))setLineViewHeigth ;
+- (EasyNavigationView *(^)(UIColor *))setLineViewColor ;
+- (EasyNavigationView *(^)(BOOL ))setBLineViewHidden ;
 
+
+//title设置
+@property (nonatomic,strong,readonly)UILabel *titleLabel ;
+@property (nonatomic,strong)NSString *title ;
 @property (nonatomic,strong)UIFont  *titleFont ;
 @property (nonatomic,strong)UIColor *titleColor ;
+- (EasyNavigationView *(^)(NSString *))setTitle ;
+- (EasyNavigationView *(^)(UIFont *))setTitleFont ;
+- (EasyNavigationView *(^)(UIColor *))setTitleColor ;
 
 
-@property (nonatomic,strong)UIImage *navigationBackButtonImage ;
-@property (nonatomic,strong)NSString *navigationBackButtonTitle ;
+//返回按钮设置
+@property (nonatomic,strong)UIButton *backButton ;
+@property (nonatomic,strong)UIImage *backButtonImage ;
+@property (nonatomic,strong)NSString *backButtonTitle ;
+@property (nonatomic,strong)clickCallback backButtonCallback ;
+- (EasyNavigationView *(^)(UIButton *))setBackButton ;
+- (EasyNavigationView *(^)(UIImage *))setBackButtonImage ;
+- (EasyNavigationView *(^)(NSString *))setBackButtonTitle ;
+- (EasyNavigationView *(^)(clickCallback ))setBackButtonCallback ;
 
 
-/**
- * 导航栏返回按钮 （左上角）
- * 可以用来改变外观，改变事件请用下面的navigationBackButtonCallback。
- *
- * 导航栏返回按钮的事件 （左上角的返回按钮，如果实现了它将不会调用库里面的popViewControllerAnimated：）
- */
-@property (nonatomic,strong)UIButton *navigationBackButton ;
-@property (nonatomic,strong)clickCallback navigationBackButtonCallback ;
-
-
-/**
- * 导航栏点击事件
- */
-- (void)statusBarTapWithCallback:(clickCallback)callback ;
-//移除导航栏上的手势
-//- (void)removeStatusBarCallback ;
 //重新布局导航条控件
 - (void)layoutNavSubViews ;
+
 
 
 
@@ -133,18 +126,6 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
                     criticalPoint:(CGFloat)criticalPoint
                   stopToStatusBar:(BOOL)stopStatusBar ;
 
-/**
- * 设置导航栏的背景图片
- * 设置导航栏的透明度
- * 设置导航栏的背景颜色
- */
-- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage ;
-- (void)setNavigationBackgroundAlpha:(CGFloat)alpha ;
-- (void)setNavigationBackgroundColor:(UIColor *)color ;
-
-//向导航栏上添加一个视图
-- (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback ;
-
 
 
 #pragma mark - 左右两边添加按钮
@@ -152,9 +133,8 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 /**
  * 导航条 左边/右边 所有视图
  */
-@property (nonatomic,strong)NSMutableArray *leftViewArray ;
-@property (nonatomic,strong)NSMutableArray *rightViewArray ;
-
+@property (nonatomic,strong,readonly)NSMutableArray *leftViewArray ;
+@property (nonatomic,strong,readonly)NSMutableArray *rightViewArray ;
 
 
 - (UIButton *)addLeftButtonWithConfig:(EasyNavButtonConfig *(^)(void))config ;
@@ -194,6 +174,38 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
            type:(buttonPlaceType)type ;
 - (void)removeView:(UIView *)view
               type:(buttonPlaceType)type ;
+
+
+#pragma mark - 废弃方法
+
+/**
+ * 设置导航栏的背景图片
+ * 设置导航栏的透明度
+ * 设置导航栏的背景颜色
+ */
+- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage ;
+- (void)setNavigationBackgroundAlpha:(CGFloat)alpha ;
+- (void)setNavigationBackgroundColor:(UIColor *)color ;
+
+//向导航栏上添加一个视图
+- (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback ;
+
+/**
+ * 导航栏返回按钮 （左上角）
+ * 可以用来改变外观，改变事件请用下面的navigationBackButtonCallback。
+ *
+ * 导航栏返回按钮的事件 （左上角的返回按钮，如果实现了它将不会调用库里面的popViewControllerAnimated：）
+ */
+@property (nonatomic,strong)UIButton *navigationBackButton ;
+@property (nonatomic,strong)clickCallback navigationBackButtonCallback ;
+
+
+/**
+ * 导航栏点击事件
+ */
+- (void)statusBarTapWithCallback:(clickCallback)callback ;
+//移除导航栏上的手势
+//- (void)removeStatusBarCallback ;
 
 @end
 

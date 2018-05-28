@@ -42,6 +42,9 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @property (nonatomic,strong) UIView *titleView ;
 @property (nonatomic,strong) UIView *lineView ;
 
+@property (nonatomic,strong)NSMutableArray *leftViewArray ;
+@property (nonatomic,strong)NSMutableArray *rightViewArray ;
+
 
 
 @property (nonatomic,weak)UIViewController *viewController ;//navigation所在的控制器
@@ -322,6 +325,24 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     
 }
 
+- (EasyNavigationView *(^)(CGFloat))setBackgroundAlpha
+{
+    return ^EasyNavigationView *(CGFloat alpha){
+        self.backGroundAlpha = alpha ;
+        return self ;
+    };
+}
+- (void)setBackgroundAlpha:(CGFloat)backgroundAlpha
+{
+    _backGroundAlpha = backgroundAlpha ;
+}
+- (EasyNavigationView *(^)(clickCallback))setBackButtonCallback
+{
+    return ^EasyNavigationView *(clickCallback callback){
+        self.backButtonCallback = callback ;
+        return self ;
+    };
+}
 /**
  * 根据scrollview滚动，导航条隐藏或者展示.
  */

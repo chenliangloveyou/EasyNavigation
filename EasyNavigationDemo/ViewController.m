@@ -48,7 +48,10 @@
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
-    
+    self.navigationView.setBackButtonCallback(^(UIView *view){
+        
+    });
+    self.navigationView.title = @"w d " ;
     [self.navigationView addLeftButtonWithConfig:^EasyNavButtonConfig *{
         return [EasyNavButtonConfig shared]
         .setTitle(@"好的")
