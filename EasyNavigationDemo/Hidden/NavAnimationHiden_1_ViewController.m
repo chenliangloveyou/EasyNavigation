@@ -13,7 +13,10 @@
 @end
 
 @implementation NavAnimationHiden_1_ViewController
-
+- (void)dealloc
+{
+    NSLog(@"navigationview : %@",self.navigationView);
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
 

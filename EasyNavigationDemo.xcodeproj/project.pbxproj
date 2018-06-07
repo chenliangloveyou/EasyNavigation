@@ -12,6 +12,7 @@
 		6827D06320BB11B300BE0542 /* EasyNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06220BB11B300BE0542 /* EasyNavButton.m */; };
 		6827D06720BC3F9F00BE0542 /* EasyNavigationGlobalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06620BC3F9F00BE0542 /* EasyNavigationGlobalConfig.m */; };
 		6827D06A20BC40D600BE0542 /* EasyNavigationConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06920BC40D600BE0542 /* EasyNavigationConfig.m */; };
+		6827D06D20BD9BE300BE0542 /* EasyNavigationView+Scroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06C20BD9BE300BE0542 /* EasyNavigationView+Scroll.m */; };
 		682F9EA21F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9E9B1F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.m */; };
 		682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9E9D1F6C20AD00283DC6 /* NavAnimationHidenViewController.m */; };
 		682F9EA41F6C20AD00283DC6 /* NavSmoothHiden_1_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9E9F1F6C20AD00283DC6 /* NavSmoothHiden_1_ViewController.m */; };
@@ -80,6 +81,8 @@
 		6827D06620BC3F9F00BE0542 /* EasyNavigationGlobalConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationGlobalConfig.m; sourceTree = "<group>"; };
 		6827D06820BC40D600BE0542 /* EasyNavigationConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavigationConfig.h; sourceTree = "<group>"; };
 		6827D06920BC40D600BE0542 /* EasyNavigationConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationConfig.m; sourceTree = "<group>"; };
+		6827D06B20BD9BE300BE0542 /* EasyNavigationView+Scroll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EasyNavigationView+Scroll.h"; sourceTree = "<group>"; };
+		6827D06C20BD9BE300BE0542 /* EasyNavigationView+Scroll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+Scroll.m"; sourceTree = "<group>"; };
 		682F9E9A1F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavAnimationHiden_1_ViewController.h; sourceTree = "<group>"; };
 		682F9E9B1F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavAnimationHiden_1_ViewController.m; sourceTree = "<group>"; };
 		682F9E9C1F6C20AD00283DC6 /* NavAnimationHidenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavAnimationHidenViewController.h; sourceTree = "<group>"; };
@@ -345,6 +348,8 @@
 				68A5A5341F7E8BBF00B62899 /* EasyNavigation.h */,
 				68A5A5391F7E8BBF00B62899 /* EasyNavigationView.h */,
 				68A5A53A1F7E8BBF00B62899 /* EasyNavigationView.m */,
+				6827D06B20BD9BE300BE0542 /* EasyNavigationView+Scroll.h */,
+				6827D06C20BD9BE300BE0542 /* EasyNavigationView+Scroll.m */,
 				6827D06820BC40D600BE0542 /* EasyNavigationConfig.h */,
 				6827D06920BC40D600BE0542 /* EasyNavigationConfig.m */,
 				6827D06520BC3F9F00BE0542 /* EasyNavigationGlobalConfig.h */,
@@ -517,6 +522,7 @@
 				6827D06A20BC40D600BE0542 /* EasyNavigationConfig.m in Sources */,
 				68A5A5471F7E8BBF00B62899 /* EasyNavigationView.m in Sources */,
 				682F9ED01F715E8C00283DC6 /* NavEmptyViewController.m in Sources */,
+				6827D06D20BD9BE300BE0542 /* EasyNavigationView+Scroll.m in Sources */,
 				682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */,
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
 				AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */,

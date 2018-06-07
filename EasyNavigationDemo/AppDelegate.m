@@ -29,13 +29,24 @@
     
     // 设置系统返回按钮为样式
     options.btnTitleType = FBackBtnTitleType_System;
-    
+    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+
     EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[ViewController new]];
     self.window.rootViewController  = navVC ;
     
     return YES;
 }
+void UncaughtExceptionHandler(NSException *exception) {
+    
+    NSArray *arr = [exception callStackSymbols];
+    NSString *reason = [exception reason];
+    NSString *name = [exception name];
+    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    NSString *urlStr = [NSString stringWithFormat:@"mailto://developer@qq.com?subject=Crash报告&body=您的建议会让我们做的更好，感谢您的配合！<br><br><br>""错误详情(%@):<br>%@<br>-----------------------<br>%@<br>---------------------<br>%@",currentVersion,name,reason,[arr componentsJoinedByString:@"<br>"]];
 
+    NSLog(@"%@",urlStr);
+    
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

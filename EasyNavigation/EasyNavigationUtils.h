@@ -148,7 +148,7 @@ CG_INLINE void dispatch_main_async_safe_easyN(dispatch_block_t block){
 #define ISEMPTY_N(_v) (_v == nil || _v.length == 0)
 
 /**打印****/
-#define ISSHOWNAVIGATIONLOG 0
+#define ISSHOWNAVIGATIONLOG 1
 #define EasyLog_N(fmt, ...) if(ISSHOWNAVIGATIONLOG) { NSLog(fmt,##__VA_ARGS__); }
 
 

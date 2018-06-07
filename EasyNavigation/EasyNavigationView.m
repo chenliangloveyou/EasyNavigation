@@ -16,11 +16,14 @@
 #import "NSObject+EasyKVO.h"
 
 #import "EasyNavigationOptions.h"
-static void *const kScorllViewObservingKVO = @"kScorllViewObservingKVO" ;
+
+
+#define kTitleViewEdge 60.0f //title左右边距
 
 #define kAnimationDuring 0.3f //动画执行时间
 
-#define kTitleViewEdge 60.0f //title左右边距
+static void *const kScorllViewObservingKVO = @"kScorllViewObservingKVO" ;
+
 
 
 static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标示
@@ -51,15 +54,18 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 
 @property (nonatomic,strong)NSMutableDictionary *callbackDictionary ;//回调的数组
 
+
+
 @property (nonatomic,assign)CGFloat alphaStartChange; //alpha改变的开始位置
 @property (nonatomic,assign)CGFloat alphaEndChange  ;//alpha停止改变的位置
 @property (nonatomic,assign)CGFloat scrollStartPoint ;//导航条滚动的起始点
 @property (nonatomic,assign)CGFloat criticalPoint ;        //导航条动画隐藏的临界点
-@property (nonatomic,assign)CGFloat stopUpstatusBar ;    //动画后是否需要停止在statusBar下面
+@property (nonatomic,assign)BOOL stopUpstatusBar ;    //动画后是否需要停止在statusBar下面
 @property (nonatomic,assign)CGFloat isScrollingNavigaiton  ;//是否正在滚动导航条
 @property (nonatomic,assign)CGFloat navigationChangeType ;//导航条改变的类型
 @property (nonatomic,assign)CGFloat scrollingSpeed ;     //导航条滚动速度
 @property (nonatomic,strong)UIScrollView *kvoScrollView ;//用于监听scrollview内容高度的改变
+
 
 @end
 
@@ -301,29 +307,8 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 {
     
 }
-/**
- * 根据scrollview的滚动，导航条慢慢渐变
- */
-- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
-{
-    [self navigationAlphaSlowChangeWithScrollow:scrollow
-                                          start:0
-                                            end:100];
-}
-- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
-                                        start:(CGFloat)startPoint
-                                          end:(CGFloat)endPoint
-{
-    [self addObserveForScrollview:scrollow];
-    
-    self.navigationChangeType = NavigationChangeTypeAlphaChange ;
-    
-    self.alphaStartChange = startPoint ;
-    self.alphaEndChange = endPoint ;
-    self.kvoScrollView = scrollow ;
-    
-    
-}
+
+
 
 - (EasyNavigationView *(^)(CGFloat))setBackgroundAlpha
 {
@@ -343,289 +328,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         return self ;
     };
 }
-/**
- * 根据scrollview滚动，导航条隐藏或者展示.
- */
-- (void)navigationSmoothScroll:(UIScrollView *)scrollow
-                         start:(CGFloat)startPoint
-                         speed:(CGFloat)speed
-               stopToStatusBar:(BOOL)stopstatusBar
-{
-    [self addObserveForScrollview:scrollow];
-    
-    self.navigationChangeType = NavigationChangeTypeSmooth ;
-    
-    self.kvoScrollView = scrollow ;
-    self.scrollingSpeed = speed ;
-    self.scrollStartPoint = startPoint ;
-    self.stopUpstatusBar = stopstatusBar ;
-    
-    self.kvoScrollView.scrollDistance = startPoint ;
-    
-}
-
-- (void)navigationAnimationScroll:(UIScrollView *)scrollow
-                    criticalPoint:(CGFloat)criticalPoint
-                  stopToStatusBar:(BOOL)stopstatusBar
-{
-    [self addObserveForScrollview:scrollow];
-    
-    self.navigationChangeType = NavigationChangeTypeAnimation ;
-    
-    self.kvoScrollView = scrollow ;
-    self.criticalPoint = criticalPoint ;
-    self.stopUpstatusBar = stopstatusBar ;
-    
-}
-
-- (void)addObserveForScrollview:(UIScrollView *)scrollview
-{
-    [self.kvoScrollView removeObserver:self
-                            forKeyPath:@"contentOffset"
-                               context:kScorllViewObservingKVO];
-    [scrollview addObserver:self
-                 forKeyPath:@"contentOffset"
-                    options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                    context:kScorllViewObservingKVO];
-}
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    
-    if (context != kScorllViewObservingKVO) {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-        return ;
-    }
-    
-    if (![object isEqual:self.kvoScrollView] || ![keyPath isEqualToString:@"contentOffset"]) {
-        EasyLog_N(@"监听出现异常 -----> object=%@ , keyPath = %@",object ,keyPath);
-        return ;
-    }
-    
-    //scrollView 在y轴上滚动的距离
-    CGFloat scrollContentY = self.kvoScrollView.contentInset.top + self.kvoScrollView.contentOffset.y ;
-    
-    //        CGFloat orginalHeight = self.viewController.navigationOrginalHeight ;
-    //        NSLog(@"=== %f",scrollContentY);
-    //        if (scrollContentY <= 0) {
-    //            if (self.height != orginalHeight) {
-    //                self.height = orginalHeight ;
-    //            }
-    //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 ;
-    ////            self.titleLabel.left = 20 ;
-    ////            self.titleLabel.font = self.options.titleBigFount ;
-    //        }
-    //        else if(scrollContentY < kNavBigTitleHeight){
-    //            if (self.height != orginalHeight - scrollContentY) {
-    //                self.height = orginalHeight - scrollContentY ;
-    //            }
-    //
-    //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 - scrollContentY ;
-    //            NSLog(@"ff %f",orginalHeight-kNavBigTitleHeight/2 - scrollContentY);
-    ////            CGFloat changeX = ((self.width-self.titleLabel.width)/2 - 20)/kNavBigTitleHeight*kNavBigTitleHeight ;
-    ////            self.titleLabel.left= 20 + 40 ;
-    //
-    ////            CGFloat fountF = 18 + (35-18)*scrollContentY/(kNavBigTitleHeight) ;
-    ////            NSLog(@"%f  -=== %f",changeX,fountF);
-    ////            self.titleLabel.font = [UIFont boldSystemFontOfSize: fountF ] ;
-    //
-    //        }
-    //        else{
-    //            if (self.height != orginalHeight - kNavBigTitleHeight ) {
-    //                self.height = orginalHeight - kNavBigTitleHeight ;
-    //            }
-    //
-    //            self.titleLabel.centerY = kStatusBarHeight + kNavNormalHeight_N/2 ;
-    ////            self.titleLabel.left= (self.width-self.titleLabel.width)/2 ;
-    ////            self.titleLabel.font = self.options.titleFont ;
-    //
-    //        }
-    
-    
-    if (self.navigationChangeType == NavigationChangeTypeAlphaChange) {
-        if (scrollContentY > self.alphaStartChange){
-            CGFloat alpha = scrollContentY / self.alphaEndChange ;
-            [self setNavigationBackgroundAlpha:alpha];
-        }
-        else{
-            [self setNavigationBackgroundAlpha:0];
-        }
-    }
-    else{
-        
-        CGFloat newPointY = [[change objectForKey:@"new"] CGPointValue].y ;
-        CGFloat oldPointY = [[change objectForKey:@"old"] CGPointValue].y ;
-        
-        ScrollDirection currentDuring = ScrollDirectionUnknow ;
-        
-        if ( newPointY >=  oldPointY ) {// 向上滚动
-            currentDuring = ScrollDirectionUp ;
-            
-            if (self.navigationChangeType == NavigationChangeTypeAnimation) {
-                [self animationScrollUpWithContentY:scrollContentY];
-            }
-            else if (self.navigationChangeType == NavigationChangeTypeSmooth){
-                [self smoothScrollUpWithContentY:scrollContentY];
-            }
-            else{
-                EasyLog_N(@"Attention : the change type is know : %f",self.navigationChangeType );
-            }
-            
-        }
-        else if ( newPointY < oldPointY ) {// 向下滚动
-            
-            currentDuring = ScrollDirectionDown ;
-            
-            if (self.navigationChangeType == NavigationChangeTypeAnimation) {
-                [self animationScrollDownWithContentY:scrollContentY];
-            }
-            else if (self.navigationChangeType == NavigationChangeTypeSmooth){
-                [self smoothScrollDownWithContentY:scrollContentY];
-            }
-            else{
-                EasyLog_N(@"Attention : the change type is know : %f",self.navigationChangeType );
-            }
-            
-        }
-        
-        if (self.kvoScrollView.direction != currentDuring) {
-            
-            EasyLog_N(@"方向改变 %zd , 记住位置 %f",currentDuring , scrollContentY );
-            
-            if (self.kvoScrollView.direction != ScrollDirectionUnknow) {
-                if (scrollContentY >= 0) {
-                    self.kvoScrollView.scrollDistance = scrollContentY ;
-                }
-            }
-            
-            self.kvoScrollView.direction = currentDuring ;
-            
-        }
-        
-        //    EasyLog_N(@"方向：%ld 滚动距离：%f ",self.kvoScrollView.direction,scrollContentY);
-        
-    }
-    
-}
-
-#pragma mark 导航条滚动
-
-- (void)animationScrollDownWithContentY:(CGFloat)contentY
-{
-    if (self.kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
-        
-        self.isScrollingNavigaiton = YES ;
-        EasyLog_N(@"scroll to top %f",self.kvoScrollView.scrollDistance - contentY );
-        [UIView animateWithDuration:kAnimationDuring animations:^{
-            self.y = 0 ;
-        }completion:^(BOOL finished) {
-            self.isScrollingNavigaiton = NO ;
-            self.y = 0 ;
-            
-            [self changeSubviewsAlpha:1];
-            
-        }] ;
-    }
-}
-
-- (void)animationScrollUpWithContentY:(CGFloat)contentY
-{
-    //只有大于开始滚动的位置，才开始滚动导航条
-    if (contentY > self.criticalPoint && contentY - self.kvoScrollView.scrollDistance > 20 &&  ! self.isScrollingNavigaiton) {//开始移动导航条
-        
-        self.isScrollingNavigaiton = YES ;
-        
-        //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = self.stopUpstatusBar?StatusBarHeight_N():0 ;
-        
-        [UIView animateWithDuration:kAnimationDuring animations:^{
-            
-            self.y = -(self.height - topOfY );
-            
-        }completion:^(BOOL finished) {
-            self.isScrollingNavigaiton = NO ;
-            self.y = -(self.height - topOfY ) ;
-            
-            [self changeSubviewsAlpha:0];
-            
-        }] ;
-    }
-}
-- (void)smoothScrollUpWithContentY:(CGFloat)contentY
-{
-    //只有大于开始滚动的位置，才开始滚动导航条
-    if (contentY > self.scrollStartPoint  ) {//开始移动导航条
-        
-        //需要改变的y值
-        CGFloat scrollSpeed = self.scrollingSpeed ;//导航条滚动的速度
-        CGFloat changeY =(contentY - self.kvoScrollView.scrollDistance)*scrollSpeed  ;
-        
-        if (changeY < 0) {//表明方向有问题
-            return ;
-        }
-        
-        //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
-        CGFloat topOfY = self.stopUpstatusBar?StatusBarHeight_N():0 ;
-        
-        if ( changeY <= self.height - topOfY ) {
-            EasyLog_N(@"changeY = %F",changeY);
-            self.y = - changeY ;
-            
-            if (changeY > (self.height-StatusBarHeight_N())-5) {//这个地方有待考虑
-                [self changeSubviewsAlpha:0];
-            }
-            else if (changeY < self.height - StatusBarHeight_N()){
-                
-                CGFloat alpha = 1 - changeY/(self.height-StatusBarHeight_N()) ;
-                [self changeSubviewsAlpha:alpha];
-                
-            }
-            
-        }
-        else{
-            self.y = - (self.height - topOfY) ;
-        }
-    }
-}
-
-- (void)smoothScrollDownWithContentY:(CGFloat)contentY
-{
-    if (self.kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
-        
-        self.isScrollingNavigaiton = YES ;
-        // EasyLog_N(@"scroll to top %f",self.kvoScrollView.scrollDistance - scrollContentY );
-        [UIView animateWithDuration:kAnimationDuring animations:^{
-            self.y = 0 ;
-        }completion:^(BOOL finished) {
-            self.isScrollingNavigaiton = NO ;
-            self.y = 0 ;
-            
-            //            if (self.stopUpstatusBar) {
-            [self changeSubviewsAlpha:1];
-            //            }
-            
-        }] ;
-    }
-}
-
-//改变子视图的透明度
-- (void)changeSubviewsAlpha:(CGFloat)alpha
-{
-    for (UIView *subView in self.subviews) {
-        if ([subView isEqual:self.backgroundView]) {
-            continue ;
-        }
-        if (self.backgroundImageView && [subView isEqual:self.backgroundImageView]) {
-            continue ;
-        }
-        
-        BOOL isBackground = subView == self.subviews.firstObject ;
-        //        bool isViewHidden = subView.alpha < FLT_EPSILON;
-        if (!isBackground ){
-            subView.alpha = alpha;
-        }
-    }
-}
-
 #pragma mark - private
 
 
@@ -925,5 +627,313 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 //    [[EasyNavigationUtils createImageWithColor:[UIColor redColor]] drawInRect:rect];
 //}
 //
+
+
+
+
+/**
+ * 根据scrollview的滚动，导航条慢慢渐变
+ */
+- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
+{
+    [self navigationAlphaSlowChangeWithScrollow:scrollow
+                                          start:0
+                                            end:100];
+}
+- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
+                                        start:(CGFloat)startPoint
+                                          end:(CGFloat)endPoint
+{
+    [self addObserveForScrollview:scrollow];
+    
+    self.navigationChangeType = NavigationChangeTypeAlphaChange ;
+    
+    self.alphaStartChange = startPoint ;
+    self.alphaEndChange = endPoint ;
+    self.kvoScrollView = scrollow ;
+    
+    
+}
+/**
+ * 根据scrollview滚动，导航条隐藏或者展示.
+ */
+- (void)navigationSmoothScroll:(UIScrollView *)scrollow
+                         start:(CGFloat)startPoint
+                         speed:(CGFloat)speed
+               stopToStatusBar:(BOOL)stopstatusBar
+{
+    [self addObserveForScrollview:scrollow];
+    
+    self.navigationChangeType = NavigationChangeTypeSmooth ;
+    
+    self.kvoScrollView = scrollow ;
+    self.scrollingSpeed = speed ;
+    self.scrollStartPoint = startPoint ;
+    self.stopUpstatusBar = stopstatusBar ;
+    
+    self.kvoScrollView.scrollDistance = startPoint ;
+    
+}
+
+- (void)navigationAnimationScroll:(UIScrollView *)scrollow
+                    criticalPoint:(CGFloat)criticalPoint
+                  stopToStatusBar:(BOOL)stopstatusBar
+{
+    [self addObserveForScrollview:scrollow];
+    
+    self.navigationChangeType = NavigationChangeTypeAnimation ;
+    
+    self.kvoScrollView = scrollow ;
+    self.criticalPoint = criticalPoint ;
+    self.stopUpstatusBar = stopstatusBar ;
+    
+}
+
+- (void)addObserveForScrollview:(UIScrollView *)scrollview
+{
+    [self.kvoScrollView removeObserver:self
+                            forKeyPath:@"contentOffset"
+                               context:kScorllViewObservingKVO];
+    [scrollview addObserver:self
+                 forKeyPath:@"contentOffset"
+                    options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                    context:kScorllViewObservingKVO];
+}
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    
+    if (context != kScorllViewObservingKVO) {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return ;
+    }
+    
+    if (![object isEqual:self.kvoScrollView] || ![keyPath isEqualToString:@"contentOffset"]) {
+        EasyLog_N(@"监听出现异常 -----> object=%@ , keyPath = %@",object ,keyPath);
+        return ;
+    }
+    
+    //scrollView 在y轴上滚动的距离
+    CGFloat scrollContentY = self.kvoScrollView.contentInset.top + self.kvoScrollView.contentOffset.y ;
+    
+    //        CGFloat orginalHeight = self.viewController.navigationOrginalHeight ;
+    //        NSLog(@"=== %f",scrollContentY);
+    //        if (scrollContentY <= 0) {
+    //            if (self.height != orginalHeight) {
+    //                self.height = orginalHeight ;
+    //            }
+    //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 ;
+    ////            self.titleLabel.left = 20 ;
+    ////            self.titleLabel.font = self.options.titleBigFount ;
+    //        }
+    //        else if(scrollContentY < kNavBigTitleHeight){
+    //            if (self.height != orginalHeight - scrollContentY) {
+    //                self.height = orginalHeight - scrollContentY ;
+    //            }
+    //
+    //            self.titleLabel.centerY = orginalHeight-kNavBigTitleHeight/2 - scrollContentY ;
+    //            NSLog(@"ff %f",orginalHeight-kNavBigTitleHeight/2 - scrollContentY);
+    ////            CGFloat changeX = ((self.width-self.titleLabel.width)/2 - 20)/kNavBigTitleHeight*kNavBigTitleHeight ;
+    ////            self.titleLabel.left= 20 + 40 ;
+    //
+    ////            CGFloat fountF = 18 + (35-18)*scrollContentY/(kNavBigTitleHeight) ;
+    ////            NSLog(@"%f  -=== %f",changeX,fountF);
+    ////            self.titleLabel.font = [UIFont boldSystemFontOfSize: fountF ] ;
+    //
+    //        }
+    //        else{
+    //            if (self.height != orginalHeight - kNavBigTitleHeight ) {
+    //                self.height = orginalHeight - kNavBigTitleHeight ;
+    //            }
+    //
+    //            self.titleLabel.centerY = kStatusBarHeight + kNavNormalHeight_N/2 ;
+    ////            self.titleLabel.left= (self.width-self.titleLabel.width)/2 ;
+    ////            self.titleLabel.font = self.options.titleFont ;
+    //
+    //        }
+    
+    
+    if (self.navigationChangeType == NavigationChangeTypeAlphaChange) {
+        if (scrollContentY > self.alphaStartChange){
+            CGFloat alpha = scrollContentY / self.alphaEndChange ;
+            [self setNavigationBackgroundAlpha:alpha];
+        }
+        else{
+            [self setNavigationBackgroundAlpha:0];
+        }
+    }
+    else{
+        
+        CGFloat newPointY = [[change objectForKey:@"new"] CGPointValue].y ;
+        CGFloat oldPointY = [[change objectForKey:@"old"] CGPointValue].y ;
+        
+        ScrollDirection currentDuring = ScrollDirectionUnknow ;
+        
+        if ( newPointY >=  oldPointY ) {// 向上滚动
+            currentDuring = ScrollDirectionUp ;
+            
+            if (self.navigationChangeType == NavigationChangeTypeAnimation) {
+                [self animationScrollUpWithContentY:scrollContentY];
+            }
+            else if (self.navigationChangeType == NavigationChangeTypeSmooth){
+                [self smoothScrollUpWithContentY:scrollContentY];
+            }
+            else{
+                EasyLog_N(@"Attention : the change type is know : %f",self.navigationChangeType );
+            }
+            
+        }
+        else if ( newPointY < oldPointY ) {// 向下滚动
+            
+            currentDuring = ScrollDirectionDown ;
+            
+            if (self.navigationChangeType == NavigationChangeTypeAnimation) {
+                [self animationScrollDownWithContentY:scrollContentY];
+            }
+            else if (self.navigationChangeType == NavigationChangeTypeSmooth){
+                [self smoothScrollDownWithContentY:scrollContentY];
+            }
+            else{
+                EasyLog_N(@"Attention : the change type is know : %f",self.navigationChangeType );
+            }
+            
+        }
+        
+        if (self.kvoScrollView.direction != currentDuring) {
+            
+            EasyLog_N(@"方向改变 %zd , 记住位置 %f",currentDuring , scrollContentY );
+            
+            if (self.kvoScrollView.direction != ScrollDirectionUnknow) {
+                if (scrollContentY >= 0) {
+                    self.kvoScrollView.scrollDistance = scrollContentY ;
+                }
+            }
+            
+            self.kvoScrollView.direction = currentDuring ;
+            
+        }
+        
+        //    EasyLog_N(@"方向：%ld 滚动距离：%f ",self.kvoScrollView.direction,scrollContentY);
+        
+    }
+    
+}
+
+#pragma mark 导航条滚动
+
+- (void)animationScrollDownWithContentY:(CGFloat)contentY
+{
+    if (self.kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
+        
+        self.isScrollingNavigaiton = YES ;
+        EasyLog_N(@"scroll to top %f",self.kvoScrollView.scrollDistance - contentY );
+        [UIView animateWithDuration:kAnimationDuring animations:^{
+            self.y = 0 ;
+        }completion:^(BOOL finished) {
+            self.isScrollingNavigaiton = NO ;
+            self.y = 0 ;
+            
+            [self changeSubviewsAlpha:1];
+            
+        }] ;
+    }
+}
+
+- (void)animationScrollUpWithContentY:(CGFloat)contentY
+{
+    //只有大于开始滚动的位置，才开始滚动导航条
+    if (contentY > self.criticalPoint && contentY - self.kvoScrollView.scrollDistance > 20 &&  ! self.isScrollingNavigaiton) {//开始移动导航条
+        
+        self.isScrollingNavigaiton = YES ;
+        
+        //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
+        CGFloat topOfY = self.stopUpstatusBar?StatusBarHeight_N():0 ;
+        
+        [UIView animateWithDuration:kAnimationDuring animations:^{
+            
+            self.y = -(self.height - topOfY );
+            
+        }completion:^(BOOL finished) {
+            self.isScrollingNavigaiton = NO ;
+            self.y = -(self.height - topOfY ) ;
+            
+            [self changeSubviewsAlpha:0];
+            
+        }] ;
+    }
+}
+- (void)smoothScrollUpWithContentY:(CGFloat)contentY
+{
+    //只有大于开始滚动的位置，才开始滚动导航条
+    if (contentY > self.scrollStartPoint  ) {//开始移动导航条
+        
+        //需要改变的y值
+        CGFloat scrollSpeed = self.scrollingSpeed ;//导航条滚动的速度
+        CGFloat changeY =(contentY - self.kvoScrollView.scrollDistance)*scrollSpeed  ;
+        
+        if (changeY < 0) {//表明方向有问题
+            return ;
+        }
+        
+        //导航条停留的位置，如果是停留在状态栏下面，则需要让出20
+        CGFloat topOfY = self.stopUpstatusBar?StatusBarHeight_N():0 ;
+        
+        if ( changeY <= self.height - topOfY ) {
+            EasyLog_N(@"changeY = %F",changeY);
+            self.y = - changeY ;
+            
+            if (changeY > (self.height-StatusBarHeight_N())-5) {//这个地方有待考虑
+                [self changeSubviewsAlpha:0];
+            }
+            else if (changeY < self.height - StatusBarHeight_N()){
+                
+                CGFloat alpha = 1 - changeY/(self.height-StatusBarHeight_N()) ;
+                [self changeSubviewsAlpha:alpha];
+                
+            }
+            
+        }
+        else{
+            self.y = - (self.height - topOfY) ;
+        }
+    }
+}
+
+- (void)smoothScrollDownWithContentY:(CGFloat)contentY
+{
+    if (self.kvoScrollView.scrollDistance - contentY > 20 && self.y!= 0 &&  ! self.isScrollingNavigaiton ) {
+        
+        self.isScrollingNavigaiton = YES ;
+        // EasyLog_N(@"scroll to top %f",self.kvoScrollView.scrollDistance - scrollContentY );
+        [UIView animateWithDuration:kAnimationDuring animations:^{
+            self.y = 0 ;
+        }completion:^(BOOL finished) {
+            self.isScrollingNavigaiton = NO ;
+            self.y = 0 ;
+            
+            //            if (self.stopUpstatusBar) {
+            [self changeSubviewsAlpha:1];
+            //            }
+            
+        }] ;
+    }
+}
+//改变子视图的透明度
+- (void)changeSubviewsAlpha:(CGFloat)alpha
+{
+    for (UIView *subView in self.subviews) {
+        if ([subView isEqual:self.backgroundView]) {
+            continue ;
+        }
+        if (self.backgroundImageView && [subView isEqual:self.backgroundImageView]) {
+            continue ;
+        }
+        
+        BOOL isBackground = subView == self.subviews.firstObject ;
+        //bool isViewHidden = subView.alpha < FLT_EPSILON;
+        if (!isBackground ){
+            subView.alpha = alpha;
+        }
+    }
+}
 
 @end
