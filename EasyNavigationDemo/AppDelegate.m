@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <Bugly/Bugly.h>
 
 #import "EasyNavigation.h"
 
@@ -29,23 +30,31 @@
     
     // 设置系统返回按钮为样式
     options.btnTitleType = FBackBtnTitleType_System;
-    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
 
     EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[ViewController new]];
     self.window.rootViewController  = navVC ;
     
+    
+    // Override point for customization after application launch.
+    [self setupBugly];
     return YES;
 }
-void UncaughtExceptionHandler(NSException *exception) {
-    
-    NSArray *arr = [exception callStackSymbols];
-    NSString *reason = [exception reason];
-    NSString *name = [exception name];
-    NSString *currentVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    NSString *urlStr = [NSString stringWithFormat:@"mailto://developer@qq.com?subject=Crash报告&body=您的建议会让我们做的更好，感谢您的配合！<br><br><br>""错误详情(%@):<br>%@<br>-----------------------<br>%@<br>---------------------<br>%@",currentVersion,name,reason,[arr componentsJoinedByString:@"<br>"]];
 
-    NSLog(@"%@",urlStr);
+
+
+
+- (void)setupBugly {
+    BuglyConfig * config = [[BuglyConfig alloc] init];
+    config.debugMode = YES;
+    config.blockMonitorEnable = YES;
+    config.blockMonitorTimeout = 1.5;
+    config.viewControllerTrackingEnable = NO;
+    config.consolelogEnable = NO ;
+    [Bugly startWithAppId:@"bce1cf9ee3"
+        developmentDevice:YES
+                   config:config];
     
+    [Bugly setUserIdentifier:[NSString stringWithFormat:@"User: %@", [UIDevice currentDevice].identifierForVendor]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
