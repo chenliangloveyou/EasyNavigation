@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6827D05C20BB091C00BE0542 /* EasyNavButtonConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D05B20BB091C00BE0542 /* EasyNavButtonConfig.m */; };
 		6827D05F20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D05E20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m */; };
-		6827D06320BB11B300BE0542 /* EasyNavButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06220BB11B300BE0542 /* EasyNavButton.m */; };
 		6827D06720BC3F9F00BE0542 /* EasyNavigationGlobalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06620BC3F9F00BE0542 /* EasyNavigationGlobalConfig.m */; };
 		6827D06A20BC40D600BE0542 /* EasyNavigationConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06920BC40D600BE0542 /* EasyNavigationConfig.m */; };
 		6827D06D20BD9BE300BE0542 /* EasyNavigationView+Scroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06C20BD9BE300BE0542 /* EasyNavigationView+Scroll.m */; };
@@ -27,6 +25,7 @@
 		682F9ECA1F715DC000283DC6 /* NavOperateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9EC91F715DC000283DC6 /* NavOperateViewController.m */; };
 		682F9ED01F715E8C00283DC6 /* NavEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */; };
 		6866B2D520D6C84C0032DEB2 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6866B2D420D6C84B0032DEB2 /* Bugly.framework */; };
+		6866B2D820DFF2050032DEB2 /* EasyNavigationViewConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6866B2D720DFF2050032DEB2 /* EasyNavigationViewConfig.m */; };
 		6876E75B1F5858CE00DEDFE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75A1F5858CE00DEDFE0 /* main.m */; };
 		6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */; };
 		6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7601F5858CE00DEDFE0 /* ViewController.m */; };
@@ -34,7 +33,6 @@
 		6876E7691F5858CE00DEDFE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6876E7671F5858CE00DEDFE0 /* LaunchScreen.storyboard */; };
 		6876E7741F5858CF00DEDFE0 /* EasyNavigationDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E7731F5858CF00DEDFE0 /* EasyNavigationDemoTests.m */; };
 		6876E77F1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */; };
-		68A5A5431F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5321F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.m */; };
 		68A5A5441F7E8BBF00B62899 /* EasyNavButton.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 68A5A5331F7E8BBF00B62899 /* EasyNavButton.bundle */; };
 		68A5A5451F7E8BBF00B62899 /* EasyNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5361F7E8BBF00B62899 /* EasyNavigationController.m */; };
 		68A5A5461F7E8BBF00B62899 /* EasyNavigationOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5381F7E8BBF00B62899 /* EasyNavigationOptions.m */; };
@@ -72,12 +70,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		6827D05A20BB091C00BE0542 /* EasyNavButtonConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavButtonConfig.h; sourceTree = "<group>"; };
-		6827D05B20BB091C00BE0542 /* EasyNavButtonConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavButtonConfig.m; sourceTree = "<group>"; };
 		6827D05D20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavButtonGlobalConfig.h; sourceTree = "<group>"; };
 		6827D05E20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavButtonGlobalConfig.m; sourceTree = "<group>"; };
-		6827D06120BB11B300BE0542 /* EasyNavButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavButton.h; sourceTree = "<group>"; };
-		6827D06220BB11B300BE0542 /* EasyNavButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavButton.m; sourceTree = "<group>"; };
 		6827D06520BC3F9F00BE0542 /* EasyNavigationGlobalConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavigationGlobalConfig.h; sourceTree = "<group>"; };
 		6827D06620BC3F9F00BE0542 /* EasyNavigationGlobalConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationGlobalConfig.m; sourceTree = "<group>"; };
 		6827D06820BC40D600BE0542 /* EasyNavigationConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavigationConfig.h; sourceTree = "<group>"; };
@@ -109,6 +103,8 @@
 		682F9ECE1F715E8C00283DC6 /* NavEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavEmptyViewController.h; sourceTree = "<group>"; };
 		682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavEmptyViewController.m; sourceTree = "<group>"; };
 		6866B2D420D6C84B0032DEB2 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
+		6866B2D620DFF2050032DEB2 /* EasyNavigationViewConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavigationViewConfig.h; sourceTree = "<group>"; };
+		6866B2D720DFF2050032DEB2 /* EasyNavigationViewConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationViewConfig.m; sourceTree = "<group>"; };
 		6876E7561F5858CE00DEDFE0 /* EasyNavigationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyNavigationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E75A1F5858CE00DEDFE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		6876E75C1F5858CE00DEDFE0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -124,8 +120,6 @@
 		6876E77A1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EasyNavigationDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E77E1F5858CF00DEDFE0 /* EasyNavigationDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationDemoUITests.m; sourceTree = "<group>"; };
 		6876E7801F5858CF00DEDFE0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		68A5A5311F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyCustomBackGestureDelegate.h; sourceTree = "<group>"; };
-		68A5A5321F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyCustomBackGestureDelegate.m; sourceTree = "<group>"; };
 		68A5A5331F7E8BBF00B62899 /* EasyNavButton.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = EasyNavButton.bundle; sourceTree = "<group>"; };
 		68A5A5341F7E8BBF00B62899 /* EasyNavigation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigation.h; sourceTree = "<group>"; };
 		68A5A5351F7E8BBF00B62899 /* EasyNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyNavigationController.h; sourceTree = "<group>"; };
@@ -190,12 +184,6 @@
 			isa = PBXGroup;
 			children = (
 				68A5A5331F7E8BBF00B62899 /* EasyNavButton.bundle */,
-				ADFCE60720074CA2000CD22C /* EasyNavigationButton.h */,
-				ADFCE60820074CA2000CD22C /* EasyNavigationButton.m */,
-				6827D06120BB11B300BE0542 /* EasyNavButton.h */,
-				6827D06220BB11B300BE0542 /* EasyNavButton.m */,
-				6827D05A20BB091C00BE0542 /* EasyNavButtonConfig.h */,
-				6827D05B20BB091C00BE0542 /* EasyNavButtonConfig.m */,
 				6827D05D20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.h */,
 				6827D05E20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m */,
 				ADFE658E1FA729D4002286DF /* EasyNavigationView+LeftButton.h */,
@@ -352,6 +340,10 @@
 				68A5A5341F7E8BBF00B62899 /* EasyNavigation.h */,
 				68A5A5391F7E8BBF00B62899 /* EasyNavigationView.h */,
 				68A5A53A1F7E8BBF00B62899 /* EasyNavigationView.m */,
+				ADFCE60720074CA2000CD22C /* EasyNavigationButton.h */,
+				ADFCE60820074CA2000CD22C /* EasyNavigationButton.m */,
+				6866B2D620DFF2050032DEB2 /* EasyNavigationViewConfig.h */,
+				6866B2D720DFF2050032DEB2 /* EasyNavigationViewConfig.m */,
 				6827D06B20BD9BE300BE0542 /* EasyNavigationView+Scroll.h */,
 				6827D06C20BD9BE300BE0542 /* EasyNavigationView+Scroll.m */,
 				6827D06820BC40D600BE0542 /* EasyNavigationConfig.h */,
@@ -360,8 +352,6 @@
 				6827D06620BC3F9F00BE0542 /* EasyNavigationGlobalConfig.m */,
 				6827D06420BC3BE900BE0542 /* EasyNavExt */,
 				6827D06020BB0E8700BE0542 /* EasyNavButton */,
-				68A5A5311F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.h */,
-				68A5A5321F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.m */,
 				68A5A5351F7E8BBF00B62899 /* EasyNavigationController.h */,
 				68A5A5361F7E8BBF00B62899 /* EasyNavigationController.m */,
 				68A5A5371F7E8BBF00B62899 /* EasyNavigationOptions.h */,
@@ -530,13 +520,12 @@
 				682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */,
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
 				AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */,
-				68A5A5431F7E8BBF00B62899 /* EasyCustomBackGestureDelegate.m in Sources */,
 				ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */,
 				68A5A5451F7E8BBF00B62899 /* EasyNavigationController.m in Sources */,
 				6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */,
 				68A5A5481F7E8BBF00B62899 /* EasyNavigationUtils.m in Sources */,
+				6866B2D820DFF2050032DEB2 /* EasyNavigationViewConfig.m in Sources */,
 				682F9EC51F6C24B600283DC6 /* NavCustomSlidingViewController.m in Sources */,
-				6827D05C20BB091C00BE0542 /* EasyNavButtonConfig.m in Sources */,
 				68A5A54B1F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m in Sources */,
 				682F9EA41F6C20AD00283DC6 /* NavSmoothHiden_1_ViewController.m in Sources */,
 				AD6940151F98AF1A002D7826 /* EasyKVOInfo.m in Sources */,
@@ -554,7 +543,6 @@
 				682F9EA51F6C20AD00283DC6 /* NavSmoothHidenViewController.m in Sources */,
 				68A5A5491F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m in Sources */,
 				682F9EAE1F6C20EF00283DC6 /* NavScrollIncludeViewController.m in Sources */,
-				6827D06320BB11B300BE0542 /* EasyNavButton.m in Sources */,
 				ADFE65901FA729D4002286DF /* EasyNavigationView+LeftButton.m in Sources */,
 				AD6940121F988FF8002D7826 /* NSObject+EasyKVO.m in Sources */,
 			);

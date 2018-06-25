@@ -17,6 +17,98 @@
 
 #import "EasyNavigationOptions.h"
 
+#define kButtonInsetsH 10.0f //按钮上下图文距按钮边缘的距离
+#define kButtonInsetsW 5.0f //按钮左右局边缘的距离
+
+
+@interface EasyNavDeprecateButton : UIButton
+
+@property (nonatomic,strong)NSString *title ;
+@property (nonatomic,strong)UIImage *image;
+
++ (instancetype)buttonWithTitle:(NSString *)title image:(UIImage *)image ;
+@end
+
+@implementation EasyNavDeprecateButton
++ (instancetype)buttonWithTitle:(NSString *)title image:(UIImage *)image
+{
+    EasyNavDeprecateButton *button  = [super buttonWithType:UIButtonTypeCustom] ;
+    
+    if (button) {
+        
+        button.title = title ;
+        button.image = image ;
+        EasyNavigationOptions *options = [EasyNavigationOptions shareInstance];
+        
+        CGFloat buttonW = kButtonInsetsW*2 ;
+        if (image) {
+            CGFloat imageHeight = NavigationNorlmalHeight_N()-2*kButtonInsetsH ;
+            buttonW +=  (imageHeight) ;
+        }
+        if (!ISEMPTY_N(title)) {
+            CGFloat titleW = [title sizeWithAttributes:@{NSFontAttributeName: options.buttonTitleFont}].width ;
+            buttonW += titleW ;
+        }
+        if (image && !ISEMPTY_N(title)) {
+            buttonW += kButtonInsetsW ;
+        }
+        [button setFrame:CGRectMake(0, 0, buttonW, NavigationNorlmalHeight_N())];
+        
+        
+        if (!ISEMPTY_N(title)) {
+            [button setTitle:title forState:UIControlStateNormal];
+        }
+        if (image) {
+            [button setImage:image forState:UIControlStateNormal];
+            button.imageView.contentMode = UIViewContentModeScaleAspectFit ;//imageview需要放到中间
+        }
+        
+        [button setTitleColor:options.buttonTitleColor forState:UIControlStateNormal];
+        [button setTitleColor:options.buttonTitleColorHieght forState:UIControlStateHighlighted];
+        [button.titleLabel setFont:options.buttonTitleFont] ;
+        
+        //        button.titleLabel.backgroundColor = [UIColor cyanColor];
+        //        button.imageView.backgroundColor = [UIColor blueColor];
+        //        [button setBackgroundColor:kColorRandom];
+    };
+    
+    return button ;
+}
+
+
+- (CGRect)imageRectForContentRect:(CGRect)contentRect
+{
+    if (_image) {
+        CGFloat imageX = kButtonInsetsW ;
+        CGFloat imageY = kButtonInsetsH ;
+        CGFloat imageWH = NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
+        return CGRectMake(imageX, imageY, imageWH, imageWH);
+    }
+    else{
+        return CGRectZero ;
+    }
+}
+
+- (CGRect)titleRectForContentRect:(CGRect)contentRect
+{
+    if (ISEMPTY_N(_title)) {
+        return CGRectZero ;
+    }
+    
+    CGFloat x = kButtonInsetsW ;
+    CGFloat w = CGRectGetWidth(contentRect) - 2*kButtonInsetsW ;
+    if (_image){
+        x = 2*kButtonInsetsW+ NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
+        w = CGRectGetWidth(contentRect) - (3*kButtonInsetsW+NavigationNorlmalHeight_N() - 2*kButtonInsetsH ) ;
+    }
+    
+    CGFloat y = kButtonInsetsH ;
+    CGFloat h = NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
+    return CGRectMake(x, y, w, h) ;
+    
+}
+
+@end
 
 #define kTitleViewEdge 60.0f //title左右边距
 
@@ -72,27 +164,90 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @implementation EasyNavigationView
 
 
-#pragma mark - 左右两天添加按钮
-- (UIButton *)addLeftButtonWithConfig:(EasyNavButtonConfig *(^)(void))config
+#pragma mark - 中间添加控件
+
+- (void)addTitleView:(UIView *)titleView
 {
+    [self addTitleView:titleView callback:nil];
+}
+- (void)addTitleView:(UIView *)titleView callback:(clickCallback)callback
+{
+#warning 中间视图，只能有一个。
     
-    NSAssert(config, @"there shoud have a superview!") ;
-    
-    if (nil == config) {
-        EasyNavButtonConfig *(^configTemp)(void) = ^EasyNavButtonConfig *{
-            return  [EasyNavButtonConfig shared];
-        };
-        config = configTemp ;
+    if (_titleView) {
+        [_titleView removeFromSuperview];
     }
     
-    EasyNavButtonConfig *tempConfig = config ? config() : nil ;
-   
-    EasyNavButton *button = [EasyNavButton buttonWithConfig:tempConfig];
-   
-    [self addView:button clickCallback:tempConfig.callback type:buttonPlaceTypeLeft];
-
-    return button ;
+    self.titleView = titleView ;
+    [self addSubview:titleView];
+    
+    [self layoutNavSubViews];
+    
+#warning 待处理
+//    [self addView:titleView clickCallback:callback type:buttonPlaceTypeCenter];
 }
+
+
+#pragma mark - 左右两天添加按钮
+
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title
+                               callback:(clickCallback)callback
+{
+    return [self addLeftButton:^EasyNavigationButton *{
+        return [EasyNavigationButton button].setTitle(title);
+    } callback:callback] ;
+}
+- (UIButton *)addLeftButtonWithImageName:(NSString *)imageName
+                                   callback:(clickCallback)callback
+{
+    return [self addLeftButton:^EasyNavigationButton *{
+        return [EasyNavigationButton button].setImageName(imageName);
+    } callback:callback] ;
+}
+
+- (UIButton *)addLeftButton:(EasyNavigationButton *(^)(void))button
+                      callback:(clickCallback)callback
+{
+    EasyNavigationButton *btn = [EasyNavigationButton buttonWithConfig:button];
+    [self addLeftView:btn callback:callback];
+    return btn ;
+}
+
+- (void)addLeftView:(UIView *)view
+              callback:(clickCallback)callback
+{
+    [self addView:view clickCallback:callback type:buttonPlaceTypeLeft];
+}
+
+- (UIButton *)addRightButtonWithTitle:(NSString *)title
+                            callback:(clickCallback)callback
+{
+    return [self addRightButton:^EasyNavigationButton *{
+        return [EasyNavigationButton button].setTitle(title);
+    } callback:callback] ;
+}
+- (UIButton *)addRightButtonWithImageName:(NSString *)imageName
+                                callback:(clickCallback)callback
+{
+    return [self addRightButton:^EasyNavigationButton *{
+        return [EasyNavigationButton button].setImageName(imageName);
+    } callback:callback] ;
+}
+
+- (UIButton *)addRightButton:(EasyNavigationButton *(^)(void))button
+                   callback:(clickCallback)callback
+{
+    EasyNavigationButton *btn = [EasyNavigationButton buttonWithConfig:button];
+    [self addRightView:btn callback:callback];
+    return btn ;
+}
+
+- (void)addRightView:(UIView *)view
+              callback:(clickCallback)callback
+{
+    [self addView:view clickCallback:callback type:buttonPlaceTypeRight];
+}
+
 - (UIButton *)createButtonWithTitle:(NSString *)title
                     backgroundImage:(UIImage *)backgroundImage
                               image:(UIImage *)image
@@ -105,7 +260,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         NSAssert(image, @"you should set a image when hava a heightimage !") ;
     }
     
-    EasyNavigationButton *button = [EasyNavigationButton buttonWithTitle:title image:image];
+    EasyNavDeprecateButton *button = [EasyNavDeprecateButton buttonWithTitle:title image:image];
     
     if (backgroundImage) {
         [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
@@ -274,14 +429,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     return self.titleLabel.text;
 }
 
-- (void)addTitleView:(UIView *)titleView
-{
-    self.titleView = titleView ;
-    [self addSubview:titleView];
-    
-    [self layoutNavSubViews];
-}
-
 - (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback
 {
     
@@ -367,7 +514,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     
     [self addSubview:view];
     
-//    [self layoutNavSubViews];
+    [self layoutNavSubViews];
 }
 
 - (void)removeView:(UIView *)view type:(buttonPlaceType)type

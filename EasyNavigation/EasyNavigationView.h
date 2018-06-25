@@ -9,14 +9,18 @@
 #import <UIKit/UIKit.h>
 
 #import "EasyNavigationOptions.h"
-#import "EasyNavButton.h"
+#import "EasyNavigationButton.h"
 
+typedef void (^clickCallback)(UIView *view) ;
+
+@class EasyNavigationButton ;
 /**
  * 创建视图的位置，放在左边还是右边
  */
 typedef NS_ENUM(NSUInteger , buttonPlaceType) {
     buttonPlaceTypeLeft ,
     buttonPlaceTypeRight ,
+    buttonPlaceTypeCenter ,
 };
 
 /**
@@ -49,9 +53,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @property (nonatomic,assign)CGFloat  backgroundAlpha ;
 @property (nonatomic,strong)UIColor *backgroundColor ;
 @property (nonatomic,strong)UIImage *backgroundImage ;
-- (EasyNavigationView *(^)(CGFloat ))setBackgroundAlpha ;
-- (EasyNavigationView *(^)(UIColor *))setBackgroundColor ;
-- (EasyNavigationView *(^)(UIImage *))setBackgroundImage ;
+//- (EasyNavigationView *(^)(CGFloat ))setBackgroundAlpha ;
+//- (EasyNavigationView *(^)(UIColor *))setBackgroundColor ;
+//- (EasyNavigationView *(^)(UIImage *))setBackgroundImage ;
 
 
 //下面的线条设置
@@ -59,9 +63,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @property (nonatomic,assign)CGFloat  lineViewHeigth ;
 @property (nonatomic,strong)UIColor *lineViewColor ;
 @property (nonatomic,assign)BOOL lineViewHidden ;
-- (EasyNavigationView *(^)(CGFloat ))setLineViewHeigth ;
-- (EasyNavigationView *(^)(UIColor *))setLineViewColor ;
-- (EasyNavigationView *(^)(BOOL ))setBLineViewHidden ;
+//- (EasyNavigationView *(^)(CGFloat ))setLineViewHeigth ;
+//- (EasyNavigationView *(^)(UIColor *))setLineViewColor ;
+//- (EasyNavigationView *(^)(BOOL ))setBLineViewHidden ;
 
 
 //title设置
@@ -69,9 +73,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @property (nonatomic,strong)NSString *title ;
 @property (nonatomic,strong)UIFont  *titleFont ;
 @property (nonatomic,strong)UIColor *titleColor ;
-- (EasyNavigationView *(^)(NSString *))setTitle ;
-- (EasyNavigationView *(^)(UIFont *))setTitleFont ;
-- (EasyNavigationView *(^)(UIColor *))setTitleColor ;
+//- (EasyNavigationView *(^)(NSString *))setTitle ;
+//- (EasyNavigationView *(^)(UIFont *))setTitleFont ;
+//- (EasyNavigationView *(^)(UIColor *))setTitleColor ;
 
 
 //返回按钮设置
@@ -79,16 +83,28 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @property (nonatomic,strong)UIImage *backButtonImage ;
 @property (nonatomic,strong)NSString *backButtonTitle ;
 @property (nonatomic,strong)clickCallback backButtonCallback ;
-- (EasyNavigationView *(^)(UIButton *))setBackButton ;
-- (EasyNavigationView *(^)(UIImage *))setBackButtonImage ;
-- (EasyNavigationView *(^)(NSString *))setBackButtonTitle ;
-- (EasyNavigationView *(^)(clickCallback ))setBackButtonCallback ;
+//- (EasyNavigationView *(^)(UIButton *))setBackButton ;
+//- (EasyNavigationView *(^)(UIImage *))setBackButtonImage ;
+//- (EasyNavigationView *(^)(NSString *))setBackButtonTitle ;
+//- (EasyNavigationView *(^)(clickCallback ))setBackButtonCallback ;
 
 
 //重新布局导航条控件
 - (void)layoutNavSubViews ;
 
 
+
+
+- (void)addSubview:(UIView *)view ;
+- (void)addSubview:(UIView *)view callback:(clickCallback)callback ;
+
+- (void)removeView:(UIView *)view ;
+
+#pragma mark - 中间添加控件
+//使用下面两个方法，注意和addSubview: addSubview:callback:的区别
+//中间视图永远只有一个，并且和leftbutton，rightbutton会有为位置的排列。
+- (void)addTitleView:(UIView *)titleView ;
+- (void)addTitleView:(UIView *)titleView callback:(clickCallback)callback ;
 
 
 #pragma mark - 左右两边添加按钮
@@ -100,23 +116,31 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
 @property (nonatomic,strong,readonly)NSMutableArray *rightViewArray ;
 
 
-- (UIButton *)addLeftButtonWithConfig:(EasyNavButtonConfig *(^)(void))config ;
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title callback:(clickCallback)callback ;
-- (UIButton *)addLeftButtonWithImageName:(NSString *)imageName callback:(clickCallback)callback ;
-- (void)addLeftView:(UIView *)view callback:(clickCallback)callback ;
+- (UIButton *)addLeftButtonWithTitle:(NSString *)title
+                               callback:(clickCallback)callback ;
 
-- (UIButton *)addRightButtonWithConfig:(EasyNavButtonConfig *(^)(void))config ;
-- (UIButton *)addRightButtonWithTitle:(NSString *)title callback:(clickCallback)callback ;
-- (UIButton *)addRightButtonWithImageName:(NSString *)imageName callback:(clickCallback)callback ;
-- (void)addRightView:(UIView *)view callback:(clickCallback)callback ;
+- (UIButton *)addLeftButtonWithImageName:(NSString *)imageName
+                                   callback:(clickCallback)callback ;
 
-- (void)addTitleView:(UIView *)titleView ;
-- (void)addTitleView:(UIView *)titleView callback:(clickCallback)callback ;
+- (UIButton *)addLeftButton:(EasyNavigationButton *(^)(void))button
+                      callback:(clickCallback)callback ;
 
-- (void)addView:(UIView *)view ;
-- (void)addView:(UIView *)view callback:(clickCallback)callback ;
+- (void)addLeftView:(UIView *)view
+              callback:(clickCallback)callback ;
 
-- (void)removeView:(UIView *)view ;
+- (UIButton *)addRightButtonWithTitle:(NSString *)title
+                            callback:(clickCallback)callback ;
+
+- (UIButton *)addRightButtonWithImageName:(NSString *)imageName
+                                callback:(clickCallback)callback ;
+
+- (UIButton *)addRightButton:(EasyNavigationButton *(^)(void))button
+                   callback:(clickCallback)callback ;
+
+- (void)addRightView:(UIView *)view
+           callback:(clickCallback)callback ;
+
+
 
 
 #pragma mark - 私有方法
@@ -146,9 +170,9 @@ typedef NS_ENUM(NSUInteger , NavigationChangeType) {
  * 设置导航栏的透明度
  * 设置导航栏的背景颜色
  */
-- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage ;
-- (void)setNavigationBackgroundAlpha:(CGFloat)alpha ;
-- (void)setNavigationBackgroundColor:(UIColor *)color ;
+- (void)setNavigationBackgroundImage:(UIImage *)backgroundImage EasyNavigationDeprecated("过期方法") ;
+- (void)setNavigationBackgroundAlpha:(CGFloat)alpha EasyNavigationDeprecated("过期方法") ;
+- (void)setNavigationBackgroundColor:(UIColor *)color EasyNavigationDeprecated("过期方法") ;
 
 //向导航栏上添加一个视图
 - (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback ;

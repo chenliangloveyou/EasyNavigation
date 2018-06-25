@@ -51,27 +51,55 @@
     [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
         [weakself.navigationView setTitle:@"点击了更多"];
     }];
-    self.navigationView.setBackButtonCallback(^(UIView *view){
-        
-    });
-    self.navigationView.title = @"w d " ;
-    [self.navigationView addLeftButtonWithConfig:^EasyNavButtonConfig *{
-        return [EasyNavButtonConfig shared]
-        .setTitle(@"好的")
-        .setTitleFont([UIFont systemFontOfSize:12]);
-    }];
-    [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
-        NavStatusBarViewController *nav=  [[NavStatusBarViewController alloc]init];
-        [nav.navigationView setTitle:@"您好"];
-        [weakself.navigationController pushViewController:nav animated:YES];
-    }];
     
+//    [self.navigationView addLeftButtonWithTitle:@" 你好！" image:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
+//
+//    }];
+//
+//    [self.navigationView addLeftButtonWithTitle:@"好的" image:nil hightImage:nil backgroundImage:[EasyNavigationUtils createImageWithColor:[UIColor blueColor]] clickCallBack:^(UIView *view) {
+//
+//    }];
+    self.navigationView.title = @"w d " ;
+    
+//    [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
+//        NavStatusBarViewController *nav=  [[NavStatusBarViewController alloc]init];
+//        [nav.navigationView setTitle:@"您好"];
+//        [weakself.navigationController pushViewController:nav animated:YES];
+//    }];
+    
+    [self.navigationView addLeftButton:^EasyNavigationButton *{
+        EasyNavigationButton *b = [EasyNavigationButton button].setTitleFrame(CGRectMake(0, 34, 60, 10)).setImageFrame(CGRectMake(0, 0, 60, 34)).setTitle(@"很啦就").setImageName(@"button_normal.png");
+        return b;
+    } callback:^(UIView *view) {
+        
+    }];
+//    [btn setTitle:@"您好" forState:UIControlStateNormal];
+//    [btn setImage:[UIImage imageNamed:@"button_normal.png"] forState:UIControlStateNormal];
+    
+   
+//    [self.navigationView addLeftBarButtonWithImageName:@"button_normal.png" callback:^(UIView *view) {
+//
+//    }];
+//    [self.navigationView addLeftBarButtonWithTitle:@"好的" callback:^(UIView *view) {
+//
+//    }];
+//    [self.navigationView addLeftBarButtonWithConfig:^EasyNavButtonConfig *{
+//        return [EasyNavButtonConfig shared].setTitle(@"好的");
+//    } callback:^(UIView *view) {
+//
+//    }];
 
 //    self.navbigTitleType = NavBigTitleTypeAll ;
 //    self.navigationView.scrollview = self.tableView ;
     
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.view addSubview:self.tableView];
+    
+//    EasyNavigationButton *b = [EasyNavigationButton button];
+//    b.title  = @"fdskljflksj";
+//    b.center= self.view.center;
+////    [b setFrame:CGRectMake(100, 100, 100, 100)];
+//    [self.view addSubview:b];
 
 }
 
