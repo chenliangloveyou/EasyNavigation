@@ -17,6 +17,18 @@
 
 #import "EasyNavigationOptions.h"
 
+
+/**
+ * 导航条改变的类型
+ */
+typedef NS_ENUM(NSUInteger , NavigationChangeType) {
+    NavigationChangeTypeUnKnow ,
+    NavigationChangeTypeAlphaChange ,
+    NavigationChangeTypeAnimation ,
+    NavigationChangeTypeSmooth ,
+};
+
+
 #define kButtonInsetsH 10.0f //按钮上下图文距按钮边缘的距离
 #define kButtonInsetsW 5.0f //按钮左右局边缘的距离
 
@@ -118,7 +130,7 @@ static void *const kScorllViewObservingKVO = @"kScorllViewObservingKVO" ;
 
 
 
-static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标示
+static NSInteger easynavigation_button_tag = 05270527 ; //视图放到数组中的唯一标示
 
 
 @interface EasyNavigationView()<UIScrollViewDelegate>
@@ -134,7 +146,7 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @property (nonatomic,strong)UIImageView *backgroundImageView ;
 
 @property (nonatomic,strong) UILabel *titleLabel ;
-@property (nonatomic,strong) UIView *titleView ;
+//@property (nonatomic,strong) UIView *titleView ;
 @property (nonatomic,strong) UIView *lineView ;
 
 @property (nonatomic,strong)NSMutableArray *leftViewArray ;
@@ -164,96 +176,12 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 @implementation EasyNavigationView
 
 
-#pragma mark - 中间添加控件
-
-- (void)addTitleView:(UIView *)titleView
-{
-    [self addTitleView:titleView callback:nil];
-}
-- (void)addTitleView:(UIView *)titleView callback:(clickCallback)callback
-{
-#warning 中间视图，只能有一个。
-    
-    if (_titleView) {
-        [_titleView removeFromSuperview];
-    }
-    
-    self.titleView = titleView ;
-    [self addSubview:titleView];
-    
-    [self layoutNavSubViews];
-    
-#warning 待处理
-//    [self addView:titleView clickCallback:callback type:buttonPlaceTypeCenter];
-}
-
-
-#pragma mark - 左右两天添加按钮
-
-- (UIButton *)addLeftButtonWithTitle:(NSString *)title
-                               callback:(clickCallback)callback
-{
-    return [self addLeftButton:^EasyNavigationButton *{
-        return [EasyNavigationButton button].setTitle(title);
-    } callback:callback] ;
-}
-- (UIButton *)addLeftButtonWithImageName:(NSString *)imageName
-                                   callback:(clickCallback)callback
-{
-    return [self addLeftButton:^EasyNavigationButton *{
-        return [EasyNavigationButton button].setImageName(imageName);
-    } callback:callback] ;
-}
-
-- (UIButton *)addLeftButton:(EasyNavigationButton *(^)(void))button
-                      callback:(clickCallback)callback
-{
-    EasyNavigationButton *btn = [EasyNavigationButton buttonWithConfig:button];
-    [self addLeftView:btn callback:callback];
-    return btn ;
-}
-
-- (void)addLeftView:(UIView *)view
-              callback:(clickCallback)callback
-{
-    [self addView:view clickCallback:callback type:buttonPlaceTypeLeft];
-}
-
-- (UIButton *)addRightButtonWithTitle:(NSString *)title
-                            callback:(clickCallback)callback
-{
-    return [self addRightButton:^EasyNavigationButton *{
-        return [EasyNavigationButton button].setTitle(title);
-    } callback:callback] ;
-}
-- (UIButton *)addRightButtonWithImageName:(NSString *)imageName
-                                callback:(clickCallback)callback
-{
-    return [self addRightButton:^EasyNavigationButton *{
-        return [EasyNavigationButton button].setImageName(imageName);
-    } callback:callback] ;
-}
-
-- (UIButton *)addRightButton:(EasyNavigationButton *(^)(void))button
-                   callback:(clickCallback)callback
-{
-    EasyNavigationButton *btn = [EasyNavigationButton buttonWithConfig:button];
-    [self addRightView:btn callback:callback];
-    return btn ;
-}
-
-- (void)addRightView:(UIView *)view
-              callback:(clickCallback)callback
-{
-    [self addView:view clickCallback:callback type:buttonPlaceTypeRight];
-}
-
 - (UIButton *)createButtonWithTitle:(NSString *)title
                     backgroundImage:(UIImage *)backgroundImage
                               image:(UIImage *)image
                          hightImage:(UIImage *)hieghtImage
                            callback:(clickCallback)callback
-                               type:(buttonPlaceType)type
+                               type:(NavigatioinViewPlaceType)type
 {
     
     if (hieghtImage) {
@@ -326,9 +254,9 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     self.didAddsubView = ^(UIView *view) {
         
         [weakSelf bringSubviewToFront:weakSelf.titleLabel];
-        if (weakSelf.titleView) {
-            [weakSelf bringSubviewToFront:weakSelf.titleView];
-        }
+//        if (weakSelf.titleView) {
+//            [weakSelf bringSubviewToFront:weakSelf.titleView];
+//        }
     };
     
     [self layoutNavSubViews] ;
@@ -372,20 +300,20 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         rightEdge += tempView.width ;
     }];
     
-    if (_titleView) {//如果有titleview 就不显示标题
-        
-        [self layoutNacCenterView:_titleView leftEdge:leftEdge rightEdge:rightEdge];
-        
-        if (_titleLabel) {
-            _titleLabel.hidden = YES ;
-        }
-        
-        return ;
-    }
-    
-    if (!_titleLabel) return ;
-    
-    _titleLabel.hidden = NO ;
+//    if (_titleView) {//如果有titleview 就不显示标题
+//
+//        [self layoutNacCenterView:_titleView leftEdge:leftEdge rightEdge:rightEdge];
+//
+//        if (_titleLabel) {
+//            _titleLabel.hidden = YES ;
+//        }
+//
+//        return ;
+//    }
+//
+//    if (!_titleLabel) return ;
+//
+//    _titleLabel.hidden = NO ;
     [self layoutNacCenterView:_titleLabel leftEdge:leftEdge rightEdge:rightEdge];
 }
 
@@ -429,18 +357,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     return self.titleLabel.text;
 }
 
-- (void)addSubview:(UIView *)view clickCallback:(clickCallback)callback
-{
-    
-    view.tag = ++easynavigation_button_tag ;
-    
-    [view addTapCallBack:self sel:@selector(viewClick:)];
-    [self addSubview:view];
-    
-    if (callback) {
-        [self.callbackDictionary setObject:[callback copy] forKey:@(view.tag)];
-    }
-}
 
 //- (void)setScrollview:(UIScrollView *)scrollview
 //{
@@ -456,60 +372,59 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
 }
 
 
-
-- (EasyNavigationView *(^)(CGFloat))setBackgroundAlpha
-{
-    return ^EasyNavigationView *(CGFloat alpha){
-        self.backGroundAlpha = alpha ;
-        return self ;
-    };
-}
-- (void)setBackgroundAlpha:(CGFloat)backgroundAlpha
-{
-    _backGroundAlpha = backgroundAlpha ;
-}
-- (EasyNavigationView *(^)(clickCallback))setBackButtonCallback
-{
-    return ^EasyNavigationView *(clickCallback callback){
-        self.backButtonCallback = callback ;
-        return self ;
-    };
-}
 #pragma mark - private
 
 
-- (void)addView:(UIView *)view clickCallback:(clickCallback)callback type:(buttonPlaceType)type
+- (void)addView:(UIView *)view clickCallback:(clickCallback)callback type:(NavigatioinViewPlaceType)type
 {
-    view.tag = ++easynavigation_button_tag ;
-    
-    if ([view isKindOfClass:[UIButton class]]) {
-        [(UIButton *)view addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    else{
-        [view addTapCallBack:self sel:@selector(viewClick:)];
-    }
-    
-    if (type == buttonPlaceTypeLeft) {
-        @synchronized(self.leftViewArray){
-            [self.leftViewArray addObject:view];
-            __block NSInteger tidx =-1;
-            [self.leftViewArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                if ([obj isEqual:self.navigationBackButton]) {
-                    tidx= idx;
-                    *stop =YES;
-                }
-            }];
-            if(tidx>0){
-                [self.leftViewArray exchangeObjectAtIndex:0 withObjectAtIndex:tidx];
+
+    switch (type) {
+        case NavigatioinViewPlaceTypeNone:{
+            
+        }break ;
+        case NavigatioinViewPlaceTypeCenter:{
+            
+            if (_titleLabel) {
+                [_titleLabel removeFromSuperview];
+                _titleLabel = nil ;
             }
-        }
-    }
-    else{
-        [self.rightViewArray addObject:view];
+#warning ----待处理
+            self.titleLabel = (UILabel *)view ;
+        
+        }break ;
+        case NavigatioinViewPlaceTypeLeft:
+        {
+            @synchronized(self.leftViewArray){
+                [self.leftViewArray addObject:view];
+                __block NSInteger tidx =-1;
+                [self.leftViewArray enumerateObjectsUsingBlock:^(id _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                    if ([obj isEqual:self.navigationBackButton]) {
+                        tidx= idx;
+                        *stop =YES;
+                    }
+                }];
+                if(tidx>0){
+                    [self.leftViewArray exchangeObjectAtIndex:0 withObjectAtIndex:tidx];
+                }
+            }
+        }break ;
+        case NavigatioinViewPlaceTypeRight:
+        {
+            [self.rightViewArray addObject:view];
+        }break ;
+        default:
+            break;
     }
     
     if (callback) {
+        view.tag = ++easynavigation_button_tag ;
         [self.callbackDictionary setObject:[callback copy] forKey:@(view.tag)];
+        if ([view isKindOfClass:[UIButton class]]) {
+            [(UIButton *)view addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        else{
+            [view addTapCallBack:self sel:@selector(viewClick:)];
+        }
     }
     
     [self addSubview:view];
@@ -517,10 +432,10 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
     [self layoutNavSubViews];
 }
 
-- (void)removeView:(UIView *)view type:(buttonPlaceType)type
+- (void)removeView:(UIView *)view type:(NavigatioinViewPlaceType)type
 {
     
-    if (type == buttonPlaceTypeLeft) {
+    if (type == NavigatioinViewPlaceTypeLeft) {
         for (UIView *tempView in self.leftViewArray) {
             if ([tempView isEqual:view]) {
                 [view removeFromSuperview];
@@ -538,7 +453,6 @@ static int easynavigation_button_tag = 1 ; //视图放到数组中的唯一标�
         }
         [self.rightViewArray removeObject:view];
         [self layoutNavSubViews];
-        
     }
 }
 - (void)buttonClick:(UIButton *)button

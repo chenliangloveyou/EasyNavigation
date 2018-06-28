@@ -15,7 +15,7 @@
 {
     [self addView:view
     clickCallback:callback
-             type:buttonPlaceTypeRight];
+             type:NavigatioinViewPlaceTypeRight];
 }
 
 - (UIButton *)addRightButtonWithTitle:(NSString *)title
@@ -26,7 +26,7 @@
                                  image:nil
                             hightImage:nil
                               callback:callback
-                                  type:buttonPlaceTypeRight];
+                                  type:NavigatioinViewPlaceTypeRight];
 }
 - (UIButton *)addRightButtonWithTitle:(NSString *)title
                                image:(UIImage *)image
@@ -37,7 +37,7 @@
                                  image:image
                             hightImage:nil
                               callback:callback
-                                  type:buttonPlaceTypeRight];
+                                  type:NavigatioinViewPlaceTypeRight];
 }
 - (UIButton *)addRightButtonWithTitle:(NSString *)title
                      backgroundImage:(UIImage *)backgroundImage
@@ -48,7 +48,7 @@
                                  image:nil
                             hightImage:nil
                               callback:callback
-                                  type:buttonPlaceTypeRight];
+                                  type:NavigatioinViewPlaceTypeRight];
 }
 
 - (UIButton *)addRightButtonWithImage:(UIImage *)image
@@ -59,7 +59,7 @@
                                  image:image
                             hightImage:nil
                               callback:callback
-                                  type:buttonPlaceTypeRight];
+                                  type:NavigatioinViewPlaceTypeRight];
 }
 
 - (UIButton *)addRightButtonWithImage:(UIImage *)image
@@ -71,7 +71,7 @@
                                  image:image
                             hightImage:hightImage
                               callback:callback
-                                  type:buttonPlaceTypeRight];
+                                  type:NavigatioinViewPlaceTypeRight];
 }
 - (UIButton *)addRightButtonWithTitle:(NSString *)title
                                image:(UIImage *)image
@@ -84,7 +84,7 @@
                                  image:image
                             hightImage:hightImage
                               callback:callback
-                                  type:buttonPlaceTypeRight];
+                                  type:NavigatioinViewPlaceTypeRight];
 }
 
 
@@ -92,13 +92,13 @@
 
 - (void)removeRightView:(UIView *)view
 {
-    [self removeView:view type:buttonPlaceTypeRight];
+    [self removeView:view type:NavigatioinViewPlaceTypeRight];
 }
 
 - (void)removeAllRightButton
 {
     for (UIView *tempView in self.rightViewArray) {
-        [self removeView:tempView type:buttonPlaceTypeRight];
+        [self removeView:tempView type:NavigatioinViewPlaceTypeRight];
     }
 }
 

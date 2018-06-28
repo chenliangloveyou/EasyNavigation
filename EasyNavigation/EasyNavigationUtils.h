@@ -84,7 +84,7 @@ CG_INLINE void dispatch_main_async_safe_easyN(dispatch_block_t block){
 
 
 // 过期提醒
-#define EasyNavigationDeprecated(instead) NS_DEPRECATED(2_0, 2_0, 2_0, 2_0, instead)
+#define EasyNavigationDeprecated(instead) __deprecated_msg(instead)
 
 
 

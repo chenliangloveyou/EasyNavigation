@@ -87,7 +87,7 @@
         {
            __block UIView *view = [[UIView alloc]initWithFrame:CGRectMake(100, -10, ScreenWidth_N()-180, NavigationHeight_N() + 20)];
             view.backgroundColor = [UIColor purpleColor];
-            [self.navigationView addSubview:view clickCallback:^(UIView *view) {
+            [self.navigationView addSubview:view callback:^(UIView *view) {
                 [view removeFromSuperview];
             }];
         }break;

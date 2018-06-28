@@ -60,7 +60,18 @@
 //
 //    }];
     self.navigationView.title = @"w d " ;
+    self.navigationView.titleLabel.text = @"fjsdk发送对方浆您好";
+    self.navigationView.titleLabel.numberOfLines= 0 ;
+    self.navigationView.titleLabel.backgroundColor = [UIColor redColor];
+    self.navigationView.titleLabel.font= [UIFont systemFontOfSize:11];
+    self.navigationView.titleLabel.frame =CGRectMake(2300, 10, 200, 20);
     
+    self.navigationView.backgroundImageView.image = nil ;
+    self.navigationView.backgroundImageView.backgroundColor = [UIColor blueColor];
+    self.navigationView.backgroundImageView.alpha = 0.3 ;
+    self.navigationView.backgroundView.alpha = 0 ;
+    
+//    [self.navigationView.backgroundImageView removeFromSuperview];
 //    [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
 //        NavStatusBarViewController *nav=  [[NavStatusBarViewController alloc]init];
 //        [nav.navigationView setTitle:@"您好"];
