@@ -271,12 +271,12 @@ _【preview】_
 注意：由于隐藏了系统导航条，只要是用EasyNavigationController为控制器的管理工具时
 系统提供的UINavigationBar 和 UINavigationItem 的属性就不能使用了。
 ```
-# 期望
-1. 如果在使用过程中遇到任务问题，或者发现使用不够恰当。希望能联系我 email: chenliangloveyou@163.com qq:455158249
-2. 如果您在使用过程中发现bug，希望能在issues中提出。我会持续改进这个库的。
-3. 如果喜欢，希望能给个star，你们的start是我优化这个库的动力。
 
-
+# 联系作者
+- 若果在使用过程中发现问题，请[提issue](https://github.com/chenliangloveyou/EasyShowView/issues/new)。我会及时解决。
+- 紧急问题可以通过邮箱：chenliangloveyou@163.com  或微信联系我。
+- ![github](https://github.com/chenliangloveyou/EasyShowView/blob/master/show_preview/wechat_icon.png "github")
+- 喜欢欢迎start~~~~
 
 
 
