@@ -10,6 +10,7 @@
 
 #import "EasyNavigationOptions.h"
 #import "EasyNavigationButton.h"
+#import "EasyNavigationScroll.h"
 
 typedef void (^clickCallback)(UIView *view) ;
 
@@ -29,7 +30,7 @@ typedef NS_ENUM(NSUInteger , NavigatioinViewPlaceType) {
 
 
 //背景视图，可以改变透明度，改变图片，
-@property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;
+@property (nonatomic,strong,readonly)UIImageView *backgroundView ;
 
 //下面的线条设置
 @property (nonatomic,strong,readonly)UIView *lineView ;
@@ -39,92 +40,55 @@ typedef NS_ENUM(NSUInteger , NavigatioinViewPlaceType) {
 
 //返回按钮设置
 @property (nonatomic,strong)UIButton *navigationBackButton ;
-
-
 /**
- * 导航条 左边/右边 所有视图
+ * 导航栏返回按钮的事件（左上角的返回按钮，如果实现了它将不会调用库里面的pop或dismiss）
  */
-@property (nonatomic,strong,readonly)NSMutableArray *leftViewArray ;
-@property (nonatomic,strong,readonly)NSMutableArray *rightViewArray ;
+@property (nonatomic,strong)clickCallback navigationBackButtonCallback ;
+
+
+
+//可以加一大堆简便方法
+//控件之间的距离
+//比如两个按钮之前的间隔，titleview很长的时候，与左右两边按钮的间隔
+//按钮与左右边缘的间隔
+@property (nonatomic,assign)CGFloat viewEdgeSpece ;
+
+
+@property (nonatomic,assign)BOOL titleViewCenterFixed ;//titleVie永远居中显示。默认为yes。（当为No的时候，左边按钮特别多的时候，会把titleview往右边挤，导致不居中）
+
 
 //重新布局导航条控件
 - (void)layoutNavSubViews ;
 
 
 
-
-#pragma mark - 私有方法
+#pragma mark - 添加视图
 /**
- * 创建一个按钮
+ * 往导航栏上添加一个视图  NOTE:请使用”EasyNavigationView+Add“中的方法
  */
-- (UIButton *)createButtonWithTitle:(NSString *)title
-                    backgroundImage:(UIImage *)backgroundImage
-                              image:(UIImage *)image
-                         hightImage:(UIImage *)hieghtImage
-                           callback:(clickCallback)callback
-                               type:(NavigatioinViewPlaceType)type ;
-/**
- * 往左右两边 添加/删除 一个视图
- */
-- (void)addView:(UIView *)view
-  clickCallback:(clickCallback)callback
-           type:(NavigatioinViewPlaceType)type ;
-- (void)removeView:(UIView *)view
-              type:(NavigatioinViewPlaceType)type ;
+- (void)addView:(UIView *)view clickCallback:(clickCallback)callback type:(NavigatioinViewPlaceType)type ;
 
 
 #pragma mark - 导航条滚动
 
-/**
- * 导航条的alpha跟随 scrollview 的滚动而改变。
- *
- * startPoint/endPoint  alpha 开始/停止 改变alpha的坐标。  中间会根据这个end-start区间均匀变化。
- */
-- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow ;
-
-- (void)navigationAlphaSlowChangeWithScrollow:(UIScrollView *)scrollow
-                                        start:(CGFloat)startPoint
-                                          end:(CGFloat)endPoint ;
-
-/**
- *  导航条随scrollview滚动而慢慢隐藏
- *
- * scrollow      为支持导航条渐变的scrollview，
- * startPoint    开始渐变scrollow需要滚动的距离，也就是说，只有在self.tableView滚动NAV_HEIGHT后导航条才开始移动。
- * speed         它的值为:导航条滚动距离/scrollow滚动距离
- * stopStatusBar 到了状态栏下面的时候是否需要停止
- */
-- (void)navigationSmoothScroll:(UIScrollView *)scrollow
-                         start:(CGFloat)startPoint
-                         speed:(CGFloat)speed
-               stopToStatusBar:(BOOL)stopStatusBar ;
-
-/**
- * 超过临界点用一个UIview动画来 隐藏/显示 导航栏
- *
- * scrollow      为支持导航条渐变的scrollview
- * criticalPoint 为触发导航条隐藏的点。也就是当scrollview的contentOffset.y值操作这个数的时候，导航条就会隐藏
- * stopStatusBar 停止到startBar下面
- */
-- (void)navigationAnimationScroll:(UIScrollView *)scrollow
-                    criticalPoint:(CGFloat)criticalPoint
-                  stopToStatusBar:(BOOL)stopStatusBar ;
+- (void)navigationScrollWithScrollView:(UIScrollView *)scrollowView
+                                config:(EasyNavigationScroll *(^)(void))config ;
 
 
 
 #pragma mark - 废弃方法
 
 //背景设备
-@property (nonatomic,strong,readonly)UIView *backgroundView ;
+//@property (nonatomic,strong,readonly)UIView *backgroundView ;
+//@property (nonatomic,strong,readonly)UIImageView *backgroundImageView ;
 
 @property (nonatomic,strong)NSString *title ;
 /**
- * 导航栏返回按钮 （左上角）
- * 可以用来改变外观，改变事件请用下面的navigationBackButtonCallback。
- *
- * 导航栏返回按钮的事件 （左上角的返回按钮，如果实现了它将不会调用库里面的popViewControllerAnimated：）
+ * 导航条 左边/右边 所有视图
  */
-@property (nonatomic,strong)clickCallback navigationBackButtonCallback ;
+@property (nonatomic,strong,readonly)NSMutableArray *leftViewArray ;
+@property (nonatomic,strong,readonly)NSMutableArray *rightViewArray ;
+
 
 
 
@@ -142,11 +106,23 @@ typedef NS_ENUM(NSUInteger , NavigatioinViewPlaceType) {
 /**
  * 导航栏点击事件
  */
-- (void)statusBarTapWithCallback:(clickCallback)callback ;
+//- (void)statusBarTapWithCallback:(clickCallback)callback ;
 //移除导航栏上的手势
 //- (void)removeStatusBarCallback ;
 
 
+/**
+ * 创建一个按钮
+ */
+- (UIButton *)createButtonWithTitle:(NSString *)title
+                    backgroundImage:(UIImage *)backgroundImage
+                              image:(UIImage *)image
+                         hightImage:(UIImage *)hieghtImage
+                           callback:(clickCallback)callback
+                               type:(NavigatioinViewPlaceType)type ;
+
+- (void)removeView:(UIView *)view
+              type:(NavigatioinViewPlaceType)type ;
 
 
 @end

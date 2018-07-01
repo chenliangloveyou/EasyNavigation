@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		680EB90F20E535F100497F46 /* EasyNavigationSlidingConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 680EB90E20E535F100497F46 /* EasyNavigationSlidingConfig.m */; };
 		680EB91520E545B000497F46 /* EasyNavigationView+Add.m in Sources */ = {isa = PBXBuildFile; fileRef = 680EB91420E545B000497F46 /* EasyNavigationView+Add.m */; };
-		6827D05F20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D05E20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m */; };
 		6827D06D20BD9BE300BE0542 /* EasyNavigationView+Scroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 6827D06C20BD9BE300BE0542 /* EasyNavigationView+Scroll.m */; };
 		682F9EA21F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9E9B1F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.m */; };
 		682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9E9D1F6C20AD00283DC6 /* NavAnimationHidenViewController.m */; };
@@ -40,6 +38,7 @@
 		68A5A5491F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A53E1F7E8BBF00B62899 /* UIScrollView+EasyNavigationExt.m */; };
 		68A5A54A1F7E8BBF00B62899 /* UIView+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5401F7E8BBF00B62899 /* UIView+EasyNavigationExt.m */; };
 		68A5A54B1F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 68A5A5421F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m */; };
+		68FE358420E91C5D00DFE565 /* EasyNavigationScroll.m in Sources */ = {isa = PBXBuildFile; fileRef = 68FE358320E91C5D00DFE565 /* EasyNavigationScroll.m */; };
 		AD0FA0E91F6A10B900F8AC1A /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */; };
 		AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AD5777981F710CB600100E64 /* NavStatusBarViewController.m */; };
 		AD57779B1F710CB600100E64 /* NavStatusBarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AD5777991F710CB600100E64 /* NavStatusBarViewController.xib */; };
@@ -69,12 +68,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		680EB90D20E535F100497F46 /* EasyNavigationSlidingConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavigationSlidingConfig.h; sourceTree = "<group>"; };
-		680EB90E20E535F100497F46 /* EasyNavigationSlidingConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationSlidingConfig.m; sourceTree = "<group>"; };
 		680EB91320E545B000497F46 /* EasyNavigationView+Add.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EasyNavigationView+Add.h"; sourceTree = "<group>"; };
 		680EB91420E545B000497F46 /* EasyNavigationView+Add.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+Add.m"; sourceTree = "<group>"; };
-		6827D05D20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavButtonGlobalConfig.h; sourceTree = "<group>"; };
-		6827D05E20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavButtonGlobalConfig.m; sourceTree = "<group>"; };
 		6827D06B20BD9BE300BE0542 /* EasyNavigationView+Scroll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EasyNavigationView+Scroll.h"; sourceTree = "<group>"; };
 		6827D06C20BD9BE300BE0542 /* EasyNavigationView+Scroll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+Scroll.m"; sourceTree = "<group>"; };
 		682F9E9A1F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavAnimationHiden_1_ViewController.h; sourceTree = "<group>"; };
@@ -133,6 +128,8 @@
 		68A5A5401F7E8BBF00B62899 /* UIView+EasyNavigationExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+EasyNavigationExt.m"; sourceTree = "<group>"; };
 		68A5A5411F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+EasyNavigationExt.h"; sourceTree = "<group>"; };
 		68A5A5421F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EasyNavigationExt.m"; sourceTree = "<group>"; };
+		68FE358220E91C5D00DFE565 /* EasyNavigationScroll.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EasyNavigationScroll.h; sourceTree = "<group>"; };
+		68FE358320E91C5D00DFE565 /* EasyNavigationScroll.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EasyNavigationScroll.m; sourceTree = "<group>"; };
 		AD0FA0E71F6A10B900F8AC1A /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		AD0FA0E81F6A10B900F8AC1A /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		AD5777971F710CB600100E64 /* NavStatusBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavStatusBarViewController.h; sourceTree = "<group>"; };
@@ -181,8 +178,6 @@
 			isa = PBXGroup;
 			children = (
 				68A5A5331F7E8BBF00B62899 /* EasyNavButton.bundle */,
-				6827D05D20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.h */,
-				6827D05E20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m */,
 				ADFE658E1FA729D4002286DF /* EasyNavigationView+LeftButton.h */,
 				ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */,
 				ADFE65911FA72B46002286DF /* EasyNavigationView+RightButton.h */,
@@ -341,10 +336,10 @@
 				680EB91420E545B000497F46 /* EasyNavigationView+Add.m */,
 				ADFCE60720074CA2000CD22C /* EasyNavigationButton.h */,
 				ADFCE60820074CA2000CD22C /* EasyNavigationButton.m */,
-				680EB90D20E535F100497F46 /* EasyNavigationSlidingConfig.h */,
-				680EB90E20E535F100497F46 /* EasyNavigationSlidingConfig.m */,
 				6827D06B20BD9BE300BE0542 /* EasyNavigationView+Scroll.h */,
 				6827D06C20BD9BE300BE0542 /* EasyNavigationView+Scroll.m */,
+				68FE358220E91C5D00DFE565 /* EasyNavigationScroll.h */,
+				68FE358320E91C5D00DFE565 /* EasyNavigationScroll.m */,
 				6827D06420BC3BE900BE0542 /* EasyNavExt */,
 				6827D06020BB0E8700BE0542 /* EasyNavButton */,
 				68A5A5351F7E8BBF00B62899 /* EasyNavigationController.h */,
@@ -514,7 +509,6 @@
 				682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */,
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
 				AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */,
-				680EB90F20E535F100497F46 /* EasyNavigationSlidingConfig.m in Sources */,
 				ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */,
 				68A5A5451F7E8BBF00B62899 /* EasyNavigationController.m in Sources */,
 				6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */,
@@ -523,13 +517,13 @@
 				68A5A54B1F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m in Sources */,
 				682F9EA41F6C20AD00283DC6 /* NavSmoothHiden_1_ViewController.m in Sources */,
 				AD6940151F98AF1A002D7826 /* EasyKVOInfo.m in Sources */,
-				6827D05F20BB0E3500BE0542 /* EasyNavButtonGlobalConfig.m in Sources */,
 				680EB91520E545B000497F46 /* EasyNavigationView+Add.m in Sources */,
 				682F9ECA1F715DC000283DC6 /* NavOperateViewController.m in Sources */,
 				682F9EB91F6C215B00283DC6 /* NavAlphaChangeViewController.m in Sources */,
 				682F9EBC1F6C215B00283DC6 /* NavTransparentViewController.m in Sources */,
 				682F9EC01F6C22A800283DC6 /* NavSystemSlidingViewController.m in Sources */,
 				68A5A5461F7E8BBF00B62899 /* EasyNavigationOptions.m in Sources */,
+				68FE358420E91C5D00DFE565 /* EasyNavigationScroll.m in Sources */,
 				AD0FA0E91F6A10B900F8AC1A /* BaseViewController.m in Sources */,
 				6876E75B1F5858CE00DEDFE0 /* main.m in Sources */,
 				682F9EA21F6C20AD00283DC6 /* NavAnimationHiden_1_ViewController.m in Sources */,

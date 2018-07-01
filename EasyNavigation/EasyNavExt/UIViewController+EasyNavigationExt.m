@@ -67,7 +67,7 @@
     if (!self.navigationController) {
         NSAssert(NO, @"attention: this controller's navigationcontroller is null: %@",self);
     }
-    
+#warning 返回按钮事件的时候的时候值得研究
     if (self.navigationController.viewControllers.count > 1) {
         UIImage *img = [UIImage imageNamed:EasyImageFile_N(@"nav_btn_back.png")] ;
         if ([EasyNavigationOptions shareInstance].navigationBackButtonImage) {

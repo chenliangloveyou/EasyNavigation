@@ -24,7 +24,9 @@
     scrollview.contentSize = CGSizeMake(self.view.width*3, 0) ;
     scrollview.pagingEnabled = YES ;
     [self.view addSubview:scrollview];
-
+    self.navigationView.navigationBackButtonCallback = ^(UIView *view) {
+        NSLog(@"dddddd");
+    };
 
     for (int i = 0; i < 3; i++) {
         UIView *view = [[UIView alloc]initWithFrame:CGRectMake( scrollview.width*i, 0, scrollview.width, scrollview.height)];

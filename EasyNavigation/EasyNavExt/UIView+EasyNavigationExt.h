@@ -27,7 +27,7 @@
 /**
  * 获取当前view所在的控制器
  */
-- (UIViewController *)currentViewController;
+- (UIViewController *)viewCurrentViewController;
 
 /**
  * addSubview之后的回调

@@ -81,6 +81,11 @@ CG_INLINE void dispatch_main_async_safe_easyN(dispatch_block_t block){
         dispatch_async(dispatch_get_main_queue(), block);
     }
 }
+//延时执行
+CG_INLINE void dispatch_delay_easyN(CGFloat time , dispatch_block_t block){
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
+}
 
 
 // 过期提醒

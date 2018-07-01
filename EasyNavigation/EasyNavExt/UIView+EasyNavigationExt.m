@@ -162,7 +162,7 @@
 }
 
 
-- (UIViewController *)currentViewController
+- (UIViewController *)viewCurrentViewController
 {
     for (UIView* next = [self superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];

@@ -60,6 +60,6 @@
 /**
  * 左边所有的视图全部移除
  */
-- (void)removeAllLeftButton ;
+//- (void)removeAllLeftButton ;
 
 @end

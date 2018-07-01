@@ -8,12 +8,13 @@
 
 #import "EasyNavigationView.h"
 
+
 @interface EasyNavigationView (Add)
 
 
 #pragma mark - 添加一个单纯的view，不会布局该控件
 
-//其实和 addsubview：就多了一个 callback的点击回调方法。
+//其实和 addsubview：相比  就多了一个 callback的点击回调方法。
 - (void)addSubview:(UIView *)view callback:(clickCallback)callback ;
 
 

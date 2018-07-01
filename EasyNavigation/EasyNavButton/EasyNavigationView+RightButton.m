@@ -95,12 +95,12 @@
     [self removeView:view type:NavigatioinViewPlaceTypeRight];
 }
 
-- (void)removeAllRightButton
-{
-    for (UIView *tempView in self.rightViewArray) {
-        [self removeView:tempView type:NavigatioinViewPlaceTypeRight];
-    }
-}
+//- (void)removeAllRightButton
+//{
+//    for (UIView *tempView in self.rightViewArray) {
+//        [self removeView:tempView type:NavigatioinViewPlaceTypeRight];
+//    }
+//}
 
 
 @end
