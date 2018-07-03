@@ -21,7 +21,7 @@
     [self.navigationView setTitle:@"嵌套scrollview返回"];
 
     UIScrollView *scrollview = [[UIScrollView alloc]initWithFrame:self.view.bounds];
-    scrollview.contentSize = CGSizeMake(self.view.width*3, 0) ;
+    scrollview.contentSize = CGSizeMake(self.view.Easy_width*3, 0) ;
     scrollview.pagingEnabled = YES ;
     [self.view addSubview:scrollview];
     self.navigationView.navigationBackButtonCallback = ^(UIView *view) {
@@ -29,7 +29,7 @@
     };
 
     for (int i = 0; i < 3; i++) {
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake( scrollview.width*i, 0, scrollview.width, scrollview.height)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake( scrollview.Easy_width*i, 0, scrollview.Easy_width, scrollview.Easy_height)];
         view.backgroundColor = kColorRandom_N ;
         [scrollview addSubview:view];
         

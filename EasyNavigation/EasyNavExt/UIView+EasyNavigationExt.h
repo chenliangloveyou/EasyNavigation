@@ -11,32 +11,32 @@
 @interface UIView (EasyNavigationExt)
 
 
-@property (nonatomic) CGFloat x;
-@property (nonatomic) CGFloat y;
-@property(nonatomic) CGFloat width;
-@property(nonatomic) CGFloat height;
+@property (nonatomic) CGFloat Easy_x;
+@property (nonatomic) CGFloat Easy_y;
+@property(nonatomic) CGFloat Easy_width;
+@property(nonatomic) CGFloat Easy_height;
 
-@property(nonatomic) CGFloat centerX;
-@property(nonatomic) CGFloat centerY;
+@property(nonatomic) CGFloat Easy_centerX;
+@property(nonatomic) CGFloat Easy_centerY;
 
-@property(nonatomic,assign) CGFloat left;
-@property(nonatomic) CGFloat top;
-@property(nonatomic) CGFloat right;
-@property(nonatomic) CGFloat bottom;
+@property(nonatomic,assign) CGFloat Easy_left;
+@property(nonatomic) CGFloat Easy_top;
+@property(nonatomic) CGFloat Easy_right;
+@property(nonatomic) CGFloat Easy_bottom;
 
 /**
  * 获取当前view所在的控制器
  */
-- (UIViewController *)viewCurrentViewController;
+- (UIViewController *)Easy_viewCurrentViewController;
 
 /**
  * addSubview之后的回调
  */
-@property (nonatomic, copy) void(^didAddsubView)(UIView *view);
+@property (nonatomic, copy) void(^Easy_didAddsubView)(UIView *view);
 
 /**
  * 为视图添加一个事件 
  */
-- (void)addTapCallBack:(id)target sel:(SEL)selector;
+- (void)Easy_addTapCallBack:(id)target sel:(SEL)selector;
 
 @end

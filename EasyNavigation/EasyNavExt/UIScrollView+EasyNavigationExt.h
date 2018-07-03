@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-typedef NS_ENUM(NSInteger ,ScrollDirection) {
-    ScrollDirectionUnknow=0,
-    ScrollDirectionUp,//向上滚动
-    ScrollDirectionDown,//向下滚动
+typedef NS_ENUM(NSInteger ,EasyScrollDirection) {
+    EasyScrollDirectionUnknow=0,
+    EasyScrollDirectionUp,//向上滚动
+    EasyScrollDirectionDown,//向下滚动
     
 };
 
@@ -21,12 +21,12 @@ typedef NS_ENUM(NSInteger ,ScrollDirection) {
 /**
  * 开始改变方向标
  */
-@property (nonatomic, assign)ScrollDirection direction;
+@property (nonatomic, assign)EasyScrollDirection Easy_direction;
 
 /**
  * 开始改变方向时scrollview的距离
  */
-@property (nonatomic, assign)float scrollDistance ;
+@property (nonatomic, assign)float Easy_scrollDistance ;
 
 /**
  *  是否正在动画
@@ -34,7 +34,7 @@ typedef NS_ENUM(NSInteger ,ScrollDirection) {
 //@property (nonatomic , assign)BOOL isScrolling ;
 
 
-@property (nonatomic, assign) BOOL enableDirection;
+@property (nonatomic, assign) BOOL Easy_enableDirection;
 
 
 @end

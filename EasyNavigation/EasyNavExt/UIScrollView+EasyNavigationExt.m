@@ -16,34 +16,32 @@
 //{
 //}
 
-- (ScrollDirection)direction
-{
+- (EasyScrollDirection)Easy_direction{
+    
     NSNumber *tempDirection = objc_getAssociatedObject(self, _cmd);
     return tempDirection.integerValue ;
 }
-- (void)setDirection:(ScrollDirection)direction
-{
-    objc_setAssociatedObject(self, @selector(direction), @(direction), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+- (void)setEasy_direction:(EasyScrollDirection)Easy_direction{
+    
+    objc_setAssociatedObject(self, @selector(Easy_direction), @(Easy_direction), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-- (float)scrollDistance
-{
+- (float)Easy_scrollDistance{
+    
     NSNumber *tempDistance = objc_getAssociatedObject(self, _cmd);
     return tempDistance.floatValue ;
 }
-- (void)setScrollDistance:(float)scrollDistance
-{
-    objc_setAssociatedObject(self, @selector(scrollDistance), @(scrollDistance), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-- (void)setEnableDirection:(BOOL)enableDirection{
+- (void)setEasy_scrollDistance:(float)Easy_scrollDistance{
     
-    objc_setAssociatedObject(self, @selector(enableDirection), @(enableDirection), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-   
+    objc_setAssociatedObject(self, @selector(Easy_scrollDistance), @(Easy_scrollDistance), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
-- (BOOL)enableDirection{
+- (void)setEasy_enableDirection:(BOOL)Easy_enableDirection{
+    
+    objc_setAssociatedObject(self, @selector(Easy_enableDirection), @(Easy_enableDirection), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+- (BOOL)Easy_enableDirection{
     
     NSNumber * number = objc_getAssociatedObject(self, _cmd);
-    
     return number.integerValue;
 }
 

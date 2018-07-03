@@ -13,110 +13,110 @@
 @implementation UIView (EasyNavigationExt)
 
 
-- (CGFloat)x {
+- (CGFloat)Easy_x {
     return self.frame.origin.x;
 }
-- (void)setX:(CGFloat)x {
+- (void)setEasy_x:(CGFloat)Easy_x {
     CGRect frame = self.frame;
-    frame.origin.x = x;
+    frame.origin.x = Easy_x;
     self.frame = frame;
 }
-- (CGFloat)y {
+- (CGFloat)Easy_y {
     return self.frame.origin.y;
 }
-- (void)setY:(CGFloat)y {
+- (void)setEasy_y:(CGFloat)Easy_y {
     CGRect frame = self.frame;
-    frame.origin.y = y;
+    frame.origin.y = Easy_y;
     self.frame = frame;
 }
-- (CGFloat)width {
+- (CGFloat)Easy_width {
     return self.frame.size.width;
 }
 
-- (void)setWidth:(CGFloat)width {
+- (void)setEasy_width:(CGFloat)Easy_width {
     CGRect frame = self.frame;
-    frame.size.width = width;
+    frame.size.width = Easy_width;
     self.frame = frame;
 }
 
-- (CGFloat)height {
+- (CGFloat)Easy_height {
     return self.frame.size.height;
 }
 
-- (void)setHeight:(CGFloat)height {
+- (void)setEasy_height:(CGFloat)Easy_height {
     CGRect frame = self.frame;
-    frame.size.height = height;
+    frame.size.height = Easy_height;
     self.frame = frame;
 }
 
 
-- (CGFloat)centerX {
+- (CGFloat)Easy_centerX {
     return self.center.x;
 }
 
-- (void)setCenterX:(CGFloat)centerX {
-    self.center = CGPointMake(centerX, self.center.y);
+- (void)setEasy_centerX:(CGFloat)Easy_centerX {
+    self.center = CGPointMake(Easy_centerX, self.center.y);
 }
 
-- (CGFloat)centerY {
+- (CGFloat)Easy_centerY {
     return self.center.y;
 }
 
-- (void)setCenterY:(CGFloat)centerY {
-    self.center = CGPointMake(self.center.x, centerY);
+- (void)setEasy_centerY:(CGFloat)Easy_centerY {
+    self.center = CGPointMake(self.center.x, Easy_centerY);
 }
 
 
 
-- (CGFloat)left {
+- (CGFloat)Easy_left {
     return self.frame.origin.x;
 }
 
-- (void)setLeft:(CGFloat)x {
+- (void)setEasy_left:(CGFloat)Easy_x {
     CGRect frame = self.frame;
-    frame.origin.x = x;
+    frame.origin.x = Easy_x;
     self.frame = frame;
 }
 
-- (CGFloat)top {
+- (CGFloat)Easy_top {
     return self.frame.origin.y;
 }
 
-- (void)setTop:(CGFloat)y {
+- (void)setEasy_top:(CGFloat)Easy_y {
     CGRect frame = self.frame;
-    frame.origin.y = y;
+    frame.origin.y = Easy_y;
     self.frame = frame;
 }
 
-- (CGFloat)right {
+- (CGFloat)Easy_right {
     return self.frame.origin.x + self.frame.size.width;
 }
 
-- (void)setRight:(CGFloat)right {
+- (void)setEasy_right:(CGFloat)Easy_right {
     CGRect frame = self.frame;
-    frame.origin.x = right - frame.size.width;
+    frame.origin.x = Easy_right - frame.size.width;
     self.frame = frame;
 }
 
-- (CGFloat)bottom {
+- (CGFloat)Easy_bottom {
     return self.frame.origin.y + self.frame.size.height;
 }
 
-- (void)setBottom:(CGFloat)bottom {
+- (void)setEasy_bottom:(CGFloat)Easy_bottom {
     CGRect frame = self.frame;
-    frame.origin.y = bottom - frame.size.height;
+    frame.origin.y = Easy_bottom - frame.size.height;
     self.frame = frame;
 }
 
 
-- (void (^)(UIView *))didAddsubView
+- (void (^)(UIView *))Easy_didAddsubView
 {
     return objc_getAssociatedObject(self, _cmd);
 }
 
-- (void)setDidAddsubView:(void (^)(UIView *))didAddsubView
+- (void)setEasy_didAddsubView:(void (^)(UIView *))Easy_didAddsubView
 {
-    objc_setAssociatedObject(self, @selector(didAddsubView), didAddsubView, OBJC_ASSOCIATION_COPY_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(Easy_didAddsubView), Easy_didAddsubView, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 
@@ -128,7 +128,7 @@
         Class viewClass = [UIView class];
         
         SEL originalSelector = @selector(addSubview:);
-        SEL swizzledSelector = @selector(easyAddSubview:);
+        SEL swizzledSelector = @selector(Easy_easyAddSubview:);
         
         Method originalMethod = class_getInstanceMethod(viewClass, originalSelector);
         Method swizzledMethod = class_getInstanceMethod(viewClass, swizzledSelector);
@@ -152,17 +152,17 @@
 }
 
 
-- (void)easyAddSubview:(UIView *)view
+- (void)Easy_easyAddSubview:(UIView *)view
 {
-    [self easyAddSubview:view];
+    [self Easy_easyAddSubview:view];
     
-    if (self.didAddsubView) {
-        self.didAddsubView(view);
+    if (self.Easy_didAddsubView) {
+        self.Easy_didAddsubView(view);
     }
 }
 
 
-- (UIViewController *)viewCurrentViewController
+- (UIViewController *)Easy_viewCurrentViewController
 {
     for (UIView* next = [self superview]; next; next = next.superview) {
         UIResponder *nextResponder = [next nextResponder];
@@ -193,7 +193,7 @@
     return nil;
 }
 
-- (void)addTapCallBack:(id)target sel:(SEL)selector
+- (void)Easy_addTapCallBack:(id)target sel:(SEL)selector
 {
     self.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:target action:selector];

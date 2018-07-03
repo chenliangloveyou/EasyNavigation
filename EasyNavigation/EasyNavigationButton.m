@@ -68,11 +68,11 @@
             self.imageView.frame = _imageFrame ;
         }
         else{
-            self.imageView.x = 0;
-            self.imageView.y = kButtonImageTopEdge ;
-            self.imageView.height = self.height-kButtonImageTopEdge*2 ;
+            self.imageView.Easy_x = 0;
+            self.imageView.Easy_y = kButtonImageTopEdge ;
+            self.imageView.Easy_height = self.Easy_height-kButtonImageTopEdge*2 ;
             
-            CGFloat imageW = self.imageView.height ;
+            CGFloat imageW = self.imageView.Easy_height ;
             UIImage *tempImage = nil ;
             if (_imageName) {
                 tempImage = [UIImage imageNamed:_imageName];
@@ -82,13 +82,13 @@
                 NSAssert(NO, @"imageName is illegal !") ;
             }
             if (tempImage) {
-                imageW = (tempImage.size.width*self.imageView.height)/tempImage.size.height ;
+                imageW = (tempImage.size.width*self.imageView.Easy_height)/tempImage.size.height ;
                 if (imageW > kButtonImageMaxWidth) {
                     imageW = kButtonImageMaxWidth ;
                 }
             }
             
-            self.imageView.width = imageW ;
+            self.imageView.Easy_width = imageW ;
         }
     }
 
@@ -98,19 +98,19 @@
             self.titleLabel.frame = _titleFrame ;
         }
         else{
-            self.titleLabel.x = CGRectGetMaxX(self.imageView.frame);
-            self.titleLabel.y = 0 ;
-            self.titleLabel.height = self.height;
+            self.titleLabel.Easy_x = CGRectGetMaxX(self.imageView.frame);
+            self.titleLabel.Easy_y = 0 ;
+            self.titleLabel.Easy_height = self.Easy_height;
             
             CGFloat titleW = [_title sizeWithAttributes:@{NSFontAttributeName: self.titleLabel.font}].width ;
             if (titleW > kButtonTitleMaxWidth) {
                 titleW = kButtonTitleMaxWidth ;
             }
-            self.titleLabel.width = titleW ;
+            self.titleLabel.Easy_width = titleW ;
         }
     }
   
-    [self setFrame:CGRectMake(self.x, self.y, self.titleLabel.right, NavigationNorlmalHeight_N())] ;
+    [self setFrame:CGRectMake(self.Easy_x, self.Easy_y, self.titleLabel.Easy_right, NavigationNorlmalHeight_N())] ;
 }
 
 - (void)setTitle:(NSString *)title
@@ -154,10 +154,17 @@
 - (void)setTitleFrame:(CGRect)titleFrame
 {
     _titleFrame = titleFrame ;
+//    if (!CGRectEqualToRect(self.titleLabel.frame, titleFrame)) {
+//        [self layoutIfNeeded];
+//    }
+    
 }
 - (void)setImageFrame:(CGRect)imageFrame
 {
     _imageFrame = imageFrame ;
+//    if (!CGRectEqualToRect(self.imageView.frame, imageFrame)) {
+//        [self layoutIfNeeded];
+//    }
 }
 
 

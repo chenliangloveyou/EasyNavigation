@@ -11,7 +11,7 @@
 
 #import "EasyNavigationController.h"
 #import "EasyNavigationUtils.h"
-#import "EasyNavigationView+LeftButton.h"
+#import "EasyNavigationView+Add.h"
 #import <objc/runtime.h>
 
 
@@ -52,47 +52,47 @@
 }
 
 
-//- (EasyNavigationController *)vcEasyNavController
-//{
-//    EasyNavigationController *vcNav=  objc_getAssociatedObject(self, _cmd);
-//    if (nil == vcNav) {
-//        vcNav = (EasyNavigationController *)self.navigationController ;
-//        objc_setAssociatedObject(self, @selector(vcEasyNavController), vcNav, OBJC_ASSOCIATION_ASSIGN);
-//    }
-//    return vcNav ;
-//}
-
 - (void)checkNavigationHasController:(EasyNavigationView *)navView
 {
     if (!self.navigationController) {
         NSAssert(NO, @"attention: this controller's navigationcontroller is null: %@",self);
     }
-#warning 返回按钮事件的时候的时候值得研究
+
     if (self.navigationController.viewControllers.count > 1) {
-        UIImage *img = [UIImage imageNamed:EasyImageFile_N(@"nav_btn_back.png")] ;
+        NSString *imgName = EasyImageFile_N(@"nav_btn_back.png") ;
         if ([EasyNavigationOptions shareInstance].navigationBackButtonImage) {
-            img = [EasyNavigationOptions shareInstance].navigationBackButtonImage ;
+//            imgName = [EasyNavigationOptions shareInstance].navBackgroundImage ;
+#warning 错误
         }
-        NSString *title = @"      " ;
+        NSString *title = @"   " ;
         if ([EasyNavigationOptions shareInstance].navigationBackButtonTitle) {
             title = [EasyNavigationOptions shareInstance].navigationBackButtonTitle ;
         }
         __weak typeof(self)weakSelf = self;
-        UIButton *backButton = [navView addLeftButtonWithTitle:title image:img clickCallBack:^(UIView *view) {
-            
-            NSArray *viewControllers = weakSelf.navigationController.viewControllers ;
-            if (viewControllers.count > 1) {
-                if ([viewControllers objectAtIndex:viewControllers.count -1] == weakSelf) {
-                    //push方式
-                    [weakSelf.navigationController popViewControllerAnimated:YES];
-                }
-            }
-            else{
-                //present方式
-                [weakSelf dismissViewControllerAnimated:YES completion:nil];
-            }
+        UIButton *backButton = [navView addLeftButton:^EasyNavigationButton *{
+            return [EasyNavigationButton button].setTitle(title).setImageName(imgName).setImageFrame(CGRectMake(5, 7, 34, 30)).setTitleFrame(CGRectMake(44, 0, 40, 44));
+        } callback:^(UIView *view) {
+            [weakSelf viewControllerBack];
         }];
+        backButton.backgroundColor = [UIColor redColor];
         navView.navigationBackButton = backButton ;
+    }
+}
+- (void)viewControllerBack{
+    
+    NSArray *viewControllers = self.navigationController.viewControllers ;
+    if (viewControllers.count > 1) {
+        if ([viewControllers objectAtIndex:viewControllers.count -1] == self) {
+            //push方式
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else{
+            NSAssert(NO, @"attention:handle error: %@",self);
+        }
+    }
+    else{
+        //present方式
+        [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
 - (EasyNavigationView *)navigationView
@@ -119,6 +119,16 @@
 }
 
 
+//- (EasyNavigationController *)vcEasyNavController
+//{
+//    EasyNavigationController *vcNav=  objc_getAssociatedObject(self, _cmd);
+//    if (nil == vcNav) {
+//        vcNav = (EasyNavigationController *)self.navigationController ;
+//        objc_setAssociatedObject(self, @selector(vcEasyNavController), vcNav, OBJC_ASSOCIATION_ASSIGN);
+//    }
+//    return vcNav ;
+//}
+
 //- (CGFloat)navigationHeight
 //{
 //    CGFloat normalHeight = kNavNormalHeight_N + (ISHORIZONTA_N ? 0 : (ISIPHONE_X ?44:20));
@@ -137,57 +147,57 @@
 //    return normalHeight ;
 //}
 
-- (BOOL)isShowBigTitle
-{
-    if (ScreenIsHorizontal_N()) {//如果屏幕是水平方向，不要大标题
-        return NO ;
-    }
-    
-    BOOL shouldShow = NO ;
-    switch (self.navbigTitleType) {
-        case NavBigTitleTypeIOS11:
-//            shouldShow = IS_IOS11_OR_LATER ;
-            break;
-        case NavBigTitleTypePlus:
-//            shouldShow = ISIPHONE_6P ;
-            break ;
-        case NavBigTitleTypeIphoneX:
-//            shouldShow = ISIPHONE_X ;
-            break ;
-        case NavBigTitleTypeAll :
-            shouldShow = YES ;
-            break ;
-        case NavBigTitleTypePlusOrX:
-//            shouldShow = ISIPHONE_X || ISIPHONE_6P ;
-            break ;
-        default:
-            break;
-    }
-    return shouldShow ;
-}
-
-- (NavBigTitleType)navbigTitleType
-{
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
-}
-- (void)setNavbigTitleType:(NavBigTitleType)navbigTitleType
-{
-    objc_setAssociatedObject(self, @selector(navbigTitleType), @(navbigTitleType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
-    //设置大标题的时候，通知导航条刷新高度
-    if (self.navigationView) {
-        [self.navigationView layoutNavSubViews];
-    }
-}
-
-- (NavTitleAnimationType)navTitleAnimationType
-{
-    return [objc_getAssociatedObject(self, _cmd) integerValue];
-}
-- (void)setNavTitleAnimationType:(NavTitleAnimationType)navTitleAnimationType
-{
-    objc_setAssociatedObject(self, @selector(navTitleAnimationType), @(navTitleAnimationType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+//- (BOOL)isShowBigTitle
+//{
+//    if (ScreenIsHorizontal_N()) {//如果屏幕是水平方向，不要大标题
+//        return NO ;
+//    }
+//    
+//    BOOL shouldShow = NO ;
+//    switch (self.navbigTitleType) {
+//        case NavBigTitleTypeIOS11:
+////            shouldShow = IS_IOS11_OR_LATER ;
+//            break;
+//        case NavBigTitleTypePlus:
+////            shouldShow = ISIPHONE_6P ;
+//            break ;
+//        case NavBigTitleTypeIphoneX:
+////            shouldShow = ISIPHONE_X ;
+//            break ;
+//        case NavBigTitleTypeAll :
+//            shouldShow = YES ;
+//            break ;
+//        case NavBigTitleTypePlusOrX:
+////            shouldShow = ISIPHONE_X || ISIPHONE_6P ;
+//            break ;
+//        default:
+//            break;
+//    }
+//    return shouldShow ;
+//}
+//
+//- (NavBigTitleType)navbigTitleType
+//{
+//    return [objc_getAssociatedObject(self, _cmd) integerValue];
+//}
+//- (void)setNavbigTitleType:(NavBigTitleType)navbigTitleType
+//{
+//    objc_setAssociatedObject(self, @selector(navbigTitleType), @(navbigTitleType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    
+//    //设置大标题的时候，通知导航条刷新高度
+//    if (self.navigationView) {
+//        [self.navigationView layoutNavSubViews];
+//    }
+//}
+//
+//- (NavTitleAnimationType)navTitleAnimationType
+//{
+//    return [objc_getAssociatedObject(self, _cmd) integerValue];
+//}
+//- (void)setNavTitleAnimationType:(NavTitleAnimationType)navTitleAnimationType
+//{
+//    objc_setAssociatedObject(self, @selector(navTitleAnimationType), @(navTitleAnimationType), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//}
 
 
 - (UIStatusBarStyle)statusBarStyle
@@ -221,20 +231,20 @@
     [self setNeedsStatusBarAppearanceUpdate];
 }
 
-- (BOOL)horizontalScreenShowStatusBar
-{
-    return [objc_getAssociatedObject(self, _cmd) boolValue] ;
-}
-
--(void)setHorizontalScreenShowStatusBar:(BOOL)horizontalScreenShowStatusBar
-{
-    if (self.horizontalScreenShowStatusBar == horizontalScreenShowStatusBar) {
-        return ;
-    }
-    objc_setAssociatedObject(self, @selector(horizontalScreenShowStatusBar), @(horizontalScreenShowStatusBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    
-    [self setNeedsStatusBarAppearanceUpdate];
-}
+//- (BOOL)horizontalScreenShowStatusBar
+//{
+//    return [objc_getAssociatedObject(self, _cmd) boolValue] ;
+//}
+//
+//-(void)setHorizontalScreenShowStatusBar:(BOOL)horizontalScreenShowStatusBar
+//{
+//    if (self.horizontalScreenShowStatusBar == horizontalScreenShowStatusBar) {
+//        return ;
+//    }
+//    objc_setAssociatedObject(self, @selector(horizontalScreenShowStatusBar), @(horizontalScreenShowStatusBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+//    
+//    [self setNeedsStatusBarAppearanceUpdate];
+//}
 
 - (void)dealSlidingGestureDelegate
 {

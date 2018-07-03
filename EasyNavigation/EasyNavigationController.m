@@ -108,10 +108,10 @@
 {
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
 //        EasyNavigationView  *navView = self.topViewController.navigationView ;
-//        if (navView.width != self.topViewController.view.width) {
-//            navView.width = self.topViewController.view.width ;
+//        if (navView.Easy_width != self.topViewController.view.Easy_width) {
+//            navView.Easy_width = self.topViewController.view.Easy_width ;
 //        }
-//        if (self.view.width != SCREEN_WIDTH) {
+//        if (self.view.Easy_width != SCREEN_WIDTH) {
 //            navView.centerX = self.view.centerX ;
 //        }
 //    });
@@ -127,7 +127,7 @@
 }
 - (void)setViewControllers:(NSArray<__kindof UIViewController *> *)viewControllers
 {
-    
+    [super setViewControllers:viewControllers];
 }
 
 - (void)setViewControllers:(NSArray<UIViewController *> *)viewControllers animated:(BOOL)animated
@@ -151,7 +151,8 @@
     // 修改返回按钮样式
     if ([EasyNavigationOptions shareInstance].btnTitleType == FBackBtnTitleType_System && [self isKindOfClass:[EasyNavigationController class]]) {
         UIViewController * vc = self.viewControllers.lastObject;
-        [EasyNavigationOptions shareInstance].navigationBackButtonTitle = [vc.navigationView title];
+//        [EasyNavigationOptions shareInstance].navigationBackButtonTitle = [vc.navigationView title];
+#warning cunzaiwenti
     }
     
     [super pushViewController:viewController animated:animated];
@@ -193,8 +194,8 @@
     EasyNavigationView  *navView = self.topViewController.navigationView ;
     if (!navView)  return ;
     
-    if (navView.width != self.topViewController.view.width) {
-        navView.width = self.topViewController.view.width ;
+    if (navView.Easy_width != self.topViewController.view.Easy_width) {
+        navView.Easy_width = self.topViewController.view.Easy_width ;
     }
 
     [navView layoutNavSubViews];
@@ -202,10 +203,10 @@
     UIDevice *device = [UIDevice currentDevice] ;
 
     if (device.orientation == UIDeviceOrientationPortrait || device.orientation == UIDeviceOrientationPortraitUpsideDown) {
-        EasyLog_N(@"竖屏 ====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
+        EasyLog_N(@"竖屏 ====== %f , %f",self.topViewController.view.Easy_width ,self.topViewController.navigationView.Easy_height);
     }
     else if ([[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeLeft || [[UIDevice currentDevice] orientation] == UIDeviceOrientationLandscapeRight) {
-        EasyLog_N(@"横屏====== %f , %f",self.topViewController.view.width ,self.topViewController.navigationView.height);
+        EasyLog_N(@"横屏====== %f , %f",self.topViewController.view.Easy_width ,self.topViewController.navigationView.Easy_height);
     }
     else{
         EasyLog_N(@"未知状态====== %zd",device.orientation );

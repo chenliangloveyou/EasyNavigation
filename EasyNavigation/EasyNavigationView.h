@@ -53,7 +53,7 @@ typedef NS_ENUM(NSUInteger , NavigatioinViewPlaceType) {
 //按钮与左右边缘的间隔
 @property (nonatomic,assign)CGFloat viewEdgeSpece ;
 
-
+//增加是否把view向下平移
 @property (nonatomic,assign)BOOL titleViewCenterFixed ;//titleVie永远居中显示。默认为yes。（当为No的时候，左边按钮特别多的时候，会把titleview往右边挤，导致不居中）
 
 
