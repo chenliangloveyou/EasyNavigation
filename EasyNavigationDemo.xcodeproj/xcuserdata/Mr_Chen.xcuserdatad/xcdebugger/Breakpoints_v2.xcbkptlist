@@ -39,12 +39,12 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EasyNavigation/EasyNavigationButton.m"
-            timestampString = "552328377.6954"
+            filePath = "EasyNavigation/EasyNavigationView.m"
+            timestampString = "552500728.301154"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "113"
-            endingLineNumber = "113"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
             landmarkName = "-layoutSubviews"
             landmarkType = "7">
          </BreakpointContent>
@@ -55,13 +55,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EasyNavigation/EasyNavigationView.m"
-            timestampString = "552328613.852879"
+            filePath = "EasyNavigationDemo/ViewController.m"
+            timestampString = "552500838.209856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
-            landmarkName = "-layoutSubviews"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-viewDidLoad"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -22,6 +22,7 @@
 		682F9EC61F6C24B600283DC6 /* NavCustomSlidingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 682F9EC41F6C24B600283DC6 /* NavCustomSlidingViewController.xib */; };
 		682F9ECA1F715DC000283DC6 /* NavOperateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9EC91F715DC000283DC6 /* NavOperateViewController.m */; };
 		682F9ED01F715E8C00283DC6 /* NavEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */; };
+		68454FCB20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 68454FCA20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m */; };
 		6866B2D520D6C84C0032DEB2 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6866B2D420D6C84B0032DEB2 /* Bugly.framework */; };
 		6876E75B1F5858CE00DEDFE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75A1F5858CE00DEDFE0 /* main.m */; };
 		6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */; };
@@ -96,6 +97,8 @@
 		682F9EC91F715DC000283DC6 /* NavOperateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavOperateViewController.m; sourceTree = "<group>"; };
 		682F9ECE1F715E8C00283DC6 /* NavEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NavEmptyViewController.h; sourceTree = "<group>"; };
 		682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavEmptyViewController.m; sourceTree = "<group>"; };
+		68454FC920EE78C6009832E7 /* UITableViewController+EasyNavigationExt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewController+EasyNavigationExt.h"; sourceTree = "<group>"; };
+		68454FCA20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewController+EasyNavigationExt.m"; sourceTree = "<group>"; };
 		6866B2D420D6C84B0032DEB2 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		6876E7561F5858CE00DEDFE0 /* EasyNavigationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyNavigationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E75A1F5858CE00DEDFE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -195,6 +198,8 @@
 				68A5A5401F7E8BBF00B62899 /* UIView+EasyNavigationExt.m */,
 				68A5A5411F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.h */,
 				68A5A5421F7E8BBF00B62899 /* UIViewController+EasyNavigationExt.m */,
+				68454FC920EE78C6009832E7 /* UITableViewController+EasyNavigationExt.h */,
+				68454FCA20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m */,
 				AD6940101F988FF8002D7826 /* NSObject+EasyKVO.h */,
 				AD6940111F988FF8002D7826 /* NSObject+EasyKVO.m */,
 				AD6940131F98AF1A002D7826 /* EasyKVOInfo.h */,
@@ -509,6 +514,7 @@
 				682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */,
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
 				AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */,
+				68454FCB20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m in Sources */,
 				ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */,
 				68A5A5451F7E8BBF00B62899 /* EasyNavigationController.m in Sources */,
 				6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */,
