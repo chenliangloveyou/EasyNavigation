@@ -15,7 +15,6 @@
 #import "UIView+EasyNavigationExt.h"
 #import <objc/runtime.h>
 
-
 @implementation UIViewController (EasyNavigationExt)
 
 @dynamic navigationView ;

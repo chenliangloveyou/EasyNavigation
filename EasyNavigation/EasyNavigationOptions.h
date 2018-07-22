@@ -102,4 +102,5 @@ typedef NS_ENUM(NSUInteger, FBackBtnTitleType) {
  */
 @property (nonatomic,strong)NSString *navigationBackButtonImageName ;
 @property (nonatomic,strong)NSString *navigationBackButtonTitle ;
+
 @end

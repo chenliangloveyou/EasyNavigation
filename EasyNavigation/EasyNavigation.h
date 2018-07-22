@@ -17,4 +17,5 @@
 #import "EasyNavigationView+RightButton.h"
 #import "EasyNavigationView+Scroll.h"
 #import "EasyNavigationView+Add.h"
+
 #endif /* EasyNavigation_h */

@@ -25,7 +25,7 @@
     scrollview.pagingEnabled = YES ;
     [self.view addSubview:scrollview];
     self.navigationView.navigationBackButtonCallback = ^(UIView *view) {
-        NSLog(@"dddddd");
+        NSLog(@"kkk");
     };
 
     for (int i = 0; i < 3; i++) {

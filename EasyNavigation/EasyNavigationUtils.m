@@ -71,4 +71,5 @@
 //     // 返回新的改变大小后的图片
 //     return scaledImage;
 }
+
 @end

@@ -86,5 +86,4 @@
 //@property (assign)NavTitleAnimationType navTitleAnimationType ;
 
 
-
 @end

@@ -45,6 +45,4 @@
                     criticalPoint:(CGFloat)criticalPoint
                   stopToStatusBar:(BOOL)stopStatusBar ;
 
-
-
 @end

@@ -26,7 +26,6 @@
  */
 @implementation EasyNavigationButton
 
-
 + (instancetype)buttonWithConfig:(EasyNavigationButton *(^)(void))button
 {
     EasyNavigationButton *btn = button();

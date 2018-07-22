@@ -8,7 +8,6 @@
 
 #import "EasyNavigationView.h"
 
-
 @interface EasyNavigationView (Add)
 
 

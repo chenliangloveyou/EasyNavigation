@@ -39,7 +39,6 @@ typedef NS_ENUM(NSUInteger , EasyNavScrollType) {
 - (EasyNavigationScroll *(^)(float))setStartPoint ;
 - (EasyNavigationScroll *(^)(float))setStopPoint ;
 
-
 @end
 
 

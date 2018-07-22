@@ -10,8 +10,6 @@
 
 @implementation EasyNavigationScroll
 
-
-
 + (instancetype)scroll
 {
     return self.new ;

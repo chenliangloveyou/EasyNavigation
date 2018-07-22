@@ -10,7 +10,6 @@
 #import <UIKit/UIKit.h>
 
 
-
 //屏幕宽度
 CG_INLINE CGFloat ScreenWidth_N(void){
     return [[UIScreen mainScreen] bounds].size.width ;

@@ -10,7 +10,6 @@
 
 @implementation EasyNavigationView (Add)
 
-
 - (void)addSubview:(UIView *)view callback:(clickCallback)callback
 {
     [self addView:view clickCallback:callback type:NavigatioinViewPlaceTypeNone];

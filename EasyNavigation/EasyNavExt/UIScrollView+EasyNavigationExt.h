@@ -36,5 +36,4 @@ typedef NS_ENUM(NSInteger ,EasyScrollDirection) {
 
 @property (nonatomic, assign) BOOL Easy_enableDirection;
 
-
 @end

@@ -39,4 +39,5 @@
  */
 - (void)Easy_addTapCallBack:(id)target sel:(SEL)selector;
 
+
 @end

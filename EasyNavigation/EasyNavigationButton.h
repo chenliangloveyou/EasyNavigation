@@ -36,7 +36,6 @@
 - (EasyNavigationButton *(^)(CGRect))setImageFrame;
 
 
-
 + (instancetype)button ;
 
 + (instancetype)buttonWithConfig:(EasyNavigationButton *(^)(void))button ;

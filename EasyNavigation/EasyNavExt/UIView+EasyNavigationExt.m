@@ -24,6 +24,7 @@
 - (CGFloat)Easy_y {
     return self.frame.origin.y;
 }
+
 - (void)setEasy_y:(CGFloat)Easy_y {
     CGRect frame = self.frame;
     frame.origin.y = Easy_y;
