@@ -54,7 +54,7 @@ typedef NS_ENUM(NSUInteger , NavigatioinViewPlaceType) {
 @property (nonatomic,assign)CGFloat viewEdgeSpece ;
 
 //增加是否把view向下平移
-@property (nonatomic,assign)BOOL titleViewCenterFixed ;//titleVie永远居中显示。默认为yes。（当为No的时候，左边按钮特别多的时候，会把titleview往右边挤，导致不居中）
+//@property (nonatomic,assign)BOOL titleViewCenterFixed ;//titleVie永远居中显示。默认为yes。（当为No的时候，左边按钮特别多的时候，会把titleview往右边挤，导致不居中）
 
 
 //重新布局导航条控件

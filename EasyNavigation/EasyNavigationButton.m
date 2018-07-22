@@ -29,7 +29,8 @@
 
 + (instancetype)buttonWithConfig:(EasyNavigationButton *(^)(void))button
 {
-    return button()  ;
+    EasyNavigationButton *btn = button();
+    return btn ;
 }
 
 + (instancetype)button
@@ -47,7 +48,8 @@
         [self setTitleColor:options.buttonTitleColorHieght forState:UIControlStateHighlighted];
         self.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail; //省略号在最右边
         self.imageView.contentMode = UIViewContentModeScaleAspectFit ;//imageview需要放到中间
-
+        self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        self.titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth ;
         [self.titleLabel setFont:options.buttonTitleFont] ;
 //        self.titleLabel.numberOfLines = 0 ;
 //        self.titleLabel.backgroundColor = [UIColor redColor];
@@ -111,6 +113,10 @@
     }
   
     [self setFrame:CGRectMake(self.Easy_x, self.Easy_y, self.titleLabel.Easy_right, NavigationNorlmalHeight_N())] ;
+    
+    if (self.superview) {
+        [self.superview setNeedsLayout];
+    }
 }
 
 - (void)setTitle:(NSString *)title
@@ -122,11 +128,11 @@
 {
     _titleColor = titleColor ;
     [self setTitleColor:titleColor forState:UIControlStateNormal];
+    [self setTitleColor:[titleColor colorWithAlphaComponent:0.8] forState:UIControlStateHighlighted];
 }
 - (void)setTitleSelectColor:(UIColor *)titleSelectColor
 {
     _titleSelectColor = titleSelectColor ;
-#warning  ---heightlight
     [self setTitleColor:titleSelectColor forState:UIControlStateSelected];
 }
 - (void)setTitleFont:(UIFont *)titleFont

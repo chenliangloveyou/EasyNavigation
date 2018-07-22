@@ -151,8 +151,7 @@
     // 修改返回按钮样式
     if ([EasyNavigationOptions shareInstance].btnTitleType == FBackBtnTitleType_System && [self isKindOfClass:[EasyNavigationController class]]) {
         UIViewController * vc = self.viewControllers.lastObject;
-//        [EasyNavigationOptions shareInstance].navigationBackButtonTitle = [vc.navigationView title];
-#warning cunzaiwenti
+        [EasyNavigationOptions shareInstance].navigationBackButtonTitle = [vc.navigationView title];
     }
     
     [super pushViewController:viewController animated:animated];
@@ -243,11 +242,11 @@
 {
     return self.topViewController;
 }
-
-- (UIViewController *)childViewControllerForStatusBarStyle
-{
-    return self.topViewController;
-}
+//
+//- (UIViewController *)childViewControllerForStatusBarStyle
+//{
+//    return self.topViewController;
+//}
 
 #pragma mark - getter
 

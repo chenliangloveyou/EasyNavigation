@@ -31,9 +31,11 @@
     UIImage *btnImage = nil ;
     if (scrollView.contentOffset.y > 100){
         btnImage = [UIImage imageNamed:@"nav_btn_back_blue.png"] ;
+        self.navigationView.titleLabel.textColor = [UIColor cyanColor];
     }
     else{
         btnImage = [UIImage imageNamed:@"nav_btn_back.png"] ;
+        self.navigationView.titleLabel.textColor = [UIColor whiteColor];
     }
     
     [self.navigationView.navigationBackButton setImage:btnImage forState:UIControlStateNormal];

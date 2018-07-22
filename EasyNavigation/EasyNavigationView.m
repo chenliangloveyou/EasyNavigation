@@ -20,96 +20,96 @@
 
 
 
-//@interface EasyNavDeprecateButton : UIButton
-//
-//@property (nonatomic,strong)NSString *title ;
-//@property (nonatomic,strong)UIImage *image;
-//
-//+ (instancetype)buttonWithTitle:(NSString *)title image:(UIImage *)image ;
-//@end
-//
-//@implementation EasyNavDeprecateButton
-//#define kButtonInsetsH 10.0f //按钮上下图文距按钮边缘的距离
-//#define kButtonInsetsW 5.0f //按钮左右局边缘的距离
-//+ (instancetype)buttonWithTitle:(NSString *)title image:(UIImage *)image
-//{
-//    EasyNavDeprecateButton *button  = [super buttonWithType:UIButtonTypeCustom] ;
-//
-//    if (button) {
-//
-//        button.title = title ;
-//        button.image = image ;
-//        EasyNavigationOptions *options = [EasyNavigationOptions shareInstance];
-//
-//        CGFloat buttonW = kButtonInsetsW*2 ;
-//        if (image) {
-//            CGFloat imageHeight = NavigationNorlmalHeight_N()-2*kButtonInsetsH ;
-//            buttonW +=  (imageHeight) ;
-//        }
-//        if (!ISEMPTY_N(title)) {
-//            CGFloat titleW = [title sizeWithAttributes:@{NSFontAttributeName: options.buttonTitleFont}].width ;
-//            buttonW += titleW ;
-//        }
-//        if (image && !ISEMPTY_N(title)) {
-//            buttonW += kButtonInsetsW ;
-//        }
-//        [button setFrame:CGRectMake(0, 0, buttonW, NavigationNorlmalHeight_N())];
-//
-//
-//        if (!ISEMPTY_N(title)) {
-//            [button setTitle:title forState:UIControlStateNormal];
-//        }
-//        if (image) {
-//            [button setImage:image forState:UIControlStateNormal];
-//            button.imageView.contentMode = UIViewContentModeScaleAspectFit ;//imageview需要放到中间
-//        }
-//
-//        [button setTitleColor:options.buttonTitleColor forState:UIControlStateNormal];
-//        [button setTitleColor:options.buttonTitleColorHieght forState:UIControlStateHighlighted];
-//        [button.titleLabel setFont:options.buttonTitleFont] ;
-//
-//        //        button.titleLabel.backgroundColor = [UIColor cyanColor];
-//        //        button.imageView.backgroundColor = [UIColor blueColor];
-//        //        [button setBackgroundColor:kColorRandom];
-//    };
-//
-//    return button ;
-//}
-//
-//
-//- (CGRect)imageRectForContentRect:(CGRect)contentRect
-//{
-//    if (_image) {
-//        CGFloat imageX = kButtonInsetsW ;
-//        CGFloat imageY = kButtonInsetsH ;
-//        CGFloat imageWH = NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
-//        return CGRectMake(imageX, imageY, imageWH, imageWH);
-//    }
-//    else{
-//        return CGRectZero ;
-//    }
-//}
-//
-//- (CGRect)titleRectForContentRect:(CGRect)contentRect
-//{
-//    if (ISEMPTY_N(_title)) {
-//        return CGRectZero ;
-//    }
-//
-//    CGFloat x = kButtonInsetsW ;
-//    CGFloat w = CGRectGetWidth(contentRect) - 2*kButtonInsetsW ;
-//    if (_image){
-//        x = 2*kButtonInsetsW+ NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
-//        w = CGRectGetWidth(contentRect) - (3*kButtonInsetsW+NavigationNorlmalHeight_N() - 2*kButtonInsetsH ) ;
-//    }
-//
-//    CGFloat y = kButtonInsetsH ;
-//    CGFloat h = NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
-//    return CGRectMake(x, y, w, h) ;
-//
-//}
-//
-//@end
+@interface EasyNavDeprecateButton : UIButton
+
+@property (nonatomic,strong)NSString *title ;
+@property (nonatomic,strong)UIImage *image;
+
++ (instancetype)buttonWithTitle:(NSString *)title image:(UIImage *)image ;
+@end
+
+@implementation EasyNavDeprecateButton
+#define kButtonInsetsH 10.0f //按钮上下图文距按钮边缘的距离
+#define kButtonInsetsW 5.0f //按钮左右局边缘的距离
++ (instancetype)buttonWithTitle:(NSString *)title image:(UIImage *)image
+{
+    EasyNavDeprecateButton *button  = [super buttonWithType:UIButtonTypeCustom] ;
+
+    if (button) {
+
+        button.title = title ;
+        button.image = image ;
+        EasyNavigationOptions *options = [EasyNavigationOptions shareInstance];
+
+        CGFloat buttonW = kButtonInsetsW*2 ;
+        if (image) {
+            CGFloat imageHeight = NavigationNorlmalHeight_N()-2*kButtonInsetsH ;
+            buttonW +=  (imageHeight) ;
+        }
+        if (!ISEMPTY_N(title)) {
+            CGFloat titleW = [title sizeWithAttributes:@{NSFontAttributeName: options.buttonTitleFont}].width ;
+            buttonW += titleW ;
+        }
+        if (image && !ISEMPTY_N(title)) {
+            buttonW += kButtonInsetsW ;
+        }
+        [button setFrame:CGRectMake(0, 0, buttonW, NavigationNorlmalHeight_N())];
+
+
+        if (!ISEMPTY_N(title)) {
+            [button setTitle:title forState:UIControlStateNormal];
+        }
+        if (image) {
+            [button setImage:image forState:UIControlStateNormal];
+            button.imageView.contentMode = UIViewContentModeScaleAspectFit ;//imageview需要放到中间
+        }
+
+        [button setTitleColor:options.buttonTitleColor forState:UIControlStateNormal];
+        [button setTitleColor:options.buttonTitleColorHieght forState:UIControlStateHighlighted];
+        [button.titleLabel setFont:options.buttonTitleFont] ;
+
+        //        button.titleLabel.backgroundColor = [UIColor cyanColor];
+        //        button.imageView.backgroundColor = [UIColor blueColor];
+        //        [button setBackgroundColor:kColorRandom];
+    };
+
+    return button ;
+}
+
+
+- (CGRect)imageRectForContentRect:(CGRect)contentRect
+{
+    if (_image) {
+        CGFloat imageX = kButtonInsetsW ;
+        CGFloat imageY = kButtonInsetsH ;
+        CGFloat imageWH = NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
+        return CGRectMake(imageX, imageY, imageWH, imageWH);
+    }
+    else{
+        return CGRectZero ;
+    }
+}
+
+- (CGRect)titleRectForContentRect:(CGRect)contentRect
+{
+    if (ISEMPTY_N(_title)) {
+        return CGRectZero ;
+    }
+
+    CGFloat x = kButtonInsetsW ;
+    CGFloat w = CGRectGetWidth(contentRect) - 2*kButtonInsetsW ;
+    if (_image){
+        x = 2*kButtonInsetsW+ NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
+        w = CGRectGetWidth(contentRect) - (3*kButtonInsetsW+NavigationNorlmalHeight_N() - 2*kButtonInsetsH ) ;
+    }
+
+    CGFloat y = kButtonInsetsH ;
+    CGFloat h = NavigationNorlmalHeight_N() - 2*kButtonInsetsH ;
+    return CGRectMake(x, y, w, h) ;
+
+}
+
+@end
 
 
 
@@ -181,7 +181,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
             self.backgroundView.image = self.options.navBackgroundImage ;
         }
         
-//        _viewEdgeSpece = 10 ;
+        _viewEdgeSpece = 5 ;
     }
     return self;
 }
@@ -244,20 +244,27 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
     
     [self.leftViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIView *tempView = (UIView *)obj ;
-        tempView.frame = CGRectMake(leftEdge, subViewY, tempView.Easy_width , tempView.Easy_height);
-        leftEdge += tempView.Easy_width ;
+        if (tempView.superview) {
+            tempView.frame = CGRectMake(leftEdge, subViewY, tempView.Easy_width , tempView.Easy_height);
+            leftEdge += tempView.Easy_width ;
+        }
     }];
     
     __block CGFloat rightEdge = self.viewEdgeSpece + iphoneXSafeWidth ;
     
     [self.rightViewArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         UIView *tempView = (UIView *)obj ;
-        CGFloat tempViewX = self.Easy_width - rightEdge - tempView.Easy_width ;
-        tempView.frame = CGRectMake(tempViewX, subViewY, tempView.Easy_width , tempView.Easy_height);
-        rightEdge += tempView.Easy_width ;
+        if (tempView.superview) {
+            CGFloat tempViewX = self.Easy_width - rightEdge - tempView.Easy_width ;
+            tempView.frame = CGRectMake(tempViewX, subViewY, tempView.Easy_width , tempView.Easy_height);
+            rightEdge += tempView.Easy_width ;
+        }
     }];
     
 
+    if (!self.titleLabel) {
+        return ;
+    }
     //获取控件的宽度
     CGFloat titleLabelWidth = self.titleLabel.Easy_width ;
     if ([self.titleLabel isKindOfClass:[UILabel class]]) {
@@ -356,7 +363,12 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
 
 - (void)setNavigationBackButton:(UIButton *)navigationBackButton
 {
-    
+    if ([_navigationBackButton isEqual:navigationBackButton]) {
+        return ;
+    }
+    if (!navigationBackButton) {
+        return ;
+    }
     if (_navigationBackButton) {
         [_navigationBackButton removeFromSuperview];
         if ([self.leftViewArray containsObject:_navigationBackButton]) {
@@ -401,7 +413,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
         return ;
     }
     
-    dispatch_delay_easyN(0.02, ^{
+    dispatch_delay_easyN(0.01, ^{
         UIButton *backBtn = self.navigationBackButton ;
         if (!backBtn) {
             NSAssert(NO, @"you should add a back button before add a callback ! : %@",self.currentViewController);
@@ -700,6 +712,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
         _titleLabel.textAlignment = NSTextAlignmentCenter ;
+        _titleLabel.adjustsFontSizeToFitWidth = YES;
     }
    
 //    if (![_titleLabel isKindOfClass:[UILabel class]]) {
@@ -784,17 +797,17 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
     if (hieghtImage) {
         NSAssert(image, @"you should set a image when hava a heightimage !") ;
     }
-    return nil;
-//    EasyNavDeprecateButton *button = [EasyNavDeprecateButton buttonWithTitle:title image:image];
-//
-//    if (backgroundImage) {
-//        [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
-//    }
-//    if (hieghtImage) {
-//        [button setImage:hieghtImage forState:UIControlStateHighlighted];
-//    }
-//    [self addView:button clickCallback:callback type:type];
-//    return button ;
+//    return nil;
+    EasyNavDeprecateButton *button = [EasyNavDeprecateButton buttonWithTitle:title image:image];
+
+    if (backgroundImage) {
+        [button setBackgroundImage:backgroundImage forState:UIControlStateNormal];
+    }
+    if (hieghtImage) {
+        [button setImage:hieghtImage forState:UIControlStateHighlighted];
+    }
+    [self addView:button clickCallback:callback type:type];
+    return button ;
 }
 
 - (void)removeView:(UIView *)view type:(NavigatioinViewPlaceType)type

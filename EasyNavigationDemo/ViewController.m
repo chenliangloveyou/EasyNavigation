@@ -30,7 +30,7 @@
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-//@property (nonatomic,strong)UITableView *tableView ;
+@property (nonatomic,strong)UITableView *tableView ;
 @property (nonatomic,strong)NSArray *dataArray ;
 @property (nonatomic,strong)NSArray *navDataArray ;
 
@@ -45,86 +45,17 @@
     [super viewDidLoad];
     
     [self.navigationView setTitle:@"首页"];
-    self.statusBarStyle = UIStatusBarStyleDefault ;
-
-    kWeakSelf(self)
-    [self.navigationView addLeftButtonWithTitle:@"更多" clickCallBack:^(UIView *view) {
-        [weakself.navigationView setTitle:@"点击了更多"];
-    }];
-    
-    UIView *blueView = [[UIView alloc]initWithFrame:CGRectMake(10, 50, 300, 20)];
-    blueView.backgroundColor = [UIColor blueColor];
-    [self.navigationView addTitleView:blueView callback:^(UIView *view) {
-        
-    }];
-//    [self.navigationView addLeftButtonWithTitle:@" 你好！" image:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
-//
-//    }];
-//
-//    [self.navigationView addLeftButtonWithTitle:@"好的" image:nil hightImage:nil backgroundImage:[EasyNavigationUtils createImageWithColor:[UIColor blueColor]] clickCallBack:^(UIView *view) {
-//
-//    }];
-//    self.navigationView.title = @"w d " ;
-//    self.navigationView.titleLabel.text = @"fjsdk发送对方浆您好";
-//    self.navigationView.titleLabel.numberOfLines= 0 ;
-//    self.navigationView.titleLabel.backgroundColor = [UIColor redColor];
-//    self.navigationView.titleLabel.font= [UIFont systemFontOfSize:11];
-//    self.navigationView.titleLabel.frame =CGRectMake(2300, 10, 200, 20);
     
     self.navigationView.backgroundView.image = nil ;
     self.navigationView.backgroundView.backgroundColor = [UIColor blueColor];
     self.navigationView.backgroundView.alpha = 0.3 ;
-//    self.navigationView.backgroundView.alpha = 0 ;
-    
-//    [self.navigationView.backgroundImageView removeFromSuperview];
-//    [self.navigationView addRightButtonWithImage:[UIImage imageNamed:@"button_normal.png"] clickCallBack:^(UIView *view) {
-//        NavStatusBarViewController *nav=  [[NavStatusBarViewController alloc]init];
-//        [nav.navigationView setTitle:@"您好"];
-//        [weakself.navigationController pushViewController:nav animated:YES];
-//    }];
-    
-    [self.navigationView addLeftButton:^EasyNavigationButton *{
-        EasyNavigationButton *b = [EasyNavigationButton button].setTitleFrame(CGRectMake(0, 34, 60, 10)).setImageFrame(CGRectMake(0, 0, 60, 34)).setTitle(@"很啦就").setImageName(@"button_normal.png");
-        return b;
-    } callback:^(UIView *view) {
-        
-    }];
-//    [btn setTitle:@"您好" forState:UIControlStateNormal];
-//    [btn setImage:[UIImage imageNamed:@"button_normal.png"] forState:UIControlStateNormal];
-    
-   
-//    [self.navigationView addLeftBarButtonWithImageName:@"button_normal.png" callback:^(UIView *view) {
-//
-//    }];
-//    [self.navigationView addLeftBarButtonWithTitle:@"好的" callback:^(UIView *view) {
-//
-//    }];
-//    [self.navigationView addLeftBarButtonWithConfig:^EasyNavButtonConfig *{
-//        return [EasyNavButtonConfig shared].setTitle(@"好的");
-//    } callback:^(UIView *view) {
-//
-//    }];
 
-//    self.navbigTitleType = NavBigTitleTypeAll ;
-//    self.navigationView.scrollview = self.tableView ;
-    
-    self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//    [self.view addSubview:self.tableView];
-    
-    self.tableView.contentInset = UIEdgeInsetsMake(-NavigationNorlmalHeight_N(), 0, 0, 0);
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
-  
-    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
-    img.backgroundColor = [UIColor lightGrayColor];
-    self.tableView.tableHeaderView =img ;
-
-    
-//    EasyNavigationButton *b = [EasyNavigationButton button];
-//    b.title  = @"fdskljflksj";
-//    b.center= self.view.center;
-////    [b setFrame:CGRectMake(100, 100, 100, 100)];
-//    [self.view addSubview:b];
-
+ 
+//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
+//    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
+//    img.backgroundColor = [UIColor lightGrayColor];
+//    self.tableView.tableHeaderView =img ;
+    [self.view addSubview:self.tableView];
 }
 
 
@@ -162,29 +93,29 @@
 }
 
 #pragma mark - getter/setter
-//- (UITableView *)tableView
-//{
-//    if (nil == _tableView) {
-//        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
-//        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//        _tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
-//        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
-//        _tableView.dataSource = self ;
-//        _tableView.delegate = self ;
-//        if (@available(iOS 11.0, *)) {
-//            _tableView.estimatedRowHeight = 0;
-//            _tableView.estimatedSectionHeaderHeight = 0;
-//            _tableView.estimatedSectionFooterHeight = 0;
-//            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentAutomatic ;
-//        }
-//
-//        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
-//        img.backgroundColor = [UIColor lightGrayColor];
-//        _tableView.tableHeaderView =img ;
-//    }
-//    return _tableView ;
-//}
+- (UITableView *)tableView
+{
+    if (nil == _tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
+        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
+        _tableView.dataSource = self ;
+        _tableView.delegate = self ;
+        if (@available(iOS 11.0, *)) {
+            _tableView.estimatedRowHeight = 0;
+            _tableView.estimatedSectionHeaderHeight = 0;
+            _tableView.estimatedSectionFooterHeight = 0;
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever ;
+        }
+
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
+        img.backgroundColor = [UIColor lightGrayColor];
+        _tableView.tableHeaderView =img ;
+    }
+    return _tableView ;
+}
 
 - (NSArray *)dataArray
 {

@@ -29,7 +29,7 @@
     options.buttonTitleColor = [UIColor whiteColor];
     
     // 设置系统返回按钮为样式
-    options.btnTitleType = FBackBtnTitleType_System;
+//    options.btnTitleType = FBackBtnTitleType_System;
 
     EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[ViewController new]];
     self.window.rootViewController  = navVC ;

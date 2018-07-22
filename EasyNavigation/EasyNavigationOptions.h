@@ -100,6 +100,6 @@ typedef NS_ENUM(NSUInteger, FBackBtnTitleType) {
 /**
  * 系统返回按钮 图片/文字 更改
  */
-@property (nonatomic,strong)UIImage *navigationBackButtonImage ;
+@property (nonatomic,strong)NSString *navigationBackButtonImageName ;
 @property (nonatomic,strong)NSString *navigationBackButtonTitle ;
 @end

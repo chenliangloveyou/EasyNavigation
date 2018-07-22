@@ -20,6 +20,8 @@
     [super viewDidLoad];
 
     self.automaticallyAdjustsScrollViewInsets = NO ;
+    
+//    self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
 
     [self.view addSubview:self.tableView];
 }
