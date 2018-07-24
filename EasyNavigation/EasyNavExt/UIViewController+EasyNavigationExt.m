@@ -69,7 +69,7 @@
         }
         __weak typeof(self)weakSelf = self;
         UIButton *backButton = [navView addLeftButton:^EasyNavigationButton *{
-            return [EasyNavigationButton button].setTitle(title).setImageName(imgName).setImageFrame(CGRectMake(5, 7, 34, 30)).setTitleFrame(CGRectMake(44, 0, 40, 44));
+            return [EasyNavigationButton button].setTitle(title).setImageName(imgName).setImageFrame(CGRectMake(5, 8, 34, 28)).setTitleFrame(CGRectMake(44, 0, 40, 44));
         } callback:^(UIView *view) {
             [weakSelf viewControllerBack];
         }];

@@ -17,7 +17,31 @@
 
 #import "EasyNavigationOptions.h"
 
+@interface EasyNavTitleLabel : UILabel
 
+@end
+
+@implementation EasyNavTitleLabel
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+}
+- (void)setText:(NSString *)text
+{
+    [super setText:text];
+    if (self.superview) {
+        [self.superview setNeedsLayout];
+    }
+}
+- (void)setFont:(UIFont *)font
+{
+    [super setFont:font];
+    if (self.superview) {
+        [self.superview setNeedsLayout];
+    }
+}
+@end
 
 
 @interface EasyNavDeprecateButton : UIButton
@@ -131,7 +155,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
 //@property (nonatomic,strong) UIView *titleView ;
 
 @property (nonatomic,strong) UIImageView *backgroundView ;
-@property (nonatomic,strong) UILabel *titleLabel ;
+@property (nonatomic,strong) EasyNavTitleLabel *titleLabel ;
 @property (nonatomic,strong) UIView *lineView ;
 
 @property (nonatomic,strong)NSMutableArray *leftViewArray ;
@@ -704,15 +728,15 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
     return _backgroundView ;
 }
 
-- (UILabel *)titleLabel
+- (EasyNavTitleLabel *)titleLabel
 {
     if (nil == _titleLabel) {
-        _titleLabel = [[UILabel alloc]init];
+        _titleLabel = [[EasyNavTitleLabel alloc]init];
         _titleLabel.backgroundColor = [UIColor clearColor]; //[UIColor yellowColor]; //
         _titleLabel.font = self.options.titleFont ;
         _titleLabel.textColor = self.options.titleColor ;
         _titleLabel.textAlignment = NSTextAlignmentCenter ;
-        _titleLabel.adjustsFontSizeToFitWidth = YES;
+//        _titleLabel.adjustsFontSizeToFitWidth = YES;
     }
    
 //    if (![_titleLabel isKindOfClass:[UILabel class]]) {
