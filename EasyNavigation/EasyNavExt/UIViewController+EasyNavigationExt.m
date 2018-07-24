@@ -19,6 +19,74 @@
 
 @dynamic navigationView ;
 
+
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        
+        Class vc = [UIViewController class];
+        
+        SEL originalSEL = @selector(viewDidLoad);
+        SEL swizzledSEL = @selector(Easy_viewDidLoad);
+        
+        Method originalMethod = class_getInstanceMethod(vc, originalSEL);
+        Method swizzledMethod = class_getInstanceMethod(vc, swizzledSEL);
+        
+        BOOL didAddMethod =
+        class_addMethod(vc, originalSEL, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));
+        
+        if (didAddMethod) {
+            class_replaceMethod(vc, swizzledSEL, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));
+        }
+        else {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
+- (void)Easy_viewDidLoad
+{
+    if ([self isKindOfClass:[UITableViewController class]]) {
+        
+        if (self.navigationController && [self.navigationController isKindOfClass:[EasyNavigationController class]]) {
+            [self replaceTableView];
+        }else{
+            UITableView *tableView = (UITableView *)self.view ;
+            ((UITableViewController*)self).tableView = tableView ;
+        }
+    }
+    
+    if (self.navigationController) {
+        
+        [self checkNavigationBackButton];
+    }
+    else {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(checkNavigationBackButton) object:nil];
+        [self performSelector:@selector(checkNavigationBackButton) withObject:nil afterDelay:0.01];
+    }
+    
+    [self Easy_viewDidLoad];
+}
+- (void)replaceTableView
+{
+    UITableView *tableView = (UITableView *)self.view ;
+    if (@available(iOS 11.0, *)) {
+        if ([tableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
+            [tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+        }
+    }
+    
+    if (tableView.Easy_y > 0) {
+        CGFloat tableViewY = tableView.Easy_y ;
+        tableView.frame = CGRectMake(tableView.Easy_x, 0, tableView.Easy_width, tableView.Easy_height+tableViewY);
+//        tableView.contentInset = UIEdgeInsetsMake(NavigationNorlmalHeight_N(), 0, 0, 0);
+    }
+    UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
+//    tempV.backgroundColor = [UIColor whiteColor];
+    self.view = tempV ;
+    [self.view addSubview:tableView];
+    ((UITableViewController*)self).tableView = tableView ;
+}
+
 - (BOOL)disableSlidingBackGesture
 {
     return [objc_getAssociatedObject(self, _cmd) boolValue];
@@ -39,7 +107,6 @@
     objc_setAssociatedObject(self, @selector(customBackGestureEnabel), @(customBackGestureEnabel), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     [self dealSlidingGestureDelegate];
-
 }
 
 - (CGFloat)customBackGestureEdge
@@ -52,31 +119,6 @@
 }
 
 
-- (void)checkNavigationHasController:(EasyNavigationView *)navView
-{
-    if (!self.navigationController) {
-        NSAssert(NO, @"attention: this controller's navigationcontroller is null: %@",self);
-    }
-
-    if (self.navigationController.viewControllers.count > 1) {
-        NSString *imgName = EasyImageFile_N(@"nav_btn_back.png") ;
-        if ([EasyNavigationOptions shareInstance].navigationBackButtonImageName) {
-            imgName = [EasyNavigationOptions shareInstance].navigationBackButtonImageName ;
-        }
-        NSString *title = @"   " ;
-        if ([EasyNavigationOptions shareInstance].navigationBackButtonTitle) {
-            title = [EasyNavigationOptions shareInstance].navigationBackButtonTitle ;
-        }
-        __weak typeof(self)weakSelf = self;
-        UIButton *backButton = [navView addLeftButton:^EasyNavigationButton *{
-            return [EasyNavigationButton button].setTitle(title).setImageName(imgName).setImageFrame(CGRectMake(5, 8, 34, 28)).setTitleFrame(CGRectMake(44, 0, 40, 44));
-        } callback:^(UIView *view) {
-            [weakSelf viewControllerBack];
-        }];
-//        backButton.backgroundColor = [UIColor redColor];
-        navView.navigationBackButton = backButton ;
-    }
-}
 - (void)viewControllerBack{
     
     NSArray *viewControllers = self.navigationController.viewControllers ;
@@ -99,9 +141,6 @@
     EasyNavigationView *navView = objc_getAssociatedObject(self, _cmd);
     if (nil == navView) {
         navView = [[EasyNavigationView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N() , NavigationHeight_N())];
-        
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(checkNavigationHasController:) object:navView];
-        [self performSelector:@selector(checkNavigationHasController:) withObject:navView afterDelay:0.01];
        
         [self willChangeValueForKey:NSStringFromClass([EasyNavigationView class])];
         objc_setAssociatedObject(self, @selector(navigationView), navView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
@@ -112,11 +151,34 @@
         dispatch_main_async_safe_easyN(^{
             [weakSelf.view addSubview:weakNav];
         });
-        
     }
     return navView ;
 }
-
+- (void)checkNavigationBackButton
+{
+    if (![self.navigationController isKindOfClass:[EasyNavigationController class]]) {
+        return ;
+    }
+    
+    if (self.navigationController.viewControllers.count > 1) {
+        NSString *imgName = EasyImageFile_N(@"nav_btn_back.png") ;
+        if ([EasyNavigationOptions shareInstance].navigationBackButtonImageName) {
+            imgName = [EasyNavigationOptions shareInstance].navigationBackButtonImageName ;
+        }
+        NSString *title = @"   " ;
+        if ([EasyNavigationOptions shareInstance].navigationBackButtonTitle) {
+            title = [EasyNavigationOptions shareInstance].navigationBackButtonTitle ;
+        }
+        __weak typeof(self)weakSelf = self;
+        UIButton *backButton = [self.navigationView addLeftButton:^EasyNavigationButton *{
+            return [EasyNavigationButton button].setTitle(title).setImageName(imgName).setImageFrame(CGRectMake(5, 10, 30, 24)).setTitleFrame(CGRectMake(44, 0, 40, 44));
+        } callback:^(UIView *view) {
+            [weakSelf viewControllerBack];
+        }];
+        //        backButton.backgroundColor = [UIColor redColor];
+        self.navigationView.navigationBackButton = backButton ;
+    }
+}
 
 //- (EasyNavigationController *)vcEasyNavController
 //{
@@ -277,73 +339,6 @@
     return self.statusBarHidden;
 }
 
-
-+ (void)load {
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-
-        Class viewClass = [UIViewController class];
-        
-        SEL originalSelector = @selector(viewDidLoad);
-        SEL swizzledSelector = @selector(Easy_viewDidLoad);
-        
-        Method originalMethod = class_getInstanceMethod(viewClass, originalSelector);
-        Method swizzledMethod = class_getInstanceMethod(viewClass, swizzledSelector);
-        
-        BOOL didAddMethod =
-        class_addMethod(viewClass,
-                        originalSelector,
-                        method_getImplementation(swizzledMethod),
-                        method_getTypeEncoding(swizzledMethod));
-        
-        if (didAddMethod) {
-            class_replaceMethod(viewClass,
-                                swizzledSelector,
-                                method_getImplementation(originalMethod),
-                                method_getTypeEncoding(originalMethod));
-        }
-        else {
-            method_exchangeImplementations(originalMethod, swizzledMethod);
-        }
-    });
-}
-- (void)Easy_viewDidLoad
-{
-    if ([self isKindOfClass:[UITableViewController class]]) {
-        
-        if (self.navigationController && [self.navigationController isKindOfClass:[EasyNavigationController class]]) {
-            UITableView *tableView = (UITableView *)self.view ;
-            //#ifdef __IPHONE_11_0
-            //        if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
-            //            tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-            //        }
-            //#endif
-            if (@available(iOS 11.0, *)) {
-                if ([tableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-                     [tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
-                }
-            }
-            
-            if (tableView.Easy_y > 0) {
-                CGFloat tableViewY = tableView.Easy_y ;
-                tableView.frame = CGRectMake(tableView.Easy_x, 0, tableView.Easy_width, tableView.Easy_height+tableViewY);
-                tableView.contentInset = UIEdgeInsetsMake(NavigationNorlmalHeight_N(), 0, 0, 0);
-                
-            }
-            UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
-            tempV.backgroundColor = [UIColor whiteColor];
-            self.view = tempV ;
-            [self.view addSubview:tableView];
-            ((UITableViewController*)self).tableView = tableView ;
-        }else{
-            UITableView *tableView = (UITableView *)self.view ;
-            ((UITableViewController*)self).tableView = tableView ;
-        }
-       
-        
-    }
-    [self Easy_viewDidLoad];
-}
 
 @end
 

@@ -50,11 +50,17 @@
     self.navigationView.backgroundView.backgroundColor = [UIColor blueColor];
     self.navigationView.backgroundView.alpha = 0.3 ;
 
+    kWeakSelf(self)
+    [self.navigationView addLeftButtonWithTitle:@"左边按钮" clickCallBack:^(UIView *view) {
+        NavOperateViewController *o = NavOperateViewController.new  ;
+        [o.navigationView addLeftButtonWithTitle:@"我的" clickCallBack:nil];
+        [weakself.navigationController pushViewController:o animated:YES];
+    }];
  
     [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
-    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
-    img.backgroundColor = [UIColor lightGrayColor];
-    self.tableView.tableHeaderView =img ;
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 160)];
+    img.backgroundColor = [UIColor yellowColor];
+    self.tableView.tableFooterView =img ;
     
     self.tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
 

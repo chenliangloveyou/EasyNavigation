@@ -437,21 +437,19 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
         return ;
     }
     
-    dispatch_delay_easyN(0.03, ^{
-        UIButton *backBtn = self.navigationBackButton ;
-        if (!backBtn) {
-            NSAssert(NO, @"you should add a back button before add a callback ! : %@",self.currentViewController);
-            return ;
-        }
-        clickCallback callback = [self.callbackDictionary objectForKey:@(backBtn.tag)];
-        if (!callback) {
-            EasyLog_N(@"attention: this contoller's back button is empty ! : %@",self.currentViewController);
-        }
-        
-        [self.callbackDictionary removeObjectForKey:@(backBtn.tag)];
-        [self.callbackDictionary setObject:[navigationBackButtonCallback copy] forKey:@(backBtn.tag)];
-    });
-   
+    UIButton *backBtn = self.navigationBackButton ;
+    if (!backBtn) {
+        NSAssert(NO, @"you should add a back button before add a callback ! : %@",self.currentViewController);
+        return ;
+    }
+    clickCallback callback = [self.callbackDictionary objectForKey:@(backBtn.tag)];
+    if (!callback) {
+        EasyLog_N(@"attention: this contoller's back button is empty ! : %@",self.currentViewController);
+    }
+    
+    [self.callbackDictionary removeObjectForKey:@(backBtn.tag)];
+    [self.callbackDictionary setObject:[navigationBackButtonCallback copy] forKey:@(backBtn.tag)];
+    
 }
 
 

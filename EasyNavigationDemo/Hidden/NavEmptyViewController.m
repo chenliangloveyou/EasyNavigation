@@ -17,7 +17,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-#if 1//以下两个2选1
+#if 0//以下两个2选1
     if (self.navigationView) {
         [self.navigationView removeFromSuperview];
     }
