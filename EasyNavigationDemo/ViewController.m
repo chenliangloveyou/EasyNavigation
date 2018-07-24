@@ -63,7 +63,7 @@
     self.tableView.tableFooterView =img ;
     
     self.tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
-
+    [self.tableView setContentOffset:CGPointMake(0, -NavigationHeight_N()) animated:NO];
 }
 
 

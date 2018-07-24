@@ -81,7 +81,7 @@
 //        tableView.contentInset = UIEdgeInsetsMake(NavigationNorlmalHeight_N(), 0, 0, 0);
     }
     UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
-//    tempV.backgroundColor = [UIColor whiteColor];
+    tempV.backgroundColor = [UIColor cyanColor];
     self.view = tempV ;
     [self.view addSubview:tableView];
     ((UITableViewController*)self).tableView = tableView ;
