@@ -278,42 +278,72 @@
 }
 
 
-//+ (void)load {
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        NSString *newSelectorStr = [NSString stringWithFormat:@"Easy_%@", NSStringFromSelector(@selector(viewDidLoad))];
-//        Method originMethod = class_getInstanceMethod(self, @selector(viewDidLoad));
-//        Method swizzledMethod = class_getInstanceMethod(self, NSSelectorFromString(newSelectorStr));method_exchangeImplementations(originMethod, swizzledMethod);
-//    });
-//}
-//- (void)Easy_viewDidLoad
-//{
-//    if ([self isKindOfClass:[UITableViewController class]]) {
-//        
-//        if (self.navigationController && [self.navigationController isKindOfClass:[EasyNavigationController class]]) {
-//            UITableView *tableView = (UITableView *)self.view ;
-//            //#ifdef __IPHONE_11_0
-//            //        if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
-//            //            tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//            //        }
-//            //#endif
-//            if (tableView.Easy_y > 0) {
-//                CGFloat tableViewY = tableView.Easy_y ;
-//                tableView.frame = CGRectMake(tableView.Easy_x, 0, tableView.Easy_width, tableView.Easy_height+tableViewY);
-//                tableView.contentInset = UIEdgeInsetsMake(NavigationNorlmalHeight_N(), 0, 0, 0);
-//                
-//            }
-//            UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
-//            tempV.backgroundColor = [UIColor whiteColor];
-//            self.view = tempV ;
-//            [self.view addSubview:tableView];
-//            ((UITableViewController*)self).tableView = tableView ;
-//        }
-//       
-//        
-//    }
-//    [self Easy_viewDidLoad];
-//}
++ (void)load {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+
+        Class viewClass = [UIViewController class];
+        
+        SEL originalSelector = @selector(viewDidLoad);
+        SEL swizzledSelector = @selector(Easy_viewDidLoad);
+        
+        Method originalMethod = class_getInstanceMethod(viewClass, originalSelector);
+        Method swizzledMethod = class_getInstanceMethod(viewClass, swizzledSelector);
+        
+        BOOL didAddMethod =
+        class_addMethod(viewClass,
+                        originalSelector,
+                        method_getImplementation(swizzledMethod),
+                        method_getTypeEncoding(swizzledMethod));
+        
+        if (didAddMethod) {
+            class_replaceMethod(viewClass,
+                                swizzledSelector,
+                                method_getImplementation(originalMethod),
+                                method_getTypeEncoding(originalMethod));
+        }
+        else {
+            method_exchangeImplementations(originalMethod, swizzledMethod);
+        }
+    });
+}
+- (void)Easy_viewDidLoad
+{
+    if ([self isKindOfClass:[UITableViewController class]]) {
+        
+        if (self.navigationController && [self.navigationController isKindOfClass:[EasyNavigationController class]]) {
+            UITableView *tableView = (UITableView *)self.view ;
+            //#ifdef __IPHONE_11_0
+            //        if ([tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
+            //            tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+            //        }
+            //#endif
+            if (@available(iOS 11.0, *)) {
+                if ([tableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
+                     [tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+                }
+            }
+            
+            if (tableView.Easy_y > 0) {
+                CGFloat tableViewY = tableView.Easy_y ;
+                tableView.frame = CGRectMake(tableView.Easy_x, 0, tableView.Easy_width, tableView.Easy_height+tableViewY);
+                tableView.contentInset = UIEdgeInsetsMake(NavigationNorlmalHeight_N(), 0, 0, 0);
+                
+            }
+            UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
+            tempV.backgroundColor = [UIColor whiteColor];
+            self.view = tempV ;
+            [self.view addSubview:tableView];
+            ((UITableViewController*)self).tableView = tableView ;
+        }else{
+            UITableView *tableView = (UITableView *)self.view ;
+            ((UITableViewController*)self).tableView = tableView ;
+        }
+       
+        
+    }
+    [self Easy_viewDidLoad];
+}
 
 @end
 

@@ -28,9 +28,9 @@
 #import "NavStatusBarViewController.h"
 
 
-@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface ViewController ()
 
-@property (nonatomic,strong)UITableView *tableView ;
+//@property (nonatomic,strong)UITableView *tableView ;
 @property (nonatomic,strong)NSArray *dataArray ;
 @property (nonatomic,strong)NSArray *navDataArray ;
 
@@ -51,11 +51,13 @@
     self.navigationView.backgroundView.alpha = 0.3 ;
 
  
-//    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
-//    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
-//    img.backgroundColor = [UIColor lightGrayColor];
-//    self.tableView.tableHeaderView =img ;
-    [self.view addSubview:self.tableView];
+    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
+    UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
+    img.backgroundColor = [UIColor lightGrayColor];
+    self.tableView.tableHeaderView =img ;
+    
+    self.tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
+
 }
 
 
@@ -93,29 +95,29 @@
 }
 
 #pragma mark - getter/setter
-- (UITableView *)tableView
-{
-    if (nil == _tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
-        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-        _tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
-        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
-        _tableView.dataSource = self ;
-        _tableView.delegate = self ;
-        if (@available(iOS 11.0, *)) {
-            _tableView.estimatedRowHeight = 0;
-            _tableView.estimatedSectionHeaderHeight = 0;
-            _tableView.estimatedSectionFooterHeight = 0;
-            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever ;
-        }
-
-        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
-        img.backgroundColor = [UIColor lightGrayColor];
-        _tableView.tableHeaderView =img ;
-    }
-    return _tableView ;
-}
+//- (UITableView *)tableView
+//{
+//    if (nil == _tableView) {
+//        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
+//        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+//        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+//        _tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
+//        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
+//        _tableView.dataSource = self ;
+//        _tableView.delegate = self ;
+//        if (@available(iOS 11.0, *)) {
+//            _tableView.estimatedRowHeight = 0;
+//            _tableView.estimatedSectionHeaderHeight = 0;
+//            _tableView.estimatedSectionFooterHeight = 0;
+//            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever ;
+//        }
+//
+//        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
+//        img.backgroundColor = [UIColor lightGrayColor];
+//        _tableView.tableHeaderView =img ;
+//    }
+//    return _tableView ;
+//}
 
 - (NSArray *)dataArray
 {

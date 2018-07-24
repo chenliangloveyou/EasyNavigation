@@ -9,20 +9,26 @@
 #import "UITableViewController+EasyNavigationExt.h"
 #import <objc/runtime.h>
 
-//static char easynav_tableview = 'c';
+static char easynav_tableview = 'c';
 
 @implementation UITableViewController (EasyNavigationExt)
 
 
-//- (UITableView *)tableView
-//{
-//    UITableView *tableView = objc_getAssociatedObject(self, &easynav_tableview);
-//    return (tableView != nil) ? tableView : UITableView.new;
-//}
-//- (void)setTableView:(UITableView *)tableView
-//{
-//    objc_setAssociatedObject(self, &easynav_tableview, tableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-//}
+- (UITableView *)tableView
+{
+    UITableView *tableView = objc_getAssociatedObject(self, &easynav_tableview);
+    if (tableView == nil) {
+        tableView = [super performSelector:@selector(tableView)];
+    }
+    if (tableView == nil) {
+        tableView = UITableView.new  ;
+    }
+    return tableView ;
+}
+- (void)setTableView:(UITableView *)tableView
+{
+    objc_setAssociatedObject(self, &easynav_tableview, tableView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
 
 
 @end

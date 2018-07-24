@@ -49,6 +49,7 @@
 		ADFCE60920074CA2000CD22C /* EasyNavigationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFCE60820074CA2000CD22C /* EasyNavigationButton.m */; };
 		ADFE65901FA729D4002286DF /* EasyNavigationView+LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */; };
 		ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE65921FA72B46002286DF /* EasyNavigationView+RightButton.m */; };
+		B998CC1F21071F230096546F /* SecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B998CC1E21071F230096546F /* SecondTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,8 @@
 		ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+LeftButton.m"; sourceTree = "<group>"; };
 		ADFE65911FA72B46002286DF /* EasyNavigationView+RightButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EasyNavigationView+RightButton.h"; sourceTree = "<group>"; };
 		ADFE65921FA72B46002286DF /* EasyNavigationView+RightButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+RightButton.m"; sourceTree = "<group>"; };
+		B998CC1D21071F230096546F /* SecondTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondTableViewController.h; sourceTree = "<group>"; };
+		B998CC1E21071F230096546F /* SecondTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -288,6 +291,8 @@
 				6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */,
 				6876E75F1F5858CE00DEDFE0 /* ViewController.h */,
 				6876E7601F5858CE00DEDFE0 /* ViewController.m */,
+				B998CC1D21071F230096546F /* SecondTableViewController.h */,
+				B998CC1E21071F230096546F /* SecondTableViewController.m */,
 				682F9EC71F715D8900283DC6 /* Operate */,
 				AD5777931F710C7C00100E64 /* StatusBar */,
 				682F9EB01F6C215B00283DC6 /* Alpha */,
@@ -527,6 +532,7 @@
 				682F9ECA1F715DC000283DC6 /* NavOperateViewController.m in Sources */,
 				682F9EB91F6C215B00283DC6 /* NavAlphaChangeViewController.m in Sources */,
 				682F9EBC1F6C215B00283DC6 /* NavTransparentViewController.m in Sources */,
+				B998CC1F21071F230096546F /* SecondTableViewController.m in Sources */,
 				682F9EC01F6C22A800283DC6 /* NavSystemSlidingViewController.m in Sources */,
 				68A5A5461F7E8BBF00B62899 /* EasyNavigationOptions.m in Sources */,
 				68FE358420E91C5D00DFE565 /* EasyNavigationScroll.m in Sources */,

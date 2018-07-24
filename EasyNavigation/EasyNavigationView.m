@@ -437,7 +437,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
         return ;
     }
     
-    dispatch_delay_easyN(0.01, ^{
+    dispatch_delay_easyN(0.03, ^{
         UIButton *backBtn = self.navigationBackButton ;
         if (!backBtn) {
             NSAssert(NO, @"you should add a back button before add a callback ! : %@",self.currentViewController);
@@ -761,7 +761,8 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
 - (UIView *)lineView
 {
     if (nil == _lineView) {
-        _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.Easy_height-0.5, self.Easy_width, 0.5)];
+        CGFloat lineH = 1.0f/[[UIScreen mainScreen] scale] ;
+        _lineView = [[UIView alloc]initWithFrame:CGRectMake(0, self.Easy_height-lineH, self.Easy_width, lineH)];
         _lineView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleTopMargin;
         
         _lineView.backgroundColor = self.options.navLineColor ;//[UIColor redColor];//
