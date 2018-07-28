@@ -34,6 +34,13 @@
         [self.superview setNeedsLayout];
     }
 }
+- (void)setAttributedText:(NSAttributedString *)attributedText
+{
+    [super setAttributedText:attributedText];
+    if (self.superview) {
+        [self.superview setNeedsLayout];
+    }
+}
 - (void)setFont:(UIFont *)font
 {
     [super setFont:font];
