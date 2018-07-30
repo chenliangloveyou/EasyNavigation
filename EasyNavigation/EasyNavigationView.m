@@ -336,7 +336,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
                 [_titleLabel removeFromSuperview];
                 _titleLabel = nil ;
             }
-            self.titleLabel = (UILabel *)view ;
+            self.titleLabel = (EasyNavTitleLabel *)view ;
         
         }break ;
         case NavigatioinViewPlaceTypeLeft:{

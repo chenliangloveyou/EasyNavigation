@@ -27,8 +27,9 @@
 
 #import "NavStatusBarViewController.h"
 
+#import "XibViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()/**<UITableViewDelegate,UITableViewDataSource>*/
 
 //@property (nonatomic,strong)UITableView *tableView ;
 @property (nonatomic,strong)NSArray *dataArray ;
@@ -48,12 +49,11 @@
     
     self.navigationView.backgroundView.image = nil ;
     self.navigationView.backgroundView.backgroundColor = [UIColor blueColor];
-    self.navigationView.backgroundView.alpha = 0.3 ;
-
+    self.navigationView.backgroundView.alpha = 0.7 ;
+    self.statusBarStyle = UIStatusBarStyleLightContent;
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"左边按钮" clickCallBack:^(UIView *view) {
-        NavOperateViewController *o = NavOperateViewController.new  ;
-        [o.navigationView addLeftButtonWithTitle:@"我的" clickCallBack:nil];
+        XibViewController *o = XibViewController.new  ;
         [weakself.navigationController pushViewController:o animated:YES];
     }];
  
@@ -62,8 +62,8 @@
     img.backgroundColor = [UIColor yellowColor];
     self.tableView.tableFooterView =img ;
     
-    self.tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
-    [self.tableView setContentOffset:CGPointMake(0, -NavigationHeight_N()) animated:NO];
+    self.tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, NavigationHeight_N(), 0);
+
 }
 
 

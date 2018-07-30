@@ -77,11 +77,36 @@
                             <outlet property="delegate" destination="nQU-KX-Rdr" id="hOU-Il-DZw"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="系统导航栏" id="avJ-AE-zLD"/>
+                    <navigationItem key="navigationItem" title="系统导航栏" id="avJ-AE-zLD">
+                        <barButtonItem key="rightBarButtonItem" title="下一页" id="DyP-Xn-aWm">
+                            <connections>
+                                <segue destination="ZoQ-3D-QPF" kind="push" id="yS7-wK-b1W"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vCc-Sr-eae" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1601" y="-305"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="TGf-dL-gxR">
+            <objects>
+                <viewController id="ZoQ-3D-QPF" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="YdS-oL-8Te"/>
+                        <viewControllerLayoutGuide type="bottom" id="2kb-3N-iJs"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6tR-9g-xzE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="T6A-Kh-8jm"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JPE-FL-GGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2398" y="-305"/>
         </scene>
         <!--系统导航条-->
         <scene sceneID="qx3-Bi-oQe">

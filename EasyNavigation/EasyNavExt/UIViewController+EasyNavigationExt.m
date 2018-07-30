@@ -23,7 +23,7 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        
+     
         Class vc = [UIViewController class];
         
         SEL originalSEL = @selector(viewDidLoad);
@@ -54,6 +54,19 @@
             ((UITableViewController*)self).tableView = tableView ;
         }
     }
+    else{
+        Class cx = NSClassFromString(@"UIInputWindowController");
+        if (![self isKindOfClass:[UITabBarController class]] && ![self isKindOfClass:[UINavigationController class]] && ![self isKindOfClass:cx]) {
+            UIView *view = self.view ;
+            UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
+            tempV.backgroundColor = [UIColor cyanColor];
+            self.view = tempV ;
+            
+            view.frame = CGRectMake(0, NavigationHeight_N(), ScreenWidth_N(), ScreenHeight_N()-NavigationHeight_N());
+            [self.view addSubview:view];
+        }
+       
+    }
     
     if (self.navigationController) {
         
@@ -68,23 +81,31 @@
 }
 - (void)replaceTableView
 {
-    UITableView *tableView = (UITableView *)self.view ;
-    if (@available(iOS 11.0, *)) {
-        if ([tableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
-            [tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+    if ([self.view isKindOfClass:[UITableView class]]) {
+        
+        UITableView *tableView = (UITableView *)self.view ;
+        if (@available(iOS 11.0, *)) {
+            if ([tableView respondsToSelector:@selector(contentInsetAdjustmentBehavior)]) {
+                [tableView setContentInsetAdjustmentBehavior:UIScrollViewContentInsetAdjustmentNever];
+            }
+        }else{
+            self.automaticallyAdjustsScrollViewInsets = NO;
         }
+
+        if (tableView.Easy_y > 0) {
+            CGFloat tableViewY = tableView.Easy_y ;
+            tableView.frame = CGRectMake(tableView.Easy_x, 0, tableView.Easy_width, tableView.Easy_height+tableViewY);
+        }
+        
+        tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
+        [tableView setContentOffset:CGPointMake(0, -NavigationHeight_N()) animated:NO];
+        
+        UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
+        tempV.backgroundColor = [UIColor cyanColor];
+        self.view = tempV ;
+        [self.view addSubview:tableView];
+        ((UITableViewController*)self).tableView = tableView ;
     }
-    
-    if (tableView.Easy_y > 0) {
-        CGFloat tableViewY = tableView.Easy_y ;
-        tableView.frame = CGRectMake(tableView.Easy_x, 0, tableView.Easy_width, tableView.Easy_height+tableViewY);
-//        tableView.contentInset = UIEdgeInsetsMake(NavigationNorlmalHeight_N(), 0, 0, 0);
-    }
-    UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
-    tempV.backgroundColor = [UIColor cyanColor];
-    self.view = tempV ;
-    [self.view addSubview:tableView];
-    ((UITableViewController*)self).tableView = tableView ;
 }
 
 - (BOOL)disableSlidingBackGesture

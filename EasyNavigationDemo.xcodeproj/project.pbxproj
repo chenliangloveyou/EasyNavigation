@@ -23,6 +23,10 @@
 		682F9ECA1F715DC000283DC6 /* NavOperateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9EC91F715DC000283DC6 /* NavOperateViewController.m */; };
 		682F9ED01F715E8C00283DC6 /* NavEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */; };
 		68454FCB20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 68454FCA20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m */; };
+		6848CFAC210F621100090F41 /* XibTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6848CFAA210F621100090F41 /* XibTableViewController.m */; };
+		6848CFAD210F621100090F41 /* XibTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6848CFAB210F621100090F41 /* XibTableViewController.xib */; };
+		6848CFB6210F6C1B00090F41 /* XibViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6848CFB4210F6C1B00090F41 /* XibViewController.m */; };
+		6848CFB7210F6C1B00090F41 /* XibViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6848CFB5210F6C1B00090F41 /* XibViewController.xib */; };
 		6866B2D520D6C84C0032DEB2 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6866B2D420D6C84B0032DEB2 /* Bugly.framework */; };
 		6876E75B1F5858CE00DEDFE0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75A1F5858CE00DEDFE0 /* main.m */; };
 		6876E75E1F5858CE00DEDFE0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */; };
@@ -49,7 +53,6 @@
 		ADFCE60920074CA2000CD22C /* EasyNavigationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFCE60820074CA2000CD22C /* EasyNavigationButton.m */; };
 		ADFE65901FA729D4002286DF /* EasyNavigationView+LeftButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */; };
 		ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */ = {isa = PBXBuildFile; fileRef = ADFE65921FA72B46002286DF /* EasyNavigationView+RightButton.m */; };
-		B998CC1F21071F230096546F /* SecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B998CC1E21071F230096546F /* SecondTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +103,12 @@
 		682F9ECF1F715E8C00283DC6 /* NavEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NavEmptyViewController.m; sourceTree = "<group>"; };
 		68454FC920EE78C6009832E7 /* UITableViewController+EasyNavigationExt.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableViewController+EasyNavigationExt.h"; sourceTree = "<group>"; };
 		68454FCA20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableViewController+EasyNavigationExt.m"; sourceTree = "<group>"; };
+		6848CFA9210F621100090F41 /* XibTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibTableViewController.h; sourceTree = "<group>"; };
+		6848CFAA210F621100090F41 /* XibTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibTableViewController.m; sourceTree = "<group>"; };
+		6848CFAB210F621100090F41 /* XibTableViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibTableViewController.xib; sourceTree = "<group>"; };
+		6848CFB3210F6C1B00090F41 /* XibViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XibViewController.h; sourceTree = "<group>"; };
+		6848CFB4210F6C1B00090F41 /* XibViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XibViewController.m; sourceTree = "<group>"; };
+		6848CFB5210F6C1B00090F41 /* XibViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = XibViewController.xib; sourceTree = "<group>"; };
 		6866B2D420D6C84B0032DEB2 /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
 		6876E7561F5858CE00DEDFE0 /* EasyNavigationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EasyNavigationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6876E75A1F5858CE00DEDFE0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -150,8 +159,6 @@
 		ADFE658F1FA729D4002286DF /* EasyNavigationView+LeftButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+LeftButton.m"; sourceTree = "<group>"; };
 		ADFE65911FA72B46002286DF /* EasyNavigationView+RightButton.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EasyNavigationView+RightButton.h"; sourceTree = "<group>"; };
 		ADFE65921FA72B46002286DF /* EasyNavigationView+RightButton.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "EasyNavigationView+RightButton.m"; sourceTree = "<group>"; };
-		B998CC1D21071F230096546F /* SecondTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondTableViewController.h; sourceTree = "<group>"; };
-		B998CC1E21071F230096546F /* SecondTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +270,19 @@
 			path = Operate;
 			sourceTree = "<group>";
 		};
+		6848CFA8210F61E500090F41 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				6848CFA9210F621100090F41 /* XibTableViewController.h */,
+				6848CFAA210F621100090F41 /* XibTableViewController.m */,
+				6848CFAB210F621100090F41 /* XibTableViewController.xib */,
+				6848CFB3210F6C1B00090F41 /* XibViewController.h */,
+				6848CFB4210F6C1B00090F41 /* XibViewController.m */,
+				6848CFB5210F6C1B00090F41 /* XibViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
 		6876E74D1F5858CE00DEDFE0 = {
 			isa = PBXGroup;
 			children = (
@@ -291,8 +311,7 @@
 				6876E75D1F5858CE00DEDFE0 /* AppDelegate.m */,
 				6876E75F1F5858CE00DEDFE0 /* ViewController.h */,
 				6876E7601F5858CE00DEDFE0 /* ViewController.m */,
-				B998CC1D21071F230096546F /* SecondTableViewController.h */,
-				B998CC1E21071F230096546F /* SecondTableViewController.m */,
+				6848CFA8210F61E500090F41 /* ViewController */,
 				682F9EC71F715D8900283DC6 /* Operate */,
 				AD5777931F710C7C00100E64 /* StatusBar */,
 				682F9EB01F6C215B00283DC6 /* Alpha */,
@@ -439,7 +458,7 @@
 				TargetAttributes = {
 					6876E7551F5858CE00DEDFE0 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = CM8JF3A4UR;
+						DevelopmentTeam = 6E6MDA8TQW;
 						ProvisioningStyle = Automatic;
 					};
 					6876E76E1F5858CF00DEDFE0 = {
@@ -485,7 +504,9 @@
 				68A5A5441F7E8BBF00B62899 /* EasyNavButton.bundle in Resources */,
 				682F9EC11F6C22A800283DC6 /* NavSystemSlidingViewController.xib in Resources */,
 				AD57779B1F710CB600100E64 /* NavStatusBarViewController.xib in Resources */,
+				6848CFB7210F6C1B00090F41 /* XibViewController.xib in Resources */,
 				ADC4EB771F6697B500CE7060 /* Assets.xcassets in Resources */,
+				6848CFAD210F621100090F41 /* XibTableViewController.xib in Resources */,
 				682F9EC61F6C24B600283DC6 /* NavCustomSlidingViewController.xib in Resources */,
 				6876E7641F5858CE00DEDFE0 /* Main.storyboard in Resources */,
 			);
@@ -516,9 +537,11 @@
 				68A5A5471F7E8BBF00B62899 /* EasyNavigationView.m in Sources */,
 				682F9ED01F715E8C00283DC6 /* NavEmptyViewController.m in Sources */,
 				6827D06D20BD9BE300BE0542 /* EasyNavigationView+Scroll.m in Sources */,
+				6848CFAC210F621100090F41 /* XibTableViewController.m in Sources */,
 				682F9EA31F6C20AD00283DC6 /* NavAnimationHidenViewController.m in Sources */,
 				6876E7611F5858CE00DEDFE0 /* ViewController.m in Sources */,
 				AD57779A1F710CB600100E64 /* NavStatusBarViewController.m in Sources */,
+				6848CFB6210F6C1B00090F41 /* XibViewController.m in Sources */,
 				68454FCB20EE78C6009832E7 /* UITableViewController+EasyNavigationExt.m in Sources */,
 				ADFE65931FA72B46002286DF /* EasyNavigationView+RightButton.m in Sources */,
 				68A5A5451F7E8BBF00B62899 /* EasyNavigationController.m in Sources */,
@@ -532,7 +555,6 @@
 				682F9ECA1F715DC000283DC6 /* NavOperateViewController.m in Sources */,
 				682F9EB91F6C215B00283DC6 /* NavAlphaChangeViewController.m in Sources */,
 				682F9EBC1F6C215B00283DC6 /* NavTransparentViewController.m in Sources */,
-				B998CC1F21071F230096546F /* SecondTableViewController.m in Sources */,
 				682F9EC01F6C22A800283DC6 /* NavSystemSlidingViewController.m in Sources */,
 				68A5A5461F7E8BBF00B62899 /* EasyNavigationOptions.m in Sources */,
 				68FE358420E91C5D00DFE565 /* EasyNavigationScroll.m in Sources */,
@@ -695,7 +717,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CM8JF3A4UR;
+				DEVELOPMENT_TEAM = 6E6MDA8TQW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EasyNavigationDemo",
@@ -712,7 +734,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = CM8JF3A4UR;
+				DEVELOPMENT_TEAM = 6E6MDA8TQW;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/EasyNavigationDemo",
