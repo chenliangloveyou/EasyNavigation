@@ -64,6 +64,10 @@
     
     self.tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, NavigationHeight_N(), 0);
 
+    UITextField *txt = [[UITextField alloc]initWithFrame:CGRectMake(100, 100, 100, 40)];
+    txt.backgroundColor = [UIColor blueColor];
+    txt.placeholder =  @"附近的龙卷风";
+    [self.view addSubview:txt];
 }
 
 

@@ -43,8 +43,10 @@
         }
     });
 }
+
 - (void)Easy_viewDidLoad
 {
+    //继承自 tableviewControler 处理
     if ([self isKindOfClass:[UITableViewController class]]) {
         
         if (self.navigationController && [self.navigationController isKindOfClass:[EasyNavigationController class]]) {
@@ -55,9 +57,10 @@
         }
     }
     else{
-        Class cx = NSClassFromString(@"UIInputWindowController");
-        if (![self isKindOfClass:[UITabBarController class]] && ![self isKindOfClass:[UINavigationController class]] && ![self isKindOfClass:cx]) {
+        if (![self isKindOfClass:[UITabBarController class]] && ![self isKindOfClass:[UINavigationController class]] ) {
+            
             UIView *view = self.view ;
+            
             UIView *tempV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), ScreenHeight_N())];
             tempV.backgroundColor = [UIColor cyanColor];
             self.view = tempV ;
