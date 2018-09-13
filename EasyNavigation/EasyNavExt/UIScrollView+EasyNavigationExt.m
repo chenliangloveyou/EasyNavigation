@@ -57,23 +57,20 @@
 // 当scrollview上产生一个手势 是否相应事件
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
-    if (gestureRecognizer == self.panGestureRecognizer) {
-      
-        CGPoint point = [self.panGestureRecognizer translationInView:self];
-      
-        UIGestureRecognizerState state = gestureRecognizer.state;
-
+    if (gestureRecognizer != self.panGestureRecognizer) {
+        return YES;
+    }
+    
+    UIGestureRecognizerState state = gestureRecognizer.state;
+    if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStatePossible) {
         CGFloat locationDistance = [UIScreen mainScreen].bounds.size.width;
-        
-        if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStatePossible) {
-            CGPoint location = [gestureRecognizer locationInView:self];
-            if (point.x > 0 && location.x < locationDistance && self.contentOffset.x <= 0) {
-                return NO;
-            }
+        CGPoint location = [gestureRecognizer locationInView:self];
+        CGPoint point = [self.panGestureRecognizer translationInView:self];
+        if (point.x > 0 && location.x < locationDistance && self.contentOffset.x <= 0) {
+            return NO;
         }
     }
     return YES;
-
 }
 
 @end

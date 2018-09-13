@@ -27,11 +27,9 @@
 
 #import "NavStatusBarViewController.h"
 
-#import "XibViewController.h"
+@interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@interface ViewController ()/**<UITableViewDelegate,UITableViewDataSource>*/
-
-//@property (nonatomic,strong)UITableView *tableView ;
+@property (nonatomic,strong)UITableView *tableView ;
 @property (nonatomic,strong)NSArray *dataArray ;
 @property (nonatomic,strong)NSArray *navDataArray ;
 
@@ -53,21 +51,15 @@
     self.statusBarStyle = UIStatusBarStyleLightContent;
     kWeakSelf(self)
     [self.navigationView addLeftButtonWithTitle:@"左边按钮" clickCallBack:^(UIView *view) {
-        XibViewController *o = XibViewController.new  ;
-        [weakself.navigationController pushViewController:o animated:YES];
     }];
  
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
+    [self.view addSubview:self.tableView];
     UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 160)];
     img.backgroundColor = [UIColor yellowColor];
     self.tableView.tableFooterView =img ;
     
     self.tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, NavigationHeight_N(), 0);
 
-    UITextField *txt = [[UITextField alloc]initWithFrame:CGRectMake(100, 100, 100, 40)];
-    txt.backgroundColor = [UIColor blueColor];
-    txt.placeholder =  @"附近的龙卷风";
-    [self.view addSubview:txt];
 }
 
 
@@ -83,7 +75,10 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID" forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+    if (nil == cell) {
+        cell= [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
+    }
     cell.accessoryType = UITableViewCellStyleValue1;
     cell.textLabel.textColor = [UIColor blueColor];
     cell.textLabel.text = self.dataArray[indexPath.section][indexPath.row];
@@ -105,29 +100,29 @@
 }
 
 #pragma mark - getter/setter
-//- (UITableView *)tableView
-//{
-//    if (nil == _tableView) {
-//        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
-//        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-//        _tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
-//        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"cellID"];
-//        _tableView.dataSource = self ;
-//        _tableView.delegate = self ;
-//        if (@available(iOS 11.0, *)) {
-//            _tableView.estimatedRowHeight = 0;
-//            _tableView.estimatedSectionHeaderHeight = 0;
-//            _tableView.estimatedSectionFooterHeight = 0;
-//            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever ;
-//        }
-//
-//        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
-//        img.backgroundColor = [UIColor lightGrayColor];
-//        _tableView.tableHeaderView =img ;
-//    }
-//    return _tableView ;
-//}
+- (UITableView *)tableView
+{
+    if (nil == _tableView) {
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
+        _tableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        _tableView.contentInset = UIEdgeInsetsMake(NavigationHeight_N(), 0, 0, 0);
+//        [_tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"cellID"];
+        _tableView.dataSource = self ;
+        _tableView.delegate = self ;
+        if (@available(iOS 11.0, *)) {
+            _tableView.estimatedRowHeight = 0;
+            _tableView.estimatedSectionHeaderHeight = 0;
+            _tableView.estimatedSectionFooterHeight = 0;
+            _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever ;
+        }
+
+        UIImageView *img = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, ScreenWidth_N(), 60)];
+        img.backgroundColor = [UIColor lightGrayColor];
+        _tableView.tableHeaderView =img ;
+    }
+    return _tableView ;
+}
 
 - (NSArray *)dataArray
 {

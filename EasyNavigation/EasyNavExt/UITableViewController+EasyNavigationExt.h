@@ -10,6 +10,6 @@
 
 @interface UITableViewController (EasyNavigationExt)
 
-@property (nonatomic,strong)UITableView *tableView ;
+//@property (nonatomic,strong)UITableView *tableView ;
 
 @end
