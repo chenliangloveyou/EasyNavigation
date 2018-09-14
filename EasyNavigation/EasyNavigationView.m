@@ -212,7 +212,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
             self.backgroundView.image = self.options.navBackgroundImage ;
         }
         
-        _viewEdgeSpece = 5 ;
+        _viewEdgeSpece = 20 ;
     }
     return self;
 }
@@ -364,7 +364,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
     if (callback) {
         view.tag = ++easynavigation_button_tag ;
         [self.callbackDictionary setObject:[callback copy] forKey:@(view.tag)];
-        if ([view isKindOfClass:[UIButton class]]) {
+        if ([view isKindOfClass:UIButton.class]) {
             [(UIButton *)view addTarget:self action:@selector(buttonClick:) forControlEvents:UIControlEventTouchUpInside];
         }
         else{

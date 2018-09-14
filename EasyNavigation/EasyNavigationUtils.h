@@ -11,43 +11,43 @@
 
 
 //屏幕宽度
-CG_INLINE CGFloat ScreenWidth_N(void){
+static inline CGFloat ScreenWidth_N(){
     return [[UIScreen mainScreen] bounds].size.width ;
 }
 
 //屏幕高度
-CG_INLINE CGFloat ScreenHeight_N(void){
+static inline CGFloat ScreenHeight_N(){
     return [[UIScreen mainScreen] bounds].size.height ;
 }
 
 //屏幕最大的宽度
-CG_INLINE CGFloat ScreenMaxWidth_N(void){
+static inline CGFloat ScreenMaxWidth_N(){
     return MAX(ScreenWidth_N(),ScreenHeight_N()) ;
 }
 
 //状态栏最大的宽度
-CG_INLINE CGFloat StatusBarMaxWidth_N(void){
+static inline CGFloat StatusBarMaxWidth_N(){
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
     return MAX(CGRectGetMaxX(statusBarFrame), CGRectGetMaxY(statusBarFrame)) ;
 }
 
 //屏幕是否处于横屏状态
-CG_INLINE BOOL ScreenIsHorizontal_N(void){
+static inline BOOL ScreenIsHorizontal_N(){
     return StatusBarMaxWidth_N == ScreenMaxWidth_N ;
 }
 
 //导航栏原始高度 （导航栏高度除去satatusbar后的高度）
-CG_INLINE CGFloat NavigationNorlmalHeight_N(void){
+static inline CGFloat NavigationNorlmalHeight_N(){
     return 44.0f ;
 }
 
 //导航栏大标题增加出来的高度
-CG_INLINE CGFloat NavigationBigTitleAdditionHeight_N(void){
+static inline CGFloat NavigationBigTitleAdditionHeight_N(){
     return 55.0f ;
 }
 
 //状态栏初始高度
-CG_INLINE CGFloat StatusBarOrginalHeight_N(void){
+static inline CGFloat StatusBarOrginalHeight_N(){
     
     CGRect statusBarFrame = [UIApplication sharedApplication].statusBarFrame;
     CGFloat statusBarOffset = MIN(CGRectGetMaxX(statusBarFrame), CGRectGetMaxY(statusBarFrame));
@@ -58,21 +58,34 @@ CG_INLINE CGFloat StatusBarOrginalHeight_N(void){
 }
 
 //是否是iPhoneX
-CG_INLINE BOOL IsIphoneX_N(void){
-    return (UI_USER_INTERFACE_IDIOM()==UIUserInterfaceIdiomPhone)&&(ScreenMaxWidth_N()==812.0f) ;
+static inline BOOL IsIphoneX_N(){
+    
+    if (UIDevice.currentDevice.userInterfaceIdiom != UIUserInterfaceIdiomPhone) {
+        return NO;
+    }
+    if (@available(iOS 11.0, *)) {
+        if ([UIApplication sharedApplication].delegate.window.safeAreaInsets.bottom > 0.0) {
+            return YES ;
+        }
+    }
+    return NO;
 }
 //状态栏高度
-CG_INLINE CGFloat StatusBarHeight_N(void){
+static inline CGFloat StatusBarHeight_N(){
     return (ScreenIsHorizontal_N()&&IsIphoneX_N()) ? 0 : StatusBarOrginalHeight_N() ;
 }
 //导航栏高度
-CG_INLINE CGFloat NavigationHeight_N(void){
+static inline CGFloat NavigationHeight_N(){
     return NavigationNorlmalHeight_N() + StatusBarHeight_N();
 }
 
+//出去导航栏后的frame
+static inline CGRect FrameExceptNav_N(){
+    return CGRectMake(0, NavigationHeight_N(), ScreenWidth_N(), ScreenHeight_N()-NavigationHeight_N());
+}
 
 //安全线程
-CG_INLINE void dispatch_main_async_safe_easyN(dispatch_block_t block){
+static inline void dispatch_main_async_safe_easyN(dispatch_block_t block){
     
     if (strcmp(dispatch_queue_get_label(DISPATCH_CURRENT_QUEUE_LABEL), dispatch_queue_get_label(dispatch_get_main_queue())) == 0) {
         block();
@@ -81,7 +94,7 @@ CG_INLINE void dispatch_main_async_safe_easyN(dispatch_block_t block){
     }
 }
 //延时执行
-CG_INLINE void dispatch_delay_easyN(CGFloat time , dispatch_block_t block){
+static inline void dispatch_delay_easyN(CGFloat time , dispatch_block_t block){
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(time * NSEC_PER_SEC)), dispatch_get_main_queue(), block);
 }

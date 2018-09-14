@@ -23,13 +23,13 @@
     __weak typeof(self) weakSelf = self;
     if (!self.navigationView.navigationBackButton) {
         [self.navigationView addLeftButton:^EasyNavigationButton *{
-            return [EasyNavigationButton button].setTitle(@"返回").setTitleFrame(CGRectMake(0, 0, 100, 44));
+            return [EasyNavigationButton button].setTitle(@"返回");
         } callback:^(UIView *view) {
             [EasyNavigationUtils navigationBack:weakSelf];
         }];
     }
     
-    [self.navigationView addRightButtonWithTitle:@"跳转" callback:^(UIView *view) {
+    [self.navigationView addRightButtonWithTitle:@"下一页" callback:^(UIView *view) {
         if (weakSelf.navigationController.viewControllers.count > 1) {
             [weakSelf dismissViewControllerAnimated:YES completion:nil];
         }else{
@@ -39,11 +39,11 @@
     
     static int index = 0 ;
     NSString *url = [NSString stringWithFormat:@"https://github.com/chenliangloveyou/%@",++index%2 ? @"EasyShowView":@"EasyNavigation"];
-    UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, NavigationHeight_N(), ScreenWidth_N(), ScreenHeight_N()-NavigationHeight_N())];
+    UIWebView *webView = [[UIWebView alloc]initWithFrame:FrameExceptNav_N()];
     [webView loadRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]]];
     [self.view addSubview:webView];
   
-    self.navigationView.title = [NSString stringWithFormat:@"示例_%d",index%2+1];
+    self.navigationView.titleLabel.text = [NSString stringWithFormat:@"示例_%d",index%2+1];
 
     // Do any additional setup after loading the view.
 }
