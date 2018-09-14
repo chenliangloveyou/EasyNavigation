@@ -202,6 +202,9 @@ typedef NS_ENUM(NSUInteger , NavTitleAnimationType) {
 
 //调整图片大小
 + (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size ;
+
++ (void)navigationBack:(UIViewController *)viewcontroller;
+
 @end
 
 

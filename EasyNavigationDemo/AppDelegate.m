@@ -12,6 +12,7 @@
 #import "EasyNavigation.h"
 
 #import "ViewController.h"
+#import "SystemNavViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,6 +20,10 @@
 
 @implementation AppDelegate
 
+//storyboard 用navigationcontroller
+//代码
+//xib 适配
+//不支持tableviewcontroller
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
@@ -31,10 +36,18 @@
     // 设置系统返回按钮为样式
 //    options.btnTitleType = FBackBtnTitleType_System;
 
-//    EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:[ViewController new]];
-//    self.window.rootViewController  = navVC ;
     
+#if 1//这个1改成0将会从staryboard中启动
     
+    UITabBarController *tabbar = [[UITabBarController alloc]init];
+    EasyNavigationController *navVC = [[EasyNavigationController alloc]initWithRootViewController:ViewController.new];
+    navVC.tabBarItem.title = @"Easy导航烂";
+    UINavigationController *snav = [[UINavigationController alloc]initWithRootViewController:SystemNavViewController.new];
+    snav.tabBarItem.title = @"系统导航栏";
+    tabbar.viewControllers = @[navVC,snav];
+    self.window.rootViewController  = tabbar ;
+    
+#endif
     
     
     // Override point for customization after application launch.

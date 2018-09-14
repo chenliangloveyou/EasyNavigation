@@ -72,4 +72,22 @@
 //     return scaledImage;
 }
 
++ (void)navigationBack:(UIViewController *)vc
+{
+    NSArray *viewControllers = vc.navigationController.viewControllers ;
+    if (viewControllers.count > 1) {
+        if ([viewControllers objectAtIndex:viewControllers.count -1] == vc) {
+            //push方式
+            [vc.navigationController popViewControllerAnimated:YES];
+        }
+        else{
+            NSAssert(NO, @"attention:handle error: %@",self);
+        }
+    }
+    else{
+        //present方式
+        [vc dismissViewControllerAnimated:YES completion:nil];
+    }
+}
+
 @end

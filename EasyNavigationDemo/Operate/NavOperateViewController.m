@@ -55,8 +55,7 @@
         {
             kWeakSelf(self)
             [self.navigationView addLeftButtonWithTitle:@"新增按钮" callback:^(UIView *view) {
-                [weakself.navigationController popViewControllerAnimated:YES];
-
+                [EasyNavigationUtils navigationBack:weakself];
             }];
 //            [self.navigationView addLeftButtonWithTitle:@"新增按钮" clickCallBack:^(UIView *view) {
 //                [weakself.navigationController popViewControllerAnimated:YES];

@@ -91,23 +91,6 @@
 }
 
 
-- (void)viewControllerBack{
-    
-    NSArray *viewControllers = self.navigationController.viewControllers ;
-    if (viewControllers.count > 1) {
-        if ([viewControllers objectAtIndex:viewControllers.count -1] == self) {
-            //push方式
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else{
-            NSAssert(NO, @"attention:handle error: %@",self);
-        }
-    }
-    else{
-        //present方式
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
-}
 - (EasyNavigationView *)navigationView
 {
     EasyNavigationView *navView = objc_getAssociatedObject(self, _cmd);
@@ -145,7 +128,7 @@
         UIButton *backButton = [self.navigationView addLeftButton:^EasyNavigationButton *{
             return [EasyNavigationButton button].setTitle(title).setImageName(imgName).setImageFrame(CGRectMake(5, 10, 30, 24)).setTitleFrame(CGRectMake(44, 0, 40, 44));
         } callback:^(UIView *view) {
-            [weakSelf viewControllerBack];
+            [EasyNavigationUtils navigationBack:weakSelf];
         }];
         //        backButton.backgroundColor = [UIColor redColor];
         self.navigationView.navigationBackButton = backButton ;
