@@ -276,7 +276,7 @@ _【preview】_
 - 若果在使用过程中发现问题，请[提issue](https://github.com/chenliangloveyou/EasyShowView/issues/new)。我会及时解决。
 - 紧急问题可以通过邮箱：chenliangloveyou@163.com  或微信联系我。
 - ![github](https://github.com/chenliangloveyou/EasyShowView/blob/master/show_preview/wechat_icon.png "github")
-- 喜欢欢迎start~~~~
+- 喜欢，欢迎star~~~~
 
 
 
