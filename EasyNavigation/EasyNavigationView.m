@@ -212,7 +212,7 @@ static CGFloat easynavigation_animation_during = 0.3f ;//导航条的动画时�
             self.backgroundView.image = self.options.navBackgroundImage ;
         }
         
-        _viewEdgeSpece = 20 ;
+        _viewEdgeSpece = 10 ;
     }
     return self;
 }

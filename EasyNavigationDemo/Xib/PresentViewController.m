@@ -42,7 +42,8 @@
     UIWebView *webView = [[UIWebView alloc]initWithFrame:FrameExceptNav_N()];
     [webView loadRequest:[NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]]];
     [self.view addSubview:webView];
-  
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    
     self.navigationView.titleLabel.text = [NSString stringWithFormat:@"示例_%d",index%2+1];
 
     // Do any additional setup after loading the view.
