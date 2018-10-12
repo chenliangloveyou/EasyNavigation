@@ -1,10 +1,11 @@
-<p>
-    <img src="logo/horizontal-color.png" width="508" height="97" alt="EasyNavigation" title="EasyNavigation">
-</p>
 
+
+ <img src="logo/horizontal-color.png" width="508" height="97" alt="EasyNavigation" title="EasyNavigation">   Provided by [anharismail](https://github.com/anharismail)
+
+ .
+ 
 一款超级简单的导航条管理工具。完全自定义导航条。没有`UINavigationBar` 和 `UINavigationItem` 这两个类。完全是对`UIView`的操作。
 所有操作都能一行代码，操作之间完全独立，互不影响。
-
 
 ![](https://img.shields.io/cocoapods/v/EasyNavigation.svg?style=flat)
 ![](https://img.shields.io/badge/language-ObjectiveC-orange.svg)
